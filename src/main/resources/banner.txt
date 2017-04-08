@@ -1,0 +1,9 @@
+${AnsiColor.GREEN}███████╗${AnsiColor.BLUE}███████╗██╗  ██╗ ██████╗
+${AnsiColor.GREEN}██╔════╝${AnsiColor.BLUE}██╔════╝██║ ██╔╝██╔════╝
+${AnsiColor.GREEN}███████╗${AnsiColor.BLUE}█████╗  █████╔╝ ██║     
+${AnsiColor.GREEN}╚════██║${AnsiColor.BLUE}██╔══╝  ██╔═██╗ ██║     
+${AnsiColor.GREEN}███████║${AnsiColor.BLUE}███████╗██║  ██╗╚██████╗
+${AnsiColor.GREEN}╚══════╝${AnsiColor.BLUE}╚══════╝╚═╝  ╚═╝ ╚═════╝
+                                                             
+${AnsiColor.BRIGHT_BLUE}:: SEKC 🤓  :: Running Spring Boot ${spring-boot.version} ::
+:: Software Engineering Knowledge Composer ::${AnsiColor.DEFAULT}
