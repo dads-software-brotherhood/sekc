@@ -4,7 +4,8 @@
 *.settings
 *.project
 *.log
-
+*.vagrant
+*.init.sh.sw*
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
