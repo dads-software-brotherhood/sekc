@@ -1,7 +1,7 @@
 #!/bin/bash
 
 printf "\n" >> /home/vagrant/.bashrc
-echo 'export PS1="\[\e[01;34m\]sekc\[\e[0m\]\[\e[01;37m\]:\w\[\e[0m\]\[\e[00;37m\]\n\\$ \[\e[0m\]"' >> /home/vagrant/.bashrc
+echo 'export PS1="\[\e[01;34m\]microserver\[\e[0m\]\[\e[01;37m\]:\w\[\e[0m\]\[\e[00;37m\]\n\\$ \[\e[0m\]"' >> /home/vagrant/.bashrc
 printf "\n" >> /home/vagrant/.bashrc
 
 sudo yum clean all
@@ -44,7 +44,7 @@ sudo yum -y install git
 
 sudo groupadd tomcat
 sudo useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
-curl http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.12/bin/apache-tomcat-8.5.12.tar.gz > apache-tomcat-8.5.12.tar.gz
+curl https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.12/bin/apache-tomcat-8.5.12.tar.gz > apache-tomcat-8.5.12.tar.gz
 sudo mkdir /opt/tomcat
 sudo tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1
 sudo chgrp -R tomcat /opt/tomcat
