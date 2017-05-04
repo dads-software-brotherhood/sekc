@@ -36,6 +36,7 @@ http://localhost:8080
 
 # Estructura del proyecto
 
+```
 webapp
 ├── app                               - Your application
 │   ├── account                       - User account management UI
@@ -60,4 +61,5 @@ webapp
 ├── 404.html                          - 404 page
 ├── favicon.ico                       - Fav icon
 ├── index.html                        - Index page
-├── robots.txt                        - Configuration for bots and Web crawlers
+├── robots.txt                        - Configuration for bots and Web crawlers
+```
