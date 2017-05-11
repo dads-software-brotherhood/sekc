@@ -12,8 +12,26 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="/bower_components/angular-motion/dist/angular-motion.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-additions/dist/bootstrap-additions.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-css-only/css/bootstrap.css">
+    <link rel="stylesheet" href="/bower_components/datatables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/bower_components/material-design-iconic-font/css/material-design-iconic-font.css">
+    <link rel="stylesheet" href="/bower_components/nouislider/distribute/jquery.nouislider.min.css">
+    <link rel="stylesheet" href="/bower_components/nouislider/distribute/jquery.nouislider.pips.min.css">
+    <link rel="stylesheet" href="/bower_components/roboto-fontface/css/roboto-fontface.css">
+    <link rel="stylesheet" href="/bower_components/summernote/dist/summernote.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons.min.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons-wind.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons-wind.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.css">
+    <link rel="stylesheet" href="/bower_components/c3/c3.css">
+    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/bower_components/ng-table/dist/ng-table.min.css">
+    <link rel="stylesheet" href="/bower_components/textAngular/dist/textAngular.css">
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
@@ -48,27 +66,230 @@
 
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/messageformat/messageformat.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
-    <script src="bower_components/ngstorage/ngStorage.js"></script>
-    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-translate/angular-translate.js"></script>
-    <script src="bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
-    <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
-    <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
-    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    
+    
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    
+    
+    <script src="/bower_components/lodash/lodash.js"></script>
+    
+    
+    <script src="/bower_components/markerclustererplus/src/markerclusterer.js"></script>
+    
+    
+    <script src="/bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
+    
+    
+    <script src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
+    
+    
+    <script src="/bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
+    
+    
+    <script src="/bower_components/js-rich-marker/src/richmarker.js"></script>
+    
+    
+    <script src="/bower_components/messageformat/messageformat.js"></script>
+    
+    
+    <script src="/bower_components/SHA-1/sha1.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap3-typeahead/bootstrap3-typeahead.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap-validator/dist/validator.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-tmpl/js/tmpl.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-load-image/js/index.js"></script>
+    
+    
+    <script src="/bower_components/bower-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    
+    
+    <script src="/bower_components/d3/d3.js"></script>
+    
+    
+    <script src="/bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    
+    
+    <script src="/bower_components/moment/moment.js"></script>
+    
+    
+    <script src="/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    
+    
+    <script src="/bower_components/gmaps/gmaps.js"></script>
+    
+    
+    <script src="/bower_components/hammerjs/hammer.js"></script>
+    
+    
+    <script src="/bower_components/jquery-hammerjs/jquery.hammer.js"></script>
+    
+    
+    <script src="/bower_components/json3/lib/json3.js"></script>
+    
+    
+    <script src="/bower_components/nouislider/distribute/jquery.nouislider.all.min.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-core.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-classapplier.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-highlighter.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-serializer.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-textrange.js"></script>
+    
+    
+    <script src="/bower_components/select2/dist/js/select2.js"></script>
+    
+    
+    <script src="/bower_components/summernote/dist/summernote.js"></script>
+    
+    
+    <script src="/bower_components/velocity/velocity.js"></script>
+    
+    
+    <script src="/bower_components/velocity/velocity.ui.js"></script>
+    
+    
+    <script src="/bower_components/angular/angular.js"></script>
+    
+    
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    
+    
+    <script src="/bower_components/angular-auto-validate/dist/jcs-auto-validate.js"></script>
+    
+    
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    
+    
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    
+    
+    <script src="/bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+    
+    
+    <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+    
+    
+    <script src="/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+    
+    
+    <script src="/bower_components/angular-elastic/elastic.js"></script>
+    
+    
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    
+    
+    <script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    
+    
+    <script src="/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    
+    
+    <script src="/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    
+    
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    
+    
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    
+    
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    
+    
+    <script src="/bower_components/angular-strap/dist/angular-strap.js"></script>
+    
+    
+    <script src="/bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate/angular-translate.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    
+    
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    
+    
+    <script src="/bower_components/angular-ui-select/dist/select.js"></script>
+    
+    
+    <script src="/bower_components/angulartics/src/angulartics.js"></script>
+    
+    
+    <script src="/bower_components/angulartics-google-analytics/lib/angulartics-google-analytics.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    
+    
+    <script src="/bower_components/c3/c3.js"></script>
+    
+    
+    <script src="/bower_components/c3-angular/c3-angular.min.js"></script>
+    
+    
+    <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    
+    
+    <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+    
+    
+    <script src="/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    
+    
+    <script src="/bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js"></script>
+    
+    
+    <script src="/bower_components/ng-table/dist/ng-table.min.js"></script>
+    
+    
+    <script src="/bower_components/textAngular/dist/textAngular.js"></script>
+    
+    
+    <script src="/bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+    
+    
+    <script src="/bower_components/textAngular/dist/textAngularSetup.js"></script>
+    
+    
+    <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    
+    
     <!-- endinject -->
     <!-- endbuild -->
 
