@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,8 +43,17 @@ public class PracticeStepDefs extends StepDefs {
 
     @When("^I send a request whit all the Fields except '(.*)'$")
     public void i_send_a_request_with_one_missing_field( String field ) throws Throwable {
+    	
+    	SEPractice practiceObject = this.createPracticeObject();
+    	
+    	practiceObject = this.setNullIn( practiceObject , field );
+    	
+    	Gson gson = new Gson();
+        String json = gson.toJson( practiceObject );
+
+    	
         actions = restUserMockMvc.perform( post( "/api/practice" )
-        		.accept(MediaType.APPLICATION_JSON));
+        		.contentType( MediaType.APPLICATION_JSON).content( json ) );
     }
     
     @When("^I send a GET request whit the id param '(.*)'$")
@@ -56,26 +66,11 @@ public class PracticeStepDefs extends StepDefs {
     @When("^I send a POST request whit all the Fields$")
     public void i_send_a_POST_request_with_all_the_field( ) throws Throwable {
     	
-    	SEPractice jsonClass = new SEPractice();
+    	SEPractice jsonClass = this.createPracticeObject();
 
-    	// Practice
-    	jsonClass.consistencyRules = "Consistency Rules";
-    	jsonClass.entry = Arrays.asList("Requeriments:Alpha", "Software:Architecture");
-    	jsonClass.measures = Arrays.asList("Timing", "five minutes pear meeting");
-    	jsonClass.objective = "The Objetive of the practice";
-    	jsonClass.result = (Arrays.asList("Requeriments:Alpha", "Software:Architecture"));
-        // ElementGroup
-    	jsonClass.briefDescription = ("Practice Brief Descrition");
-        jsonClass.description = ("Practice Description");
-        jsonClass.name = ("Name of the Practice");
-        //LenguajeElement
-        jsonClass.isSupresable = false;
-    	
     	Gson gson = new Gson();
         String json = gson.toJson( jsonClass );
         
-    	
-    	
     	actions = restUserMockMvc.perform( post( "/api/practice" )
     			.contentType( MediaType.APPLICATION_JSON).content( json ) );
     }
@@ -100,8 +95,43 @@ public class PracticeStepDefs extends StepDefs {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
     
+    /*
+     * Method that set a NULL in the FIELD "atribute" of the Object "practice" 
+     */
+    public SEPractice setNullIn( SEPractice practice , String atribute ){
+
+    	try{
+    		String name;
+    		Field[] fields = practice.getClass().getDeclaredFields();
+    		for(Field field : fields) {
+    			name = field.getName();
+    			if( name.equals( atribute ) ){
+    				field.setAccessible( true );
+    				field.set(practice, null);
+    			}
+    		}
+		}catch( Exception e ){ }
+    	return practice;
+    }
     
-    
+    public SEPractice createPracticeObject(){
+    	SEPractice practice = new SEPractice();
+
+    	// Practice
+    	practice.consistencyRules = "Consistency Rules";
+    	practice.entry = Arrays.asList("Requeriments:Alpha", "Software:Architecture");
+    	practice.measures = Arrays.asList("Timing", "five minutes pear meeting");
+    	practice.objective = "The Objetive of the practice";
+    	practice.result = (Arrays.asList("Requeriments:Alpha", "Software:Architecture"));
+        // ElementGroup
+    	practice.briefDescription = ("Practice Brief Descrition");
+    	practice.description = ("Practice Description");
+    	practice.name = ("Name of the Practice");
+        //LenguajeElement
+    	practice.isSupresable = false;
+    	
+        return practice;
+    }
     
     
     class SEPractice{
