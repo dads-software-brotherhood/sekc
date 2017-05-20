@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
   #   vb.gui = true
   #
   #   # virtual machine name
-      vb.name = "microserver"
+      vb.name = "sekc"
   #   # Customize the amount of memory on the VM:
       vb.memory = "1024"
   #   # Number of CPU's
