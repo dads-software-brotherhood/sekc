@@ -18,8 +18,8 @@ sudo mv java.sh /etc/profile.d/
 
 
 ## Install Java 8
-curl -L -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm -O
-sudo yum -y localinstall jdk-8u111-linux-x64.rpm
+curl -L -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm -O
+sudo yum -y localinstall jdk-8u131-linux-x64.rpm
 
 ### Crear liga java.csh
 sudo ln -s /etc/profile.d/java.sh /etc/profile.d/java.csh
