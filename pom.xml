@@ -112,8 +112,8 @@
 	<dependencies>
 		<!-- Essence Core -->
 		<dependency>
-			<groupId>org.omg</groupId>
-			<artifactId>essence</artifactId>
+			<groupId>mx.infotec.dads.essence</groupId>
+			<artifactId>essence-impl</artifactId>
 			<version>0.1</version>
 		</dependency>
 		<dependency>
