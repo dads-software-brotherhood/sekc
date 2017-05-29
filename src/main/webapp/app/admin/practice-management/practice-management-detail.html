@@ -1,0 +1,44 @@
+<div>
+    <h2>
+        <span data-translate="practiceManagement.detail.title">Practice</span> [<b>{{vm.practice.login}}</b>]
+    </h2>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="practiceManagement.login">Login</span></dt>
+        <dd>
+            <span>{{vm.practice.login}}</span>
+            <span class="label label-danger" ng-show="!vm.practice.activated"
+                  data-translate="practiceManagement.deactivated">Deactivated</span>
+            <span class="label label-success" ng-show="vm.practice.activated"
+                  data-translate="practiceManagement.activated">Activated</span>
+        </dd>
+        <dt><span data-translate="practiceManagement.firstName">First Name</span></dt>
+        <dd>{{vm.practice.firstName}}</dd>
+        <dt><span data-translate="practiceManagement.lastName">Last Name</span></dt>
+        <dd>{{vm.practice.lastName}}</dd>
+        <dt><span data-translate="practiceManagement.email">Email</span></dt>
+        <dd>{{vm.practice.email}}</dd>
+        <dt><span data-translate="practiceManagement.langKey">Lang Key</span></dt>
+        <dd>{{vm.practice.langKey}}</dd>
+        <dt><span data-translate="practiceManagement.createdBy">Created By</span></dt>
+        <dd>{{vm.practice.createdBy}}</dd>
+        <dt><span data-translate="practiceManagement.createdDate">Created Date</span></dt>
+        <dd>{{vm.practice.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
+        <dt><span data-translate="practiceManagement.lastModifiedBy">Last Modified By</span></dt>
+        <dd>{{vm.practice.lastModifiedBy}}</dd>
+        <dt><span data-translate="practiceManagement.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>{{vm.practice.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
+        <dt><span data-translate="practiceManagement.profiles">Profiles</span></dt>
+        <dd>
+            <ul class="list-unstyled">
+                <li ng-repeat="authority in vm.practice.authorities">
+                    <span class="label label-info">{{authority}}</span>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+    <button type="submit"
+            ui-sref="practice-management"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+</div>

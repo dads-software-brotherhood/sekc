@@ -1,0 +1,30 @@
+{
+    "practiceManagement": {
+        "home": {
+            "title": "Practices",
+            "createLabel": "Create a new practice",
+            "createOrEditLabel": "Create or edit a practice"
+        },
+        "created": "A new practice is created with identifier {{ param }}",
+        "updated": "An practice is updated with identifier {{ param }}",
+        "deleted": "An practice is deleted with identifier {{ param }}",
+        "delete": {
+            "question": "Are you sure you want to delete practice {{ login }}?"
+        },
+        "detail": {
+            "title": "Practice"
+        },
+        "name": "Name",
+        "icon": "Icon",
+        "briefDescription": "Brief Description",
+        "description": "Description",
+        "consistencyRules": "Consistency Rules",
+        "objective": "Objective",
+        "measures": "Measures",
+        "entry": "Entry",
+        "result": "Result",
+        "isSupresable": "isSupresable",
+        "add" : "Add",
+        "remove" : "Remove"
+    }
+}

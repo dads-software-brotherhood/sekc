@@ -21,6 +21,7 @@
             "admin": {
                 "main": "Administración",
                 "userManagement": "Gestión de usuarios",
+                "practiceManagement": "Gestión de prácticas",
                 "tracker": "Registro de los usuarios",
                 "metrics": "Métricas",
                 "health": "Salud",
