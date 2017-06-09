@@ -1,4 +1,6 @@
-app.controller('VectorMapController', ['$scope','$interval', function($scope, $interval) {
+angular
+        .module('sekcApp')
+        .controller('VectorMapController', ['$scope','$interval', function($scope, $interval) {
   $scope.datamap = { 'US': 3, 'IT': 80, 'FR': 10, 'BR': 5, 'ES': 2 };
 
   $scope.markers = [

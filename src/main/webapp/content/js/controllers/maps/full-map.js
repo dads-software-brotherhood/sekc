@@ -1,4 +1,6 @@
-app.controller('FullMapController', ['$scope', '$rootScope', 'uiGmapIsReady', function($scope, $rootScope, uiGmapIsReady) {
+angular
+        .module('sekcApp')
+        .controller('FullMapController', ['$scope', '$rootScope', 'uiGmapIsReady', function($scope, $rootScope, uiGmapIsReady) {
   $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8, control: {} };
 
   $rootScope.isFullPageMap = true;

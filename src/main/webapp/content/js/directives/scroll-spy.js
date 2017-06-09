@@ -1,4 +1,5 @@
-app.directive('scrollSpy', ['$window',function($window) {
+angular
+        .module('sekcApp').directive('scrollSpy', ['$window',function($window) {
   return {
     link: function(scope, element, attrs) {
       angular.element($window).bind('scroll', function() {

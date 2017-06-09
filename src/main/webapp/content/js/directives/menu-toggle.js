@@ -1,8 +1,4 @@
-(function() {
-    'use strict';
-
-    angular
-        .module('sekcApp')
+angular.module('sekcApp')
         .directive('menuToggle', ['$location', function($location) {
 
   return {
@@ -13,7 +9,7 @@
       name: '@',
       icon: '@'
     },
-    templateUrl: '/content/tpl/directives/menu-toggle.html',
+    templateUrl: 'content/tpl/directives/menu-toggle.html',
     link: function(scope, element, attrs) {
       icon = attrs.icon;
       if ( icon ) {
@@ -39,5 +35,4 @@
       };
     }
   };
-}])
-});
+}]);

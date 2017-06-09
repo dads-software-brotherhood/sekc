@@ -1,4 +1,6 @@
-app.controller('TablesBasicController', ['$scope', 'PlaceholderTextService', function($scope, PlaceholderTextService){
+angular
+        .module('sekcApp')
+        .controller('TablesBasicController', ['$scope', 'PlaceholderTextService', function($scope, PlaceholderTextService){
 
   // settings
   $scope.settings = {

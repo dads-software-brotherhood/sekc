@@ -4,7 +4,8 @@
  * Usage:
  *   {{some_text | nospace}}
  */
-app.filter('nospace', function () {
+angular
+        .module('sekcApp').filter('nospace', function () {
   return function (value) {
     return (!value) ? '' : value.replace(/ /g, '');
   };

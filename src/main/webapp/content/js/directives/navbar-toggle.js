@@ -1,4 +1,5 @@
-app.directive('navbarToggle', function() {
+angular.module('sekcApp')
+        .directive('navbarToggle', function() {
   return {
     restrict: 'C',
     link: function(scope, element, attrs) {

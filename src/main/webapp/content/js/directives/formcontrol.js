@@ -1,4 +1,6 @@
-app.directive('formControl', function() {
+angular
+        .module('sekcApp')
+        .directive('formControl', function() {
   return {
     restrict: 'C',
     link: function(scope, element, attrs) {

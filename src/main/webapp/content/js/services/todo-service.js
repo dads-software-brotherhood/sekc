@@ -1,4 +1,5 @@
-app.factory('todoService', ['localStorageService', '$rootScope', '$filter', function (localStorageService, $rootScope, $filter) {
+angular
+        .module('sekcApp').factory('todoService', ['localStorageService', '$rootScope', '$filter', function (localStorageService, $rootScope, $filter) {
   function Todo ($scope) {
     this.$scope = $scope;
     this.todoFilter = {};

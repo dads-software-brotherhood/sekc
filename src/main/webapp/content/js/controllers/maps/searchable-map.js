@@ -1,4 +1,5 @@
-app.controller('SearchableMapController', ['$scope', 'uiGmapGoogleMapApi', function($scope, uiGmapGoogleMapApi) {
+angular
+        .module('sekcApp').controller('SearchableMapController', ['$scope', 'uiGmapGoogleMapApi', function($scope, uiGmapGoogleMapApi) {
   $scope.map = {
     center: {
       latitude: 40.399516,

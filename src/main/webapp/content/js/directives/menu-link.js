@@ -1,4 +1,6 @@
-app.directive('menuLink', function() {
+angular
+        .module('sekcApp')
+        .directive('menuLink', function() {
   return {
     restrict: 'A',
     transclude: true,

@@ -1,4 +1,6 @@
-app.controller('ClickableMapController', ['$scope', function($scope) {
+angular
+        .module('sekcApp')
+        .controller('ClickableMapController', ['$scope', function($scope) {
   $scope.map = { center: { latitude: 40.399516, longitude: -22.703348 }, zoom: 2 };
 
   $scope.centerOn = function(lat, lng){

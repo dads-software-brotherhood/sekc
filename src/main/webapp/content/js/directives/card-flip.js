@@ -1,4 +1,6 @@
-app.directive('cardFlip', function() {
+angular
+        .module('sekcApp')
+        .directive('cardFlip', function() {
   return {
     restrict: 'C',
     link: function(scope, element, attrs) {

@@ -1,4 +1,6 @@
-app.controller('CrudController', ['$scope', '$window', '$aside', 'PlaceholderTextService', function($scope, $window, $aside, PlaceholderTextService){
+angular
+        .module('sekcApp')
+        .controller('CrudController', ['$scope', '$window', '$aside', 'PlaceholderTextService', function($scope, $window, $aside, PlaceholderTextService){
 
   // settings
   $scope.settings = {

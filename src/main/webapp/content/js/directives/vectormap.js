@@ -1,4 +1,6 @@
-app.directive('vectormap', ['colorService', function(colorService) {
+angular
+        .module('sekcApp')
+        .directive('vectormap', ['colorService', function(colorService) {
 
   return {
     restrict: 'E',

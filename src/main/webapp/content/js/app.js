@@ -1,6 +1,6 @@
 /*jslint strict: true */
 
-var app = angular.module('materialism', [
+angular.module('materialism', [
   'app.constants',
 
   'ngRoute',

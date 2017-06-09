@@ -1,4 +1,5 @@
-app.controller('MainController',
+angular
+        .module('sekcApp').controller('MainController',
   ['$scope', '$animate', 'localStorageService', 'todoService', '$alert', '$timeout', '$rootScope',
   function($scope, $animate, localStorageService, todoService, $alert, $timeout, $rootScope){
 

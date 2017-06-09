@@ -1,4 +1,6 @@
-app.directive('navbarSearch', ['$timeout', function($timeout) {
+angular
+        .module('sekcApp')
+        .directive('navbarSearch', ['$timeout', function($timeout) {
   return {
     restrict: 'A',
     templateUrl: 'content/tpl/directives/navbar-search.html',

@@ -1,5 +1,10 @@
 // routes
-app.config(['$routeProvider', function($routeProvider) {
+(function() {
+    'use strict';
+
+    angular
+        .module('sekcApp')
+        .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: 'content/tpl/dashboard.html'
   }).when('/:folder/:tpl', {
@@ -59,4 +64,4 @@ app.config(['$routeProvider', function($routeProvider) {
 // set constants
 .run(['$rootScope', 'APP', function ($rootScope, APP) {
   $rootScope.APP = APP;
-}]);
+}])});

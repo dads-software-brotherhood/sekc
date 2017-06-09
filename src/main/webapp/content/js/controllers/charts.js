@@ -1,4 +1,6 @@
-app.controller('ChartsController', ['$scope', '$interval', 'colorService', function($scope, $interval, colorService){
+angular
+        .module('sekcApp')
+        .controller('ChartsController', ['$scope', '$interval', 'colorService', function($scope, $interval, colorService){
 
   pattern = [];
   pattern.push(colorService.brand_success());

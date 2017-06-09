@@ -1,4 +1,6 @@
-app.controller('DashboardController',
+angular
+        .module('sekcApp')
+        .controller('DashboardController',
   ['$window', '$scope', '$rootScope', '$interval', 'colorService',
   function($window, $scope, $rootScope, $interval, colorService){
 

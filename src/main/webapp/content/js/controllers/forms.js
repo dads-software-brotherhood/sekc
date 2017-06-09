@@ -1,6 +1,5 @@
-
-
-app.controller('FormsController', ['$scope', 'bootstrap3ElementModifier', function($scope, bootstrap3ElementModifier){
+angular
+        .module('sekcApp').controller('FormsController', ['$scope', 'bootstrap3ElementModifier', function($scope, bootstrap3ElementModifier){
 
   bootstrap3ElementModifier.enableValidationStateIcons(false);
 

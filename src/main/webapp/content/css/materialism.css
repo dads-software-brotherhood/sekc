@@ -8917,6 +8917,9 @@ main {
   text-transform: uppercase;
   font-weight: 300;
   font-size: 16px; }
+.brand-logo img{
+  height: 50px;
+}
 
 #logo {
   display: inline-block;

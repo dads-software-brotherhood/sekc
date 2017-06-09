@@ -1,4 +1,6 @@
-app.directive('initRipples', function() {
+angular
+        .module('sekcApp')
+        .directive('initRipples', function() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {

@@ -1,4 +1,5 @@
-app.controller('ColorsController', ['$scope', function($scope){
+angular
+        .module('sekcApp').controller('ColorsController', ['$scope', function($scope){
 
   angular.forEach(angular.element(".dynamic-color .col-md-4 div"), function(element){
 

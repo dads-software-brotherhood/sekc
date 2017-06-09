@@ -1,4 +1,5 @@
-app.directive('nouiSlider', function() {
+angular
+        .module('sekcApp').directive('nouiSlider', function() {
 
   return {
     restrict: 'A',

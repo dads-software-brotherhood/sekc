@@ -1,4 +1,6 @@
-app.controller('ZoomableMapController', ['$scope', function($scope) {
+angular
+        .module('sekcApp')
+        .controller('ZoomableMapController', ['$scope', function($scope) {
   $scope.zoomed_from_slider = false;
   $scope.map = {
     center: {

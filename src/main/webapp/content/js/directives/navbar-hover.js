@@ -1,4 +1,6 @@
-app.directive('navbarScroll', function($window) {
+angular
+        .module('sekcApp')
+        .directive('navbarScroll', function($window) {
   return {
     restrict: 'A',
     link: function(scope, element, attr) {

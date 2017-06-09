@@ -1,4 +1,5 @@
-angular.module('app.constants', [])
+angular
+        .module('app.constants', [])
 
 .constant('APP', {version:'1.1.4'})
 

@@ -1,4 +1,5 @@
-app.controller('ButtonsController', ['$scope', function($scope){
+angular
+        .module('sekcApp').controller('ButtonsController', ['$scope', function($scope){
 
   $scope.colorPalette = [
     'pink','red','purple','indigo','blue',

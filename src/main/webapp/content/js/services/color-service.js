@@ -1,4 +1,5 @@
-app.factory('colorService', function() {
+angular
+        .module('sekcApp').factory('colorService', function() {
 
   function brand_primary(variation) {
     return get_color(get_color_name('brand-primary'), variation);
