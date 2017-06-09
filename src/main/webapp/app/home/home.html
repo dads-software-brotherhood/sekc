@@ -1,30 +1,37 @@
-<div ng-cloak>
-    <div class="col-md-12">
+<section class="forms-basic" ng-cloak>
+    <div class="page-header">
         <h1 data-translate="home.title">Software Engineering Knowledge Composer</h1>
         <p class="lead" data-translate="home.subtitle">This is your homepage</p>
-
-        <div ng-switch="vm.isAuthenticated()">
-            <div class="alert alert-success" ng-switch-when="true" data-translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
-                You are logged in as user "{{vm.account.login}}".
-            </div>
-
-            <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.authenticated" translate-compile>
-                If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div>
-
-            <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.register" translate-compile>
-                You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-            </div>
+    </div>
+    
+    <div ng-switch="vm.isAuthenticated()">
+        <div class="alert alert-success" ng-switch-when="true" data-translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
+            You are logged in as user "{{vm.account.login}}".
         </div>
 
-        <p data-translate="home.question">
-            Repository Info at:
-        </p>
+        <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.authenticated" translate-compile>
+            If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+        </div>
 
-        <ul>
-            <li><a href="https://github.com/danimaniarqsoft/essence-metamodel" target="_blank" data-translate="home.link.homepage">Essence Meta-Model</a></li>
-            <li><a href="https://github.com/dads-software-brotherhood/sekc" target="_blank" data-translate="home.link.stackoverflow">Software Engineering Knowledge Composer</a></li>
-            <li><a href="https://dads.gitbooks.io/sekc/content/" target="_blank" data-translate="home.link.bugtracker">Documentación Oficial</a></li>
-        </ul>
+        <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.register" translate-compile>
+            You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+        </div>
     </div>
-</div>
+
+    <div class="row  m-b-40">
+        <div class="col-md-12">
+            <div class="well white">
+
+                <p data-translate="home.question">
+                    Repository Info at:
+                </p>
+
+                <ul>
+                    <li><a href="https://github.com/danimaniarqsoft/essence-metamodel" target="_blank" data-translate="home.link.homepage">Essence Meta-Model</a></li>
+                    <li><a href="https://github.com/dads-software-brotherhood/sekc" target="_blank" data-translate="home.link.stackoverflow">Software Engineering Knowledge Composer</a></li>
+                    <li><a href="https://dads.gitbooks.io/sekc/content/" target="_blank" data-translate="home.link.bugtracker">Documentación Oficial</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
