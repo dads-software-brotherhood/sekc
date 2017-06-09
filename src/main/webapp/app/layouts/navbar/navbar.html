@@ -1,3 +1,86 @@
+<aside class="sidebar fixed" ng-cloak>
+  <div class="brand-logo">
+    <img class="logo-img" src="content/images/logo-jhipster.png" alt="logo"/>
+    <span data-translate="global.title">Sdekc</span> <span class="navbar-version">v{{VERSION}}</span>
+  </div>
+  <div class="user-logged-in">
+    <div class="content">
+      <div class="user-name" translate-values="{username: '{{vm.account.login}}'}">{{vm.account.login}} <span class="text-muted f9"></span></div>
+      <div class="user-email">last@samurai.jp</div>
+      <div class="user-actions">
+        <a class="m-r-5" href="">settings</a> <a href="">logout</a>
+      </div>
+    </div>
+  </div>
+
+  <ul class="menu-links" ng-switch="vm.isAuthenticated()">
+
+    <a ui-sref="home" ng-click="vm.collapseNavbar()">
+        <span class="glyphicon glyphicon-home"></span>
+        <span class="hidden-sm" data-translate="global.menu.home">Home</span>
+    </a>
+
+    <li menu-toggle path="/apps" name="APPS" icon="md md-camera">
+      <a menu-link href="#/apps/todo" name="Todo">
+        <span id="todosCount" class="pull-right badge z-depth-0" ng-bind="todosCount"></span>
+        Todo
+      </a>
+      <a menu-link href="#/apps/crud" name="Crud">
+        <span class="pull-right badge theme-primary-bg z-depth-0">9</span>
+        Crud
+      </a>
+    </li>
+
+    <a href="" id="account-menu">
+        <span class="hidden-sm" data-translate="global.menu.account.main">
+            Account
+        </span>
+    </a>
+    <li menu-toggle ui-sref-active="active" name="Account">
+        <a ui-sref="settings" ng-click="vm.collapseNavbar()" ng-switch-when="true">
+            <span class="glyphicon glyphicon-wrench"></span>&nbsp;
+            <span data-translate="global.menu.account.settings">Settings</span>
+        </a>
+        <a ui-sref="password" ng-click="vm.collapseNavbar()" ng-switch-when="true">
+            <span class="glyphicon glyphicon-lock"></span>&nbsp;
+            <span data-translate="global.menu.account.password">Password</span>
+        </a>
+        <a href="" ng-click="vm.logout()" id="logout"  ng-switch-when="true">
+            <span class="glyphicon glyphicon-log-out"></span>&nbsp;
+            <span data-translate="global.menu.account.logout">Sign out</span>
+        </a>
+        <a href="" ng-click="vm.login()" id="login" ng-switch-when="false">
+            <span class="glyphicon glyphicon-log-in"></span>&nbsp;
+            <span data-translate="global.menu.account.login">Sign in</span>
+        </a>
+        <a ui-sref="register" ng-click="vm.collapseNavbar()" ng-switch-when="false">
+            <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;
+            <span data-translate="global.menu.account.register">Register</span>
+        </a>
+    </li>
+    
+    
+    
+    <a menu-link href="#/dashboard" icon="md md-blur-on">Dashboard</a>
+    <li menu-toggle path="/apps" name="APPS" icon="md md-camera">
+      <a menu-link href="#/apps/todo" name="Todo">
+        <span id="todosCount" class="pull-right badge z-depth-0" ng-bind="todosCount"></span>
+        Todo
+      </a>
+      <a menu-link href="#/apps/crud" name="Crud">
+        <span class="pull-right badge theme-primary-bg z-depth-0">9</span>
+        Crud
+      </a>
+    </li>
+  </ul>
+</aside>
+
+
+
+
+
+
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">

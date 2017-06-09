@@ -111,11 +111,11 @@
 	</repositories>
 	<dependencies>
 		<!-- Essence Core -->
-		<dependency>
+	<!--	<dependency>
 			<groupId>mx.infotec.dads.essence</groupId>
 			<artifactId>essence-impl</artifactId>
 			<version>0.1</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>io.github.jhipster</groupId>
 			<artifactId>jhipster</artifactId>

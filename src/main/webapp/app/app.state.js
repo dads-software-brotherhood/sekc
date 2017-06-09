@@ -15,7 +15,13 @@
                     templateUrl: 'app/layouts/navbar/navbar.html',
                     controller: 'NavbarController',
                     controllerAs: 'vm'
+                },
+                'topnav@': {
+                    templateUrl: 'app/layouts/topnav/topnav.html',
+                    controller: 'TopnavController',
+                    controllerAs: 'vm'
                 }
+                
             },
             resolve: {
                 authorize: ['Auth',

@@ -7,7 +7,6 @@
     <meta name="description" content="">
     <meta name="google" value="notranslate">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
@@ -32,27 +31,40 @@
     <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/bower_components/ng-table/dist/ng-table.min.css">
     <link rel="stylesheet" href="/bower_components/textAngular/dist/textAngular.css">
+
+    <link href="/bower_components/bower-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="/bower_components/ng-table/dist/ng-table.css" rel="stylesheet" />
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
-</head>
-<body ng-app="sekcApp" ng-strict-di>
-    <!--[if lt IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
 
-        <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+    <!-- build:css content/css/styles.min.css -->
+    <link href="content/css/materialism.css" rel="stylesheet" />
+    <link href="content/css/angular-ui-select.css" rel="stylesheet" />
+    <link href="content/css/helpers.css" rel="stylesheet" />
+    <link href="content/css/ripples.css" rel="stylesheet" />
+    <!-- endbuild -->
+</head>
+<body id="top" ng-app="sekcApp" ng-strict-di scroll-spy>
+    <main>
+        <!--[if lt IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!--<page-ribbon></page-ribbon>-->
+        <div ui-view="topnav" ng-cloak></div>
+        <div class="main-container">
+            <div ui-view="navbar" ng-cloak></div>
+            <div class="main-content" ui-view="content">
+                <!-- Angular views -->
+            </div>
+
+            <div class="footer" ng-cloak>
+                <p data-translate="footer">This is your footer</p>
+            </div>
         </div>
-    </div>
+    </main>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -68,7 +80,7 @@
     <!-- bower:js -->
     
     
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     
     
     <script src="/bower_components/lodash/lodash.js"></script>
@@ -254,7 +266,7 @@
     <script src="/bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     
     
-    <script src="/bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <!--<script src="/bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>-->
     
     
     <script src="/bower_components/c3/c3.js"></script>
@@ -313,6 +325,7 @@
     <script src="app/services/auth/account.service.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/navbar/active-menu.directive.js"></script>
+    <script src="app/layouts/topnav/topnav.controller.js"></script>
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
@@ -407,6 +420,58 @@
     <script src="app/account/account.state.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
+
+    <!-- build:js content/js/app.min.js -->
+  <script charset="utf-8" src="content/js/vendors/angular-placeholders.js"></script>
+  <script charset="utf-8" src="content/js/vendors/side-nav.js"></script>
+  <script charset="utf-8" src="content/js/vendors/ripples.js"></script>
+  <script charset="utf-8" src="content/js/vendors/fsm-sticky-header.js"></script>
+  <script charset="utf-8" src="content/js/vendors/angular-smooth-scroll.js"></script>
+
+  <script charset="utf-8" src="/content/js/colors.js"></script>
+
+  <script charset="utf-8" src="/content/js/app.js"></script>
+  <script charset="utf-8" src="/content/js/app.constants.js"></script>
+  <script charset="utf-8" src="/content/js/app.config.js"></script>
+  <script charset="utf-8" src="/content/js/app.filters.js"></script>
+  <script charset="utf-8" src="/content/js/app.demo.js"></script><!--@grep dist-->
+
+  <script charset="utf-8" src="/content/js/directives/formcontrol.js"></script>
+  <script charset="utf-8" src="/content/js/directives/navbar-hover.js"></script>
+  <script charset="utf-8" src="/content/js/directives/navbar-search.js"></script>
+  <script charset="utf-8" src="/content/js/directives/navbar-toggle.js"></script>
+  <script charset="utf-8" src="/content/js/directives/noui-slider.js"></script>
+  <script charset="utf-8" src="/content/js/directives/todo-widget.js"></script>
+  <script charset="utf-8" src="/content/js/directives/menu-link.js"></script>
+  <script charset="utf-8" src="/content/js/directives/menu-toggle.js"></script>
+  <script charset="utf-8" src="/content/js/directives/vectormap.js"></script>
+  <script charset="utf-8" src="/content/js/directives/autofocus.js"></script>
+  <script charset="utf-8" src="/content/js/directives/card-flip.js"></script>
+  <script charset="utf-8" src="/content/js/directives/scroll-spy.js"></script>
+  <script charset="utf-8" src="/content/js/directives/init-ripples.js"></script>
+
+  <script charset="utf-8" src="/content/js/services/color-service.js"></script>
+  <script charset="utf-8" src="/content/js/services/todo-service.js"></script>
+
+  <script charset="utf-8" src="/content/js/controllers/main.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/dashboard.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/charts.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/colors.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/buttons.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/lists.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/maps/full-map.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/maps/basic-map.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/maps/clickable-map.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/maps/searchable-map.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/maps/zoomable-map.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/maps/vector-map.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/forms.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/upload.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/tables/basic.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/tables/data.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/apps/crud.js"></script>
+  <script charset="utf-8" src="/content/js/controllers/apps/todo.js"></script>
+  <!-- endbuild -->
 
 </body>
 </html>
