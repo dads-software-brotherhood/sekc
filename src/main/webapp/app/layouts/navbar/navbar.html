@@ -24,7 +24,7 @@
         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
     </li>
 
-    <li menu-toggle name="Account" icon="md md-camera" ui-sref-active="active">
+    <li menu-toggle name="Account" icon="md md-account-balance-wallet" ui-sref-active="active">
         <a menu-link href="#/settings" ui-sref="settings"  name="Settings">
             <span data-translate="global.menu.account.settings" >
                 <span ng-switch-when="true"> Settings</span>
@@ -51,7 +51,7 @@
             </span>
         </a>
     </li>
-    <li menu-toggle id="admin-menu" name="Administration" icon="md md-camera" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
+    <li menu-toggle id="admin-menu" name="Administration" icon="md  md-account-balance" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
         <a menu-link href="#/user management" ui-sref="user-management" ng-click="vm.collapseNavbar()">
             <span data-translate="global.menu.admin.userManagement">User management</span>
         </a>
