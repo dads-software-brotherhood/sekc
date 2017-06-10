@@ -8165,7 +8165,7 @@ button.close {
   .page-header .lead {
     margin: 0px; }
   .page-header .actions {
-    margin-right: -10px;
+    margin-right: 0px;
     margin-top: -10px; }
 
 .navbar {
@@ -8799,9 +8799,10 @@ input[type="checkbox"],
       background-color: #fbb4af; }
 
 .badge {
-  padding: 0px 10px;
-  font-size: 9px;
-  line-height: 22px; }
+      padding: 0 10px;
+    font-size: 9px;
+    line-height: 22px;
+    border-radius: 10px;}
 
 .breadcrumb {
   padding: 8px 15px;

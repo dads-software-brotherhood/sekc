@@ -1,5 +1,8 @@
-angular
-        .module('sekcApp').controller('UploadController', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
+(function() {
+    'use strict';
+    angular
+        .module('sekcApp')
+        .controller('UploadController', ['$scope', 'Upload', '$timeout', function ($scope, Upload, $timeout) {
 
   $scope.fileReaderSupported = window.FileReader !== undefined && (window.FileAPI === undefined || FileAPI.html5 !== false);
 
@@ -60,4 +63,4 @@ angular
     }
   });
 
-}]);
+}])})();

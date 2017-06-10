@@ -1,4 +1,6 @@
-angular
+(function() {
+    'use strict'; 
+    angular
         .module('sekcApp')
         .controller('DashboardController',
   ['$window', '$scope', '$rootScope', '$interval', 'colorService',
@@ -153,4 +155,4 @@ angular
 
   $scope.tabs = ['Log','Timeline','Messages'];
 
-}]);
+}])});

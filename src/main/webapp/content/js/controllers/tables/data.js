@@ -1,4 +1,6 @@
-angular
+(function() {
+    'use strict';
+    angular
         .module('sekcApp')
         .controller('TablesDataController', ['$scope', 'PlaceholderTextService', 'ngTableParams', '$filter', function($scope, PlaceholderTextService, ngTableParams, $filter){
 
@@ -43,4 +45,4 @@ angular
   });
 
 
-}]);
+}])})();

@@ -46,6 +46,7 @@
     <link href="content/css/helpers.css" rel="stylesheet" />
     <link href="content/css/ripples.css" rel="stylesheet" />
     <!-- endbuild -->
+
 </head>
 <body id="top" ng-app="sekcApp"  ng-strict-di scroll-spy ng-class="[theme.template, theme.color]">
     <main>
@@ -61,7 +62,7 @@
             </div>
 
             <div class="footer" ng-cloak>
-                <p data-translate="footer">This is your footer</p>
+                    <p data-translate="footer">This is your footer</p>
             </div>
         </div>
     </main>
@@ -422,55 +423,56 @@
     <!-- endbuild -->
 
     <!-- build:js content/js/app.min.js -->
-  <script charset="utf-8" src="content/js/vendors/angular-placeholders.js"></script>
-  <script charset="utf-8" src="content/js/vendors/side-nav.js"></script>
-  <script charset="utf-8" src="content/js/vendors/ripples.js"></script>
-  <script charset="utf-8" src="content/js/vendors/fsm-sticky-header.js"></script>
-  <script charset="utf-8" src="content/js/vendors/angular-smooth-scroll.js"></script>
+  <script src="content/js/app-materialism.js"></script>
+  <script src="content/js/vendors/angular-placeholders.js"></script>
+  <script src="content/js/vendors/side-nav.js"></script>
+  <script src="content/js/vendors/ripples.js"></script>
+  <script src="content/js/vendors/fsm-sticky-header.js"></script>
+  <script src="content/js/vendors/angular-smooth-scroll.js"></script>
 
-  <script charset="utf-8" src="/content/js/colors.js"></script>
+  <script src="/content/js/colors.js"></script>
 
-  <script charset="utf-8" src="/content/js/app.js"></script>
-  <script charset="utf-8" src="/content/js/app.constants.js"></script>
-  <script charset="utf-8" src="/content/js/app.config.js"></script>
-  <script charset="utf-8" src="/content/js/app.filters.js"></script>
-  <script charset="utf-8" src="/content/js/app.demo.js"></script><!--@grep dist-->
+  <script src="/content/js/app.js"></script>
+  <script src="/content/js/app.constants.js"></script>
+  <script src="/content/js/app.config.js"></script>
+  <script src="/content/js/app.filters.js"></script>
+  <script src="/content/js/app.demo.js"></script><!--@grep dist-->
 
-  <script charset="utf-8" src="/content/js/directives/formcontrol.js"></script>
-  <script charset="utf-8" src="/content/js/directives/navbar-hover.js"></script>
-  <script charset="utf-8" src="/content/js/directives/navbar-search.js"></script>
-  <script charset="utf-8" src="/content/js/directives/navbar-toggle.js"></script>
-  <script charset="utf-8" src="/content/js/directives/noui-slider.js"></script>
-  <script charset="utf-8" src="/content/js/directives/todo-widget.js"></script>
-  <script charset="utf-8" src="/content/js/directives/menu-link.js"></script>
-  <script charset="utf-8" src="/content/js/directives/menu-toggle.js"></script>
-  <script charset="utf-8" src="/content/js/directives/vectormap.js"></script>
-  <script charset="utf-8" src="/content/js/directives/autofocus.js"></script>
-  <script charset="utf-8" src="/content/js/directives/card-flip.js"></script>
-  <script charset="utf-8" src="/content/js/directives/scroll-spy.js"></script>
-  <script charset="utf-8" src="/content/js/directives/init-ripples.js"></script>
+  <script src="/content/js/directives/formcontrol.js"></script>
+  <script src="/content/js/directives/navbar-hover.js"></script>
+  <script src="/content/js/directives/navbar-search.js"></script>
+  <script src="/content/js/directives/navbar-toggle.js"></script>
+  <script src="/content/js/directives/noui-slider.js"></script>
+  <script src="/content/js/directives/todo-widget.js"></script>
+  <script src="/content/js/directives/menu-link.js"></script>
+  <script src="/content/js/directives/menu-toggle.js"></script>
+  <script src="/content/js/directives/vectormap.js"></script>
+  <script src="/content/js/directives/autofocus.js"></script>
+  <script src="/content/js/directives/card-flip.js"></script>
+  <script src="/content/js/directives/scroll-spy.js"></script>
+  <script src="/content/js/directives/init-ripples.js"></script>
 
-  <script charset="utf-8" src="/content/js/services/color-service.js"></script>
-  <script charset="utf-8" src="/content/js/services/todo-service.js"></script>
+  <script src="/content/js/services/color-service.js"></script>
+  <script src="/content/js/services/todo-service.js"></script>
 
-  <script charset="utf-8" src="/content/js/controllers/main.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/dashboard.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/charts.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/colors.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/buttons.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/lists.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/maps/full-map.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/maps/basic-map.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/maps/clickable-map.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/maps/searchable-map.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/maps/zoomable-map.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/maps/vector-map.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/forms.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/upload.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/tables/basic.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/tables/data.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/apps/crud.js"></script>
-  <script charset="utf-8" src="/content/js/controllers/apps/todo.js"></script>
+  <script src="/content/js/controllers/main.js"></script>
+  <script src="/content/js/controllers/dashboard.js"></script>
+  <script src="/content/js/controllers/charts.js"></script>
+  <script src="/content/js/controllers/colors.js"></script>
+  <script src="/content/js/controllers/buttons.js"></script>
+  <script src="/content/js/controllers/lists.js"></script>
+  <script src="/content/js/controllers/maps/full-map.js"></script>
+  <script src="/content/js/controllers/maps/basic-map.js"></script>
+  <script src="/content/js/controllers/maps/clickable-map.js"></script>
+  <script src="/content/js/controllers/maps/searchable-map.js"></script>
+  <script src="/content/js/controllers/maps/zoomable-map.js"></script>
+  <script src="/content/js/controllers/maps/vector-map.js"></script>
+  <script src="/content/js/controllers/forms.js"></script>
+  <script src="/content/js/controllers/upload.js"></script>
+  <script src="/content/js/controllers/tables/basic.js"></script>
+  <script src="/content/js/controllers/tables/data.js"></script>
+  <script src="/content/js/controllers/apps/crud.js"></script>
+  <script src="/content/js/controllers/apps/todo.js"></script>
   <!-- endbuild -->
 
 </body>

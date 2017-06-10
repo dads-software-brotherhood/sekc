@@ -1,4 +1,7 @@
-angular
+(function() {
+    'use strict'; 
+    
+    angular
         .module('sekcApp')
         .controller('TablesBasicController', ['$scope', 'PlaceholderTextService', function($scope, PlaceholderTextService){
 
@@ -29,4 +32,4 @@ angular
     });
   };
 
-}]);
+}])})();

@@ -1,4 +1,6 @@
-angular
+(function() {
+    'use strict';
+    angular
         .module('sekcApp').controller('MainController',
   ['$scope', '$animate', 'localStorageService', 'todoService', '$alert', '$timeout', '$rootScope',
   function($scope, $animate, localStorageService, todoService, $alert, $timeout, $rootScope){
@@ -85,4 +87,4 @@ angular
       refererNotThemeforest.show();
     }, 1750);
   }
-}]);
+}])})();
