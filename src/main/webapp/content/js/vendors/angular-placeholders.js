@@ -22,12 +22,8 @@
  * This is based, in part, on [fkadeveloper](https://github.com/fkadeveloper)'s
  * [lorem.js](https://github.com/fkadeveloper/loremjs).
  */
-(function() {
-    'use strict';
 
-    angular
-        .module('sekcApp')
-        .module( 'ngPlaceholders', [] )
+    angular.module( 'ngPlaceholders', [] )
 
   .factory( 'PlaceholderTextService', function () {
 
@@ -661,4 +657,4 @@
         }
       }
     };
-  })});
+  });

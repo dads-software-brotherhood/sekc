@@ -16,7 +16,32 @@
             'ui.router',
             'infinite-scroll',
             // jhipster-needle-angularjs-add-module JHipster will add new module here
-            'angular-loading-bar'
+            'angular-loading-bar',
+
+            // materialism
+            'ngAnimate',
+            'ngSanitize',
+            'ngPlaceholders',
+            'ngTable',
+
+            'angular-loading-bar',
+
+            'angulartics',
+            'angulartics.google.analytics',
+
+            'nemLogging',
+            'uiGmapgoogle-maps',
+            'ui.select',
+
+            'gridshore.c3js.chart',
+            'monospaced.elastic',     // resizable textarea
+            'mgcrea.ngStrap',
+            'jcs-autoValidate',
+            'ngFileUpload',
+            'textAngular',
+            'fsm',                    // sticky header
+            'smoothScroll',
+            'LocalStorageModule'
         ])
         .run(run);
 

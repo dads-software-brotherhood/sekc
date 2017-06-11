@@ -2,8 +2,8 @@
     <div class="page-header">
         <div class="actions">
 
-          <button class="btn btn-primary" ui-sref="user-management.new">
-              <span class="md md-add"></span> <span data-translate="userManagement.home.createLabel">Create a new User</span>
+          <button class="btn btn-primary btn-round btn-lg m-r-10" ui-sref="user-management.new" data-title="Create a new User" bs-tooltip>
+              <span class="md md-add"></span>
           </button>
         </div>
         <h1 data-translate="userManagement.home.title">Users</h1>
@@ -50,25 +50,22 @@
                     <td class="text-right">
                         <div class="flex-btn-group-container">
 
-                            <button type="submit"
+                            <button type="submit" data-title="View" bs-tooltip
                                     ui-sref="user-management-detail({login:user.login})"
                                     class="btn btn-link btn-round" 
-                                    data-title="entity.action.view" 
                                     ng-click="viewItem(item)">
                                         <i class="md md-search"></i>
                             </button>
 
-                            <button type="submit"
+                            <button type="submit" data-title="Edit" bs-tooltip
                                     ui-sref="user-management.edit({login:user.login})"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.edit">
+                                    class="btn btn-link btn-round">
                                         <i class="md md-edit"></i>
                             </button>
-                            <button type="submit"
+                            <button type="submit" data-title="Delete" bs-tooltip
                                     ui-sref="user-management.delete({login:user.login})"
                                     ng-disabled="vm.currentAccount.login==user.login"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.delete">
+                                    class="btn btn-link btn-round" >
                                         <i class="md md-delete"></i>
                             </button>
                             

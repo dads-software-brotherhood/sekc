@@ -1,5 +1,4 @@
-(function() {
-    'use strict';
+
     angular
         .module('sekcApp').controller('MainController',
   ['$scope', '$animate', 'localStorageService', 'todoService', '$alert', '$timeout', '$rootScope',
@@ -56,7 +55,7 @@
     type: 'theme',
     container: '.alert-container-top-right',
     show: false,
-    templateUrl: 'assets/tpl/partials/alert-introduction.html',
+    templateUrl: 'content/tpl/partials/alert-introduction.html',
     animation: 'mat-grow-top-right'
   });
 
@@ -74,7 +73,7 @@
 
   var refererNotThemeforest = $alert({
     title: 'Hi there!',
-    content: 'You like what you see and interested in using our theme? You can find it at <a href="http://themeforest.net/item/materialism-angular-bootstrap-admin-template/11322821" target="_blank"><img style="height:20px;" src="assets/img/icons/themeforest-icon.png" /> Themeforest</a>.',
+    content: 'SECK.',
     placement: 'top-right',
     type: 'theme',
     container: '.alert-container-top-right',
@@ -87,4 +86,4 @@
       refererNotThemeforest.show();
     }, 1750);
   }
-}])})();
+}]);
