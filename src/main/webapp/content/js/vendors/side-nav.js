@@ -54,6 +54,11 @@
         var $this = $(this);
         var menu_id = $($this.attr('data-activates'));
 
+        console.log('entro side-nav');
+
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="popover"]').popover();
+
 
         // Set to width
         if (options.menuWidth != 250) {
