@@ -143,6 +143,48 @@
                     $state.go('^');
                 });
             }]
+        })
+         .state('practice-management-general', {
+            parent: 'practice-management',
+            url: '/practice/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/admin/practice-management/practice-management-general.html',
+                    controller: 'PracticeManagementGeneralController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('practice-management-thingswork', {
+            parent: 'practice-management',
+            url: '/practice/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/admin/practice-management/practice-management-thingswork.html',
+                    controller: 'PracticeManagementGeneralController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
         });
     }
 })();
