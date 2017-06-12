@@ -47,6 +47,9 @@
     <link href="content/css/ripples.css" rel="stylesheet" />
     <link href="content/fonts/style.css" rel="stylesheet"/>
     <!-- endbuild -->
+    
+    
+    <link href="content/css/sekc.css" rel="stylesheet" />
 
 </head>
 <body id="top" ng-app="sekcApp" ng-controller="MainController" ng-strict-di scroll-spy ng-class="[theme.template, theme.color]">
@@ -55,9 +58,9 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <!--<page-ribbon></page-ribbon>-->
-        <div ui-view="topnav" ng-cloak></div>
+        <div ui-view="navbar" ng-cloak></div>
         <div class="main-container">
-            <div ui-view="navbar" ng-cloak></div>
+            <div ui-view="topnav" ng-cloak></div>
             <div class="main-content" ui-view="content" ng-cloak ng-view bs-affix-target init-ripples>
                 <!-- Angular views -->
             </div>

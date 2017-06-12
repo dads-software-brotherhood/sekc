@@ -1,0 +1,15 @@
+.alineaVertical {
+  display: block;
+  margin-top: 5px;
+  width: 80px;
+}
+
+select[multiple] {
+	width: 250px;
+    height: 200px;
+    border: solid 1px #f0f0f0;
+}
+
+.marginTop30{
+	margin-top: 30px;
+}

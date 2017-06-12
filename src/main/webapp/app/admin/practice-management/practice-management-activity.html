@@ -1,0 +1,260 @@
+<section>
+    <div class="page-header">
+        <h1 data-translate="practiceManagement.home.title">Activities</h1>
+    </div>
+
+    <jhi-alert></jhi-alert>
+    
+    <div class="card">
+	
+		<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+		<div class="form-group">
+            <label class="control-label" data-translate="practiceManagement.activitySpace">Activity Space</label>
+            <select class="form-control" name="activiySpace">
+  				<option value="1">Activity 1</option>
+  				<option value="2">Activity 2</option>
+  				<option value="3">Activity 3</option>
+  				<option value="4">Activity 4</option>
+			</select>
+
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label" data-translate="practiceManagement.name">Name</label>
+            <input type="text" class="form-control" name="name"
+                   ng-model="vm.practice.name" required>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="practiceManagement.description">Description</label>
+            <textarea class="form-control" name="description"
+                   ng-model="vm.practice.description"></textarea>
+        </div>
+        
+        <div class="row">
+        	<div class="col-md-4 col-md-offset-1">
+				<div class="form-group">
+					<label class="control-label">Available alphas</label>
+					<select name="availableAlphas" multiple>
+						<option value="requirements">Requirements</option>
+						<option value="oportunity">Oportunity</option>
+						<option value="stakeholders">Stakholders</option>
+						<option value="software">Software System</option>
+						<option value="work">Work</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-default alineaVertical marginTop30" type="button">
+					<span>Add All</span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span class="glyphicon glyphicon-arrow-right"></span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span>Up</span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span>Down</span>
+				</button>
+			</div>
+			<div class="col-md-4 col-md-offset-1">
+				<div class="form-group">
+					<label class="control-label">Alpha Entries</label>
+					<select name="alphaEntries" multiple>
+						<option value="requirements">Requirements</option>
+						<option value="oportunity">Oportunity</option>
+						<option value="stakeholders">Stakholders</option>
+						<option value="software">Software System</option>
+						<option value="work">Work</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+        	<div class="col-md-4 col-md-offset-1">
+				<div class="form-group">
+					<label class="control-label">Available Competences</label>
+					<select name="availableCompetences" multiple>
+						<option value="analyst">Analyst</option>
+						<option value="couch">Coach</option>
+						<option value="customer">Customer Representative</option>
+						<option value="developer">Developer</option>
+					</select>
+				</div>
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-default alineaVertical marginTop30" type="button">
+					<span>Add All</span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span class="glyphicon glyphicon-arrow-right"></span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span class="glyphicon glyphicon-arrow-left"></span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span>Up</span>
+				</button>
+				<button class="btn btn-default alineaVertical" type="button">
+					<span>Down</span>
+				</button>
+			</div>
+			<div class="col-md-5 col-md-offset-1">
+				<div class="form-group">
+					<label class="control-label">Alpha Competences</label>
+					<select name="alphaEntries" multiple>
+						<option value="requirements">Requirements</option>
+						<option value="oportunity">Oportunity</option>
+						<option value="stakeholders">Stakholders</option>
+						<option value="software">Software System</option>
+						<option value="work">Work</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		
+		
+        <div class="col-md-2 col-md-offset-10 form-group">	
+			<button class="btn btn-success" type="button">
+				<span data-translate="practiceManagement.add">Add</span>
+			</button>
+        </div>
+		
+		
+
+      	<div class="col-md-12 table-responsive white">
+            <table class="table table-full table-full-small">
+                <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">Activity Space</span><span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="login"><span data-translate="userManagement.login">Alpha Entries</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="email"><span data-translate="userManagement.email">Required competences</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Specify the system</td>
+                    <td>Alpha t/.../Alpha n</td>
+                    <td>Competency/.../Competency n</td>
+                    <td>
+                            <button type="submit"
+                                    ui-sref="user-management.edit({login:user.login})"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.edit">
+                                        <i class="md md-edit"></i>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-management.delete({login:user.login})"
+                                    ng-disabled="vm.currentAccount.login==user.login"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.delete">
+                                        <i class="md md-delete"></i>
+                            </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Shape the system</td>
+                    <td>Alpha t/.../Alpha n</td>
+                    <td>Competency/.../Competency n</td>
+                    <td>
+                            <button type="submit"
+                                    ui-sref="user-management.edit({login:user.login})"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.edit">
+                                        <i class="md md-edit"></i>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-management.delete({login:user.login})"
+                                    ng-disabled="vm.currentAccount.login==user.login"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.delete">
+                                        <i class="md md-delete"></i>
+                            </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Implement Software</td>
+                    <td>Alpha t/.../Alpha n</td>
+                    <td>Competency/.../Competency n</td>
+                    <td>
+                            <button type="submit"
+                                    ui-sref="user-management.edit({login:user.login})"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.edit">
+                                        <i class="md md-edit"></i>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-management.delete({login:user.login})"
+                                    ng-disabled="vm.currentAccount.login==user.login"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.delete">
+                                        <i class="md md-delete"></i>
+                            </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Test the System</td>
+                    <td>Alpha t/.../Alpha n</td>
+                    <td>Competency/.../Competency n</td>
+                    <td>
+                            <button type="submit"
+                                    ui-sref="user-management.edit({login:user.login})"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.edit">
+                                        <i class="md md-edit"></i>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-management.delete({login:user.login})"
+                                    ng-disabled="vm.currentAccount.login==user.login"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.delete">
+                                        <i class="md md-delete"></i>
+                            </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Support Team</td>
+                    <td>Alpha t/.../Alpha n</td>
+                    <td>Competency/.../Competency n</td>
+                    <td>
+                            <button type="submit"
+                                    ui-sref="user-management.edit({login:user.login})"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.edit">
+                                        <i class="md md-edit"></i>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="user-management.delete({login:user.login})"
+                                    ng-disabled="vm.currentAccount.login==user.login"
+                                    class="btn btn-link btn-round" 
+                                    data-title="entity.action.delete">
+                                        <i class="md md-delete"></i>
+                            </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table> 
+       	</div>
+    	  
+         
+    	<div class="modal-footer">
+        	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            	<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+            		data-translate="entity.action.cancel">Cancel</span>
+        	</button>
+        	<button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            	<span data-translate="entity.action.save">Next</span>
+       		</button>
+    	</div>
+    	
+		</form>
+
+    </div> 	
+</section>
