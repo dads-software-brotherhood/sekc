@@ -5,14 +5,20 @@
         .module('sekcApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$scope','$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($scope,$state, Auth, Principal, ProfileService, LoginService) {
      var vm = this;
 
         vm.isTopnavController = true;
         vm.isAuthenticated = Principal.isAuthenticated;
 
+        $scope.$on('authenticationSuccess', function() {
+            getAccount();
+        });
+
+        getAccount();
+        
         ProfileService.getProfileInfo().then(function(response) {
             vm.inProduction = response.inProduction;
             vm.swaggerEnabled = response.swaggerEnabled;
@@ -33,6 +39,7 @@
             collapseNavbar();
             Auth.logout();
             $state.go('home');
+            getAccount();
         }
 
         function toggleNavbar() {
@@ -42,5 +49,11 @@
         function collapseNavbar() {
             vm.isNavbarCollapsed = true;
         }  
+        
+        function getAccount() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+            });
+        }
     }
 })();
