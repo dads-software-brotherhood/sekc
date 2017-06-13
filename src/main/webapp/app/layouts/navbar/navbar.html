@@ -6,9 +6,9 @@
   <div class="user-logged-in">
     <div class="content">
       <div class="user-name" translate-values="{username: '{{vm.account.login}}'}">{{vm.account.login}} <span class="text-muted f9"></span></div>
-      <div class="user-email">last@samurai.jp</div>
+      <div class="user-email">{{vm.account.email}}</div>
       <div class="user-actions">
-        <a class="m-r-5" href="">settings</a> <a href="">logout</a>
+        <a href="#/logout" ng-click="vm.logout()">logout</a>
       </div>
     </div>
   </div>
@@ -25,22 +25,22 @@
     </li>
 
     <li menu-toggle name="Account" icon="md md-account-balance-wallet" ui-sref-active="active">
-        <a menu-link href="#/settings" ui-sref="settings"  name="Settings">
+        <a menu-link href="#/settings" ui-sref="settings"  name="Settings" ng-show="vm.isAuthenticated()">
             <span data-translate="global.menu.account.settings" >
                 <span ng-switch-when="true"> Settings</span>
             </span>
         </a>
-        <a menu-link href="#/password" ui-sref="password">
+        <a menu-link href="#/password" ui-sref="password" ng-show="vm.isAuthenticated()">
             <span data-translate="global.menu.account.password">
                 <span ng-switch-when="true"> Password</span>
             </span>
         </a>
-        <a menu-link href="#/logout" ng-click="vm.logout()" id="logout">
+        <a menu-link href="#/logout" ng-click="vm.logout()" id="logout" ng-show="vm.isAuthenticated()">
             <span data-translate="global.menu.account.logout">
                 <span ng-switch-when="true"> Sign out</span>
             </span>
         </a>
-        <a menu-link href="#/login" ng-click="vm.login()" id="login" >
+        <a menu-link href="#/login" ng-click="vm.login()" id="login" ng-hide="vm.isAuthenticated()">
             <span data-translate="global.menu.account.login">
                 <span ng-switch-when="false"> Sign in</span>
             </span>
