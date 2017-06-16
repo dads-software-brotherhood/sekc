@@ -1,7 +1,13 @@
-<div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1 data-translate="register.title">Registration</h1>
+<section>
+    <div class="page-header">
+      <h1 data-translate="register.title" class="icon-user-plus">Registration</h1>
+    </div>
+     
+  
+    <div class="row  m-b-40 ">
+        <div class="col-md-12 well white">
+              <div class="col-md-8 col-md-offset-1 m-t-10">
+         
 
             <div class="alert alert-success" ng-show="vm.success" data-translate="register.messages.success">
                 <strong>Registration saved!</strong> Please check your email for confirmation.
@@ -23,7 +29,8 @@
                 The password and its confirmation do not match!
             </div>
         </div>
-        <div class="col-md-4 col-md-offset-2">
+         <div class="row">
+         <div class="col-md-8 col-md-offset-1 ">
             <form ng-show="!vm.success" name="form" role="form" novalidate ng-submit="vm.register()" show-validation>
 
                 <div class="form-group">
@@ -49,6 +56,7 @@
                     </p>
                     </div>
                 </div>
+                <button type="button" class="btn btn-round btn-primary m-l-especial"> OR </button>
                 <div class="form-group">
                     <label class="control-label" for="email" data-translate="global.form.email">E-mail</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
@@ -114,17 +122,18 @@
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" data-translate="register.form.button">Register</button>
             </form>
-            <p></p>
-            <div class="alert alert-warning" data-translate="global.messages.info.authenticated" translate-compile>
-                If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div>
         </div>
-        <div class="col-md-4">
+         <div class="col-md-2" id="vertical-bar-3">
             <br/>
-            <jh-social ng-provider="google"></jh-social>
-            <jh-social ng-provider="facebook"></jh-social>
-            <jh-social ng-provider="twitter"></jh-social>
-            <!-- jhipster-needle-add-social-button -->
+            <form>
+                <div class="m-l-80 m-t-70">
+                    <button class="btn btn-google icon-google-plus  f30 m-b-20"> </button>
+                    <button class="btn  btn-twitter icon-twitter  f30 m-b-20"></button>
+                    <button class="btn  btn-facebook p-r-20"><i class="fa fa-facebook fa-2x m-t-5 m-l-10" aria-hidden="true"></i></button>
+                </div>
+            </form>
+        </div>
         </div>
     </div>
 </div>
+</section>

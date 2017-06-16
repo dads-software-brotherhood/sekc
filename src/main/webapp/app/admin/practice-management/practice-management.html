@@ -1,14 +1,15 @@
-<div>
-    <h2 data-translate="practiceManagement.home.title">Practices</h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-      <div class="col-md-4">
-          <button class="btn btn-primary" ui-sref="practice-management.new">
-              <span class="glyphicon glyphicon-flash"></span> <span data-translate="practiceManagement.home.createLabel">Create a new Practice</span>
+<section>
+    <div class="page-header">
+        <div class="actions">
+          <button class="btn btn-primary btn-round btn-lg m-r-10" ui-sref="practice-management.new" data-title="Create a new Practice" bs-tooltip>
+              <span class="md md-add"></span> 
           </button>
-      </div>
+        </div>
+       <h1 data-translate="practiceManagement.home.title" class="icon-practice">Practices</h1>
     </div>
-    <div class="table-responsive">
+    <jhi-alert></jhi-alert>
+    <div class="card">
+        <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
             <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
@@ -84,9 +85,10 @@
             </tr>
             </tbody>
         </table>
+        </div>
+        <div class="text-center">
+            <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+            <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+        </div>
     </div>
-    <div class="text-center">
-        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
-        <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
-    </div>
-</div>
+</section>     

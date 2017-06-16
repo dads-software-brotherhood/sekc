@@ -1,55 +1,45 @@
 <aside class="sidebar fixed" ng-switch="vm.isAuthenticated()">
   <div class="brand-logo">
-    <img class="logo-img" src="content/images/logo-jhipster.png" alt="logo"/>
-    <span data-translate="global.title">Sdekc</span> <span class="navbar-version">v{{VERSION}}</span>
+    <img class="logo-img m-t-20 m-b-20" src="content/images/13.1.3.png" alt="logo" style="height: 100px; width: 100px;"/>
   </div>
   <div class="user-logged-in">
     <div class="content">
       <div class="user-name" translate-values="{username: '{{vm.account.login}}'}">{{vm.account.login}} <span class="text-muted f9"></span></div>
       <div class="user-email">{{vm.account.email}}</div>
-      <div class="user-actions">
-        <a href="#/logout" ng-click="vm.logout()">logout</a>
+       <div class="user-actions">
+         <a class="m-l-20" ng-click="vm.login()" id="login" ng-hide="vm.isAuthenticated()">
+            <span data-translate="global.menu.account.login"  aria-hidden="true">
+                <span ng-switch-when="false"> Sign in</span>
+            </span>
+        </a>
+        <a class="m-l-10" ui-sref="register" ng-hide="vm.isAuthenticated()">
+            <span data-translate="global.menu.account.register"  aria-hidden="true">
+                <span ng-switch-when="false">Register</span>
+            </span>
+        </a>
+         <a  ng-click="vm.logout()" id="logout" ng-show="vm.isAuthenticated()">
+            <span data-translate="global.menu.account.logout">
+                <span ng-switch-when="true"> Sign out</span>
+            </span>
+        </a>
+         <a class="m-l-10" ui-sref="settings"  name="Settings" ng-show="vm.isAuthenticated()">
+            <span data-translate="global.menu.account.settings" >
+                <span ng-switch-when="true"> Settings</span>
+            </span>
+        </a>
       </div>
     </div>
   </div>
 
   <ul class="menu-links" ng-cloak>
 
-    <a menu-link href="#/home" icon="md md-blur-on">
+    <a menu-link href="#/home" icon="md md-blur-on" >
         <span data-translate="global.menu.home"> Home</span>
     </a>
 
      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
     <li menu-toggle id="entity-menu" name="Entities" icon="md md-assignment-ind" ng-class="{active: vm.$state.includes('entity')}">
         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-    </li>
-
-    <li menu-toggle name="Account" icon="md md-account-balance-wallet" ui-sref-active="active">
-        <a menu-link href="#/settings" ui-sref="settings"  name="Settings" ng-show="vm.isAuthenticated()">
-            <span data-translate="global.menu.account.settings" >
-                <span ng-switch-when="true"> Settings</span>
-            </span>
-        </a>
-        <a menu-link href="#/password" ui-sref="password" ng-show="vm.isAuthenticated()">
-            <span data-translate="global.menu.account.password">
-                <span ng-switch-when="true"> Password</span>
-            </span>
-        </a>
-        <a menu-link href="#/logout" ng-click="vm.logout()" id="logout" ng-show="vm.isAuthenticated()">
-            <span data-translate="global.menu.account.logout">
-                <span ng-switch-when="true"> Sign out</span>
-            </span>
-        </a>
-        <a menu-link href="#/login" ng-click="vm.login()" id="login" ng-hide="vm.isAuthenticated()">
-            <span data-translate="global.menu.account.login">
-                <span ng-switch-when="false"> Sign in</span>
-            </span>
-        </a>
-        <a menu-link href="#/register" ui-sref="register">
-            <span data-translate="global.menu.account.register">
-                <span ng-switch-when="false">Register</span>
-            </span>
-        </a>
     </li>
     <li menu-toggle id="admin-menu" name="Administration" icon="md  md-account-balance" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
         <a menu-link href="#/user management" ui-sref="user-management" ng-click="vm.collapseNavbar()">
@@ -78,22 +68,21 @@
         </a>
         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
     </li>
-       <li menu-toggle name="Management Practices" icon="icon-practice" ui-sref-active="active">
-        <a menu-link href="#/practice-management-general" ui-sref="practice-management-general"  name="practice-management-general">
-            <span>
-                <span>New Practice</span>
-            </span>
+    <li menu-toggle id="admin-menu" name="Management Practices" icon="icon-practice" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
+        <a menu-link href="#/practice-management-general" ui-sref="practice-management-general" ng-click="vm.collapseNavbar()">
+            <span>New practice</span>
         </a>
-        <a menu-link href="#/practice-management-thingswork" ui-sref="practice-management-thingswork"  name="practice-management-thingswork">
-            <span>
-                <span>Find Practice</span>
-            </span>
+        <a menu-link href="#/practice-management-thingswork" ui-sref="practice-management-thingswork" ng-click="vm.collapseNavbar()">
+            <span data-translate="global.menu.admin.practiceManagement">Find Practice</span>
         </a>
-      
-       
-       
-       
+        <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
     </li>
+    
+    
+    
+    
+    
+    
     
   </ul>
 </aside>

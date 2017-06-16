@@ -1,18 +1,14 @@
 <section>
     <div class="page-header">
         <div class="actions">
-
           <button class="btn btn-primary btn-round btn-lg m-r-10" ui-sref="user-management.new" data-title="Create a new User" bs-tooltip>
               <span class="md md-add"></span>
           </button>
         </div>
-        <h1 data-translate="userManagement.home.title">Users</h1>
+        <h1 data-translate="userManagement.home.title" class="fa fa-users">Users</h1>
     </div>
-
     <jhi-alert></jhi-alert>
-
     <div class="card">
-
         <div class="table-responsive white">
             <table class="table table-full table-full-small">
                 <thead>
@@ -80,6 +76,4 @@
             <uib-pagination class="pagination-sm" total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
         </div>
     </div>
-
-
 </section>

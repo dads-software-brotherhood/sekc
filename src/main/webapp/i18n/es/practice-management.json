@@ -1,7 +1,7 @@
 {
     "practiceManagement": {
         "home": {
-            "title": "Prácticas",
+            "title": "  Prácticas",
             "createLabel": "Crear una nueva práctica",
             "createOrEditLabel": "Crear o editar una práctica"
         },

@@ -1,3 +1,4 @@
+/*Clases de Clara*/
 .alineaVertical {
   display: block;
   margin-top: 5px;
@@ -12,4 +13,94 @@ select[multiple] {
 
 .marginTop30{
 	margin-top: 30px;
+}
+/*Clases de Clara*/
+.text-blue {
+    color:#2196F3!important;
+}
+.text-white{
+    color:white!important;
+}
+.m-t-135{
+    margin-top: 135px;
+}
+
+
+    
+
+.c-white a {
+    
+  color:white;  
+}
+
+.div-border-2{
+    border-right: 2px solid #26a69a;
+    border-left: 2px solid #26a69a;
+    border-bottom: 2px solid #26a69a;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.div-border{
+    border: 2px solid #26a69a;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.m-l-especial{
+    margin-left: 103%;
+    position: absolute; 
+    margin-top: 15%; 
+}
+.m-l-especial-2{
+    margin-left: 30%;
+    position: absolute; 
+    margin-top: 7%;
+}
+#vertical-bar {
+        border-left: 2px solid #26a69a;
+        width:1px;
+        height:230px;
+        position: inherit;
+        margin-left: 5%;
+}
+#vertical-bar-2 {
+        border-left: 2px solid white;
+        width:200px;
+        position: inherit;
+        height:30px;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        margin-left: 5%;
+}
+#vertical-bar-3 {
+        border-left: 1px solid #ccc;
+        width:1px;
+        height:400px;
+        position: inherit;
+        margin-left: 5%;
+}
+#horizontal-bar {
+        border-bottom: 1px solid #ccc;
+        width:80%;
+        
+        position: inherit;
+        margin-left:10%;
+}
+
+.modal-body{
+    background-color: white;   
+}
+.modal-dialog{
+    width: 30%;
+}
+.btn-facebook{
+    background-color:#3b5998;
+    color:white;
+}
+.btn-twitter{
+    background-color:#00aced;
+    color:white;
+}
+.btn-google{
+    background-color:#d62d20;
+    color:white;
 }
