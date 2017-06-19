@@ -5,6 +5,7 @@ import com.mongodb.MongoClient;
 import io.github.jhipster.config.JHipsterConstants;
 import io.github.jhipster.domain.util.JSR310DateConverters.DateToZonedDateTimeConverter;
 import io.github.jhipster.domain.util.JSR310DateConverters.ZonedDateTimeToDateConverter;
+import mx.infotec.dads.sekc.repository.ObjectIdToDocumentConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
@@ -48,6 +49,9 @@ public class DatabaseConfiguration {
         List<Converter<?, ?>> converters = new ArrayList<>();
         converters.add(DateToZonedDateTimeConverter.INSTANCE);
         converters.add(ZonedDateTimeToDateConverter.INSTANCE);
+        converters.add(ObjectIdToDocumentConverter.ObjectIdToStateDocumentConverter.INSTANCE);
+        converters.add(ObjectIdToDocumentConverter.ObjectIdToSEStateDocumentConverter.INSTANCE);
+        converters.add(ObjectIdToDocumentConverter.ObjectIdToAlphaDocumentConverter.INSTANCE);
         return new CustomConversions(converters);
     }
 
