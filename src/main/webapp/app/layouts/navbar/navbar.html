@@ -45,9 +45,6 @@
         <a menu-link href="#/user management" ui-sref="user-management" ng-click="vm.collapseNavbar()">
             <span data-translate="global.menu.admin.userManagement">User management</span>
         </a>
-        <a menu-link href="#/practice management" ui-sref="practice-management" ng-click="vm.collapseNavbar()">
-            <span data-translate="global.menu.admin.practiceManagement">Practice management</span>
-        </a>
         <a menu-link href="#/metrics" ui-sref="jhi-metrics" ng-click="vm.collapseNavbar()">
             <span data-translate="global.menu.admin.metrics">Metrics</span>
         </a>
@@ -69,11 +66,11 @@
         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
     </li>
     <li menu-toggle id="admin-menu" name="Management Practices" icon="icon-practice" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
-        <a menu-link href="#/practice-management-general" ui-sref="practice-management-general" ng-click="vm.collapseNavbar()">
+        <a menu-link href="#/practice-management" ui-sref="practice-management" ng-click="vm.collapseNavbar()">
             <span>New practice</span>
         </a>
-        <a menu-link href="#/practice-management-thingswork" ui-sref="practice-management-thingswork" ng-click="vm.collapseNavbar()">
-            <span data-translate="global.menu.admin.practiceManagement">Find Practice</span>
+        <a menu-link href="#/practice-management-general" ui-sref="practice-management-general" ng-click="vm.collapseNavbar()">
+            <span>Find Practice</span>
         </a>
         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
     </li>

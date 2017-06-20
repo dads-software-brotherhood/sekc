@@ -121,6 +121,48 @@
                 }]
             }
         })
+        .state('practice-management-activity', {
+            parent: 'practice-management',
+            url: '/practicesActivities/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.spaceActivity.title'
+            },
+            views: {
+                'content@': {
+                	templateUrl: 'app/admin/practice-management/practice-management-activity.html',
+                    //controller: 'PracticeManagementSpaceActivityController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('practice-management-spaceActivity', {
+            parent: 'practice-management',
+            url: '/practiceSpaceActivity/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.spaceActivity.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/admin/practice-management/practice-management-spaceActivity.html',
+//                    controller: 'PracticeManagementSpaceActivityController',
+//                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
         .state('practice-management.delete', {
             url: '/{login}/delete',
             data: {
@@ -146,7 +188,7 @@
         })
          .state('practice-management-general', {
             parent: 'practice-management',
-            url: '/practice/{login}',
+            url: '/practiceGeneral/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practice-management.detail.title'
@@ -154,8 +196,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/admin/practice-management/practice-management-general.html',
-                    controller: 'PracticeManagementGeneralController',
-                    controllerAs: 'vm'
+//                    controller: 'PracticeManagementGeneralController',
+//                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -167,7 +209,7 @@
         })
         .state('practice-management-thingswork', {
             parent: 'practice-management',
-            url: '/practice/{login}',
+            url: '/practiceThingswork/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practice-management.detail.title'
@@ -175,8 +217,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/admin/practice-management/practice-management-thingswork.html',
-                    controller: 'PracticeManagementGeneralController',
-                    controllerAs: 'vm'
+                    //controller: 'PracticeManagementGeneralController',
+                    //controllerAs: 'vm'
                 }
             },
             resolve: {

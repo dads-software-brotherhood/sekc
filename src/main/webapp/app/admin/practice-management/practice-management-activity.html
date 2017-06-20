@@ -1,7 +1,13 @@
 <section>
-    <div class="page-header">
-        <h1 data-translate="practiceManagement.home.title">Activities</h1>
+   <div class="page-header">   
+        <ul class="nav nav-tabs">
+            <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
+            <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
+            <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
+            <li class="active"><a href="#">Activities</a></li>
+        </ul>
     </div>
+    
 
     <jhi-alert></jhi-alert>
     
@@ -10,7 +16,7 @@
 		<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
 		<div class="form-group">
-            <label class="control-label" data-translate="practiceManagement.activitySpace">Activity Space</label>
+            <label class="control-label" >Activity Space</label>
             <select class="form-control" name="activiySpace">
   				<option value="1">Activity 1</option>
   				<option value="2">Activity 2</option>
@@ -242,8 +248,7 @@
                 </tbody>
             </table> 
        	</div>
-    	  
-         
+    	   
     	<div class="modal-footer">
         	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
             	<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
