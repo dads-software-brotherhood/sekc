@@ -227,6 +227,27 @@
                     return $translate.refresh();
                 }]
             }
+        })
+         .state('practice-management-completition', {
+            parent: 'practice-management',
+            url: '/practiceCompletition/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/admin/practice-management/practice-management-completition.html',
+                    //controller: 'PracticeManagementGeneralController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
         });
     }
 })();
