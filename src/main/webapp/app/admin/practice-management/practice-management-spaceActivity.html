@@ -1,116 +1,129 @@
 <section>
-	<div class="page-header">   
+    <div class="page-header">   
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
             <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li class="active"><a href="#" >Things to do </a></li>
             <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
+            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completition</a></li>
         </ul>
     </div>
-    
     <jhi-alert></jhi-alert>
-    
-    <div class="card">
-	
-		<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
-
-        <div class="form-group">
-            <label class="control-label" data-translate="practiceManagement.name">Name</label>
-            <input type="text" class="form-control" name="name"
-                   ng-model="vm.practice.name" required>
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well white">
+                <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+                <div class="form-group">
+                    <label class="control-label" data-translate="practiceManagement.name">Name</label>
+                    <input type="text" class="form-control" name="name"
+                           ng-model="vm.practice.name" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" data-translate="practiceManagement.description">Description</label>
+                    <textarea class="form-control" name="description"
+                           ng-model="vm.practice.description"></textarea>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="practiceManagement.description">Description</label>
-            <textarea class="form-control" name="description"
-                   ng-model="vm.practice.description"></textarea>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well white">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label m-r-30"><strong>Available alphas</strong></label>
+                        <div class="form-group">
+                            <select name="availableAlphas" multiple>
+                                <option value="requirements">Requirements</option>
+                                <option value="oportunity">Oportunity</option>
+                                <option value="stakeholders">Stakholders</option>
+                                <option value="software">Software System</option>
+                                <option value="work">Work</option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="col-md-4">
+                        <div class="m-l-40">
+                            <button class="btn btn-default alineaVertical" type="button">
+                                <span>Add All</span>
+                            </button>
+                            <button class="btn btn-default alineaVertical" type="button">
+                                <span class="glyphicon glyphicon-arrow-right"></span>
+                            </button>
+                            <button class="btn btn-default alineaVertical" type="button">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                            </button>
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label m-r-30"><strong>Alpha Entries</strong></label>
+                            <select name="alphaEntries" multiple>
+                                <option value="requirements">Requirements</option>
+                                <option value="oportunity">Oportunity</option>
+                                <option value="stakeholders">Stakholders</option>
+                                <option value="software">Software System</option>
+                                <option value="work">Work</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="row">
-        	<div class="col-md-4 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Available alphas</label>
-					<select name="availableAlphas" multiple>
-						<option value="requirements">Requirements</option>
-						<option value="oportunity">Oportunity</option>
-						<option value="stakeholders">Stakholders</option>
-						<option value="software">Software System</option>
-						<option value="work">Work</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-md-1">
-				<button class="btn btn-default alineaVertical marginTop30" type="button">
-					<span>Add All</span>
-				</button>
-				<button class="btn btn-default alineaVertical" type="button">
-					<span class="glyphicon glyphicon-arrow-right"></span>
-				</button>
-				<button class="btn btn-default alineaVertical" type="button">
-					<span class="glyphicon glyphicon-arrow-left"></span>
-				</button>
-			</div>
-			<div class="col-md-4 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Alpha Entries</label>
-					<select name="alphaEntries" multiple>
-						<option value="requirements">Requirements</option>
-						<option value="oportunity">Oportunity</option>
-						<option value="stakeholders">Stakholders</option>
-						<option value="software">Software System</option>
-						<option value="work">Work</option>
-					</select>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row">
-        	<div class="col-md-4 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Available Competences</label>
-					<select name="availableCompetences" multiple>
-						<option value="analyst">Analyst</option>
-						<option value="couch">Coach</option>
-						<option value="customer">Customer Representative</option>
-						<option value="developer">Developer</option>
-					</select>
-				</div>
-			</div>
-			<div class="col-md-1">
-				<button class="btn btn-default alineaVertical marginTop30" type="button">
-					<span>Add All</span>
-				</button>
-				<button class="btn btn-default alineaVertical" type="button">
-					<span class="glyphicon glyphicon-arrow-right"></span>
-				</button>
-				<button class="btn btn-default alineaVertical" type="button">
-					<span class="glyphicon glyphicon-arrow-left"></span>
-				</button>
-			</div>
-			<div class="col-md-5 col-md-offset-1">
-				<div class="form-group">
-					<label class="control-label">Alpha Competences</label>
-					<select name="alphaEntries" multiple>
-						<option value="requirements">Requirements</option>
-						<option value="oportunity">Oportunity</option>
-						<option value="stakeholders">Stakholders</option>
-						<option value="software">Software System</option>
-						<option value="work">Work</option>
-					</select>
-				</div>
-			</div>
-		</div>
-		
-		
-        <div class="col-md-2 col-md-offset-10 form-group">	
-			<button class="btn btn-success" type="button">
-				<span data-translate="practiceManagement.add">Add</span>
-			</button>
+        <div class="col-md-6">
+            <div class="well white">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class="control-label"><strong>Available Competences</strong></label>
+                        <div class="form-group">
+                            <select name="availableCompetences" multiple>
+                                    <option value="analyst">Analyst</option>
+                                    <option value="couch">Coach</option>
+                                    <option value="customer">Customer Representative</option>
+                                    <option value="developer">Developer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="m-l-50">
+                            <button class="btn btn-default alineaVertical" type="button">
+                                    <span>Add All</span>
+                            </button>
+                            <button class="btn btn-default alineaVertical" type="button">
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                            </button>
+                            <button class="btn btn-default alineaVertical" type="button">
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="control-label m-r-30"><strong>Alpha Competences</strong></label>
+                        <div class="form-group">
+                            <select name="alphaEntries" multiple>
+                                    <option value="requirements">Requirements</option>
+                                    <option value="oportunity">Oportunity</option>
+                                    <option value="stakeholders">Stakholders</option>
+                                    <option value="software">Software System</option>
+                                    <option value="work">Work</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </div>
-		
-		
-		<div class="col-md-12 table-responsive white">
-            <table class="table table-full table-full-small">
+    </div>
+  
+    <div class="row">
+        <div class="col-md-2 col-md-offset-11  form-group">	
+            <button class="btn btn-success" type="button">
+                    <span data-translate="practiceManagement.add">Add</span>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 table-responsive ">
+            <table class="table table-full table-full-small white">
                 <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">Activity Space</span><span class="glyphicon glyphicon-sort"></span></th>
@@ -125,19 +138,19 @@
                     <td>Alpha t/.../Alpha n</td>
                     <td>Competency/.../Competency n</td>
                     <td>
-                            <button type="submit"
-                                    ui-sref="user-management.edit({login:user.login})"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.edit">
-                                        <i class="md md-edit"></i>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="user-management.delete({login:user.login})"
-                                    ng-disabled="vm.currentAccount.login==user.login"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.delete">
-                                        <i class="md md-delete"></i>
-                            </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.edit">
+                                    <i class="md md-edit"></i>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                ng-disabled="vm.currentAccount.login==user.login"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.delete">
+                                    <i class="md md-delete"></i>
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -145,19 +158,19 @@
                     <td>Alpha t/.../Alpha n</td>
                     <td>Competency/.../Competency n</td>
                     <td>
-                            <button type="submit"
-                                    ui-sref="user-management.edit({login:user.login})"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.edit">
-                                        <i class="md md-edit"></i>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="user-management.delete({login:user.login})"
-                                    ng-disabled="vm.currentAccount.login==user.login"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.delete">
-                                        <i class="md md-delete"></i>
-                            </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.edit">
+                                    <i class="md md-edit"></i>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                ng-disabled="vm.currentAccount.login==user.login"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.delete">
+                                    <i class="md md-delete"></i>
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -165,19 +178,19 @@
                     <td>Alpha t/.../Alpha n</td>
                     <td>Competency/.../Competency n</td>
                     <td>
-                            <button type="submit"
-                                    ui-sref="user-management.edit({login:user.login})"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.edit">
-                                        <i class="md md-edit"></i>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="user-management.delete({login:user.login})"
-                                    ng-disabled="vm.currentAccount.login==user.login"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.delete">
-                                        <i class="md md-delete"></i>
-                            </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.edit">
+                                    <i class="md md-edit"></i>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                ng-disabled="vm.currentAccount.login==user.login"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.delete">
+                                    <i class="md md-delete"></i>
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -185,19 +198,19 @@
                     <td>Alpha t/.../Alpha n</td>
                     <td>Competency/.../Competency n</td>
                     <td>
-                            <button type="submit"
-                                    ui-sref="user-management.edit({login:user.login})"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.edit">
-                                        <i class="md md-edit"></i>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="user-management.delete({login:user.login})"
-                                    ng-disabled="vm.currentAccount.login==user.login"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.delete">
-                                        <i class="md md-delete"></i>
-                            </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.edit">
+                                    <i class="md md-edit"></i>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                ng-disabled="vm.currentAccount.login==user.login"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.delete">
+                                    <i class="md md-delete"></i>
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -205,37 +218,32 @@
                     <td>Alpha t/.../Alpha n</td>
                     <td>Competency/.../Competency n</td>
                     <td>
-                            <button type="submit"
-                                    ui-sref="user-management.edit({login:user.login})"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.edit">
-                                        <i class="md md-edit"></i>
-                            </button>
-                            <button type="submit"
-                                    ui-sref="user-management.delete({login:user.login})"
-                                    ng-disabled="vm.currentAccount.login==user.login"
-                                    class="btn btn-link btn-round" 
-                                    data-title="entity.action.delete">
-                                        <i class="md md-delete"></i>
-                            </button>
+                        <button type="submit"
+                                ui-sref="user-management.edit({login:user.login})"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.edit">
+                                    <i class="md md-edit"></i>
+                        </button>
+                        <button type="submit"
+                                ui-sref="user-management.delete({login:user.login})"
+                                ng-disabled="vm.currentAccount.login==user.login"
+                                class="btn btn-link btn-round" 
+                                data-title="entity.action.delete">
+                                    <i class="md md-delete"></i>
+                        </button>
                     </td>
                 </tr>
                 </tbody>
             </table> 
        	</div>
-    	  
-         
-    	<div class="modal-footer">
-        	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+    	<div class="modal-footer  m-b-30">
+        	<button type="button" class="btn btn-default m-t-10" data-dismiss="modal" ng-click="vm.clear()">
             	<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
             		data-translate="entity.action.cancel">Cancel</span>
         	</button>
-        	<button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+        	<button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
             	<span data-translate="entity.action.save">Next</span>
        		</button>
-    	</div>
-    	
-		</form>
-
+        </div>
     </div> 	
 </section>
