@@ -1,4 +1,4 @@
-/*Clases de Clara*/
+/*Clases-Clara*/
 .alineaVertical {
   display: block;
   margin-top: 10px;
@@ -15,11 +15,10 @@ select[multiple] {
     height:100px!important;
     border: solid 0.5px #2196F3;
 }
-
 .marginTop30{
 	margin-top: 30px;
 }
-/*Clases de Clara*/
+/*Login y Register*/
 .text-blue {
     color:#2196F3!important;
 }
@@ -29,15 +28,11 @@ select[multiple] {
 .m-t-135{
     margin-top: 135px;
 }
-
-
-    
-
+/*General*/
 .c-white a {
     
   color:white;  
 }
-
 .div-border-2{
     border-right: 2px solid #26a69a;
     border-left: 2px solid #26a69a;
@@ -90,13 +85,10 @@ select[multiple] {
         position: inherit;
         margin-left:10%;
 }
-
 .modal-body{
     background-color: white;   
 }
-.modal-dialog{
-    width: 30%;
-}
+
 .btn-facebook{
     background-color:#3b5998;
     color:white;
