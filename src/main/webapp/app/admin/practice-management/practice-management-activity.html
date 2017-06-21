@@ -14,7 +14,7 @@
             <div class="well white">
                 <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
                 <div class="form-group">
-                    <label class="control-label" >Activity Space</label>
+                    <label class="control-label" ></label>
                     <select class="form-control" name="activiySpace">
                         <option value="1">Activity 1</option>
                         <option value="2">Activity 2</option>
@@ -35,89 +35,94 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-12">
             <div class="well white">
-                <div class="form-group">
-                    <label class="control-label m-r-30">Available alphas</label>
-                    <select name="availableAlphas" multiple>
-                            <option value="requirements">Requirements</option>
-                            <option value="oportunity">Oportunity</option>
-                            <option value="stakeholders">Stakholders</option>
-                            <option value="software">Software System</option>
-                            <option value="work">Work</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="m-t-70 m-l-40">
-                <button class="btn btn-default alineaVertical marginTop30" type="button">
-                        <span>Add All</span>
-                </button>
-                <button class="btn btn-default alineaVertical" type="button">
-                        <span class="glyphicon glyphicon-arrow-right"></span>
-                </button>
-                <button class="btn btn-default alineaVertical" type="button">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                </button>
-            </div>
-        </div>
-        <div class="col-md-5 ">
-            <div class="well white">
-                <div class="form-group">
-                    <label class="control-label m-r-30">Alpha Entries</label>
-                    <select name="alphaEntries" multiple>
-                            <option value="requirements">Requirements</option>
-                            <option value="oportunity">Oportunity</option>
-                            <option value="stakeholders">Stakholders</option>
-                            <option value="software">Software System</option>
-                            <option value="work">Work</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-5 text-center">
+                        <label class="control-label"><strong>Available alphas</strong></label>
+                        <div class="form-group">
+                            <select name="availableAlphas" multiple>
+                                <option value="requirements">Requirements</option>
+                                <option value="oportunity">Oportunity</option>
+                                <option value="stakeholders">Stakholders</option>
+                                <option value="software">Software System</option>
+                                <option value="work">Work</option>
+                            </select>
+                        </div>  
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <div class="">
+                            <button class="btn btn-default btn-sm alineaVertical m-t-button m-l-button" type="button">
+                                <span>Add All</span>
+                            </button>
+                            <button class="btn btn-default btn-sm alineaVertical m-l-button" type="button">
+                                <span class="glyphicon glyphicon-arrow-right"></span>
+                            </button>
+                            <button class="btn btn-default btn-sm alineaVertical m-l-button" type="button">
+                                <span class="glyphicon glyphicon-arrow-left"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5  text-center">
+                        <label class="control-label"><strong>Alpha Entries</strong></label>
+                        <div class="form-group">
+                            
+                            <select name="alphaEntries" multiple>
+                                <option value="requirements">Requirements</option>
+                                <option value="oportunity">Oportunity</option>
+                                <option value="stakeholders">Stakholders</option>
+                                <option value="software">Software System</option>
+                                <option value="work">Work</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-12">
             <div class="well white">
-                <div class="form-group">
-                    <label class="control-label m-r-30">Available Competences</label>
-                    <select name="availableCompetences" multiple>
-                            <option value="analyst">Analyst</option>
-                            <option value="couch">Coach</option>
-                            <option value="customer">Customer Representative</option>
-                            <option value="developer">Developer</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-5 text-center">
+                        <label class="control-label"><strong>Available Competences</strong></label>
+                        <div class="form-group">
+                            <select name="availableCompetences" multiple>
+                                    <option value="analyst">Analyst</option>
+                                    <option value="couch">Coach</option>
+                                    <option value="customer">Customer Representative</option>
+                                    <option value="developer">Developer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2 "> 
+                        <div class="">
+                            <button class="btn btn-default btn-sm alineaVertical  m-t-button m-l-button" type="button">
+                                    <span>Add All</span>
+                            </button>
+                            <button class="btn btn-default btn-sm alineaVertical m-l-button" type="button">
+                                    <span class="glyphicon glyphicon-arrow-right"></span>
+                            </button>
+                            <button class="btn btn-default btn-sm alineaVertical m-l-button" type="button">
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <label class="control-label m-r-30"><strong>Alpha Competences</strong></label>
+                        <div class="form-group">
+                            <select name="alphaEntries" multiple>
+                                    <option value="requirements">Requirements</option>
+                                    <option value="oportunity">Oportunity</option>
+                                    <option value="stakeholders">Stakholders</option>
+                                    <option value="software">Software System</option>
+                                    <option value="work">Work</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="m-t-70 m-l-40">
-                <button class="btn btn-default alineaVertical marginTop30" type="button">
-                        <span>Add All</span>
-                </button>
-                <button class="btn btn-default alineaVertical" type="button">
-                        <span class="glyphicon glyphicon-arrow-right"></span>
-                </button>
-                <button class="btn btn-default alineaVertical" type="button">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                </button>
-            </div>
-        </div>
-        <div class="col-md-5 ">
-            <div class="well white">
-                <div class="form-group">
-                    <label class="control-label m-r-30">Alpha Competences</label>
-                    <select name="alphaEntries" multiple>
-                            <option value="requirements">Requirements</option>
-                            <option value="oportunity">Oportunity</option>
-                            <option value="stakeholders">Stakholders</option>
-                            <option value="software">Software System</option>
-                            <option value="work">Work</option>
-                    </select>
-                </div>
-            </div>
+            </div> 
         </div>
     </div>
     <div class="row">
@@ -253,4 +258,3 @@
         </div>
     </div> 	
 </section>
-    

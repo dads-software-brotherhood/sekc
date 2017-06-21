@@ -244,6 +244,7 @@
             <groupId>mx.infotec.dads.essence</groupId>
             <artifactId>essence-impl</artifactId>
             <version>0.1</version>
+            <type>jar</type>
         </dependency>
         <!-- Spring Cloud -->
         <dependency>
