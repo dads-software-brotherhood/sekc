@@ -5,7 +5,7 @@
             <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li class="active"><a href="#" >Things to do </a></li>
             <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
-            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completition</a></li>
+            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completion</a></li>
         </ul>
     </div>
     <jhi-alert></jhi-alert>
@@ -148,7 +148,6 @@
                         </button>
                         <button type="submit"
                                 ui-sref="user-management.delete({login:user.login})"
-                                ng-disabled="vm.currentAccount.login==user.login"
                                 class="btn btn-link btn-round" 
                                 data-title="entity.action.delete">
                                     <i class="md md-delete"></i>
@@ -168,7 +167,6 @@
                         </button>
                         <button type="submit"
                                 ui-sref="user-management.delete({login:user.login})"
-                                ng-disabled="vm.currentAccount.login==user.login"
                                 class="btn btn-link btn-round" 
                                 data-title="entity.action.delete">
                                     <i class="md md-delete"></i>
@@ -188,7 +186,6 @@
                         </button>
                         <button type="submit"
                                 ui-sref="user-management.delete({login:user.login})"
-                                ng-disabled="vm.currentAccount.login==user.login"
                                 class="btn btn-link btn-round" 
                                 data-title="entity.action.delete">
                                     <i class="md md-delete"></i>
@@ -208,7 +205,6 @@
                         </button>
                         <button type="submit"
                                 ui-sref="user-management.delete({login:user.login})"
-                                ng-disabled="vm.currentAccount.login==user.login"
                                 class="btn btn-link btn-round" 
                                 data-title="entity.action.delete">
                                     <i class="md md-delete"></i>
@@ -228,7 +224,6 @@
                         </button>
                         <button type="submit"
                                 ui-sref="user-management.delete({login:user.login})"
-                                ng-disabled="vm.currentAccount.login==user.login"
                                 class="btn btn-link btn-round" 
                                 data-title="entity.action.delete">
                                     <i class="md md-delete"></i>
@@ -243,7 +238,7 @@
             	<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
             		data-translate="entity.action.cancel">Cancel</span>
         	</button>
-        	<button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
+        	<button type="submit" class="btn btn-primary m-t-10">
             	<span data-translate="entity.action.next">Next</span>
        		</button>
         </div>

@@ -5,7 +5,7 @@
             <li class="active"><a href="#">Things to work with</a></li>
             <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
             <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
-            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completition</a></li>
+            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completion</a></li>
         </ul>
     </div>
     <div class="row">
@@ -13,20 +13,9 @@
             <div class="well white">
                 <div class="form-group filled">
                     <label>Alpha selection</label>
-                    <select class="form-control">
-                        <option value="">Select</option>
-                        <option value="">Alpha 1</option>
-                        <option value="">Alpha 2</option>
-                        <option value="">Alpha 3</option>
-                        <option value="">Alpha 4</option>
+                    <select class="form-control" ng-options="datos as datos.name for datos in vm.alphas track by datos.id" ng-model="alpha">
+                    	<option style="display:none" value="">Select</option>
                     </select>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-10  form-group">	
-                        <button class="btn btn-success" type="button">
-                                <span data-translate="practiceManagement.add">Add</span>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -42,15 +31,15 @@
                         <option value="">Workproduct 4</option>
                     </select>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-10  form-group">	
-                        <button class="btn btn-success" type="button">
-                                <span data-translate="practiceManagement.add">Add</span>
-                        </button>
-                    </div>
-                </div>
             </div>
-        </div>  
+        </div>
+    </div>
+   	<div class="row">
+        <div class="col-md-2 col-md-offset-11 form-group"> 
+            <button class="btn btn-success" type="button">
+                    <span data-translate="practiceManagement.add">Add</span>
+            </button>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
@@ -99,35 +88,26 @@
                 <form class="form">
                     <div class="form-group input-group">
                         <label>Entries selection</label>
-                        <select class="form-control">
-                            <option value="">Select</option>
-                            <option value="">Entries 1</option>
-                            <option value="">Entries 2</option>
-                            <option value="">Entries 3</option>
-                            <option value="">Entries 4</option>
-                        </select>
+                        <select class="form-control" ng-options="datos as datos.name for datos in vm.entries track by datos.id" ng-model="vm.entry">
+                    		<option style="display:none" value="">Select</option>
+                    	</select>
                         <div class="input-group-btn p-l-10 ">
-                          <button class="btn btn-default ng-animate-disabled m-t-30">Add</button>
+                          <button class="btn btn-default ng-animate-disabled m-t-30" ng-click="vm.addEntryResult(vm.entry, vm.entriesList)">Add</button>
                         </div>
                       </div>
                 </form>
-                <div class="table-responsive white">
+                <div class="table-responsive white" ng-hide="!vm.entriesList.length">
                     <table class="table table-full table-full-small white">
                         <thead>
                             <tr>
                                 <th>Entries</th>
-                               
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> System: Released </td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td> Requirements: Bounded </td>                             
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            <tr ng-repeat="entry in vm.entriesList">
+                                <td> {{entry.name}} </td>
+                                <td><button ng-click="vm.deleteEntryResult($index, vm.entriesList)" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -139,35 +119,26 @@
                 <form class="form">
                     <div class="form-group input-group">
                         <label>Results  selection</label>
-                        <select class="form-control">
-                            <option value="">Select</option>
-                            <option value="">Results 1</option>
-                            <option value="">Results 2</option>
-                            <option value="">Results 3</option>
-                            <option value="">Results 4</option>
-                        </select>
+                        <select class="form-control" ng-options="datos as datos.name for datos in vm.results track by datos.id" ng-model="vm.result">
+                    		<option style="display:none" value="">Select</option>
+                    	</select>
                       <div class="input-group-btn p-l-10">
-                        <button class="btn btn-default ng-animate-disabled m-t-30">Add</button>
+                        <button class="btn btn-default ng-animate-disabled m-t-30" ng-click="vm.addEntryResult(vm.result, vm.resultsList)">Add</button>
                       </div>
                     </div>
                 </form>
-                <div class="table-responsive white">
+                <div class="table-responsive white" ng-hide="!vm.resultsList.length">
                     <table class="table table-full table-full-small white">
                         <thead>
                             <tr>
                                 <th>Results</th>
-                               
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>System: Usable </td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Requirements: Addresed </td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            <tr ng-repeat="result in vm.resultsList">
+                                <td> {{result.name}}</td>
+                                <td><button ng-click="vm.deleteEntryResult($index, vm.resultsList)" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -179,28 +150,26 @@
                 <form class="form">
                     <div class="form-group input-group">
                         <label>Measures</label>
-                      <input id="todo-title" class="form-control" type="text" ng-model="todoService.todo.title">
+                      <input id="todo-title" class="form-control" type="text" ng-model="vm.measure">
                       <div class="input-group-btn p-l-10">
-                        <button class="btn btn-default ng-animate-disabled m-t-30">Add</button>
+                        <button class="btn btn-default ng-animate-disabled m-t-30" ng-click="vm.addEntryResult(vm.measure, 'measures')">{{vm.buttonAdd}}</button>
                       </div>
                     </div>
                 </form>
-                <div class="table-responsive white">
+                <div class="table-responsive white" ng-hide="!vm.measures.length">
                     <table class="table table-full table-full-small white">
                         <thead>
                             <tr>
                                 <th>Measures</th>
+                                <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td> Timing </td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr>
-                                <td>Five minutes pear meeting</td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            <tr ng-repeat="measure in vm.measures">
+                                <td> {{measure.name}} </td>
+                                <td><button ng-click="vm.update($index, measure)" class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
+                                <td><button ng-click="vm.deleteEntryResult($index, vm.measures)" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -213,8 +182,8 @@
         <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
                 data-translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
-        <span data-translate="entity.action.next">Next</span>
+        <button type="submit" class="btn btn-primary m-t-10">
+        <span data-translate="entity.action.save">Next</span>
         </button>
     </div>
 </section>

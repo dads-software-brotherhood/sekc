@@ -196,8 +196,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/admin/practice-management/practice-management-general.html',
-//                    controller: 'PracticeManagementGeneralController',
-//                    controllerAs: 'vm'
+                    controller: 'PracticeManagementGeneralController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -217,8 +217,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/admin/practice-management/practice-management-thingswork.html',
-                    //controller: 'PracticeManagementGeneralController',
-                    //controllerAs: 'vm'
+                    controller: 'PracticeManagementThingsWorkController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -238,8 +238,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/admin/practice-management/practice-management-completition.html',
-                    //controller: 'PracticeManagementGeneralController',
-                    //controllerAs: 'vm'
+                    controller: 'PracticeManagementCompletionController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {

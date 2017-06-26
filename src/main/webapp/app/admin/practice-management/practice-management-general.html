@@ -5,7 +5,7 @@
             <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
             <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
-            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completition</a></li>
+            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completion</a></li>
         </ul>
     </div>
     <div class="row m-b-40">
@@ -64,68 +64,34 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="well white">
+      					<input type="hidden" id="idUpdate" ng-model="idUpdate" />
                         <form class="form">
                           <div class="form-group input-group">
                               <label>Keywords</label>
-                            <input id="todo-title" class="form-control" type="text" ng-model="todoService.todo.title">
+                            <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
                             <div class="input-group-btn p-l-10">
-                              <button class="btn btn-default ng-animate-disabled" ng-click="todoService.saveTodo()"> ADD </button>
+                              <button class="btn btn-default" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
                             </div>
                           </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-md-12 filters">
-                  <div class="btn-group" role="group" aria-label="Filter todo's">
-                    <button ng-repeat="filter in todoService.filters track by $index" class="btn btn-default filter" ng-bind="filter.title" ng-click="todoService.filter(filter.method)" ng-class="[$index == todoService.activeFilter ? 'active' : '']"></button>
-                  </div>
-                </div>
-                <div class="col-md-12">
+                <div class="col-md-12" ng-hide="!vm.keywords.length">
                     <div class="well white">
                         <div class="table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Keywords</th>
+                                        <th>Keyword</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td> words </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td> sbout </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                    <tr>
-                                        <td> practices </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                     <tr>
-                                        <td> practices </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                     <tr>
-                                        <td> practices </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                     <tr>
-                                        <td> practices </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                     <tr>
-                                        <td> practices </td>
-                                        <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                        <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                                    <tr ng-repeat="keyword in vm.keywords">
+                                        <td> {{keyword.keyWord}} </td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.updateKeyword($index, keyword)" ><i class="md md-edit"></button></td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteKeyword($index)"><i class="md md-delete"></i></button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -133,7 +99,7 @@
                      </div>
                 </div>
                 <div class="modal-footer  m-b-30">
-                    <button type="button" class="btn btn-default m-t-10" data-dismiss="modal" ng-click="vm.clear()">
+                    <button type="button" class="btn btn-default m-t-10">
                     <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
                             data-translate="entity.action.cancel">Cancel</span>
                     </button>
