@@ -21,6 +21,13 @@
                         <option value="">Alpha 4</option>
                     </select>
                 </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-10  form-group">	
+                        <button class="btn btn-success" type="button">
+                                <span data-translate="practiceManagement.add">Add</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -34,6 +41,13 @@
                         <option value="">Workproduct 3</option>
                         <option value="">Workproduct 4</option>
                     </select>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-10  form-group">	
+                        <button class="btn btn-success" type="button">
+                                <span data-translate="practiceManagement.add">Add</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>  
@@ -102,19 +116,17 @@
                         <thead>
                             <tr>
                                 <th>Entries</th>
-                                <th>Edit</th>
+                               
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td> System: Released </td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
                                 <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr>
-                                <td> Requirements: Bounded </td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
+                                <td> Requirements: Bounded </td>                             
                                 <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -144,19 +156,17 @@
                         <thead>
                             <tr>
                                 <th>Results</th>
-                                <th>Edit</th>
+                               
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>System: Usable </td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
                                 <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr>
                                 <td>Requirements: Addresed </td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
                                 <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -180,19 +190,16 @@
                         <thead>
                             <tr>
                                 <th>Measures</th>
-                                <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td> Timing </td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
                                 <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr>
                                 <td>Five minutes pear meeting</td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
                                 <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -207,7 +214,7 @@
                 data-translate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
-        <span data-translate="entity.action.save">Next</span>
+        <span data-translate="entity.action.next">Next</span>
         </button>
     </div>
 </section>
