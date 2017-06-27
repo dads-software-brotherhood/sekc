@@ -1,0 +1,17 @@
+{
+    "alpha": {
+        "home": {
+            "title": "Things to work with"
+        },
+        "delete": {
+            "question": "Are you sure you want to delete...?"
+        },
+        "name": "Name",
+        "measures": "Measures",
+        "entry": "Entries",
+        "result": "Results",
+        "add" : "Agregar",
+        "remove" : "Eliminar",
+        "edit" : "Editar"
+    }
+}

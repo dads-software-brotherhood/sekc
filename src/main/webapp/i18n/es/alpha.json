@@ -1,0 +1,17 @@
+{
+    "alpha": {
+        "home": {
+            "title": "Things to work with"
+        },
+        "delete": {
+            "question": "¿Seguro que quieres eliminar ....?"
+        },
+        "name": "Nombre",
+        "measures": "Medidas",
+        "entry": "Entradas",
+        "result": "Resultados",
+        "add" : "Agregar",
+        "remove" : "Eliminar",
+        "edit" : "Editar"
+    }
+}
