@@ -11,15 +11,29 @@
         "delete": {
             "question": "¿Seguro que quieres eliminar la práctica?"
         },
+        "alpha": {
+        "home": {
+            "title": "Things to work with"
+        },
+        "delete": {
+            "question": "¿Seguro que quieres eliminar ....?"
+        },
+        "alphaSelect":"Selecciona un alpha",
+         "workproductSelect":"Selecciona un workproduct para el alpha",
+        
+        "edit" : "Editar"
+    },
         "detail": {
             "title": "Práctica"
         },
+        "selectKernel":"Selecciona un Kernel",
         "name": "Nombre",
         "icon": "Icono",
         "briefDescription": "Breve Descripción",
         "description": "Descripción",
         "consistencyRules": "Reglas de consistencia",
         "objective": "Objetivo",
+        "keywords":"Palabras Clave",
         "measures": "Medidas",
         "entry": "Entradas",
         "result": "Resultados",

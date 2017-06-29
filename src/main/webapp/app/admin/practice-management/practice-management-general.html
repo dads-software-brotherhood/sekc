@@ -15,9 +15,9 @@
                     <fieldset>
                         <div class="col-md-12">
                             <div class="form-group filled">
-                                <label>Select a Kernel</label>
+                                <label data-translate="practiceManagement.selectKernel">Select a Kernel</label>
                                 <select class="form-control">
-                                    <option value="">Selecciona</option>
+                                    <option value="" data-translate="entity.select.select">Selecciona</option>
                                     <option value="">Kernel 1</option>
                                     <option value="">Kernel 2</option>
                                     <option value="">Kernel 3</option>
@@ -27,32 +27,32 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label >Name</label>
+                                <label data-translate="practiceManagement.name" >Name</label>
                                 <input type="text" class="form-control" ng-model="model.name" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea" >Brief Description</label>
+                                <label for="textArea" data-translate="practiceManagement.briefDescription">Brief Description</label>
                                 <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
                             </div>    
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea">Description</label>
+                                <label for="textArea" data-translate="practiceManagement.description">Description</label>
                                 <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
                             </div>  
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea" >Consistency Rules</label>
+                                <label for="textArea"  data-translate="practiceManagement.consistencyRules">Consistency Rules</label>
                                 <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
                             </div>    
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea" >Objective</label>
+                                <label for="textArea" data-translate="practiceManagement.objective">Objective</label>
                                 <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
                             </div>  
                         </div>
@@ -67,10 +67,10 @@
       					<input type="hidden" id="idUpdate" ng-model="idUpdate" />
                         <form class="form">
                           <div class="form-group input-group">
-                              <label>Keywords</label>
+                              <label data-translate="practiceManagement.keywords">Keywords</label>
                             <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
                             <div class="input-group-btn p-l-10">
-                              <button class="btn btn-default" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
+                              <button class="btn btn-default" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
                             </div>
                           </div>
                         </form>

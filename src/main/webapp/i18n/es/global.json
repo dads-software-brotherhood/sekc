@@ -96,6 +96,9 @@
             "field": "Campo",
             "value": "Valor"
         },
+        "select": {
+            "select": "Seleccionar"
+        },
         "delete": {
             "title": "Confirmar operación de borrado"
         },

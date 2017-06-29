@@ -96,6 +96,9 @@
             "field": "Field",
             "value": "Value"
         },
+        "select": {
+            "select": "Select"
+        },
         "delete": {
             "title": "Confirm delete operation"
         },

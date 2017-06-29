@@ -6,6 +6,7 @@
         "delete": {
             "question": "¿Seguro que quieres eliminar ....?"
         },
+        "alphaSelect":"Selecciona un alpha",
         "name": "Nombre",
         "measures": "Medidas",
         "entry": "Entradas",

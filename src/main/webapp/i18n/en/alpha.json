@@ -6,6 +6,7 @@
         "delete": {
             "question": "Are you sure you want to delete...?"
         },
+        "alphaSelect":"Select a alpha",
         "name": "Name",
         "measures": "Measures",
         "entry": "Entries",

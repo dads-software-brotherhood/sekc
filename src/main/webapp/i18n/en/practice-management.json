@@ -11,15 +11,28 @@
         "delete": {
             "question": "Are you sure you want to delete practice {{ login }}?"
         },
+          "alpha": {
+        "home": {
+            "title": "Things to work with"
+        },
+        "delete": {
+            "question": "¿Seguro que quieres eliminar ....?"
+        },
+        "alphaSelect":"Select a alpha",
+        "workproductSelect":"Select a alpha-workproduct",
+        "edit" : "Edit"
+    },
         "detail": {
             "title": "Practice"
         },
+        "selectKernel":"Selecct a Kernel",
         "name": "Name",
         "icon": "Icon",
         "briefDescription": "Brief Description",
         "description": "Description",
         "consistencyRules": "Consistency Rules",
         "objective": "Objective",
+        "keywords":"Keywords",
         "measures": "Measures",
         "entry": "Entry",
         "result": "Result",
