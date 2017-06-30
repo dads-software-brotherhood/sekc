@@ -41,7 +41,7 @@
     <li menu-toggle id="entity-menu" name="Entities" icon="md md-assignment-ind" ng-class="{active: vm.$state.includes('entity')}">
         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
     </li>
-    <li menu-toggle id="admin-menu" name="Administration" icon="md  md-account-balance" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
+    <li menu-toggle id="admin-menu" name="Administration" icon="md  md-account-balance" ng-class="{active: vm.$state.includes('admin')}"  has-authority="ROLE_ADMIN" >
         <a menu-link href="#/user management" ui-sref="user-management" ng-click="vm.collapseNavbar()">
             <span data-translate="global.menu.admin.userManagement">User management</span>
         </a>
@@ -73,6 +73,9 @@
             <span>Find Practice</span>
         </a>
         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
+    </li>
+     <li menu-toggle id="admin-menu" name="Management Repositories" icon="icon-repo" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
+     
     </li>
     
     
