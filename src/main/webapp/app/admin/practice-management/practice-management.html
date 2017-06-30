@@ -4,14 +4,23 @@
           <button class="btn btn-primary btn-round btn-lg m-r-10" ui-sref="practice-management-general" data-title="Create a new Practice" bs-tooltip>
               <span class="md md-add"></span> 
           </button>
-            <div class="btn btn-primary btn-round btn-lg" ng-click="createItem()" data-title="Search" bs-tooltip><i class="fa fa-search" aria-hidden="true"></i></div>
+            <div class="btn btn-primary btn-round btn-lg" ng-click="createItem()" data-title="Search" bs-tooltip><i class="fa fa-search-plus fa-lg" aria-hidden="true"></i></div>
            
         </div>
        <h1 data-translate="practiceManagement.home.title" class="icon-practice">Practices</h1>
-    </div>
+    
+    </div>      
     <jhi-alert></jhi-alert>
     <div>
-        <div class="table-responsive well no-padding white no-margin">
+        <div class="row">
+            <div class="col-md-6 m-b-30 input-group">
+                <span class="input-group-addon">
+                    <i class="md md-search f20 text-blue"></i>
+                </span>
+                <input type="text"  class="form-control" placeholder="Search data" autofocus />
+            </div>
+        </div>
+        <div class="table-responsive  white">
             <table class="table table-full m-b-60" id="table-area-1" fsm-big-data="data of data take 30">
                 <thead>
                     <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
