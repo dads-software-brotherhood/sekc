@@ -22,8 +22,7 @@ public final class RandomUtil {
     
     private static List<Field> getFields(Object obj){
         List<Field> allFields = new ArrayList<>();
-        for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass())
-        {
+        for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass()) {
             Field[] fields = c.getDeclaredFields();
             allFields.addAll(Arrays.asList(fields));
         }
@@ -32,8 +31,7 @@ public final class RandomUtil {
     
     private static List<Method> getMethods(Object obj){
         List<Method> allMethods = new ArrayList<>();
-        for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass())
-        {
+        for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass()) {
             Method[] methods = c.getDeclaredMethods();
             allMethods.addAll(Arrays.asList(methods));
         }
@@ -62,7 +60,7 @@ public final class RandomUtil {
         return null;
     }
     
-    public static Map filterData(Object content, List<String> filter) {
+    public static Map filterResponseFields(Object content, List<String> filter) {
         List<Field> camposClase = getFields(content);
         
         Map<String, Object> map = new HashMap<>();
