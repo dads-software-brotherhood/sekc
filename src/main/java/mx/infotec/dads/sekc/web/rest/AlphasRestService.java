@@ -62,7 +62,7 @@ public class AlphasRestService {
             alphaRepository.save(alphaToPersistence);
             return new ResponseEntity( alphaToPersistence , HttpStatus.OK );
         }catch( Exception e ){
-            LOG.debug( "Fail to obtain the needed FIELDS " );
+            LOG.debug( "Fail to obtain the needed FIELDS ", e );
             return new ResponseEntity( HttpStatus.BAD_REQUEST );
         }
     }

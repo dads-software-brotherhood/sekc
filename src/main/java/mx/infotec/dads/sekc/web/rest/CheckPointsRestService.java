@@ -33,7 +33,7 @@ public class CheckPointsRestService {
     @Autowired
     private SECheckpointRepository checkPointRepository;
 
-    private final Logger log = LoggerFactory.getLogger(CheckPointsRestService.class);
+    private final Logger LOG = LoggerFactory.getLogger(CheckPointsRestService.class);
 
     /*
 	 * Create Practice, Method: POST
@@ -62,7 +62,7 @@ public class CheckPointsRestService {
             return new ResponseEntity(checkPointToPersistence, HttpStatus.OK);
 
         } catch (Exception e) {
-            log.debug("Fail to obtain the needed FIELDS ");
+            LOG.debug( "Fail to obtain the needed FIELDS ", e );
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

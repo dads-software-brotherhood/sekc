@@ -32,7 +32,7 @@ public class PracticesRestService {
     @Autowired
     private SEPracticeRepository practiceRepository;
 
-    private final Logger log = LoggerFactory.getLogger(PracticesRestService.class);
+    private final Logger LOG = LoggerFactory.getLogger(PracticesRestService.class);
 
     /*
 	 * Create Practice, Method: POST
@@ -72,7 +72,7 @@ public class PracticesRestService {
             return new ResponseEntity(practiceToPersiste, HttpStatus.OK);
 
         } catch (Exception e) {
-            log.debug("Fail to obtain the FIELDS needed");
+            LOG.debug( "Fail to obtain the needed FIELDS ", e );
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

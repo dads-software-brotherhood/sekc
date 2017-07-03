@@ -59,37 +59,37 @@ public class RandomRepositoryUtil {
         
         if (map.containsKey("tag") && map.get("tag") != null ){
             List<SETag> collectionTags = getDocsCollection(map, "tag", SETag.class);
-            if (collectionTags.size()>0)
+            if (!collectionTags.isEmpty())
                 elementToPersistence.setTag(collectionTags);
         }
         
         if (map.containsKey("resource") && map.get("resource") != null ){
             List<SEResource> collectionResources = getDocsCollection(map, "resource", SEResource.class);
-            if (collectionResources.size()>0)
+            if (!collectionResources.isEmpty())
                 elementToPersistence.setResource(collectionResources);
         }
         
         if (map.containsKey("properties") && map.get("properties") != null ){
             List<SEEndeavorProperty> collectionPropertys = getDocsCollection(map, "properties", SEEndeavorProperty.class);
-            if (collectionPropertys.size()>0)
+            if (!collectionPropertys.isEmpty())
                 elementToPersistence.setProperties(collectionPropertys);
         }
         
         if (map.containsKey("viewSelection") && map.get("viewSelection") != null ){
             List<SEViewSelection> collectionviewSelections = getDocsCollection(map, "viewSelection", SEViewSelection.class);
-            if (collectionviewSelections.size()>0)
+            if (!collectionviewSelections.isEmpty())
                 elementToPersistence.setViewSelection(collectionviewSelections);
         }
         
         if (map.containsKey("featureSelection") && map.get("featureSelection") != null ){
             List<SEFeatureSelection> collectionfeatureSelections = getDocsCollection(map, "featureSelection", SEFeatureSelection.class);
-            if (collectionfeatureSelections.size()>0)
+            if (!collectionfeatureSelections.isEmpty())
                 elementToPersistence.setFeatureSelection(collectionfeatureSelections);
         }
         
         if (map.containsKey("extension") && map.get("extension") != null ){
             List<SEExtensionElement> collectionextensions = getDocsCollection(map, "extension", SEExtensionElement.class);
-            if (collectionextensions.size()>0)
+            if (!collectionextensions.isEmpty())
                 elementToPersistence.setExtension(collectionextensions);
         }
         
@@ -101,7 +101,7 @@ public class RandomRepositoryUtil {
         
         if (map.containsKey("patternAssociation") && map.get("patternAssociation") != null ){
             List<SEPatternAssociation> collectionpatternAssociations = getDocsCollection( map, "patternAssociation", SEPatternAssociation.class);
-            if (collectionpatternAssociations.size()>0)
+            if (!collectionpatternAssociations.isEmpty())
                 elementToPersistence.setPatternAssociation(collectionpatternAssociations);
         }
         
@@ -112,7 +112,7 @@ public class RandomRepositoryUtil {
     private List getDocsCollection(Map<String, Object> map, String key, Class clazz){
         
         String iDs = map.get(key).toString().substring(1, map.get(key).toString().length()-1 );
-        List<String> iDsArray = Arrays.asList( iDs.split((",")));
+        List<String> iDsArray = Arrays.asList( iDs.split(","));
         List collection = new ArrayList<>();
         for (String tagID: iDsArray){
             if (getValue( tagID.trim(), clazz ) != null )
@@ -122,7 +122,7 @@ public class RandomRepositoryUtil {
     }
 
     private SEElementGroup getCorrectDocument( String id) {
-        SEElementGroup elementGroup = null;
+        SEElementGroup elementGroup;
         elementGroup = kernelRepository.findOne(id);
         if (elementGroup == null)
             elementGroup = libraryRepository.findOne(id);
@@ -137,7 +137,7 @@ public class RandomRepositoryUtil {
     }
     
     private SEElementGroup getValue( String id, Class clazz){
-        SEElementGroup element = null;
+        SEElementGroup element;
         switch ( clazz.getSimpleName()){
             case "SEKernel":
                 element = kernelRepository.findOne(id);
@@ -154,6 +154,8 @@ public class RandomRepositoryUtil {
             case "SEPracticeAsset":
                 element =  practiceAssetRepository.findOne(id );
             break;
+            default:
+                element  = null;
         }
         return element;
     }

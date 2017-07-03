@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
  * @author wisog
  */
 public final class RandomUtil {
-    public RandomUtil(){}
+    private RandomUtil(){}
     
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(RandomUtil.class);
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(RandomUtil.class);
     
     private static List<Field> getFields(Object obj){
         List<Field> allFields = new ArrayList<>();
@@ -40,23 +40,15 @@ public final class RandomUtil {
     
     private static Object runGetter(Field field, Object  o) {
         for (Method method : getMethods(o)) {
-            if ((method.getName().startsWith("get")) && (method.getName().length() == (field.getName().length() + 3))) {
-                if (method.getName().toLowerCase().endsWith(field.getName().toLowerCase())) {
-                    try {
-                        return method.invoke(o);
-                    } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex) {
-                        log.debug("Could not determine method: " + method.getName());
-                    }
+            if ((method.getName().startsWith("get")) && (method.getName().length() == (field.getName().length() + 3)) && 
+                    method.getName().toLowerCase().endsWith(field.getName().toLowerCase())) {
+                try {
+                    return method.invoke(o);
+                } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException ex) {
+                    LOGGER.info("Could not determine method: " + method.getName(), ex);
                 }
             }
         }
-        return null;
-    }
-    
-    private static Object getField(Object body, String field){
-        Map< String, Object> filterMap = (Map< String, Object>) body;
-        if (filterMap.containsKey(field))
-            return filterMap.get(field);
         return null;
     }
     

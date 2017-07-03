@@ -29,7 +29,7 @@ public class StatesRestService {
     @Autowired
     private SEStateRepository stateRepository;
 
-    private final Logger log = LoggerFactory.getLogger(StatesRestService.class);
+    private final Logger LOG = LoggerFactory.getLogger(StatesRestService.class);
 
     /*
      * Create Alpha, Method: POST
@@ -58,7 +58,7 @@ public class StatesRestService {
             return new ResponseEntity(stateToPersistence, HttpStatus.OK);
 
         } catch (Exception e) {
-            log.debug("Fail to obtain the needed FIELDS ");
+            LOG.debug( "Fail to obtain the needed FIELDS ", e );
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
