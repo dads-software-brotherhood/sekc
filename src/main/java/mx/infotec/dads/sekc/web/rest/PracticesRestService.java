@@ -67,7 +67,7 @@ public class PracticesRestService {
             //    log.debug("Some of the required FIELDS are NULL, it can't be persisted");
             //    return new ResponseEntity( HttpStatus.BAD_REQUEST );
             //}
-
+            practiceRepository.save(practiceToPersiste);
             //After the implementation of the "essence-impl" project, in this lines we're going to save the new Practice
             return new ResponseEntity(practiceToPersiste, HttpStatus.OK);
 
@@ -86,7 +86,7 @@ public class PracticesRestService {
             regresar = practiceRepository.findOne(id);
             // At this point, we can clean & validate the info before response
             if (includeFields != null && regresar != null)
-                return new ResponseEntity(RandomUtil.filterData(regresar, includeFields), HttpStatus.OK);        
+                return new ResponseEntity(RandomUtil.filterResponseFields(regresar, includeFields), HttpStatus.OK);        
         }else{
             regresar = practiceRepository.findAll();
         }

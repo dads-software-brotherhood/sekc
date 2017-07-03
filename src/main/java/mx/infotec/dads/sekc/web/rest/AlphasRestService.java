@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.essence.repository.SEAlphaRepository;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
-import mx.infotec.dads.sekc.repository.util.RandomRepositoryUtils;
+import mx.infotec.dads.sekc.repository.util.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.web.rest.util.RandomUtil;
 
 @RestController
@@ -30,13 +30,16 @@ public class AlphasRestService {
     @Autowired
     private SEAlphaRepository alphaRepository;
     
+    @Autowired
+    private RandomRepositoryUtil repositoryUtil;
+    
     private final Logger LOG = LoggerFactory.getLogger( AlphasRestService.class );
 
     /*
      * Create Alpha, Method: POST
      */
     @PostMapping("/alpha")
-    public ResponseEntity createAlpha( SEAlpha alpha ){
+    public ResponseEntity createAlpha(  @RequestBody Object alpha ){
 
         Map< String , Object > alphaMap;
         SEAlpha alphaToPersistence = new SEAlpha();
@@ -47,7 +50,7 @@ public class AlphasRestService {
          */
         try{
             alphaMap = (Map< String , Object >) alpha;
-            RandomRepositoryUtils.fillSEBasicElementFields(alphaToPersistence, alphaMap);
+            repositoryUtil.fillSEBasicElementFields(alphaToPersistence, alphaMap);
             
             //After the implementation of the "essence-impl" project, it is a MUST to create a function 
             //to check the Data in the object, to prevent to persiste Practices with Null values in required FIELDS
@@ -59,7 +62,6 @@ public class AlphasRestService {
             alphaRepository.save(alphaToPersistence);
             return new ResponseEntity( alphaToPersistence , HttpStatus.OK );
         }catch( Exception e ){
-            e.printStackTrace();
             LOG.debug( "Fail to obtain the needed FIELDS " );
             return new ResponseEntity( HttpStatus.BAD_REQUEST );
         }
@@ -69,16 +71,16 @@ public class AlphasRestService {
     public ResponseEntity alphaGet(@RequestParam(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields) {
         
-        SEAlpha regresar = null;
+        Object regresar;
         
-        //regresar = alphaRepository.findOne(id);
-        // FOR this example, Get the first alpha
-        regresar = alphaRepository.findAll().get(0);
-        LOG.info( "========================================"+  regresar.getName() );
-        // At this point, we can clean & validate the info before response
-        if (includeFields != null && regresar != null)
-            return new ResponseEntity(RandomUtil.filterResponseFields(regresar, includeFields), HttpStatus.OK);
-        
+        if ( id != null){
+            regresar = alphaRepository.findOne(id);
+            
+            if (includeFields != null && regresar != null)
+                return new ResponseEntity(RandomUtil.filterResponseFields(regresar, includeFields), HttpStatus.OK);
+        }else{
+            regresar = alphaRepository.findAll();
+        }
         
         return new ResponseEntity( regresar , HttpStatus.OK );
     }

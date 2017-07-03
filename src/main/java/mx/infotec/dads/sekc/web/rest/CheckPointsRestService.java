@@ -75,7 +75,7 @@ public class CheckPointsRestService {
             regresar = checkPointRepository.findOne(id);
             // At this point, we can clean & validate the info before response
             if (includeFields != null && regresar != null)
-                return new ResponseEntity(RandomUtil.filterData(regresar, includeFields), HttpStatus.OK);        
+                return new ResponseEntity(RandomUtil.filterResponseFields(regresar, includeFields), HttpStatus.OK);        
         }else{
             regresar = checkPointRepository.findAll();
         }

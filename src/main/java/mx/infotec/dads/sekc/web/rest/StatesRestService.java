@@ -1,6 +1,5 @@
 package mx.infotec.dads.sekc.web.rest;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -73,11 +72,10 @@ public class StatesRestService {
             regresar = stateRepository.findOne(id);
             // At this point, we can clean & validate the info before response
             if (includeFields != null && regresar != null)
-                return new ResponseEntity(RandomUtil.filterData(regresar, includeFields), HttpStatus.OK);
+                return new ResponseEntity(RandomUtil.filterResponseFields(regresar, includeFields), HttpStatus.OK);
         }else{
             regresar = stateRepository.findAll();
         }
-        
         return new ResponseEntity( regresar , HttpStatus.OK );
     }
     
