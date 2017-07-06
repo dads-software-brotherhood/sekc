@@ -22,6 +22,7 @@
                 "main": "Administration",
                 "userManagement": "User management",
                 "practiceManagement": "Practice management",
+                "activities": "Activities",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",

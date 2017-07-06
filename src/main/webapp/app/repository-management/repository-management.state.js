@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('repository-management-create', {
-            parent: 'admin',
+            parent: 'app',
             url: '/repository-management?page&sort',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/repository-management/repository-management-create.html',
+                    templateUrl: 'app/repository-management/repository-management-create.html',
 //                    controller: '',
 //                    controllerAs: 'vm'
                 }

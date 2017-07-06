@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('practice-management', {
-            parent: 'admin',
+            parent: 'app',
             url: '/practice-management?page&sort',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/practice-management/practice-management.html',
+                    templateUrl: 'app/practice-management/practice-management.html',
                     controller: 'PracticeManagementController',
                     controllerAs: 'vm'
                 }
@@ -54,7 +54,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/admin/practice-management/practice-management-dialog.html',
+                    templateUrl: 'app/practice-management/practice-management-dialog.html',
                     controller: 'PracticeManagementDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -83,7 +83,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/admin/practice-management/practice-management-dialog.html',
+                    templateUrl: 'app/practice-management/practice-management-dialog.html',
                     controller: 'PracticeManagementDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
@@ -109,7 +109,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/practice-management/practice-management-detail.html',
+                    templateUrl: 'app/practice-management/practice-management-detail.html',
                     controller: 'PracticeManagementDetailController',
                     controllerAs: 'vm'
                 }
@@ -130,14 +130,14 @@
             },
             views: {
                 'content@': {
-                	templateUrl: 'app/admin/practice-management/practice-management-activity.html',
+                	templateUrl: 'app/practice-management/practice-management-activity.html',
                     //controller: 'PracticeManagementSpaceActivityController',
                     //controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('practice-management');
+                    $translatePartialLoader.addPart('activities');
                     return $translate.refresh();
                 }]
             }
@@ -151,14 +151,14 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/practice-management/practice-management-spaceActivity.html',
+                    templateUrl: 'app/practice-management/practice-management-spaceActivity.html',
 //                    controller: 'PracticeManagementSpaceActivityController',
 //                    controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('practice-management');
+                    $translatePartialLoader.addPart('activities');
                     return $translate.refresh();
                 }]
             }
@@ -170,7 +170,7 @@
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/admin/practice-management/practice-management-delete-dialog.html',
+                    templateUrl: 'app/practice-management/practice-management-delete-dialog.html',
                     controller: 'PracticeManagementDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
@@ -195,7 +195,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/practice-management/practice-management-general.html',
+                    templateUrl: 'app/practice-management/practice-management-general.html',
                     controller: 'PracticeManagementGeneralController',
                     controllerAs: 'vm'
                 }
@@ -216,7 +216,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/practice-management/practice-management-thingswork.html',
+                    templateUrl: 'app/practice-management/practice-management-thingswork.html',
                     controller: 'PracticeManagementThingsWorkController',
                     controllerAs: 'vm'
                 }
@@ -237,7 +237,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/admin/practice-management/practice-management-completition.html',
+                    templateUrl: 'app/practice-management/practice-management-completition.html',
                     controller: 'PracticeManagementCompletionController',
                     controllerAs: 'vm'
                 }

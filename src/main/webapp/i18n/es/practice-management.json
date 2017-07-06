@@ -38,6 +38,8 @@
         "result": "Resultados",
         "isSupresable": "¿Puede ser eliminada?",
         "add" : "Agregar",
-        "remove" : "Eliminar"
+        "remove" : "Eliminar",
+        "next" : "Siguiente",
+        "cancel" : "Cancelar"
     }
 }

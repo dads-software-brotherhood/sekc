@@ -39,6 +39,8 @@
         "result": "Result",
         "isSupresable": "isSupresable",
         "add" : "Add",
-        "remove" : "Remove"
+        "remove" : "Remove",
+        "next" : "Next",
+        "cancel" : "Cancel"
     }
 }
