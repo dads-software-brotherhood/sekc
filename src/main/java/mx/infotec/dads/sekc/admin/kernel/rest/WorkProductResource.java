@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 /**
  *
@@ -23,13 +24,13 @@ import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
  */
 
 @RestController
-@RequestMapping("/api/v1/workProducts")
+@RequestMapping(API_PATH)
 public class WorkProductResource {
     
     @Autowired
     private WorkProductService workProductService;
     
-    @PostMapping("/")
+    @PostMapping("/workProducts/")
     public ResponseEntity workProductCreate( @RequestBody Object workProduct ){
         ResponseWrapper responseData;
         
@@ -39,7 +40,7 @@ public class WorkProductResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/workProducts/","/workProducts/{id}" })
     public ResponseEntity workProductGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -53,7 +54,7 @@ public class WorkProductResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/workProducts/{id}")
     public ResponseEntity workProductDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = workProductService.delete(id);
         if (responseData.getError_message().equals(""))

@@ -18,16 +18,17 @@ import org.springframework.data.domain.Pageable;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 @RestController
-@RequestMapping("/api/v1/alphas")
+@RequestMapping(API_PATH)
 
 public class AlphaResource {
     
     @Autowired
     private WorkProductService alphaService;
     
-    @PostMapping("/")
+    @PostMapping("/alphas/")
     public ResponseEntity alphaCreate( @RequestBody Object alpha ){
         ResponseWrapper responseData;
         
@@ -37,7 +38,7 @@ public class AlphaResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/alphas/","/alphas/{id}" })
     public ResponseEntity alphaGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -52,7 +53,7 @@ public class AlphaResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/alphas/{id}")
     public ResponseEntity alphaDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = alphaService.delete(id);
         if (responseData.getError_message().equals(""))

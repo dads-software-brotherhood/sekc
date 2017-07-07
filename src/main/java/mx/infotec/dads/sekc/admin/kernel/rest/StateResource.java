@@ -14,18 +14,19 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.StateService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api/v1/states")
+@RequestMapping(API_PATH)
 public class StateResource {
 
     @Autowired
     private StateService stateService;
 
-    @PostMapping("/")
+    @PostMapping("/states/")
     public ResponseEntity StateCreate(@RequestBody Object state) {
         ResponseWrapper responseData;
         responseData = stateService.save(state);
@@ -35,7 +36,7 @@ public class StateResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/states/","/states/{id}" })
     public ResponseEntity stateGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -49,7 +50,7 @@ public class StateResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/states/{id}")
     public ResponseEntity stateDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = stateService.delete(id);
         if (responseData.getError_message().equals(""))

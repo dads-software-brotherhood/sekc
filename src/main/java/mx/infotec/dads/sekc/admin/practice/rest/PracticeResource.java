@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,13 +28,13 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author wisog
  */
 @RestController
-@RequestMapping("/api/v1/practices")
+@RequestMapping(API_PATH)
 public class PracticeResource {
 
     @Autowired
     private PracticeService practiceService;
 
-    @PostMapping("/")
+    @PostMapping("/practices/")
     public ResponseEntity createPractice( @RequestBody Object practice ) {
         
         SEPractice practiceToPersiste = new SEPractice();
@@ -60,7 +61,7 @@ public class PracticeResource {
         }*/
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/practices/","/practices/{id}" })
     public ResponseEntity workProductGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -74,7 +75,7 @@ public class PracticeResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/practices/{id}")
     public ResponseEntity workProductDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = practiceService.delete(id);
         if (responseData.getError_message().equals(""))

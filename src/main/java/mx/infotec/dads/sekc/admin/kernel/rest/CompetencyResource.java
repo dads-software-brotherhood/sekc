@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.CompetencyService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 
 /**
@@ -24,13 +25,13 @@ import mx.infotec.dads.sekc.admin.kernel.service.CompetencyService;
  */
 
 @RestController
-@RequestMapping("/api/v1/competencies")
+@RequestMapping(API_PATH)
 public class CompetencyResource {
     
     @Autowired
     private CompetencyService competencyService;
     
-    @PostMapping("/")
+    @PostMapping("/competencies/")
     public ResponseEntity competencyCreate( @RequestBody Object competency ){
         ResponseWrapper responseData;
         
@@ -40,7 +41,7 @@ public class CompetencyResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/competencies/","/competencies/{id}" })
     public ResponseEntity competencyGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -54,7 +55,7 @@ public class CompetencyResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/competencies/{id}")
     public ResponseEntity competencyDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = competencyService.delete(id);
         if (responseData.getError_message().equals(""))

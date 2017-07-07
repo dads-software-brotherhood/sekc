@@ -14,18 +14,19 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.CheckPointService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/api/v1/checkpoints")
+@RequestMapping(API_PATH)
 public class CheckPointResource {
 
     @Autowired
     private CheckPointService checkPointService;
 
-    @PostMapping("/")
+    @PostMapping("/checkpoints/")
     public ResponseEntity checkPointCreate(@RequestBody Object checkPoint) {
         ResponseWrapper responseData;
         responseData = checkPointService.save(checkPoint);
@@ -35,7 +36,7 @@ public class CheckPointResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/checkpoints/","/checkpoints/{id}" })
     public ResponseEntity checkPointGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -49,7 +50,7 @@ public class CheckPointResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/checkpoints/{id}")
     public ResponseEntity checkPointDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = checkPointService.delete(id);
         if (responseData.getError_message().equals(""))

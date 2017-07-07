@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.ActivitySpaceService;
 /**
@@ -22,13 +23,13 @@ import mx.infotec.dads.sekc.admin.kernel.service.ActivitySpaceService;
  */
 
 @RestController
-@RequestMapping("/api/v1/activitySpaces")
+@RequestMapping(API_PATH)
 public class ActivitySpaceResource {
     
     @Autowired
     private ActivitySpaceService activitySpaceService;
     
-    @PostMapping("/")
+    @PostMapping("/activitySpaces/")
     public ResponseEntity activitySpaceCreate( @RequestBody Object activitySpace ){
         ResponseWrapper responseData;
         
@@ -38,7 +39,7 @@ public class ActivitySpaceResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/","/{id}" })
+    @GetMapping(value = { "/activitySpaces/","/activitySpaces/{id}" })
     public ResponseEntity activitySpaceGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -52,7 +53,7 @@ public class ActivitySpaceResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/activitySpaces/{id}")
     public ResponseEntity activitySpaceDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = activitySpaceService.delete(id);
         if (responseData.getError_message().equals(""))
