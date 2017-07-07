@@ -1,4 +1,4 @@
-package mx.infotec.dads.sekc.web.rest.util;
+package mx.infotec.dads.sekc.admin.kernel.rest.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

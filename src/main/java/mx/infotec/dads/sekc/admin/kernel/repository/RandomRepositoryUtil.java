@@ -1,4 +1,4 @@
-package mx.infotec.dads.sekc.repository.util;
+package mx.infotec.dads.sekc.admin.kernel.repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +11,7 @@ import mx.infotec.dads.essence.model.foundation.SEBasicElement;
 import mx.infotec.dads.essence.model.foundation.SEElementGroup;
 import mx.infotec.dads.essence.model.foundation.SEEndeavorProperty;
 import mx.infotec.dads.essence.model.foundation.SEExtensionElement;
+import mx.infotec.dads.essence.model.foundation.SELanguageElement;
 import mx.infotec.dads.essence.model.foundation.SEPatternAssociation;
 import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.model.foundation.SETag;
@@ -21,6 +22,12 @@ import mx.infotec.dads.essence.repository.SELibraryRepository;
 import mx.infotec.dads.essence.repository.SEMethodRepository;
 import mx.infotec.dads.essence.repository.SEPracticeAssetRepository;
 import mx.infotec.dads.essence.repository.SEPracticeRepository;
+import mx.infotec.dads.essence.repository.SEStateRepository;
+import mx.infotec.dads.essence.repository.SEActivitySpaceRepository;
+import mx.infotec.dads.essence.repository.SECheckpointRepository;
+import mx.infotec.dads.essence.repository.SECompetencyLevelRepository;
+import mx.infotec.dads.essence.repository.SEEntryCriterionRepository;
+import mx.infotec.dads.essence.repository.SELevelOfDetailRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -40,14 +47,20 @@ public class RandomRepositoryUtil {
     private SEPracticeRepository practiceRepository;
     @Autowired
     private SEPracticeAssetRepository practiceAssetRepository;
+    @Autowired
+    private SEStateRepository stateRepository;
+    @Autowired
+    private SEActivitySpaceRepository activitySpaceRepository;
+    @Autowired
+    private SELevelOfDetailRepository levelOfDetailRepository;
+    @Autowired
+    private SECompetencyLevelRepository competencyLevelRepository;
+    @Autowired
+    private SECheckpointRepository checkPointRepository;
+    @Autowired
+    private SEEntryCriterionRepository entryCriterionRepository;
     
-    
-    
-    public void fillSEBasicElementFields( SEBasicElement elementToPersistence, Map<String, Object> map) {
-        
-        elementToPersistence.setName((String) map.get("name"));
-        elementToPersistence.setBriefDescription((String) map.get("briefDescription"));
-        elementToPersistence.setDescription((String) map.get("description"));
+    public void fillSELaguageElementFields( SELanguageElement elementToPersistence, Map<String, Object> map) {
         if (map.containsKey("suppressable"))
             elementToPersistence.setSuppressable((boolean) map.get("suppressable"));
         
@@ -104,6 +117,16 @@ public class RandomRepositoryUtil {
             if (!collectionpatternAssociations.isEmpty())
                 elementToPersistence.setPatternAssociation(collectionpatternAssociations);
         }
+    }
+    
+    public void fillSEBasicElementFields( SEBasicElement elementToPersistence, Map<String, Object> map) {
+        
+        fillSELaguageElementFields(elementToPersistence, map);
+        
+        //properties of SEBasicElement
+        elementToPersistence.setName((String) map.get("name"));
+        elementToPersistence.setBriefDescription((String) map.get("briefDescription"));
+        elementToPersistence.setDescription((String) map.get("description"));
         
         // TODO pendiente implementar GraphicalElement
         //    "icon":                 GraphicalElement
@@ -115,8 +138,17 @@ public class RandomRepositoryUtil {
         List<String> iDsArray = Arrays.asList( iDs.split(","));
         List collection = new ArrayList<>();
         for (String tagID: iDsArray){
-            if (getValue( tagID.trim(), clazz ) != null )
-                collection.add( getValue(tagID.trim(), clazz ) );
+            if (getDocument( tagID.trim(), clazz ) != null )
+                collection.add( getDocument(tagID.trim(), clazz ) );
+        }
+        return collection;
+    }
+    
+    public List getDocuments(ArrayList<String> arrayDocs, Class clazz){
+        List collection = new ArrayList<>();
+        for (String tagID: arrayDocs){
+            if (getDocument( tagID.trim(), clazz ) != null )
+                collection.add( getDocument(tagID.trim(), clazz ) );
         }
         return collection;
     }
@@ -136,8 +168,8 @@ public class RandomRepositoryUtil {
         return elementGroup;
     }
     
-    private SEElementGroup getValue( String id, Class clazz){
-        SEElementGroup element;
+    public Object getDocument( String id, Class clazz){
+        Object element;
         switch ( clazz.getSimpleName()){
             case "SEKernel":
                 element = kernelRepository.findOne(id);
@@ -153,6 +185,24 @@ public class RandomRepositoryUtil {
             break;
             case "SEPracticeAsset":
                 element =  practiceAssetRepository.findOne(id );
+            break;
+            case "SEState":
+                element =  stateRepository.findOne(id );
+            break;
+            case "SEActivitySpace":
+                element = activitySpaceRepository.findOne(id);
+            break;
+            case "SELevelOfDetail":
+                element = levelOfDetailRepository.findOne(id);
+            break;
+            case "SECompetencyLevel":
+                element = competencyLevelRepository.findOne(id);
+            break;
+            case "SECheckpoint":
+                element = checkPointRepository.findOne(id);
+            break;
+            case "SECriterion":
+                element = entryCriterionRepository.findOne(id);
             break;
             default:
                 element  = null;
