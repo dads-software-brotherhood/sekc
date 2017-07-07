@@ -19,6 +19,7 @@ import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.StateService;
+import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
 /**
  *
@@ -87,7 +88,7 @@ public class StateServiceImpl implements StateService {
         SEState stateToPersistence = new SEState();
         response = new ResponseWrapper();
         if (!getStateFromRequest(state, stateToPersistence)){
-            response.setError_message("malformed-no se pudo reconstruir desde request");
+            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
             stateRepository.save(stateToPersistence);
@@ -112,7 +113,7 @@ public class StateServiceImpl implements StateService {
             response.setResponse_code(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
@@ -129,7 +130,7 @@ public class StateServiceImpl implements StateService {
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;

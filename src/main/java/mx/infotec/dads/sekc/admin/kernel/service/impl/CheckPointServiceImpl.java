@@ -19,6 +19,7 @@ import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.CheckPointService;
+import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 import org.omg.essence.model.competency.CompetencyLevel;
 
 /**
@@ -80,7 +81,7 @@ public class CheckPointServiceImpl implements CheckPointService {
         SECheckpoint checkPointToPersistence = new SECheckpoint();
         response = new ResponseWrapper();
         if (!getStateFromRequest(checkPoint, checkPointToPersistence)){
-            response.setError_message("malformed-no se pudo reconstruir desde request");
+            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
             checkPointRepository.save(checkPointToPersistence);
@@ -105,7 +106,7 @@ public class CheckPointServiceImpl implements CheckPointService {
             response.setResponse_code(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
@@ -122,7 +123,7 @@ public class CheckPointServiceImpl implements CheckPointService {
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;

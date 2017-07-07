@@ -17,6 +17,7 @@ import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.CompetencyService;
+import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 import org.omg.essence.model.competency.CompetencyLevel;
 
 /**
@@ -56,7 +57,7 @@ public class CompetencyServiceImpl implements CompetencyService {
         SECompetency competencyToPersistence = new SECompetency();
         response = new ResponseWrapper();
         if (!getCompetencyFromRequest(competency, competencyToPersistence)){
-            response.setError_message("malformed-no se pudo reconstruir desde request");
+            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
             competenciesRepository.save(competencyToPersistence);
@@ -81,7 +82,7 @@ public class CompetencyServiceImpl implements CompetencyService {
             response.setResponse_code(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
@@ -98,7 +99,7 @@ public class CompetencyServiceImpl implements CompetencyService {
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;

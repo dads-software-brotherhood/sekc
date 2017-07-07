@@ -16,6 +16,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlphaAssociation;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlphaContainment;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProductManifest;
 import mx.infotec.dads.essence.repository.SEAlphaRepository;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
@@ -23,6 +24,7 @@ import mx.infotec.dads.sekc.admin.kernel.rest.AlphaResource;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.AlphaService;
+import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 /**
  *
  * @author wisog
@@ -83,7 +85,7 @@ public class AlphaServiceImpl implements AlphaService {
         SEAlpha alphaToPersistence = new SEAlpha();
         response = new ResponseWrapper();
         if (!getAlphaFromRequest(alpha, alphaToPersistence)){
-            response.setError_message("malformed-no se pudo reconstruir desde request");
+            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
             alphaRepository.save(alphaToPersistence);
@@ -108,7 +110,7 @@ public class AlphaServiceImpl implements AlphaService {
             response.setResponse_code(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
@@ -125,7 +127,7 @@ public class AlphaServiceImpl implements AlphaService {
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
@@ -137,6 +139,28 @@ public class AlphaServiceImpl implements AlphaService {
         response.setResponseObject(alphaRepository.findOne(id));
         alphaRepository.delete(id);
         response.setResponse_code(HttpStatus.OK);
+        return response;
+    }
+
+    @Override
+    public ResponseWrapper findWorkProductList(String id) {
+        response = new ResponseWrapper();
+        SEAlpha alpha = (SEAlpha) findOne(id, null).getResponseObject();
+        List<SEWorkProduct> workProductList = new ArrayList<>();
+        if (alpha != null){
+            if (alpha.getWorkProductManifest() != null){
+                alpha.getWorkProductManifest().forEach((workProductManifest) -> {
+                    workProductList.add(workProductManifest.getWorkProduct());
+                });
+            }
+        }
+        response.setResponseObject(workProductList);
+
+        if (workProductList.isEmpty()){
+            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setError_message(ErrorConstants.ERR_RECORD_NOT_FOUND);
+        }else
+            response.setResponse_code(HttpStatus.OK);
         return response;
     }
 }

@@ -14,19 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
+import mx.infotec.dads.sekc.admin.kernel.service.AlphaService;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 @RestController
 @RequestMapping(API_PATH)
-
 public class AlphaResource {
     
     @Autowired
-    private WorkProductService alphaService;
+    private AlphaService alphaService;
     
     @PostMapping("/alphas/")
     public ResponseEntity alphaCreate( @RequestBody Object alpha ){
@@ -48,6 +47,19 @@ public class AlphaResource {
             responseData = alphaService.findOne(id, includeFields);    
         else
             responseData = alphaService.findAll(pageable);
+        if (responseData.getError_message().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+    }
+    
+    @GetMapping("/alphas/{id}/workproducts" )
+    public ResponseEntity workproductsFromAlphaGet(@PathVariable(value="id") String id,
+            @ApiParam Pageable pageable) {
+        
+        ResponseWrapper responseData;
+        
+        responseData = alphaService.findWorkProductList(id);
+        
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );

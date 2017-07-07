@@ -12,5 +12,6 @@ public interface AlphaService {
     public ResponseWrapper save( Object alpha );
     public ResponseWrapper findAll(Pageable pag);
     public ResponseWrapper findOne(String id, java.util.List includeFields);
+    public ResponseWrapper findWorkProductList(String id);
     public ResponseWrapper delete(String id);
 }

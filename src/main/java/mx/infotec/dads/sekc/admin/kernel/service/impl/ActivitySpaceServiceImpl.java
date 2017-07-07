@@ -17,6 +17,7 @@ import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.ActivitySpaceService;
+import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
 /**
  *
@@ -55,7 +56,7 @@ public class ActivitySpaceServiceImpl implements ActivitySpaceService {
         SEActivitySpace activitySpaceToPersistence = new SEActivitySpace();
         response = new ResponseWrapper();
         if (!getActivitySpaceFromRequest(activitySpace, activitySpaceToPersistence)){
-            response.setError_message("malformed-no se pudo reconstruir desde request");
+            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
             activitySpaceRepository.save(activitySpaceToPersistence);
@@ -80,7 +81,7 @@ public class ActivitySpaceServiceImpl implements ActivitySpaceService {
             response.setResponse_code(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
@@ -97,7 +98,7 @@ public class ActivitySpaceServiceImpl implements ActivitySpaceService {
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message("No se encontró el elemento"); // Refactor LIST of errors
+            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
         }
         return response;
