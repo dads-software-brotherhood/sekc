@@ -50,9 +50,9 @@
 		<!-- These remain empty unless the corresponding profile is active -->
 		<profile.no-liquibase />
 		<profile.swagger />
-		<prometheus-simpleclient.version>0.0.20</prometheus-simpleclient.version>
 		<!-- Sonar properties -->
 		<project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
+		<prometheus-simpleclient.version>0.0.20</prometheus-simpleclient.version>
 		<run.addResources>false</run.addResources>
 		<scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>
 		<scala.version>2.12.1</scala.version>
@@ -101,34 +101,99 @@
 		<undertow.version>1.4.10.Final</undertow.version>
 		<yarn.version>v0.21.3</yarn.version>
 	</properties>
-
-	<repositories>
-		<repository>
-			<id>infotec-repo</id>
-			<name>INFOTEC Repository</name>
-			<url>http://207.249.20.133/artifactory/infotec</url>
-		</repository>
-	</repositories>
 	<dependencies>
-		<!-- Essence Core -->
 		<dependency>
-			<groupId>mx.infotec.dads.essence</groupId>
-			<artifactId>essence-impl</artifactId>
-			<version>0.1</version>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hppc</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.github.jhipster</groupId>
-			<artifactId>jhipster</artifactId>
-			<version>${jhipster.server.version}</version>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-json-org</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>io.dropwizard.metrics</groupId>
-			<artifactId>metrics-core</artifactId>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.mongobee</groupId>
+			<artifactId>mongobee</artifactId>
+			<version>${mongobee.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-wm</artifactId>
+			<version>${hazelcast-wm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<scope>test</scope>
+			<!-- parent POM declares this dependency in default (compile) scope -->
+		</dependency>
+		<dependency>
+			<groupId>com.ryantenney.metrics</groupId>
+			<artifactId>metrics-spring</artifactId>
+			<version>${metrics-spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>metrics-annotation</artifactId>
+					<groupId>com.codahale.metrics</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>metrics-core</artifactId>
+					<groupId>com.codahale.metrics</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>metrics-healthchecks</artifactId>
+					<groupId>com.codahale.metrics</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- cucumber -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-spring</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
 			<artifactId>metrics-annotation</artifactId>
 			<version>${dropwizard-metrics.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard.metrics</groupId>
@@ -150,57 +215,14 @@
 			<artifactId>metrics-servlets</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-hppc</artifactId>
+			<groupId>io.github.jhipster</groupId>
+			<artifactId>jhipster</artifactId>
+			<version>${jhipster.server.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-jsr310</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-json-org</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-spring</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.hazelcast</groupId>
-			<artifactId>hazelcast-wm</artifactId>
-			<version>${hazelcast-wm.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.awaitility</groupId>
-			<artifactId>awaitility</artifactId>
-			<version>${awaitility.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.jayway.jsonpath</groupId>
-			<artifactId>json-path</artifactId>
-			<scope>test</scope>
-			<!-- parent POM declares this dependency in default (compile) scope -->
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>${springfox.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.mapstruct</groupId>
-					<artifactId>mapstruct</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jjwt.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -208,39 +230,52 @@
 			<version>${springfox.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ryantenney.metrics</groupId>
-			<artifactId>metrics-spring</artifactId>
-			<version>${metrics-spring.version}</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox.version}</version>
 			<exclusions>
 				<exclusion>
-					<groupId>com.codahale.metrics</groupId>
-					<artifactId>metrics-annotation</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.codahale.metrics</groupId>
-					<artifactId>metrics-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.codahale.metrics</groupId>
-					<artifactId>metrics-healthchecks</artifactId>
+					<artifactId>mapstruct</artifactId>
+					<groupId>org.mapstruct</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<!-- Essence Core -->
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>${commons-io.version}</version>
+			<groupId>mx.infotec.dads.essence</groupId>
+			<artifactId>essence-impl</artifactId>
+			<version>0.1</version>
+			<type>jar</type>
+		</dependency>
+		<!-- Spring Cloud -->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>${logstash-logback-encoder.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>logback-core</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-classic</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>logback-access</artifactId>
+					<groupId>ch.qos.logback</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>${commons-lang.version}</version>
 		</dependency>
+		<!-- social -->
 		<dependency>
-			<groupId>de.flapdoodle.embed</groupId>
-			<artifactId>de.flapdoodle.embed.mongo</artifactId>
-			<scope>test</scope>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
@@ -248,9 +283,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.mongobee</groupId>
-			<artifactId>mongobee</artifactId>
-			<version>${mongobee.version}</version>
+			<groupId>org.awaitility</groupId>
+			<artifactId>awaitility</artifactId>
+			<version>${awaitility.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -284,6 +320,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cloud-connectors</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 		<dependency>
@@ -304,16 +344,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
@@ -322,53 +352,29 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<exclusions>
 				<exclusion>
-					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>${jjwt.version}</version>
-		</dependency>
-		<!-- Spring Cloud -->
-		<dependency>
-			<groupId>net.logstash.logback</groupId>
-			<artifactId>logstash-logback-encoder</artifactId>
-			<version>${logstash-logback-encoder.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-access</artifactId>
+					<groupId>org.springframework.boot</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cloud-connectors</artifactId>
+			<artifactId>spring-boot-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<!-- security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-data</artifactId>
 		</dependency>
-		<!-- social -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-security</artifactId>
+			<artifactId>spring-social-facebook</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
@@ -377,27 +383,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
-			<artifactId>spring-social-facebook</artifactId>
+			<artifactId>spring-social-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-twitter</artifactId>
 		</dependency>
-		<!-- cucumber -->
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-junit</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-spring</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
 		<!-- jhipster-needle-maven-add-dependency -->
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>infotec-repo</id>
+			<name>INFOTEC Repository</name>
+			<url>http://207.249.20.133/artifactory/infotec</url>
+		</repository>
+	</repositories>
 	<build>
 		<defaultGoal>spring-boot:run</defaultGoal>
 		<testResources>
@@ -408,6 +409,53 @@
 				<directory>src/test/features</directory>
 			</testResource>
 		</testResources>
+		<pluginManagement>
+			<plugins>
+				<!-- This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. Remove when the m2e 
+					plugin can correctly bind to Maven lifecycle -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.jacoco</groupId>
+										<artifactId>jacoco-maven-plugin</artifactId>
+										<versionRange>${jacoco-maven-plugin.version}</versionRange>
+										<goals>
+											<goal>prepare-agent</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.github.eirslett</groupId>
+										<artifactId>frontend-maven-plugin</artifactId>
+										<versionRange>${frontend-maven-plugin.version}</versionRange>
+										<goals>
+											<goal>install-node-and-yarn</goal>
+											<goal>yarn</goal>
+											<goal>bower</goal>
+											<goal>gulp</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>com.github.ekryd.sortpom</groupId>
@@ -428,6 +476,22 @@
 					<sortPlugins>groupId,artifactId</sortPlugins>
 					<keepBlankLines>true</keepBlankLines>
 					<expandEmptyElements>false</expandEmptyElements>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker-maven-plugin.version}</version>
+				<configuration>
+					<imageName>sekc</imageName>
+					<dockerDirectory>src/main/docker</dockerDirectory>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.war</include>
+						</resource>
+					</resources>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -593,75 +657,8 @@
 						on port 5005 <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments> -->
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>${docker-maven-plugin.version}</version>
-				<configuration>
-					<imageName>sekc</imageName>
-					<dockerDirectory>src/main/docker</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.war</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>
 			<!-- jhipster-needle-maven-add-plugin -->
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!-- This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. Remove when the m2e 
-					plugin can correctly bind to Maven lifecycle -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.jacoco</groupId>
-										<artifactId>
-											jacoco-maven-plugin
-										</artifactId>
-										<versionRange>
-											${jacoco-maven-plugin.version}
-										</versionRange>
-										<goals>
-											<goal>prepare-agent</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>com.github.eirslett</groupId>
-										<artifactId>frontend-maven-plugin</artifactId>
-										<versionRange>${frontend-maven-plugin.version}</versionRange>
-										<goals>
-											<goal>install-node-and-yarn</goal>
-											<goal>yarn</goal>
-											<goal>bower</goal>
-											<goal>gulp</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 	<profiles>
 		<profile>
@@ -681,17 +678,6 @@
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-undertow</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-devtools</artifactId>
-					<optional>true</optional>
-				</dependency>
-			</dependencies>
 			<build>
 				<plugins>
 					<plugin>
@@ -709,48 +695,22 @@
 				<!-- default Spring profiles -->
 				<spring.profiles.active>dev${profile.no-liquibase}</spring.profiles.active>
 			</properties>
-		</profile>
-		<profile>
-			<id>prod</id>
 			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-devtools</artifactId>
+					<optional>true</optional>
+				</dependency>
 				<dependency>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-undertow</artifactId>
 				</dependency>
 			</dependencies>
+		</profile>
+		<profile>
+			<id>prod</id>
 			<build>
 				<plugins>
-					<plugin>
-						<artifactId>maven-clean-plugin</artifactId>
-						<configuration>
-							<filesets>
-								<fileset>
-									<directory>target/www/</directory>
-								</fileset>
-							</filesets>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<warSourceDirectory>target/www/</warSourceDirectory>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<configuration>
-							<executable>true</executable>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>build-info</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 					<plugin>
 						<groupId>com.github.eirslett</groupId>
 						<artifactId>frontend-maven-plugin</artifactId>
@@ -795,15 +755,46 @@
 							</execution>
 							<execution>
 								<id>gulp test</id>
+								<phase>test</phase>
 								<goals>
 									<goal>gulp</goal>
 								</goals>
-								<phase>test</phase>
 								<configuration>
 									<arguments>test --no-notification</arguments>
 								</configuration>
 							</execution>
 						</executions>
+					</plugin>
+					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>target/www/</directory>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<warSourceDirectory>target/www/</warSourceDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>build-info</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<executable>true</executable>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -813,6 +804,12 @@
 				<!-- default Spring profiles -->
 				<spring.profiles.active>prod${profile.swagger}${profile.no-liquibase}</spring.profiles.active>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-undertow</artifactId>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<!-- Profile for doing "continuous compilation" with the Scala Maven plugin. 
@@ -821,51 +818,8 @@
 				of your classes - './mvnw -Pcc' for hot reload of Spring boot - 'gulp' for 
 				hot reload of the HTML/JavaScript assets Everything should hot reload automatically! -->
 			<id>cc</id>
-			<dependencies>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-undertow</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-devtools</artifactId>
-					<optional>true</optional>
-				</dependency>
-			</dependencies>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-war-plugin</artifactId>
-						<configuration>
-							<warSourceDirectory>src/main/webapp/</warSourceDirectory>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<configuration>
-							<executable>true</executable>
-							<fork>true</fork>
-							<addResources>true</addResources>
-							<!-- Enable the line below to have remote debugging of your application 
-								on port 5005 <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments> -->
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>default-compile</id>
-								<phase>none</phase>
-							</execution>
-							<execution>
-								<id>default-testCompile</id>
-								<phase>none</phase>
-							</execution>
-						</executions>
-					</plugin>
 					<plugin>
 						<groupId>net.alchim31.maven</groupId>
 						<artifactId>scala-maven-plugin</artifactId>
@@ -894,6 +848,38 @@
 							<scalaVersion>${scala.version}</scalaVersion>
 						</configuration>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>default-compile</id>
+								<phase>none</phase>
+							</execution>
+							<execution>
+								<id>default-testCompile</id>
+								<phase>none</phase>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<warSourceDirectory>src/main/webapp/</warSourceDirectory>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<executable>true</executable>
+							<fork>true</fork>
+							<addResources>true</addResources>
+							<!-- Enable the line below to have remote debugging of your application 
+								on port 5005 <jvmArguments>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments> -->
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 			<properties>
@@ -902,6 +888,17 @@
 				<!-- default Spring profiles -->
 				<spring.profiles.active>dev,swagger</spring.profiles.active>
 			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-devtools</artifactId>
+					<optional>true</optional>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-undertow</artifactId>
+				</dependency>
+			</dependencies>
 		</profile>
 		<profile>
 			<!-- Profile for monitoring the application with Graphite. -->
@@ -924,12 +921,12 @@
 				</dependency>
 				<dependency>
 					<groupId>io.prometheus</groupId>
-					<artifactId>simpleclient_servlet</artifactId>
+					<artifactId>simpleclient_dropwizard</artifactId>
 					<version>${prometheus-simpleclient.version}</version>
 				</dependency>
 				<dependency>
 					<groupId>io.prometheus</groupId>
-					<artifactId>simpleclient_dropwizard</artifactId>
+					<artifactId>simpleclient_servlet</artifactId>
 					<version>${prometheus-simpleclient.version}</version>
 				</dependency>
 			</dependencies>

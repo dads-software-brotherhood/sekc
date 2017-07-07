@@ -1,0 +1,18 @@
+{
+    "repository": {
+        "title": "Repositorio",
+     	"button": {
+            "cancel": "Cancelar",
+            "save": "Guardar"
+        },
+        "lable": {
+            "origin": "Origen",
+            "email" : "Email",
+            "url" : "URL",
+            "version" : "Essence Versión",
+            "dataModel" : "Data model versión",
+            "otherPractices" : "Relación con otras prácticas",
+            "description" : "Descripción"
+        }
+    }
+}

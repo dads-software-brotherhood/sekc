@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,34 +7,73 @@
     <meta name="description" content="">
     <meta name="google" value="notranslate">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="/bower_components/angular-motion/dist/angular-motion.css">
+    <!--<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">-->
+    <link rel="stylesheet" href="/bower_components/bootstrap-additions/dist/bootstrap-additions.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-css-only/css/bootstrap.css">
+    <link rel="stylesheet" href="/bower_components/datatables/media/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="/bower_components/material-design-iconic-font/css/material-design-iconic-font.css">
+    <link rel="stylesheet" href="/bower_components/nouislider/distribute/jquery.nouislider.min.css">
+    <link rel="stylesheet" href="/bower_components/nouislider/distribute/jquery.nouislider.pips.min.css">
+    <link rel="stylesheet" href="/bower_components/roboto-fontface/css/roboto-fontface.css">
+    <link rel="stylesheet" href="/bower_components/summernote/dist/summernote.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons.min.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons-wind.css">
+    <link rel="stylesheet" href="/bower_components/weather-icons/css/weather-icons-wind.min.css">
+    <link rel="stylesheet" href="/bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.css">
+    <link rel="stylesheet" href="/bower_components/c3/c3.css">
+    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/bower_components/ng-table/dist/ng-table.min.css">
+    <link rel="stylesheet" href="/bower_components/textAngular/dist/textAngular.css">
+
+    <link href="/bower_components/bower-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="/bower_components/ng-table/dist/ng-table.css" rel="stylesheet" />
     <!-- endinject -->
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
-</head>
-<body ng-app="sekcApp" ng-strict-di>
-    <!--[if lt IE 9]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <page-ribbon></page-ribbon>
-    <div ui-view="navbar" ng-cloak></div>
-    <div class="container">
-        <div class="well" ui-view="content">
-            <!-- Angular views -->
-        </div>
 
-        <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+    <!-- build:css content/css/styles.min.css -->
+    <link href="content/css/materialism.css" rel="stylesheet" />
+    <link href="content/css/angular-ui-select.css" rel="stylesheet" />
+    <link href="content/css/helpers.css" rel="stylesheet" />
+    <link href="content/css/ripples.css" rel="stylesheet" />
+    <link href="content/fonts/style.css" rel="stylesheet"/>
+    <link href="content/css/sekc.css" rel="stylesheet"/>
+    <link href="content/css/animate.css" rel="stylesheet" >
+    <link href="content/css/site.css" rel="stylesheet" ">
+    <!-- endbuild -->
+    
+    
+   
+
+</head>
+<body id="top" ng-app="sekcApp" ng-controller="MainController" ng-strict-di scroll-spy ng-class="[theme.template, theme.color]">
+    <main>
+        <!--[if lt IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!--<page-ribbon></page-ribbon>-->
+        <div ui-view="navbar" ng-cloak></div>
+        <div class="main-container">
+            <div ui-view="topnav" ng-cloak></div>
+            <div class="main-content" ui-view="content" ng-cloak ng-view bs-affix-target init-ripples>
+                <!-- Angular views -->
+            </div>
+
+            <div class="footer navbar-default navbar-fixed-bottom" ng-cloak>
+                    <p data-translate="footer">This is your footer</p>
+            </div>
+            
         </div>
-    </div>
+    </main>
 
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
@@ -48,27 +87,230 @@
 
     <!-- build:js app/vendor.js -->
     <!-- bower:js -->
+    
+    
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/messageformat/messageformat.js"></script>
-    <script src="bower_components/json3/lib/json3.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-aria/angular-aria.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
-    <script src="bower_components/ngstorage/ngStorage.js"></script>
-    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-translate/angular-translate.js"></script>
-    <script src="bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
-    <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
-    <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
-    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
-    <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+
+    <!--<script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>-->
+ 
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap3-typeahead/bootstrap3-typeahead.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap-validator/dist/validator.js"></script>
+    
+    
+    <script src="/bower_components/lodash/lodash.js"></script>
+    
+    
+    <script src="/bower_components/markerclustererplus/src/markerclusterer.js"></script>
+    
+    
+    <script src="/bower_components/google-maps-utility-library-v3-markerwithlabel/dist/markerwithlabel.js"></script>
+    
+    
+    <script src="/bower_components/google-maps-utility-library-v3-infobox/dist/infobox.js"></script>
+    
+    
+    <script src="/bower_components/google-maps-utility-library-v3-keydragzoom/dist/keydragzoom.js"></script>
+    
+    
+    <script src="/bower_components/js-rich-marker/src/richmarker.js"></script>
+    
+    
+    <script src="/bower_components/messageformat/messageformat.js"></script>
+    
+    
+    <script src="/bower_components/SHA-1/sha1.js"></script>
+    
+    <script src="/bower_components/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-tmpl/js/tmpl.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-load-image/js/index.js"></script>
+    
+    
+    <script src="/bower_components/bower-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    
+    
+    <script src="/bower_components/d3/d3.js"></script>
+    
+    
+    <script src="/bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    
+    
+    <script src="/bower_components/moment/moment.js"></script>
+    
+    
+    <script src="/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    
+    
+    <script src="/bower_components/gmaps/gmaps.js"></script>
+    
+    
+    <script src="/bower_components/hammerjs/hammer.js"></script>
+    
+    
+    <script src="/bower_components/jquery-hammerjs/jquery.hammer.js"></script>
+    
+    
+    <script src="/bower_components/json3/lib/json3.js"></script>
+    
+    
+    <script src="/bower_components/nouislider/distribute/jquery.nouislider.all.min.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-core.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-classapplier.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-highlighter.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-selectionsaverestore.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-serializer.js"></script>
+    
+    
+    <script src="/bower_components/rangy/rangy-textrange.js"></script>
+    
+    
+    <script src="/bower_components/select2/dist/js/select2.js"></script>
+    
+    
+    <script src="/bower_components/summernote/dist/summernote.js"></script>
+    
+    
+    <script src="/bower_components/velocity/velocity.js"></script>
+    
+    
+    <script src="/bower_components/velocity/velocity.ui.js"></script>
+    
+    
+    <script src="/bower_components/angular/angular.js"></script>
+    
+    
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    
+    
+    <script src="/bower_components/angular-auto-validate/dist/jcs-auto-validate.js"></script>
+    
+    
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    
+    
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    
+    
+    <script src="/bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+    
+    
+    <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+    
+    
+    <script src="/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+    
+    
+    <script src="/bower_components/angular-elastic/elastic.js"></script>
+    
+    
+    <script src="/bower_components/ngstorage/ngStorage.js"></script>
+    
+    
+    <script src="/bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    
+    
+    <script src="/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    
+    
+    <script src="/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    
+    
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    
+    
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    
+    
+    <script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    
+    
+    <script src="/bower_components/angular-strap/dist/angular-strap.js"></script>
+    
+    
+    <script src="/bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate/angular-translate.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+    
+    
+    <script src="/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    
+    
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    
+    
+    <script src="/bower_components/angular-ui-select/dist/select.js"></script>
+    
+    
+    <script src="/bower_components/angulartics/src/angulartics.js"></script>
+    
+    
+    <script src="/bower_components/angulartics-google-analytics/lib/angulartics-google-analytics.js"></script>
+    
+    
+    <script src="/bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
+    
+    
+    <script src="/bower_components/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    
+    
+    <script src="/bower_components/c3/c3.js"></script>
+    
+    
+    <script src="/bower_components/c3-angular/c3-angular.min.js"></script>
+    
+    
+    <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    
+    
+    <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+    
+    
+    <script src="/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    
+    
+    <script src="/bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js"></script>
+    
+    
+    <script src="/bower_components/ng-table/dist/ng-table.min.js"></script>
+    
+    
+    <script src="/bower_components/textAngular/dist/textAngular.js"></script>
+    
+    
+    <script src="/bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+    
+    
+    <script src="/bower_components/textAngular/dist/textAngularSetup.js"></script>
+    
+    
+    <script src="/bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    
+    
     <!-- endinject -->
     <!-- endbuild -->
 
@@ -78,6 +320,9 @@
     <script src="app/services/user/user.service.js"></script>
     <script src="app/services/profiles/profile.service.js"></script>
     <script src="app/services/profiles/page-ribbon.directive.js"></script>
+    <script src="app/services/practice/practice.service.js"></script>
+    <script src="app/services/practice/alpha.service.js"></script>
+    <script src="app/services/practice/state.service.js"></script>
     <script src="app/services/auth/register.service.js"></script>
     <script src="app/services/auth/principal.service.js"></script>
     <script src="app/services/auth/password-reset-init.service.js"></script>
@@ -91,6 +336,7 @@
     <script src="app/services/auth/account.service.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/navbar/active-menu.directive.js"></script>
+    <script src="app/layouts/topnav/topnav.controller.js"></script>
     <script src="app/layouts/error/error.state.js"></script>
     <script src="app/home/home.state.js"></script>
     <script src="app/home/home.controller.js"></script>
@@ -140,6 +386,16 @@
     <script src="app/admin/user-management/user-management-delete-dialog.controller.js"></script>
     <script src="app/admin/user-management/user-management.state.js"></script>
     <script src="app/admin/user-management/user-management.controller.js"></script>
+    <script src="app/practice-management/practice-management-dialog.controller.js"></script>
+    <script src="app/practice-management/practice-management-detail.controller.js"></script>
+    <script src="app/practice-management/practice-management-thingswork.controller.js"></script>
+    <script src="app/practice-management/practice-management-general.controller.js"></script>
+    <script src="app/practice-management/practice-management-spaceActivity.controller.js"></script>
+    <script src="app/practice-management/practice-management-completition.controller.js"></script>
+    <script src="app/practice-management/practice-management-delete-dialog.controller.js"></script>
+    <script src="app/practice-management/practice-management.state.js"></script>
+    <script src="app/practice-management/practice-management.controller.js"></script>
+    <script src="app/repository-management/repository-management.state.js"></script>
     <script src="app/admin/metrics/metrics.state.js"></script>
     <script src="app/admin/metrics/metrics.service.js"></script>
     <script src="app/admin/metrics/metrics.modal.controller.js"></script>
@@ -181,5 +437,59 @@
     <!-- endinject -->
     <!-- endbuild -->
 
+    <!-- build:js content/js/app.min.js -->
+  <script src="content/js/wow.js"></script>
+  <script src="content/js/app-materialism.js"></script>
+  <script src="content/js/vendors/angular-placeholders.js"></script>
+  <script src="content/js/vendors/side-nav.js"></script>
+  <script src="content/js/vendors/ripples.js"></script>
+  <script src="content/js/vendors/fsm-sticky-header.js"></script>
+  <script src="content/js/vendors/angular-smooth-scroll.js"></script>
+
+  <script src="/content/js/colors.js"></script>
+
+  <script src="/content/js/app.js"></script>
+  <script src="/content/js/app.constants.js"></script>
+  <script src="/content/js/app.config.js"></script>
+  <script src="/content/js/app.filters.js"></script>
+  <script src="/content/js/app.demo.js"></script><!--@grep dist-->
+
+  <script src="/content/js/directives/formcontrol.js"></script>
+  <script src="/content/js/directives/navbar-hover.js"></script>
+  <script src="/content/js/directives/navbar-search.js"></script>
+  <script src="/content/js/directives/navbar-toggle.js"></script>
+  <script src="/content/js/directives/noui-slider.js"></script>
+  <script src="/content/js/directives/todo-widget.js"></script>
+  <script src="/content/js/directives/menu-link.js"></script>
+  <script src="/content/js/directives/menu-toggle.js"></script>
+  <script src="/content/js/directives/vectormap.js"></script>
+  <script src="/content/js/directives/autofocus.js"></script>
+  <script src="/content/js/directives/card-flip.js"></script>
+  <script src="/content/js/directives/scroll-spy.js"></script>
+  <script src="/content/js/directives/init-ripples.js"></script>
+
+  <script src="/content/js/services/color-service.js"></script>
+  <script src="/content/js/services/todo-service.js"></script>
+
+  <script src="/content/js/controllers/main.js"></script>
+  <script src="/content/js/controllers/dashboard.js"></script>
+  <script src="/content/js/controllers/charts.js"></script>
+  <script src="/content/js/controllers/colors.js"></script>
+  <script src="/content/js/controllers/buttons.js"></script>
+  <script src="/content/js/controllers/lists.js"></script>
+  <script src="/content/js/controllers/maps/full-map.js"></script>
+  <script src="/content/js/controllers/maps/basic-map.js"></script>
+  <script src="/content/js/controllers/maps/clickable-map.js"></script>
+  <script src="/content/js/controllers/maps/searchable-map.js"></script>
+  <script src="/content/js/controllers/maps/zoomable-map.js"></script>
+  <script src="/content/js/controllers/maps/vector-map.js"></script>
+  <script src="/content/js/controllers/forms.js"></script>
+  <script src="/content/js/controllers/upload.js"></script>
+  <script src="/content/js/controllers/tables/basic.js"></script>
+  <script src="/content/js/controllers/tables/data.js"></script>
+  <script src="/content/js/controllers/apps/crud.js"></script>
+  <script src="/content/js/controllers/apps/todo.js"></script>
+  <!-- endbuild -->
+ 
 </body>
 </html>

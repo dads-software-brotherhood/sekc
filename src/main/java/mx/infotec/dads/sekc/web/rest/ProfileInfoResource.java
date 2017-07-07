@@ -1,21 +1,24 @@
 package mx.infotec.dads.sekc.web.rest;
 
-import mx.infotec.dads.sekc.config.DefaultProfileUtil;
-
-import io.github.jhipster.config.JHipsterProperties;
-
-import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.*;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import io.github.jhipster.config.JHipsterProperties;
+import mx.infotec.dads.sekc.config.DefaultProfileUtil;;
+
 /**
  * Resource to return information about the currently running Spring profiles.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping(API_PATH)
 public class ProfileInfoResource {
 
     private final Environment env;

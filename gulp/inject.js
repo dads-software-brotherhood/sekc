@@ -33,7 +33,7 @@ function vendor() {
         .pipe(plumber({errorHandler: handleErrors}))
         .pipe(inject(gulp.src(bowerFiles(), {read: false}), {
             name: 'bower',
-            relative: true
+            relative: false
         }))
         .pipe(gulp.dest(config.app));
 

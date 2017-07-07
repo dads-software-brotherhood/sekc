@@ -21,68 +21,69 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package mx.infotec.dads.sekc.essence;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
-import mx.infotec.dads.essence.repository.SEAlphaRepository;
-import mx.infotec.dads.essence.util.EssenceMapping;
-import mx.infotec.dads.sekc.SekcApp;
-
-/**
- * Test for GeneratorService
- * 
- * @author Daniel Cortes Pichardo
- *
- */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = SekcApp.class)
-public class AlphaRepositoryTest {
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    private SEAlphaRepository alphaRepository;
-
-    private static String id;
-
-    /**
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void insertAlpha() throws Exception {
-        LOGGER.info("insert alpha");
-        SEAlpha alpha = new SEAlpha();
-        EssenceMapping.fillSELanguageElements(alpha);
-        EssenceMapping.fillBasicElement(alpha);
-        alpha.setStates(null);
-        alpha.setAction(null);
-        alpha.setActivitySpace(null);
-        alpha.setAlphaContainment(null);
-        alpha.setAlphaAssociation(null);
-        alpha.setWorkProductManifest(null);
-        alphaRepository.save(alpha);
-        
-        // Add States
-        SEState state = new SEState();
-        EssenceMapping.fillSELanguageElements(state);
-        state.setAlpha(alpha);
-        
-        id = alpha.getId();
-    }
-
-    @Test
-    public void getPractice() {
-        LOGGER.info("get practice id = {}", id);
-        SEAlpha alpha = alphaRepository.findOne(id);
-        LOGGER.info("id: {}", alpha.getId());
-    }
-}
+//package mx.infotec.dads.sekc.essence;
+//
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.test.context.junit4.SpringRunner;
+//
+//import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
+//import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+//import mx.infotec.dads.essence.repository.SEAlphaRepository;
+//import mx.infotec.dads.essence.util.EssenceMapping;
+//import mx.infotec.dads.sekc.SekcApp;
+//
+///**
+// * Test for GeneratorService
+// * 
+// * @author Daniel Cortes Pichardo
+// *
+// */
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = SekcApp.class)
+//public class AlphaRepositoryTest {
+//    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+//
+//    @Autowired
+//    private SEAlphaRepository alphaRepository;
+//
+//    private static String id;
+//
+//    /**
+//     * 
+//     * @throws Exception
+//     */
+//    @Test
+//    public void insertAlpha() throws Exception {
+//        LOGGER.info("insert alpha");
+//        SEAlpha alpha = new SEAlpha();
+//        EssenceMapping.fillSELanguageElements(alpha);
+//        EssenceMapping.fillBasicElement(alpha);
+//        alpha.setStates(null);
+//        alpha.setAction(null);
+//        alpha.setActivitySpace(null);
+//        alpha.setAlphaContainment(null);
+//        alpha.setAlphaAssociation(null);
+//        alpha.setWorkProductManifest(null);
+//        alphaRepository.save(alpha);
+//        
+//        // Add States
+//        SEState state = new SEState();
+//        EssenceMapping.fillSELanguageElements(state);
+//        state.setAlpha(alpha);
+//        
+//        id = alpha.getId();
+//    }
+//
+//    @Test
+//    public void getPractice() {
+//        LOGGER.info("get practice id = {}", id);
+//        SEAlpha alpha = alphaRepository.findOne(id);
+//        LOGGER.info("id: {}", alpha.getId());
+//    }
+//}
+//

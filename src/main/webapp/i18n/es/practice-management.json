@@ -1,0 +1,45 @@
+{
+    "practiceManagement": {
+        "home": {
+            "title": "  Prácticas",
+            "createLabel": "Crear una nueva práctica",
+            "createOrEditLabel": "Crear o editar una práctica"
+        },
+        "created": "A new practice is created with identifier {{ param }}",
+        "updated": "An practice is updated with identifier {{ param }}",
+        "deleted": "An practice is deleted with identifier {{ param }}",
+        "delete": {
+            "question": "¿Seguro que quieres eliminar la práctica?"
+        },
+        "alpha": {
+        "home": {
+            "title": "Things to work with"
+        },
+        "delete": {
+            "question": "¿Seguro que quieres eliminar ....?"
+        },
+        "alphaSelect":"Selecciona un alpha",
+         "workproductSelect":"Selecciona un workproduct para el alpha",
+        "edit" : "Editar"
+    },
+        "detail": {
+            "title": "Práctica"
+        },
+        "selectKernel":"Selecciona un Kernel",
+        "name": "Nombre",
+        "icon": "Icono",
+        "briefDescription": "Breve Descripción",
+        "description": "Descripción",
+        "consistencyRules": "Reglas de consistencia",
+        "objective": "Objetivo",
+        "keywords":"Palabras Clave",
+        "measures": "Medidas",
+        "entry": "Entradas",
+        "result": "Resultados",
+        "isSupresable": "¿Puede ser eliminada?",
+        "add" : "Agregar",
+        "remove" : "Eliminar",
+        "next" : "Siguiente",
+        "cancel" : "Cancelar"
+    }
+}

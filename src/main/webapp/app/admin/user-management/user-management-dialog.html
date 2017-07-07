@@ -81,10 +81,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="activated">
-                <input ng-disabled="vm.user.id === null" type="checkbox" id="activated" name="activated" ng-model="vm.user.activated">
-                <span data-translate="userManagement.activated">Activated</span>
-            </label>
+            <div class="checkbox">
+                <label for="activated">
+                    <input ng-disabled="vm.user.id === null" type="checkbox" id="activated" name="activated" ng-model="vm.user.activated">
+                    <span data-translate="userManagement.activated">Activated</span>
+                </label>
+            </div>
         </div>
 
         <div class="form-group">

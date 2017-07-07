@@ -5,12 +5,12 @@
         .module('sekcApp')
         .controller('UserManagementDialogController',UserManagementDialogController);
 
-    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User', 'JhiLanguageService'];
+    UserManagementDialogController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'User', 'ProfileService', 'JhiLanguageService'];
 
-    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User, JhiLanguageService) {
+    function UserManagementDialogController ($stateParams, $uibModalInstance, entity, User, ProfileService, JhiLanguageService) {
         var vm = this;
 
-        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
+        vm.authorities = ['ROLE_USER', 'ROLE_ADMIN','ROLE_CONSULTANT','ROLE_VALIDATOR','ROLE_PRACTICING'];
         vm.clear = clear;
         vm.languages = null;
         vm.save = save;

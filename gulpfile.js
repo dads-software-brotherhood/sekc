@@ -81,6 +81,14 @@ gulp.task('inject:troubleshoot', inject.troubleshoot);
 
 gulp.task('assets:prod', ['images', 'styles', 'html', 'copy:swagger', 'copy:images'], build);
 
+
+
+gulp.task('copy-bower', function () {
+    return gulp.src([config.bowerOrigin + '**/*'])
+        .pipe(gulp.dest(config.bower));
+});
+
+
 gulp.task('html', function () {
     return gulp.src(config.app + 'app/**/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
@@ -148,6 +156,7 @@ gulp.task('test', ['inject:test', 'ngconstant:dev'], function (done) {
 });
 
 
+
 gulp.task('watch', function () {
     gulp.watch('bower.json', ['install']);
     gulp.watch(['gulpfile.js', 'pom.xml'], ['ngconstant:dev']);
@@ -157,8 +166,9 @@ gulp.task('watch', function () {
     gulp.watch([config.app + '*.html', config.app + 'app/**', config.app + 'i18n/**']).on('change', browserSync.reload);
 });
 
+
 gulp.task('install', function () {
-    runSequence(['inject:dep', 'ngconstant:dev'], 'copy:languages', 'inject:app', 'inject:troubleshoot');
+	runSequence('copy-bower',['inject:dep', 'ngconstant:dev'], 'copy:languages', 'inject:app', 'inject:troubleshoot');
 });
 
 gulp.task('serve', ['install'], serve);

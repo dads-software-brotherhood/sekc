@@ -1,7 +1,7 @@
 {
     "userManagement": {
         "home": {
-            "title": "Users",
+            "title": "  Users",
             "createLabel": "Create a new user",
             "createOrEditLabel": "Create or edit a user"
         },

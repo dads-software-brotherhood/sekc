@@ -1,0 +1,25 @@
+{
+    "activities": {
+        "home": {
+            "title": "Activities"
+        },
+        "created": "A new practice is created with identifier",
+        "updated": "An practice is updated with identifier",
+        "deleted": "An practice is deleted with identifier",
+        "delete": {
+            "question": "Are you sure you want to delete activity?"
+        },
+        "label": {
+	        "activitySpace": "Activity Space",
+	        "activities" : "Activities",
+	        "name": "Name",
+	        "description": "Description",
+	        "add" : "Add",
+	        "remove" : "Remove"
+        },
+         "button": {
+	        "add" : "Add",
+	        "remove" : "Remove"
+        }
+    }
+}

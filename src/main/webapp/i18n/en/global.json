@@ -21,6 +21,8 @@
             "admin": {
                 "main": "Administration",
                 "userManagement": "User management",
+                "practiceManagement": "Practice management",
+                "activities": "Activities",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
                 "health": "Health",
@@ -46,7 +48,7 @@
         "messages": {
             "info": {
                 "authenticated": "If you want to <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\">sign in</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-                "register": "You don't have an account yet? <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Register a new account</a>"
+                "register": "<a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Register a new account</a>"
             },
             "error": {
                 "dontmatch": "The password and its confirmation do not match!"
@@ -87,12 +89,16 @@
             "delete": "Delete",
             "edit": "Edit",
             "open": "Open",
+            "next": "Next",
             "save": "Save",
             "view": "View"
         },
         "detail": {
             "field": "Field",
             "value": "Value"
+        },
+        "select": {
+            "select": "Select"
         },
         "delete": {
             "title": "Confirm delete operation"

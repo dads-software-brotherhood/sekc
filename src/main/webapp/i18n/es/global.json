@@ -21,6 +21,7 @@
             "admin": {
                 "main": "Administración",
                 "userManagement": "Gestión de usuarios",
+                "practiceManagement": "Gestión de prácticas",
                 "tracker": "Registro de los usuarios",
                 "metrics": "Métricas",
                 "health": "Salud",
@@ -46,7 +47,7 @@
         "messages": {
             "info": {
                 "authenticated": "Si desea <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\">iniciar una sesión</a>, puede intentar con las cuentas predeterminadas:<br/>- Administrator (usuario=\"admin\" y contraseña=\"admin\") <br/>- Usuario (usuario=\"user\" y contraseña=\"user\").",
-                "register": "¿No tienes una cuenta todavía? <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Crea una cuenta</a>"
+                "register": " <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Crea una cuenta</a>"
             },
             "error": {
                 "dontmatch" : "¡La contraseña y la confirmación de contraseña no coinciden!"
@@ -87,12 +88,16 @@
             "delete": "Eliminar",
             "edit": "Editar",
             "open": "Open",
+            "next": "Siguiente",
             "save": "Guardar",
             "view": "Vista"
         },
         "detail": {
             "field": "Campo",
             "value": "Valor"
+        },
+        "select": {
+            "select": "Seleccionar"
         },
         "delete": {
             "title": "Confirmar operación de borrado"

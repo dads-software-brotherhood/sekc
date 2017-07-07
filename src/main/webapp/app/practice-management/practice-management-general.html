@@ -1,0 +1,113 @@
+<section class="p-b-20">
+    <div class="page-header">   
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">General</a></li>
+            <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
+            <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
+            <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
+            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completion</a></li>
+        </ul>
+    </div>
+    <div class="row m-b-40">
+        <div class="col-md-12">
+            <div class="well white">
+                <form class="form-floating placeholder-form">
+                    <fieldset>
+                        <div class="col-md-12">
+                            <div class="form-group filled">
+                                <label data-translate="practiceManagement.selectKernel">Select a Kernel</label>
+                                <select class="form-control">
+                                    <option value="" data-translate="entity.select.select">Selecciona</option>
+                                    <option value="">Kernel 1</option>
+                                    <option value="">Kernel 2</option>
+                                    <option value="">Kernel 3</option>
+                                    <option value="">Kernel 4</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label data-translate="practiceManagement.name" >Name</label>
+                                <input type="text" class="form-control" ng-model="model.name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="textArea" data-translate="practiceManagement.briefDescription">Brief Description</label>
+                                <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
+                            </div>    
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="textArea" data-translate="practiceManagement.description">Description</label>
+                                <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
+                            </div>  
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="textArea"  data-translate="practiceManagement.consistencyRules">Consistency Rules</label>
+                                <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
+                            </div>    
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="textArea" data-translate="practiceManagement.objective">Objective</label>
+                                <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
+                            </div>  
+                        </div>
+                    </fieldset>
+                </form>
+            </div>   
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well white">
+      					<input type="hidden" id="idUpdate" ng-model="idUpdate" />
+                        <form class="form">
+                          <div class="form-group input-group">
+                              <label data-translate="practiceManagement.keywords">Keywords</label>
+                            <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
+                            <div class="input-group-btn p-l-10">
+                              <button class="btn btn-default" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-hide="!vm.keywords.length">
+                    <div class="well white">
+                        <div class="table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Keyword</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="keyword in vm.keywords">
+                                        <td> {{keyword.keyWord}} </td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.updateKeyword($index, keyword)" ><i class="md md-edit"></button></td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteKeyword($index)"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                     </div>
+                </div>
+                <div class="modal-footer  m-b-30">
+                    <button type="button" class="btn btn-default m-t-10">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                            data-translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
+                    <span data-translate="entity.action.next">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
