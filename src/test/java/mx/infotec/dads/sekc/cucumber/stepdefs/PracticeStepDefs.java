@@ -19,7 +19,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gherkin.deps.com.google.gson.Gson;
-import mx.infotec.dads.sekc.web.rest.PracticesRestService;
+import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
 /*
  * @author: alejandro aguayo
  * 
@@ -32,7 +32,7 @@ import mx.infotec.dads.sekc.web.rest.PracticesRestService;
 public class PracticeStepDefs extends StepDefs {
 	
 	@Autowired
-    private PracticesRestService practicesService;
+    private PracticeService practicesService;
 
     private MockMvc restUserMockMvc;
 
