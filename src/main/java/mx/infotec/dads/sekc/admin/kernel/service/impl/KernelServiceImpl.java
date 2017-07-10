@@ -1,5 +1,6 @@
-package mx.infotec.dads.sekc.admin.practice.service.impl;
+package mx.infotec.dads.sekc.admin.kernel.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +11,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.essence.model.foundation.SEPractice;
-import mx.infotec.dads.essence.repository.SEPracticeRepository;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEAction;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
+import mx.infotec.dads.essence.model.foundation.SEKernel;
+import mx.infotec.dads.essence.model.foundation.SEMethod;
+import mx.infotec.dads.essence.repository.SEKernelRepository;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
+import mx.infotec.dads.sekc.admin.kernel.service.KernelService;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
 /**
@@ -23,29 +27,27 @@ import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
  * @author wisog
  */
 @Service
-public class PracticeServiceImpl implements PracticeService {
+public class KernelServiceImpl implements KernelService {
 
     @Autowired
     private RandomRepositoryUtil repositoryUtil;
     @Autowired
-    private SEPracticeRepository practiceRepository;
+    private SEKernelRepository kernelRepository;
     
-    private final Logger LOG = LoggerFactory.getLogger(PracticeServiceImpl.class );
+    private final Logger LOG = LoggerFactory.getLogger(KernelServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getPracticeFromRequest(Object practice, SEPractice practiceToPersistence){
+    private boolean getKernelFromRequest(Object kernel, SEKernel kernelToPersistence){
         try{
-            Map< String , Object > practiceMap = (Map< String , Object >) practice;
-            repositoryUtil.fillSEElementGroupFields(practiceToPersistence, practiceMap);
+            Map< String , Object > kernelMap = (Map< String , Object >) kernel;
+            repositoryUtil.fillSEElementGroupFields(kernelToPersistence, kernelMap);
             
-            practiceToPersistence.setBriefDescription((String) practiceMap.get("consistencyRules"));
-            practiceToPersistence.setBriefDescription((String) practiceMap.get("objective"));
-            practiceToPersistence.setMeasures( (Collection<String>) practiceMap.get("measures"));
-            practiceToPersistence.setEntry((Collection<String>) practiceMap.get("entry"));
-            practiceToPersistence.setResult((Collection<String>) practiceMap.get("result"));
-            practiceToPersistence.setKeyWords((List<String>) practiceMap.get("keyWords"));
-            practiceToPersistence.setAuthor((String) practiceMap.get("author"));
-            
+            if (kernelMap.containsKey("referringMethod")){
+                List<SEMethod> referringMethod = repositoryUtil.getDocuments((ArrayList<String>) kernelMap.get("referringMethod"), SEMethod.class);
+                if (!referringMethod.isEmpty())
+                    kernelToPersistence.setReferringMethod(referringMethod);
+            }
+            kernelToPersistence.setConsistencyRules((String) kernelMap.get("consistencyRules"));
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -54,23 +56,23 @@ public class PracticeServiceImpl implements PracticeService {
     }
 
     @Override
-    public ResponseWrapper save(Object practice) {
-        SEPractice practiceToPersistence = new SEPractice();
+    public ResponseWrapper save(Object kernel) {
+        SEKernel kernelToPersistence = new SEKernel();
         response = new ResponseWrapper();
-        if (!getPracticeFromRequest(practice, practiceToPersistence)){
+        if (!getKernelFromRequest(kernel, kernelToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
-            practiceRepository.save(practiceToPersistence);
-            response.setResponseObject(practiceToPersistence);
+            kernelRepository.save(kernelToPersistence);
+            response.setResponseObject(kernelToPersistence);
             response.setResponse_code(HttpStatus.OK);
         }
         
         //After object recreaion, before save it is a MUST to create a function 
         //to check the Data in the object
-        //if (ValidationsController.checkValid(practiceToPersistence) ){
-        //    response.setError_message( "Invalid practice object, it can't be persisted" );
-        //    response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
+        //if (ValidationsController.checkValid(kernelToPersistence) ){
+        //    response.setError_message( "Invalid kernel object, it can't be persisted" );
+        //    response.setResponse_code(HttpStatus.BAD_REQUEST);
         //}
         return response;
     }
@@ -78,7 +80,7 @@ public class PracticeServiceImpl implements PracticeService {
     @Override
     public ResponseWrapper findAll(Pageable pag) {
         response = new ResponseWrapper();
-        List<SEPractice> docCollection = practiceRepository.findAll();
+        List<SEKernel> docCollection = kernelRepository.findAll();
         if (!docCollection.isEmpty() ){
             response.setResponse_code(HttpStatus.OK);
             response.setResponseObject(docCollection);
@@ -93,7 +95,7 @@ public class PracticeServiceImpl implements PracticeService {
     public ResponseWrapper findOne(String id, List includeFields) {
         
         response = new ResponseWrapper();
-        Object document = practiceRepository.findOne(id);
+        Object document = kernelRepository.findOne(id);
         if (document != null){
             response.setResponse_code(HttpStatus.OK);
             if (includeFields != null)
@@ -109,8 +111,8 @@ public class PracticeServiceImpl implements PracticeService {
     @Override
     public ResponseWrapper delete(String id) {
         response = new ResponseWrapper();
-        response.setResponseObject(practiceRepository.findOne(id));
-        practiceRepository.delete(id);
+        response.setResponseObject(kernelRepository.findOne(id));
+        kernelRepository.delete(id);
         response.setResponse_code(HttpStatus.OK);
         return response;
     }

@@ -23,6 +23,7 @@ public final class RandomUtil {
     private static List<Field> getFields(Object obj){
         List<Field> allFields = new ArrayList<>();
         for (Class<?> c = obj.getClass(); c != null; c = c.getSuperclass()) {
+            
             Field[] fields = c.getDeclaredFields();
             allFields.addAll(Arrays.asList(fields));
         }

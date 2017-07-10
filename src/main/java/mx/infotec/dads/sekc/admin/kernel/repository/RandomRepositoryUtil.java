@@ -12,6 +12,7 @@ import mx.infotec.dads.essence.model.foundation.SEElementGroup;
 import mx.infotec.dads.essence.model.foundation.SEEndeavorProperty;
 import mx.infotec.dads.essence.model.foundation.SEExtensionElement;
 import mx.infotec.dads.essence.model.foundation.SELanguageElement;
+import mx.infotec.dads.essence.model.foundation.SEMergeResolution;
 import mx.infotec.dads.essence.model.foundation.SEPatternAssociation;
 import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.model.foundation.SETag;
@@ -28,6 +29,8 @@ import mx.infotec.dads.essence.repository.SECheckpointRepository;
 import mx.infotec.dads.essence.repository.SECompetencyLevelRepository;
 import mx.infotec.dads.essence.repository.SEEntryCriterionRepository;
 import mx.infotec.dads.essence.repository.SELevelOfDetailRepository;
+import mx.infotec.dads.essence.repository.SEMergeResolutionRepository;
+import mx.infotec.dads.essence.repository.SEUserDefinedTypeRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -59,6 +62,10 @@ public class RandomRepositoryUtil {
     private SECheckpointRepository checkPointRepository;
     @Autowired
     private SEEntryCriterionRepository entryCriterionRepository;
+    @Autowired
+    private SEMergeResolutionRepository mergeResolutionRepository;
+    @Autowired
+    private SEUserDefinedTypeRepository userDefinedTypeRepository;
     
     public void fillSELaguageElementFields( SELanguageElement elementToPersistence, Map<String, Object> map) {
         if (map.containsKey("suppressable"))
@@ -132,6 +139,49 @@ public class RandomRepositoryUtil {
         //    "icon":                 GraphicalElement
     }
     
+    public void fillSEElementGroupFields( SEElementGroup elementToPersistence, Map<String, Object> map) {
+        
+        fillSELaguageElementFields(elementToPersistence, map);
+        
+        //properties of SEElementGroup
+        elementToPersistence.setName((String) map.get("name"));
+        // TODO pendiente implementar GraphicalElement
+        //    "icon":                 GraphicalElement
+        elementToPersistence.setBriefDescription((String) map.get("briefDescription"));
+        elementToPersistence.setDescription((String) map.get("description"));
+        
+        if (map.containsKey("mergeResolution") && map.get("mergeResolution") != null ){
+            List<SEMergeResolution> collectionMergeResolutions = getDocsCollection(map, "mergeResolution", SEMergeResolution.class);
+            if (!collectionMergeResolutions.isEmpty())
+                elementToPersistence.setMergeResolution(collectionMergeResolutions);
+        }
+        /* TODO: correctDocument for SELanguageElement objects
+        if (map.containsKey("ownedElements") && map.get("ownedElements") != null ){
+            List<SELanguageElement> ownedElements = getCorrectDocument( (String) map.get("ownedElements") );
+            if (ownedElements != null)
+                elementToPersistence.setOwnedElements( ownedElements );
+        }
+        
+        if (map.containsKey("referredElements") && map.get("referredElements") != null ){
+            List<SELanguageElement> referredElements = getCorrectDocument( (String) map.get("referredElements") );
+            if (referredElements != null)
+                elementToPersistence.setReferredElements( referredElements );
+        }*/
+    }
+    
+    public void fillSEResource( SEResource elementToPersistence, Map<String, Object> map){
+         fillSELaguageElementFields(elementToPersistence, map);
+        
+        //properties of SEBasicElement
+        elementToPersistence.setContent((String) map.get("content"));
+        
+        /* TODO: correctDocument for SELanguageElement objects
+        if (map.containsKey("languageElement") && map.get("languageElement") != null ){
+            SELanguageElement languageElement = getCorrectDocument( (String) map.get("languageElement"));
+            if ( languageElement != null )
+                elementToPersistence.setLanguageElement(languageElement);
+        }*/
+    }
     private List getDocsCollection(Map<String, Object> map, String key, Class clazz){
         
         String iDs = map.get(key).toString().substring(1, map.get(key).toString().length()-1 );
@@ -203,6 +253,12 @@ public class RandomRepositoryUtil {
             break;
             case "SECriterion":
                 element = entryCriterionRepository.findOne(id);
+            break;
+            case "SEMergeResolution":
+                element = mergeResolutionRepository.findOne(id);
+            break;
+            case "SEUserDefinedType":
+                element = userDefinedTypeRepository.findOne(id);
             break;
             default:
                 element  = null;
