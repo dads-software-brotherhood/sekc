@@ -8,7 +8,7 @@
     State.$inject = ['$resource'];
 
     function State ($resource) {
-        var service = $resource('api/state/:login', {}, {
+        var service = $resource('api/v1/state/:login', {}, {
             'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

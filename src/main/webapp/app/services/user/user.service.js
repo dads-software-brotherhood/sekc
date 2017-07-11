@@ -8,7 +8,7 @@
     User.$inject = ['$resource'];
 
     function User ($resource) {
-        var service = $resource('api/users/:login', {}, {
+        var service = $resource('api/v1/users/:login', {}, {
             'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

@@ -8,7 +8,7 @@
     Password.$inject = ['$resource'];
 
     function Password($resource) {
-        var service = $resource('api/account/change_password', {}, {});
+        var service = $resource('api/v1/account/change_password', {}, {});
 
         return service;
     }

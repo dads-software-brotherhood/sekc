@@ -8,7 +8,7 @@
     Alpha.$inject = ['$resource'];
 
     function Alpha ($resource) {
-        var service = $resource('api/alpha/:login', {}, {
+        var service = $resource('api/v1/alpha/:login', {}, {
             'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
