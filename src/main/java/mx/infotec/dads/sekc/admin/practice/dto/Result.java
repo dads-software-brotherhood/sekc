@@ -19,7 +19,7 @@ public class Result {
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofDetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
+    private List<WorkProductsLevelofdetail> workProductsLevelofDetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
@@ -36,12 +36,12 @@ public class Result {
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
+    public List<WorkProductsLevelofdetail> getWorkProductsLevelofDetail() {
         return workProductsLevelofDetail;
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofdetail> workProductsLevelofDetail) {
         this.workProductsLevelofDetail = workProductsLevelofDetail;
     }
 

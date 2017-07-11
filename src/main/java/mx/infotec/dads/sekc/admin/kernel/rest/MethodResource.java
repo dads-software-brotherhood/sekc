@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
+import mx.infotec.dads.sekc.admin.kernel.service.MethodService;
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 /**
@@ -25,38 +25,38 @@ import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 @RestController
 @RequestMapping(API_PATH)
-public class WorkProductResource {
+public class MethodResource {
     
     @Autowired
-    private WorkProductService workProductService;
+    private MethodService methodService;
     
-    @PostMapping("/workProducts/")
-    public ResponseEntity workProductCreate( @RequestBody Object workProduct ){
+    @PostMapping("/methods/")
+    public ResponseEntity methodCreate( @RequestBody Object method ){
         ResponseWrapper responseData;
         
-        responseData = workProductService.save(workProduct);
+        responseData = methodService.save(method);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/workProducts/","/workProducts/{id}" })
-    public ResponseEntity workProductGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/methods/","/methods/{id}" })
+    public ResponseEntity methodGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
         if ( id != null)
-            responseData = workProductService.findOne(id, includeFields);    
+            responseData = methodService.findOne(id, includeFields);    
         else
-            responseData = workProductService.findAll(pageable);
+            responseData = methodService.findAll(pageable);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/workProducts/{id}")
-    public ResponseEntity workProductDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = workProductService.delete(id);
+    @DeleteMapping("/methods/{id}")
+    public ResponseEntity methodDelete(@PathVariable("id") String id) {
+        ResponseWrapper responseData = methodService.delete(id);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );

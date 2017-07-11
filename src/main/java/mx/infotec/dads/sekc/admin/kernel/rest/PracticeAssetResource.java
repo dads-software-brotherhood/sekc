@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
+import mx.infotec.dads.sekc.admin.kernel.service.PracticeAssetService;
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 /**
@@ -25,38 +25,38 @@ import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 @RestController
 @RequestMapping(API_PATH)
-public class WorkProductResource {
+public class PracticeAssetResource {
     
     @Autowired
-    private WorkProductService workProductService;
+    private PracticeAssetService practiceAssetService;
     
-    @PostMapping("/workProducts/")
-    public ResponseEntity workProductCreate( @RequestBody Object workProduct ){
+    @PostMapping("/practiceAssets/")
+    public ResponseEntity practiceAssetCreate( @RequestBody Object practiceAsset ){
         ResponseWrapper responseData;
         
-        responseData = workProductService.save(workProduct);
+        responseData = practiceAssetService.save(practiceAsset);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/workProducts/","/workProducts/{id}" })
-    public ResponseEntity workProductGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/practiceAssets/","/practiceAssets/{id}" })
+    public ResponseEntity practiceAssetGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
         if ( id != null)
-            responseData = workProductService.findOne(id, includeFields);    
+            responseData = practiceAssetService.findOne(id, includeFields);    
         else
-            responseData = workProductService.findAll(pageable);
+            responseData = practiceAssetService.findAll(pageable);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/workProducts/{id}")
-    public ResponseEntity workProductDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = workProductService.delete(id);
+    @DeleteMapping("/practiceAssets/{id}")
+    public ResponseEntity practiceAssetDelete(@PathVariable("id") String id) {
+        ResponseWrapper responseData = practiceAssetService.delete(id);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );

@@ -57,6 +57,8 @@ public class AlphaServiceImpl implements AlphaService {
             }
             if (alphaMap.containsKey("activitySpace")){
                 SEActivitySpace activitySpace = (SEActivitySpace) repositoryUtil.getDocument((String) alphaMap.get("activitySpace"), SEActivitySpace.class);
+                if ( activitySpace != null)
+                    alphaToPersistence.setActivitySpace(activitySpace);
             }
             if (alphaMap.containsKey("alphaContainment")){
                 List<SEAlphaContainment> alphaContainment = repositoryUtil.getDocuments((ArrayList<String>) alphaMap.get("alphaContainment"), SEAlphaContainment.class);

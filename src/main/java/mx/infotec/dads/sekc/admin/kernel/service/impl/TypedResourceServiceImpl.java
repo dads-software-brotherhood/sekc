@@ -36,7 +36,7 @@ public class TypedResourceServiceImpl implements TypedResourceService {
         try{
             Map< String , Object > typedResourceMap = (Map< String , Object >) typedResource;
             
-            repositoryUtil.fillSEResource(typedResourceToPersistence, typedResourceMap);
+            repositoryUtil.fillSEResourceFields(typedResourceToPersistence, typedResourceMap);
             
             if (typedResourceMap.containsKey("kind") && typedResourceMap.get("kind") != null ){
                 SEUserDefinedType kind = (SEUserDefinedType) repositoryUtil.getDocument((String) typedResourceMap.get("kind"), SEUserDefinedType.class);

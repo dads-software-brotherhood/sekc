@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,6 +28,7 @@ import mx.infotec.dads.essence.repository.SEStateRepository;
 import mx.infotec.dads.essence.repository.SEActivitySpaceRepository;
 import mx.infotec.dads.essence.repository.SECheckpointRepository;
 import mx.infotec.dads.essence.repository.SECompetencyLevelRepository;
+import mx.infotec.dads.essence.repository.SECompletionCriterionRepository;
 import mx.infotec.dads.essence.repository.SEEntryCriterionRepository;
 import mx.infotec.dads.essence.repository.SELevelOfDetailRepository;
 import mx.infotec.dads.essence.repository.SEMergeResolutionRepository;
@@ -66,6 +68,8 @@ public class RandomRepositoryUtil {
     private SEMergeResolutionRepository mergeResolutionRepository;
     @Autowired
     private SEUserDefinedTypeRepository userDefinedTypeRepository;
+    @Autowired
+    private SECompletionCriterionRepository completionCriterionRepository;
     
     public void fillSELaguageElementFields( SELanguageElement elementToPersistence, Map<String, Object> map) {
         if (map.containsKey("suppressable"))
@@ -169,7 +173,7 @@ public class RandomRepositoryUtil {
         }*/
     }
     
-    public void fillSEResource( SEResource elementToPersistence, Map<String, Object> map){
+    public void fillSEResourceFields( SEResource elementToPersistence, Map<String, Object> map){
          fillSELaguageElementFields(elementToPersistence, map);
         
         //properties of SEBasicElement
@@ -182,6 +186,7 @@ public class RandomRepositoryUtil {
                 elementToPersistence.setLanguageElement(languageElement);
         }*/
     }
+    
     private List getDocsCollection(Map<String, Object> map, String key, Class clazz){
         
         String iDs = map.get(key).toString().substring(1, map.get(key).toString().length()-1 );
@@ -197,12 +202,22 @@ public class RandomRepositoryUtil {
     public List getDocuments(ArrayList<String> arrayDocs, Class clazz){
         List collection = new ArrayList<>();
         for (String tagID: arrayDocs){
-            if (getDocument( tagID.trim(), clazz ) != null )
-                collection.add( getDocument(tagID.trim(), clazz ) );
+            Object document = getDocument( tagID.trim(), clazz );
+            if ( document != null )
+                collection.add( document );
         }
         return collection;
     }
-
+    
+    private SECriterion getCorrectCriterionDocument( String id) {
+        SECriterion criterion;
+        criterion = completionCriterionRepository.findOne(id);
+        if (criterion == null)
+            criterion = entryCriterionRepository.findOne(id);
+        
+        return criterion;
+    }
+    
     private SEElementGroup getCorrectDocument( String id) {
         SEElementGroup elementGroup;
         elementGroup = kernelRepository.findOne(id);

@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
  *
  * @author wisog
  */
-public interface WorkProductService {
+public interface MethodService {
     
-    public ResponseWrapper save( Object workProduct );
+    public ResponseWrapper save( Object method );
     public ResponseWrapper findAll(Pageable pag);
     public ResponseWrapper findOne(String id, java.util.List includeFields);
     public ResponseWrapper delete(String id);

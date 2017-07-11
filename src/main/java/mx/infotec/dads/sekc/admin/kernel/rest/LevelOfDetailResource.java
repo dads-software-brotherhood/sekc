@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.kernel.service.WorkProductService;
+import mx.infotec.dads.sekc.admin.kernel.service.LevelOfDetailService;
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 /**
@@ -25,38 +25,38 @@ import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 @RestController
 @RequestMapping(API_PATH)
-public class WorkProductResource {
+public class LevelOfDetailResource {
     
     @Autowired
-    private WorkProductService workProductService;
+    private LevelOfDetailService levelOfDetailService;
     
-    @PostMapping("/workProducts/")
-    public ResponseEntity workProductCreate( @RequestBody Object workProduct ){
+    @PostMapping("/levelOfDetails/")
+    public ResponseEntity levelOfDetailCreate( @RequestBody Object levelOfDetail ){
         ResponseWrapper responseData;
         
-        responseData = workProductService.save(workProduct);
+        responseData = levelOfDetailService.save(levelOfDetail);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/workProducts/","/workProducts/{id}" })
-    public ResponseEntity workProductGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/levelOfDetails/","/levelOfDetails/{id}" })
+    public ResponseEntity levelOfDetailGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
         if ( id != null)
-            responseData = workProductService.findOne(id, includeFields);    
+            responseData = levelOfDetailService.findOne(id, includeFields);    
         else
-            responseData = workProductService.findAll(pageable);
+            responseData = levelOfDetailService.findAll(pageable);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/workProducts/{id}")
-    public ResponseEntity workProductDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = workProductService.delete(id);
+    @DeleteMapping("/levelOfDetails/{id}")
+    public ResponseEntity levelOfDetailDelete(@PathVariable("id") String id) {
+        ResponseWrapper responseData = levelOfDetailService.delete(id);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
