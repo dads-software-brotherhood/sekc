@@ -436,7 +436,6 @@ public class InitialSetupMigration {
             }
             //update with SEState list
             mongoTemplate.save(alpha);
-        }
+        }       
     }
-
 }

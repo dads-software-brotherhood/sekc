@@ -29,6 +29,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.*;
 import javax.servlet.*;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -213,7 +214,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         CorsConfiguration config = jHipsterProperties.getCors();
         if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
             log.debug("Registering CORS filter");
-            source.registerCorsConfiguration("/api/**", config);
+            source.registerCorsConfiguration(API_PATH + "/**", config);
             source.registerCorsConfiguration("/v2/api-docs", config);
         }
         return new CorsFilter(source);

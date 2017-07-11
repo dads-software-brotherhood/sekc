@@ -2,6 +2,7 @@ package mx.infotec.dads.sekc.config;
 
 import mx.infotec.dads.sekc.security.*;
 import mx.infotec.dads.sekc.security.jwt.*;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 import io.github.jhipster.security.*;
 
@@ -106,13 +107,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/account/reset_password/init").permitAll()
-            .antMatchers("/api/account/reset_password/finish").permitAll()
-            .antMatchers("/api/profile-info").permitAll()
-            .antMatchers("/api/**").authenticated()
+            .antMatchers(API_PATH + "/register").permitAll()
+            .antMatchers(API_PATH + "/activate").permitAll()
+            .antMatchers(API_PATH + "/authenticate").permitAll()
+            .antMatchers(API_PATH + "/account/reset_password/init").permitAll()
+            .antMatchers(API_PATH + "/account/reset_password/finish").permitAll()
+            .antMatchers(API_PATH + "/profile-info").permitAll()
+            .antMatchers(API_PATH + "/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/v2/api-docs/**").permitAll()

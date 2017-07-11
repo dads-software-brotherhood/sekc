@@ -20,6 +20,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gherkin.deps.com.google.gson.Gson;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 /*
  * @author: alejandro aguayo
  * 
@@ -52,13 +53,13 @@ public class PracticeStepDefs extends StepDefs {
         String json = gson.toJson( practiceObject );
 
     	
-        actions = restUserMockMvc.perform( post( "/api/practice" )
+        actions = restUserMockMvc.perform( post( API_PATH + "/practice" )
         		.contentType( MediaType.APPLICATION_JSON).content( json ) );
     }
     
     @When("^I send a GET request whit the id param '(.*)'$")
     public void i_send_a_GET_request( String id ) throws Throwable {
-    	actions = restUserMockMvc.perform( get( "/api/practice" )
+    	actions = restUserMockMvc.perform( get( API_PATH + "/practice" )
         		.param( "id" , id )
         		.accept(MediaType.APPLICATION_JSON));  	
     }
@@ -71,7 +72,7 @@ public class PracticeStepDefs extends StepDefs {
     	Gson gson = new Gson();
         String json = gson.toJson( jsonClass );
         
-    	actions = restUserMockMvc.perform( post( "/api/practice" )
+    	actions = restUserMockMvc.perform( post( API_PATH + "/practice" )
     			.contentType( MediaType.APPLICATION_JSON).content( json ) );
     }
 

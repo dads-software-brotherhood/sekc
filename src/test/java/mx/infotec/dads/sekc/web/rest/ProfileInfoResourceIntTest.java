@@ -2,12 +2,12 @@ package mx.infotec.dads.sekc.web.rest;
 
 import io.github.jhipster.config.JHipsterProperties;
 import mx.infotec.dads.sekc.SekcApp;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
@@ -57,7 +57,7 @@ public class ProfileInfoResourceIntTest {
 
     @Test
     public void getProfileInfoWithRibbon() throws Exception {
-        restProfileMockMvc.perform(get("/api/profile-info"))
+        restProfileMockMvc.perform(get(API_PATH + "/profile-info"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
@@ -68,7 +68,7 @@ public class ProfileInfoResourceIntTest {
         ribbon.setDisplayOnActiveProfiles(null);
         when(jHipsterProperties.getRibbon()).thenReturn(ribbon);
 
-        restProfileMockMvc.perform(get("/api/profile-info"))
+        restProfileMockMvc.perform(get(API_PATH + "/profile-info"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }
@@ -79,7 +79,7 @@ public class ProfileInfoResourceIntTest {
         when(environment.getDefaultProfiles()).thenReturn(emptyProfile);
         when(environment.getActiveProfiles()).thenReturn(emptyProfile);
 
-        restProfileMockMvc.perform(get("/api/profile-info"))
+        restProfileMockMvc.perform(get(API_PATH + "/profile-info"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE));
     }

@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import mx.infotec.dads.sekc.web.rest.UserResource;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -28,7 +29,7 @@ public class UserStepDefs extends StepDefs {
 
     @When("^I search user '(.*)'$")
     public void i_search_user_admin(String userId) throws Throwable {
-        actions = restUserMockMvc.perform(get("/api/users/" + userId)
+        actions = restUserMockMvc.perform(get( API_PATH + "/users/" + userId)
                 .accept(MediaType.APPLICATION_JSON));
     }
 

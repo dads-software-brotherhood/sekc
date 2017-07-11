@@ -10,6 +10,7 @@ import mx.infotec.dads.sekc.service.MailService;
 import mx.infotec.dads.sekc.service.UserService;
 import mx.infotec.dads.sekc.service.dto.UserDTO;
 import mx.infotec.dads.sekc.web.rest.vm.ManagedUserVM;
+import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -77,7 +78,7 @@ public class AccountResourceIntTest {
 
     @Test
     public void testNonAuthenticatedUser() throws Exception {
-        restUserMockMvc.perform(get("/api/authenticate")
+        restUserMockMvc.perform(get(API_PATH + "/authenticate")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().string(""));
@@ -85,7 +86,7 @@ public class AccountResourceIntTest {
 
     @Test
     public void testAuthenticatedUser() throws Exception {
-        restUserMockMvc.perform(get("/api/authenticate")
+        restUserMockMvc.perform(get(API_PATH + "/authenticate")
             .with(request -> {
                 request.setRemoteUser("test");
                 return request;
@@ -111,7 +112,7 @@ public class AccountResourceIntTest {
         user.setAuthorities(authorities);
         when(mockUserService.getUserWithAuthorities()).thenReturn(user);
 
-        restUserMockMvc.perform(get("/api/account")
+        restUserMockMvc.perform(get(API_PATH + "/account")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -127,7 +128,7 @@ public class AccountResourceIntTest {
     public void testGetUnknownAccount() throws Exception {
         when(mockUserService.getUserWithAuthorities()).thenReturn(null);
 
-        restUserMockMvc.perform(get("/api/account")
+        restUserMockMvc.perform(get(API_PATH + "/account")
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isInternalServerError());
     }
@@ -151,7 +152,7 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
 
         restMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(validUser)))
             .andExpect(status().isCreated());
@@ -179,7 +180,7 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
 
         restUserMockMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(invalidUser)))
             .andExpect(status().isBadRequest());
@@ -207,7 +208,7 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
 
         restUserMockMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(invalidUser)))
             .andExpect(status().isBadRequest());
@@ -235,7 +236,7 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.USER)));
 
         restUserMockMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(invalidUser)))
             .andExpect(status().isBadRequest());
@@ -269,14 +270,14 @@ public class AccountResourceIntTest {
 
         // Good user
         restMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(validUser)))
             .andExpect(status().isCreated());
 
         // Duplicate login
         restMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(duplicatedUser)))
             .andExpect(status().is4xxClientError());
@@ -310,14 +311,14 @@ public class AccountResourceIntTest {
 
         // Good user
         restMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(validUser)))
             .andExpect(status().isCreated());
 
         // Duplicate e-mail
         restMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(duplicatedUser)))
             .andExpect(status().is4xxClientError());
@@ -345,7 +346,7 @@ public class AccountResourceIntTest {
             new HashSet<>(Arrays.asList(AuthoritiesConstants.ADMIN)));
 
         restMvc.perform(
-            post("/api/register")
+            post(API_PATH + "/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(validUser)))
             .andExpect(status().isCreated());
@@ -375,7 +376,7 @@ public class AccountResourceIntTest {
         );
 
         restUserMockMvc.perform(
-            post("/api/account")
+            post(API_PATH + "/account")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(invalidUser)))
             .andExpect(status().isBadRequest());

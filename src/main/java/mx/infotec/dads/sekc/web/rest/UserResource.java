@@ -123,7 +123,7 @@ public class UserResource {
         } else {
             User newUser = userService.createUser(managedUserVM);
             mailService.sendCreationEmail(newUser);
-            return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
+            return ResponseEntity.created(new URI(API_PATH + "/users/" + newUser.getLogin()))
                     .headers(HeaderUtil.createAlert("userManagement.created", newUser.getLogin())).body(newUser);
         }
     }
@@ -172,7 +172,7 @@ public class UserResource {
     @Timed
     public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable) {
         final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_PATH + "/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
