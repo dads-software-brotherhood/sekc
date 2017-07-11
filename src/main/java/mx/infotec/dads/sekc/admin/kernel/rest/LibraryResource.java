@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.kernel.service.KernelService;
+import mx.infotec.dads.sekc.admin.kernel.service.LibraryService;
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 /**
@@ -25,38 +25,38 @@ import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
 @RestController
 @RequestMapping(API_PATH)
-public class KernelResource {
+public class LibraryResource {
     
     @Autowired
-    private KernelService kernelService;
+    private LibraryService libraryService;
     
-    @PostMapping("/kernels/")
-    public ResponseEntity kernelCreate( @RequestBody Object kernel ){
+    @PostMapping("/libraries/")
+    public ResponseEntity libraryCreate( @RequestBody Object library ){
         ResponseWrapper responseData;
         
-        responseData = kernelService.save(kernel);
+        responseData = libraryService.save(library);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/kernels/","/kernels/{id}" })
-    public ResponseEntity kernelGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/libraries/","/libraries/{id}" })
+    public ResponseEntity libraryGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
         if ( id != null)
-            responseData = kernelService.findOne(id, includeFields);    
+            responseData = libraryService.findOne(id, includeFields);    
         else
-            responseData = kernelService.findAll(pageable);
+            responseData = libraryService.findAll(pageable);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
     
-    @DeleteMapping("/kernels/{id}")
-    public ResponseEntity kernelDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = kernelService.delete(id);
+    @DeleteMapping("/libraries/{id}")
+    public ResponseEntity libraryDelete(@PathVariable("id") String id) {
+        ResponseWrapper responseData = libraryService.delete(id);
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
