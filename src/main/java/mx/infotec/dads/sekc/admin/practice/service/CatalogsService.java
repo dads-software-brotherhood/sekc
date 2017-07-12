@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
+import mx.infotec.dads.sekc.admin.practice.dto.CatalogsDto;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 
 /**
@@ -13,7 +14,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
  */
 public interface CatalogsService {
 
-    public ResponseWrapper save(PracticeDto practice);
+    public ResponseWrapper save(CatalogsDto practice);
 
     public ResponseWrapper findAll(Pageable pag);
 

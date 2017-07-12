@@ -1,4 +1,4 @@
-package mx.infotec.dads.sekc.admin.catalogs.rest;
+package mx.infotec.dads.sekc.admin.practice.rest;
 
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.catalogs.dto.CatalogsDto;
-import mx.infotec.dads.sekc.admin.catalogs.service.CatalogsService;
+import mx.infotec.dads.sekc.admin.practice.dto.CatalogsDto;
+import mx.infotec.dads.sekc.admin.practice.service.CatalogsService;
 
 /**
  *
