@@ -1,8 +1,6 @@
 package mx.infotec.dads.sekc.admin.practice.service.impl;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +14,8 @@ import mx.infotec.dads.essence.repository.SEPracticeRepository;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
-import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
-import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
+import mx.infotec.dads.sekc.admin.practice.dto.CatalogsDto;
+import mx.infotec.dads.sekc.admin.practice.service.CatalogsService;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
 /**
@@ -25,7 +23,7 @@ import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
  * @author wisog
  */
 @Service
-public class CatalogsServiceImpl implements PracticeService {
+public class CatalogsServiceImpl implements CatalogsService {
 
     @Autowired
     private RandomRepositoryUtil repositoryUtil;
@@ -35,37 +33,12 @@ public class CatalogsServiceImpl implements PracticeService {
     private final Logger LOG = LoggerFactory.getLogger(CatalogsServiceImpl.class);
     private ResponseWrapper response;
 
-    private boolean getPracticeFromRequest(PracticeDto practice, SEPractice practiceToPersistence) {
-        try {
-            Map<String, Object> practiceMap = (Map<String, Object>) practice;
-            repositoryUtil.fillSEElementGroupFields(practiceToPersistence, practiceMap);
-            practiceToPersistence.setBriefDescription((String) practiceMap.get("consistencyRules"));
-            practiceToPersistence.setBriefDescription((String) practiceMap.get("objective"));
-            practiceToPersistence.setMeasures((Collection<String>) practiceMap.get("measures"));
-            practiceToPersistence.setEntry((Collection<String>) practiceMap.get("entry"));
-            practiceToPersistence.setResult((Collection<String>) practiceMap.get("result"));
-            practiceToPersistence.setKeyWords((List<String>) practiceMap.get("keyWords"));
-            practiceToPersistence.setAuthor((String) practiceMap.get("author"));
-
-            return true;
-        } catch (Exception e) {
-            LOG.debug("Fail to obtain the needed FIELDS ", e);
-            return false;
-        }
-    }
-
+   
     @Override
-    public ResponseWrapper save(PracticeDto practice) {
+    public ResponseWrapper save(CatalogsDto practice) {
         SEPractice practiceToPersistence = new SEPractice();
         response = new ResponseWrapper();
-        if (!getPracticeFromRequest(practice, practiceToPersistence)) {
-            response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
-            response.setResponse_code(HttpStatus.BAD_REQUEST);
-        } else {
-            practiceRepository.save(practiceToPersistence);
-            response.setResponseObject(practiceToPersistence);
-            response.setResponse_code(HttpStatus.OK);
-        }
+        
 
         // After object recreaion, before save it is a MUST to create a function
         // to check the Data in the object

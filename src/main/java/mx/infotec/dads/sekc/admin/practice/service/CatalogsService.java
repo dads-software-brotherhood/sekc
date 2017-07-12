@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.dto.CatalogsDto;
-import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 
 /**
  *
