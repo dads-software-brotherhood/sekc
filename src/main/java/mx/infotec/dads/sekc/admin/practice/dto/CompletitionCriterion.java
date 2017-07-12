@@ -19,7 +19,7 @@ public class CompletitionCriterion {
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofdetail> workProductsLevelofdetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
@@ -36,12 +36,12 @@ public class CompletitionCriterion {
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public List<WorkProductsLevelofdetail> getWorkProductsLevelofdetail() {
+    public List<WorkProductsLevelofDetail> getWorkProductsLevelofdetail() {
         return workProductsLevelofdetail;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofdetail> workProductsLevelofdetail) {
+    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofDetail> workProductsLevelofdetail) {
         this.workProductsLevelofdetail = workProductsLevelofdetail;
     }
 

@@ -21,7 +21,7 @@ public class Action {
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofDetail")
-    private List<WorkProductsLevelofdetail> workProductsLevelofDetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -46,12 +46,12 @@ public class Action {
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public List<WorkProductsLevelofdetail> getWorkProductsLevelofDetail() {
+    public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
         return workProductsLevelofDetail;
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofdetail> workProductsLevelofDetail) {
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
         this.workProductsLevelofDetail = workProductsLevelofDetail;
     }
 
