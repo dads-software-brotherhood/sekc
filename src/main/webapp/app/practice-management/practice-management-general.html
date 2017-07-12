@@ -15,8 +15,8 @@
                     <fieldset>
                         <div class="col-md-12">
                             <div class="form-group filled">
-                                <label data-translate="practiceManagement.selectKernel">Select a Kernel</label>
-                                <select class="form-control">
+                                <label data-translate="practiceManagement.selectKernel" >Select a Kernel</label>
+                                <select class="form-control" required>
                                     <option value="" data-translate="entity.select.select">Selecciona</option>
                                     <option value="">Kernel 1</option>
                                     <option value="">Kernel 2</option>
@@ -25,12 +25,25 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label data-translate="practiceManagement.name" >Name</label>
                                 <input type="text" class="form-control" ng-model="model.name" required>
                             </div>
                         </div>
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label data-translate="practiceManagement.author" >Autor</label>
+                                <input type="text" class="form-control"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="textArea" data-translate="practiceManagement.objective">Objective</label>
+                                <textarea class="form-control vertical" rows="2" id="textArea" required></textarea>
+                            </div>    
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea" data-translate="practiceManagement.briefDescription">Brief Description</label>
@@ -43,26 +56,32 @@
                                 <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
                             </div>  
                         </div>
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea"  data-translate="practiceManagement.consistencyRules">Consistency Rules</label>
                                 <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
                             </div>    
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="textArea" data-translate="practiceManagement.objective">Objective</label>
-                                <textarea class="form-control vertical" rows="3" id="textArea" required></textarea>
-                            </div>  
+                         <div class="col-md-12">
+                            <div class="form-group filled">
+                                <label data-translate="practiceManagement.relatedPractices" >Select a Practices Related</label>
+                                <select class="form-control" required>
+                                    <option value="" data-translate="entity.select.select">Selecciona</option>
+                                    <option value="">Practices Related 1</option>
+                                    <option value="">Practices Related 2</option>
+                                    <option value="">Practices Related 3</option>
+                                    <option value="">Practices Related 4</option>
+                                </select>
+                            </div>
                         </div>
+                      
                     </fieldset>
                 </form>
             </div>   
         </div>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-12">
+                <!--div class="col-md-12">
                     <div class="well white">
       					<input type="hidden" id="idUpdate" ng-model="idUpdate" />
                         <form class="form">
@@ -97,6 +116,27 @@
                             </table>
                         </div>
                      </div>
+                </div-->
+                <div class="col-md-12">
+                    <div class="well white">
+      					<input type="hidden" id="idUpdate" ng-model="idUpdate" />
+                        <form class="form">
+                          <div class="form-group input-group">
+                              <label data-translate="practiceManagement.keywords">Keywords</label>
+                            <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
+                            <div class="input-group-btn p-l-10">
+                              <button class="btn btn-default" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-12" ng-hide="!vm.keywords.length">
+                    <div>
+                        <button ng-repeat="keyword in vm.keywords" class="btn btn-default m-r-20 m-b-20">
+                            {{keyword.keyWord}} <i class="fa fa-times" aria-hidden="true" ng-click="vm.deleteKeyword($index)"> </i>
+                        </button>
+                    </div>
                 </div>
                 <div class="modal-footer  m-b-30">
                     <button type="button" class="btn btn-default m-t-10">

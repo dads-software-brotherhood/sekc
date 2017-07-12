@@ -27,10 +27,12 @@
             "title": "Practice"
         },
         "selectKernel":"Selecct a Kernel",
-        "name": "Name",
+        "name": "Practice Name",
+        "author":"Author",
         "icon": "Icon",
         "briefDescription": "Brief Description",
         "description": "Description",
+        "relatedPractices":"Related Practices",
         "consistencyRules": "Consistency Rules",
         "objective": "Objective",
         "keywords":"Keywords",

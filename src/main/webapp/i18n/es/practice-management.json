@@ -26,10 +26,12 @@
             "title": "Práctica"
         },
         "selectKernel":"Selecciona un Kernel",
-        "name": "Nombre",
+        "name": "Nombre de la practica",
+        "author":"Autor",
         "icon": "Icono",
         "briefDescription": "Breve Descripción",
         "description": "Descripción",
+        "relatedPractices":"Practicas Relacionadas",
         "consistencyRules": "Reglas de consistencia",
         "objective": "Objetivo",
         "keywords":"Palabras Clave",
