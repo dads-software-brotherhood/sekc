@@ -1,8 +1,7 @@
 
-package mx.infotec.dads.sekc.admin.practice.dto;
+package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -16,10 +15,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "name",
     "briefDescription",
-    "description",
-    "possibleLevel"
+    "level"
 })
-public class CompetencyCatalog {
+public class PossibleLevel {
 
     @JsonProperty("id")
     private String id;
@@ -27,10 +25,8 @@ public class CompetencyCatalog {
     private String name;
     @JsonProperty("briefDescription")
     private String briefDescription;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("possibleLevel")
-    private List<PossibleLevel> possibleLevel = null;
+    @JsonProperty("level")
+    private Integer level;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -64,24 +60,14 @@ public class CompetencyCatalog {
         this.briefDescription = briefDescription;
     }
 
-    @JsonProperty("description")
-    public String getDescription() {
-        return description;
+    @JsonProperty("level")
+    public Integer getLevel() {
+        return level;
     }
 
-    @JsonProperty("description")
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @JsonProperty("possibleLevel")
-    public List<PossibleLevel> getPossibleLevel() {
-        return possibleLevel;
-    }
-
-    @JsonProperty("possibleLevel")
-    public void setPossibleLevel(List<PossibleLevel> possibleLevel) {
-        this.possibleLevel = possibleLevel;
+    @JsonProperty("level")
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     @JsonAnyGetter

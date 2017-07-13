@@ -1,7 +1,8 @@
 
-package mx.infotec.dads.sekc.admin.practice.dto;
+package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,14 +14,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
-    "name"
+    "name",
+    "briefDescription",
+    "description",
+    "possibleLevel"
 })
-public class ResourcesType {
+public class Competency {
 
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
     private String name;
+    @JsonProperty("briefDescription")
+    private String briefDescription;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("possibleLevel")
+    private List<PossibleLevel> possibleLevel = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -42,6 +52,36 @@ public class ResourcesType {
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty("briefDescription")
+    public String getBriefDescription() {
+        return briefDescription;
+    }
+
+    @JsonProperty("briefDescription")
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
+    }
+
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @JsonProperty("possibleLevel")
+    public List<PossibleLevel> getPossibleLevel() {
+        return possibleLevel;
+    }
+
+    @JsonProperty("possibleLevel")
+    public void setPossibleLevel(List<PossibleLevel> possibleLevel) {
+        this.possibleLevel = possibleLevel;
     }
 
     @JsonAnyGetter

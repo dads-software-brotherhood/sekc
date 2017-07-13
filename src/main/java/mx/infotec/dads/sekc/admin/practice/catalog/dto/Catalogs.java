@@ -1,5 +1,5 @@
 
-package mx.infotec.dads.sekc.admin.practice.dto;
+package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,9 +32,10 @@ public class Catalogs {
     @JsonProperty("practices")
     private List<Practice> practices = null;
     @JsonProperty("competencies")
-    private List<CompetencyCatalog> competencies = null;
+    private List<Competency> competencies = null;
     @JsonProperty("actionsKinds")
     private List<ActionsKind> actionsKinds = null;
+    
     @JsonProperty("resourcesTypes")
     private List<ResourcesType> resourcesTypes = null;
     @JsonIgnore
@@ -81,12 +82,12 @@ public class Catalogs {
     }
 
     @JsonProperty("competencies")
-    public List<CompetencyCatalog> getCompetencies() {
+    public List<Competency> getCompetencies() {
         return competencies;
     }
 
     @JsonProperty("competencies")
-    public void setCompetencies(List<CompetencyCatalog> competencies) {
+    public void setCompetencies(List<Competency> competencies) {
         this.competencies = competencies;
     }
 

@@ -1,5 +1,5 @@
 
-package mx.infotec.dads.sekc.admin.practice.dto;
+package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
 import java.util.Map;

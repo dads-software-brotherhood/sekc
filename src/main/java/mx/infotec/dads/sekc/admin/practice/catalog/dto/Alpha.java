@@ -1,7 +1,8 @@
 
-package mx.infotec.dads.sekc.admin.practice.dto;
+package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -15,18 +16,25 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "name",
     "briefDescription",
-    "description"
+    "description",
+    "alphaContainment",
+    "workProductManifest"
 })
-public class WorkProductManifest {
+public class Alpha {
 
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
     private String name;
+
     @JsonProperty("briefDescription")
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("alphaContainment")
+    private List<AlphaContainment> alphaContainment = null;
+    @JsonProperty("workProductManifest")
+    private List<WorkProductManifest> workProductManifest = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -68,6 +76,26 @@ public class WorkProductManifest {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonProperty("alphaContainment")
+    public List<AlphaContainment> getAlphaContainment() {
+        return alphaContainment;
+    }
+
+    @JsonProperty("alphaContainment")
+    public void setAlphaContainment(List<AlphaContainment> alphaContainment) {
+        this.alphaContainment = alphaContainment;
+    }
+
+    @JsonProperty("workProductManifest")
+    public List<WorkProductManifest> getWorkProductManifest() {
+        return workProductManifest;
+    }
+
+    @JsonProperty("workProductManifest")
+    public void setWorkProductManifest(List<WorkProductManifest> workProductManifest) {
+        this.workProductManifest = workProductManifest;
     }
 
     @JsonAnyGetter

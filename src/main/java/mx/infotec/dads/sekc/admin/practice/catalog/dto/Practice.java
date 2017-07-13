@@ -1,5 +1,5 @@
 
-package mx.infotec.dads.sekc.admin.practice.dto;
+package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "briefDescription",
     "description"
 })
-public class ActivitySpace {
+public class Practice {
 
     @JsonProperty("id")
     private String id;
