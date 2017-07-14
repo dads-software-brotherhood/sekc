@@ -207,6 +207,27 @@
                 }]
             }
         })
+          .state('practice-management-conditions', {
+            parent: 'practice-management',
+            url: '/practiceConditions/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-management-conditions.html',
+                    controller: '',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
         .state('practice-management-thingswork', {
             parent: 'practice-management',
             url: '/practiceThingswork/{login}',

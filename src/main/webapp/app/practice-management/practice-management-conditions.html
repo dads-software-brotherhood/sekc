@@ -1,0 +1,185 @@
+<section class="p-b-20">
+    <div class="page-header">   
+        <ul class="nav nav-tabs">
+            <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
+            <li class="active"><a href="#">Conditions</a></li>
+            <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
+            <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
+            <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
+            <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completion</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well white">
+                <h5> <i  class="fa fa-th text-blue" aria-hidden="true" aria-hidden="true"></i> Measures</h5>
+                <form class="form">
+                    <div class="form-group input-group">
+                        <label>Measures</label>
+                        <input id="" class="form-control" type="text">
+                        <div class="input-group-btn p-l-10">
+                            <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
+                        </div>
+                    </div>
+                </form>             
+            </div>  
+        </div>          
+    </div>
+    <div class="row m-b-40">
+        <div class="col-md-6">
+            <div class="well white">
+                <h5> <i class="fa fa-sign-in text-blue" aria-hidden="true"></i> Entries</h5> 
+                <div class="form-group filled">
+                    <label>Alpha</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Alpha 1</option>
+                        <option value="">Alpha 2</option>
+                        <option value="">Alpha 3</option>
+                        <option value="">Alpha 4</option>
+                    </select>
+                </div>
+                <div class="form-group filled">
+                    <label>Alpha State</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Alpha State 1</option>
+                        <option value="">Alpha State 2</option>
+                        <option value="">Alpha State 3</option>
+                        <option value="">Alpha State 4</option>
+                    </select>
+                </div>
+                <div class="form-group filled">
+                    <label>Workproduct</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Workproduct 1</option>
+                        <option value="">Workproduct 2</option>
+                        <option value="">Workproduct 3</option>
+                        <option value="">Workproduct 4</option>
+                    </select>
+                </div>
+                <div class="form-group filled">
+                    <label>Level of Detail</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Level 1</option>
+                        <option value="">Level 2</option>
+                        <option value="">Level 3</option>
+                        <option value="">Level 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Another Entry Criterio</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-10 form-group">	
+                        <button class="btn btn-success" type="button"><span data-translate="practiceManagement.add">Add</span></button>
+                    </div>
+                </div> 
+                <br>
+                <div class="table-responsive white">
+                    <table class="table table-full table-full-small white">
+                        <thead>
+                            <tr>
+                                <th>Entry</th>
+                                <th>State/Document</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alpha</td>
+                                <td>Alpha State</td>
+                                <td><button class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>  
+        </div>
+        <div class="col-md-6">
+            <div class="well white">
+                <h5><i class="fa fa-sign-out text-blue" aria-hidden="true"></i> Results</h5>
+                <div class="form-group filled">
+                    <label>Alpha</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Alpha 1</option>
+                        <option value="">Alpha 2</option>
+                        <option value="">Alpha 3</option>
+                        <option value="">Alpha 4</option>
+                    </select>
+                </div>
+                <div class="form-group filled">
+                    <label>Alpha State</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Alpha State 1</option>
+                        <option value="">Alpha State 2</option>
+                        <option value="">Alpha State 3</option>
+                        <option value="">Alpha State 4</option>
+                    </select>
+                </div>
+                <div class="form-group filled">
+                    <label>Workproduct</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Workproduct 1</option>
+                        <option value="">Workproduct 2</option>
+                        <option value="">Workproduct 3</option>
+                        <option value="">Workproduct 4</option>
+                    </select>
+                </div>
+                <div class="form-group filled">
+                    <label>Level of Detail</label>
+                    <select class="form-control">
+                        <option value="" data-translate="entity.select.select">Select</option>
+                        <option value="">Level 1</option>
+                        <option value="">Level 2</option>
+                        <option value="">Level 3</option>
+                        <option value="">Level 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Another Entry Criterio</label>
+                    <input type="text" class="form-control" required>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-10 form-group">	
+                        <button class="btn btn-success" type="button"><span data-translate="practiceManagement.add">Add</span></button>
+                    </div>
+                </div>
+                <br>
+                <div class="table-responsive white">
+                    <table class="table table-full table-full-small white">
+                        <thead>
+                            <tr>
+                                <th>Results</th>
+                                <th>State/Document</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alpha</td>
+                                <td>Alpha State</td>
+                                <td><button class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer  m-b-30">
+            <button type="button" class="btn btn-default m-t-10">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    data-translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
+            <span data-translate="entity.action.next">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
