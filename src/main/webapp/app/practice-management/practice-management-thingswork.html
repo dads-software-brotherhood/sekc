@@ -2,188 +2,136 @@
     <div class="page-header">   
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
+            <li><a href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
             <li class="active"><a href="#">Things to work with</a></li>
             <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
             <li><a href="#/practice-management-activity" ui-sref="practice-management-activity">Activities</a></li>
             <li><a href="#/practice-management-completition" ui-sref="practice-management-completition">Completion</a></li>
         </ul>
     </div>
-    <div class="row">
+    <div class="row m-b-40">
         <div class="col-md-6">
             <div class="well white">
                 <div class="form-group filled">
-                    <label data-translate="practiceManagement.alpha.alphaSelect">Alpha selection</label>
-                    <select class="form-control" ng-options="datos as datos.name for datos in vm.alphas track by datos.id" ng-model="alpha">
-                    	<option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="well white">
-                <div class="form-group filled">
-                    <label data-translate="practiceManagement.alpha.workproductSelect">Alpha-workproduct</label>
+                    <label>Alphas</label>
                     <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Workproduct 1</option>
-                        <option value="">Workproduct 2</option>
-                        <option value="">Workproduct 3</option>
-                        <option value="">Workproduct 4</option>
+                        <option value="">Select</option>
+                        <option value="">Alpha 1</option>
+                        <option value="">Alpha 2</option>
+                        <option value="">Alpha 3</option>
+                        <option value="">Alpha 4</option>
                     </select>
-                </div>
-            </div>
-        </div>
-    </div>
-   	<div class="row">
-        <div class="col-md-2 col-md-offset-11 form-group"> 
-            <button class="btn btn-success" type="button">
-                    <span data-translate="practiceManagement.add">Add</span>
-            </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well-white">
-                <div class="table-responsive white">
-                    <table class="table  table-full table-full-small">
-                        <thead>
-                            <tr>
-                              <th>Alpha</th>
-                              <th>Workproduct</th>
-                              <th data-translate="practiceManagement.alpha.edit">Edit</th>
-                              <th data-translate="practiceManagement.remove">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>System</td>
-                                <td>Architecture Document</td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td> 
-                            </tr>
-                            <tr>
-                                <td>System</td>
-                                <td>Architecture Document</td>
-                                <td><button type="submit"class="btn btn-link btn-round"> <i class="md md-edit"></button></td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td> 
-                            </tr>
-                             <tr>
-                                <td>Requirements</td>
-                                <td>Prototipe Specification</td>
-                                <td><button type="submit"class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                <td><button type="submit" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>  
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row m-t-30">
-        <div class="btn-group" role="group" aria-label="Filter todo's">
-          <button ng-repeat="filter in todoService.filters track by $index" class="btn btn-default filter" ng-bind="filter.title" ng-click="todoService.filter(filter.method)" ng-class="[$index == todoService.activeFilter ? 'active' : '']"></button>
-        </div>     
-        <div class="col-md-4">
-            <div class="well white">
-                <form class="form">
-                    <div class="form-group input-group">
-                        <label data-translate="practiceManagement.entry">Entries</label>
-                        <select class="form-control" ng-options="datos as datos.name for datos in vm.entries track by datos.id" ng-model="vm.entry">
-                    		<option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    	</select>
-                        <div class="input-group-btn p-l-10 ">
-                          <button class="btn btn-default ng-animate-disabled m-t-30" ng-click="vm.addEntryResult(vm.entry, vm.entriesList)" data-translate="practiceManagement.add">Add</button>
+                </div> 
+                <button class="btn btn-primary"data-toggle="collapse" data-target="#demo">Select Workproducts</button>
+                <div id="demo" class="collapse">
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 1
+                          </label>
                         </div>
-                      </div>
-                </form>
-                <div class="table-responsive white" ng-hide="!vm.entriesList.length">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Entries</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="entry in vm.entriesList">
-                                <td> {{entry.name}} </td>
-                                <td><button ng-click="vm.deleteEntryResult($index, vm.entriesList)" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 2
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 3
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 4
+                          </label>
+                        </div>
+                    </div>
+                </div>
+                   <button class="btn btn-primary"data-toggle="collapse" data-target="#subalphas">Select Subalphas</button>
+                <div id="subalphas" class="collapse">
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Subalphas 1
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Subalphas 2
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Subalphas 3
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Subalphas 4
+                          </label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="well white">
-                <form class="form">
-                    <div class="form-group input-group">
-                        <label data-translate="practiceManagement.result">Results</label>
-                        <select class="form-control" ng-options="datos as datos.name for datos in vm.results track by datos.id" ng-model="vm.result">
-                    		<option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    	</select>
-                      <div class="input-group-btn p-l-10">
-                        <button class="btn btn-default ng-animate-disabled m-t-30" ng-click="vm.addEntryResult(vm.result, vm.resultsList)" data-translate="practiceManagement.add">Add</button>
-                      </div>
+                 <div class="form-group filled">
+                    <label>Subalphas</label>
+                    <select class="form-control">
+                        <option value="">Select</option>
+                        <option value="">Subalpha 1</option>
+                        <option value="">Subalpha 2</option>
+                        <option value="">Subalpha 3</option>
+                        <option value="">Subalpha 4</option>
+                    </select>
+                </div> 
+                <button class="btn btn-primary"data-toggle="collapse" data-target="#workproduct2">Workproducts</button>
+                <div id="workproduct2" class="collapse">
+                <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 1
+                          </label>
+                        </div>
                     </div>
-                </form>
-                <div class="table-responsive white" ng-hide="!vm.resultsList.length">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Results</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="result in vm.resultsList">
-                                <td> {{result.name}}</td>
-                                <td><button ng-click="vm.deleteEntryResult($index, vm.resultsList)" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 2
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 3
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox">Workporduct 4
+                          </label>
+                        </div>
+                    </div>
                 </div>
+                </div>
+   
             </div>
         </div>
-        <div class="col-md-4">
-           <div class="well white">
-                <form class="form">
-                    <div class="form-group input-group">
-                        <label data-translate="practiceManagement.measures">Measures</label>
-                      <input id="todo-title" class="form-control" type="text" ng-model="vm.measure">
-                      <div class="input-group-btn p-l-10">
-                        <button class="btn btn-default ng-animate-disabled m-t-30" ng-click="vm.addEntryResult(vm.measure, 'measures')" data-translate="practiceManagement.add">{{vm.buttonAdd}}</button>
-                      </div>
-                    </div>
-                </form>
-                <div class="table-responsive white" ng-hide="!vm.measures.length">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Measures</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="measure in vm.measures">
-                                <td> {{measure.name}} </td>
-                                <td><button ng-click="vm.update($index, measure)" class="btn btn-link btn-round" ><i class="md md-edit"></button></td>
-                                <td><button ng-click="vm.deleteEntryResult($index, vm.measures)" class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>                     
-        </div>
-    </div>
-    <div class="modal-footer  m-b-30">
-        <button type="button" class="btn btn-default m-t-10" data-dismiss="modal" ng-click="vm.clear()">
-        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-                data-translate="entity.action.cancel">Cancel</span>
-        </button>
-        <button type="submit" class="btn btn-primary m-t-10">
-        <span data-translate="entity.action.save">Next</span>
-        </button>
     </div>
 </section>
