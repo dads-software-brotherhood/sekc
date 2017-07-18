@@ -12,126 +12,664 @@
     <div class="row m-b-40">
         <div class="col-md-6">
             <div class="well white">
-                <div class="form-group filled">
-                    <label>Alphas</label>
-                    <select class="form-control">
-                        <option value="">Select</option>
-                        <option value="">Alpha 1</option>
-                        <option value="">Alpha 2</option>
-                        <option value="">Alpha 3</option>
-                        <option value="">Alpha 4</option>
-                    </select>
-                </div> 
-                <button class="btn btn-primary"data-toggle="collapse" data-target="#demo">Select Workproducts</button>
-                <div id="demo" class="collapse">
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 1
-                          </label>
-                        </div>
+                <div class="form-group">
+                    <div class="checkbox" >
+                        <label>
+                            <input type="checkbox" data-toggle="collapse" data-target="#alpha1">Alpha 1
+                      </label>
                     </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 2
-                          </label>
-                        </div>
+                </div>  
+                <div class="form-group collapse m-l-30" id="alpha1" data-target="#alpha1">
+                    <p data-toggle="collapse" data-target="#workproducts1">Workproducts</p>
+                    <div id="workproducts1" data-target="#workproducts1" >
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 1
+                              </label>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 2
+                              </label>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 3
+                              </label>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 4
+                              </label>
+                            </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 3
-                          </label>
+                    <p data-toggle="collapse" data-target="#subalphas" >Subalphas</p>
+                    <div id="subalphas" data-target="#subalphas" >
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub1">Subalpha 1
+                              </label>
+                            </div>
+                            <div id="worksub1" data-target="#worksub1" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub2">Subalpha 2
+                              </label>
+                            </div>
+                            <div id="worksub2" data-target="#worksub2" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub3">Subalpha 3
+                              </label>
+                            </div>
+                            <div id="worksub3" data-target="#worksub3" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub4">Subalpha 4
+                              </label>
+                            </div>
+                            <div id="worksub4" data-target="#worksub4" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub5">Subalpha 5
+                              </label>
+                            </div>
+                            <div id="worksub5" data-target="#worksub5" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 4
-                          </label>
-                        </div>
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub6">Subalpha 6
+                              </label>
+                            </div>
+                            <div id="worksub6" data-target="#worksub6" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksub7">Subalpha 7
+                              </label>
+                            </div>
+                            <div id="worksub7" data-target="#worksub7" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>  
+                    </div>   
+                </div>
+                 <div class="form-group">
+                    <div class="checkbox" >
+                        <label>
+                            <input type="checkbox" data-toggle="collapse" data-target="#alpha2">Alpha 2
+                      </label>
                     </div>
                 </div>
-                   <button class="btn btn-primary"data-toggle="collapse" data-target="#subalphas">Select Subalphas</button>
-                <div id="subalphas" class="collapse">
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Subalphas 1
-                          </label>
-                        </div>
+                <div class="form-group collapse m-l-30" id="alpha2" data-target="#alpha2">
+                    <p data-toggle="collapse" data-target="#workproducts2">Workproducts</p>
+                    <div id="workproducts2" data-target="#workproducts2" >
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 1
+                              </label>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 2
+                              </label>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 3
+                              </label>
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox">Workproduct 4
+                              </label>
+                            </div>
+                        </div>  
                     </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Subalphas 2
-                          </label>
+                    <p data-toggle="collapse" data-target="#subalphas2" >Subalphas</p>
+                    <div id="subalphas2" data-target="#subalphas2" >
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal1">Subalpha 1
+                              </label>
+                            </div>
+                            <div id="worksubal1" data-target="#worksubal1" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal2">Subalpha 2
+                              </label>
+                            </div>
+                            <div id="worksubal2" data-target="#worksubal2" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal3">Subalpha 3
+                              </label>
+                            </div>
+                            <div id="worksubal3" data-target="#worksubal3" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal4">Subalpha 4
+                              </label>
+                            </div>
+                            <div id="worksubal4" data-target="#worksubal4" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>  
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal5">Subalpha 5
+                              </label>
+                            </div>
+                            <div id="worksubal5" data-target="#worksubal5" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Subalphas 3
-                          </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Subalphas 4
-                          </label>
-                        </div>
-                    </div>
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal6">Subalpha 6
+                              </label>
+                            </div>
+                            <div id="worksubal6" data-target="#worksubal6" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="checkbox" >
+                                <label>
+                                    <input type="checkbox" data-toggle="collapse" data-target="#worksubal7">Subalpha 7
+                              </label>
+                            </div>
+                            <div id="worksubal7" data-target="#worksubal7" class="m-l-30">
+                                <p>Workproducts</p>
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 1
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 2
+                                      </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 3
+                                      </label>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="checkbox" >
+                                        <label>
+                                            <input type="checkbox">Workproduct 4
+                                      </label>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>  
+                    </div>   
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-10 form-group">	
+                    <button class="btn btn-success" type="button"><span data-translate="practiceManagement.add">Add</span></button>
+                </div>
+            </div> 
         </div>
         <div class="col-md-6">
             <div class="well white">
-                 <div class="form-group filled">
-                    <label>Subalphas</label>
-                    <select class="form-control">
-                        <option value="">Select</option>
-                        <option value="">Subalpha 1</option>
-                        <option value="">Subalpha 2</option>
-                        <option value="">Subalpha 3</option>
-                        <option value="">Subalpha 4</option>
-                    </select>
-                </div> 
-                <button class="btn btn-primary"data-toggle="collapse" data-target="#workproduct2">Workproducts</button>
-                <div id="workproduct2" class="collapse">
-                <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 1
-                          </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 2
-                          </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 3
-                          </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                          <label>
-                            <input type="checkbox">Workporduct 4
-                          </label>
-                        </div>
-                    </div>
+                <table class="table table-full table-full-small white">
+                        <thead>
+                            <tr>
+                                <th>Alpha</th>
+                                <th>Subbalpha</th>
+                                <th>Workproduct</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Alpha 1</td>
+                                <td>Subalpha 1</td>
+                                <td>Workproduct 1</td>
+                                <td><button class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                </div>
-   
             </div>
+         <div class="modal-footer  m-b-30">
+            <button type="button" class="btn btn-default m-t-10">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    data-translate="entity.action.cancel">Cancel</span>
+            </button>
+            <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
+            <span data-translate="entity.action.next">Next</span>
+            </button>
+        </div>
         </div>
     </div>
 </section>
+
+                  
