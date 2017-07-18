@@ -41,7 +41,8 @@
             'textAngular',
             'fsm',                    // sticky header
             'smoothScroll',
-            'LocalStorageModule'
+            'LocalStorageModule',
+            'ui.tinymce'
         ])
         .run(run);
 
