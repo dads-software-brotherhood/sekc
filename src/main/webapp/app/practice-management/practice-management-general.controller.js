@@ -13,6 +13,9 @@
         vm.indexKeyword = -1;
         vm.buttonAdd = "Add";
         vm.keywords = [];
+        vm.description = {
+                "description": "<em>italic data in page javascript in head</em>"
+        };
         
         vm.deleteKeyword = deleteKeyword;
         vm.updateKeyword = updateKeyword;
@@ -41,6 +44,9 @@
     	
     	function addKeyword() {
             // Do nothing if no newKeyword is entered (blank)
+    		
+    		console.log(vm.description);
+    		
             if (!vm.newKeyword)
                 return;
                 
@@ -53,6 +59,14 @@
             
             vm.clearKeyword();
     	}
+    	
+    	vm.tinymceOptions = {
+    	        resize: false,
+    	        height: 100,
+    	        plugins: 'textcolor',
+    	        toolbar: "undo redo styleselect bold italic forecolor backcolor"
+
+    	    };
 	}
         
     
