@@ -34,6 +34,7 @@ import mx.infotec.dads.sekc.config.dbmigrations.domain.KernelMigration;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.LevelOfDetail;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.State;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.WorkProduct;
+import mx.infotec.dads.sekc.config.dbmigrations.util.MigrationException;
 import mx.infotec.dads.sekc.config.dbmigrations.util.MigrationMapper;
 
 /**
@@ -56,7 +57,8 @@ public class KernelSetupMigration {
 			seKernel.getOwnedElements().addAll(migrateAreasOfConcern(mongoTemplate, kernel.getAreasOfConcern()));
 			mongoTemplate.save(seKernel);
 		} catch (IOException e) {
-			log.error("Creating Kernel Error:", e);
+		    log.error("Creating Kernel Error:", e);
+		    throw new MigrationException("Creating Kernel Error", e);
 		}
 	}
 
