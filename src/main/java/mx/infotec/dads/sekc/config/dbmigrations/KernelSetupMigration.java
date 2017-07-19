@@ -65,112 +65,107 @@ public class KernelSetupMigration {
 	private void migrateAreasOfConcern(MongoTemplate mongoTemplate, List<AreasOfConcern> areasOfConcerns,
 			List<SEAreaOfConcern> areaOfConcernList) {
 		for (AreasOfConcern areaOfConcern : areasOfConcerns) {
-			List<SEAlpha> alphaList = new ArrayList<>();
-			List<SEActivitySpace> activitySpaceList = new ArrayList<>();
-			List<SECompetency> competencyList = new ArrayList<>();
-			migrateAlphas(mongoTemplate, areaOfConcern.getAlphas(), alphaList);
-			migrateActivitySpaces(mongoTemplate, areaOfConcern.getActivitySpaces(), activitySpaceList);
-			migrateCompetencies(mongoTemplate, areaOfConcern.getCompetencies(), competencyList);
 			SEAreaOfConcern seAreaOfConcern = MigrationMapper.toSEAreaOfConcern(areaOfConcern);
 			seAreaOfConcern.setOwnedElements(new ArrayList<>());
-			seAreaOfConcern.getOwnedElements().addAll(alphaList);
-			seAreaOfConcern.getOwnedElements().addAll(activitySpaceList);
-			seAreaOfConcern.getOwnedElements().addAll(competencyList);
+			seAreaOfConcern.getOwnedElements().addAll(migrateAlphas(mongoTemplate, areaOfConcern.getAlphas()));
+			seAreaOfConcern.getOwnedElements().addAll(migrateActivitySpaces(mongoTemplate, areaOfConcern.getActivitySpaces()));
+			seAreaOfConcern.getOwnedElements().addAll(migrateCompetencies(mongoTemplate, areaOfConcern.getCompetencies()));
 			mongoTemplate.save(seAreaOfConcern);
 			areaOfConcernList.add(seAreaOfConcern);
 		}
 	}
 
-	private void migrateActivitySpaces(MongoTemplate mongoTemplate, List<ActivitySpace> activitySpaces,
-			List<SEActivitySpace> activitySpaceList) {
+	private List<SEActivitySpace> migrateActivitySpaces(MongoTemplate mongoTemplate,
+			List<ActivitySpace> activitySpaces) {
+		List<SEActivitySpace> activitySpaceList = new ArrayList<>();
 		for (ActivitySpace activitySpace : activitySpaces) {
 			SEActivitySpace seActivitySpace = MigrationMapper.toSEActivitySpace(activitySpace);
 			mongoTemplate.save(seActivitySpace);
 			activitySpaceList.add(seActivitySpace);
 		}
+		return activitySpaceList;
 	}
 
-	private void migrateCompetencies(MongoTemplate mongoTemplate, List<Competency> competencies,
-			List<SECompetency> competencyList) {
+	private List<SECompetency> migrateCompetencies(MongoTemplate mongoTemplate, List<Competency> competencies) {
+		List<SECompetency> competencyList = new ArrayList<>();
 		for (Competency competency : competencies) {
-			List<SECompetencyLevel> competencyLevelList = new ArrayList<>();
-			migrateCompetencyLevel(mongoTemplate, competency.getCompetencyLevels(), competencyLevelList);
 			SECompetency seCompetency = MigrationMapper.toSECompetency(competency);
 			seCompetency.setPossibleLevel(new ArrayList<>());
-			seCompetency.getPossibleLevel().addAll(competencyLevelList);
+			seCompetency.getPossibleLevel()
+					.addAll(migrateCompetencyLevel(mongoTemplate, competency.getCompetencyLevels()));
 			mongoTemplate.save(seCompetency);
 			competencyList.add(seCompetency);
-
 		}
+		return competencyList;
 	}
 
-	private void migrateCompetencyLevel(MongoTemplate mongoTemplate, List<CompetencyLevel> competencyLevels,
-			List<SECompetencyLevel> competencyLevelList) {
+	private List<SECompetencyLevel> migrateCompetencyLevel(MongoTemplate mongoTemplate,
+			List<CompetencyLevel> competencyLevels) {
+		List<SECompetencyLevel> competencyLevelList = new ArrayList<>();
 		for (CompetencyLevel competencyLevel : competencyLevels) {
-			List<SECheckpoint> seCheckpointList = new ArrayList<>();
-			migrateCheckpoints(mongoTemplate, competencyLevel.getCheckpoints(), seCheckpointList);
 			SECompetencyLevel seCompetencyLevel = MigrationMapper.toSECompetencyLevel(competencyLevel);
 			seCompetencyLevel.setChecklistItem(new ArrayList<>());
-			seCompetencyLevel.getChecklistItem().addAll(seCheckpointList);
+			seCompetencyLevel.getChecklistItem()
+					.addAll(migrateCheckpoints(mongoTemplate, competencyLevel.getCheckpoints()));
 			mongoTemplate.save(seCompetencyLevel);
 			competencyLevelList.add(seCompetencyLevel);
 		}
+		return competencyLevelList;
 	}
 
-	private void migrateAlphas(MongoTemplate mongoTemplate, List<Alpha> alphas, List<SEAlpha> alphaList) {
+	private List<SEAlpha> migrateAlphas(MongoTemplate mongoTemplate, List<Alpha> alphas) {
+		List<SEAlpha> alphaList = new ArrayList<>();
 		for (Alpha alpha : alphas) {
-			List<SEState> seStateList = new ArrayList<>();
-			List<SEWorkProduct> seWorkProduct = new ArrayList<>();
-			migrateStates(mongoTemplate, alpha, seStateList);
-			migrateWorkProduct(mongoTemplate, alpha, seWorkProduct);
+			migrateWorkProduct(mongoTemplate, alpha);// NO IMPLEMENTED
 			SEAlpha seAlpha = MigrationMapper.toSEAlpha(alpha);
-			seAlpha.setStates(seStateList);
+			seAlpha.setStates(migrateStates(mongoTemplate, alpha));
 			mongoTemplate.save(seAlpha);
 			alphaList.add(seAlpha);
 		}
+		return alphaList;
 	}
 
-	private void migrateWorkProduct(MongoTemplate mongoTemplate, Alpha alpha, List<SEWorkProduct> seWorkProductList) {
+	private List<SEWorkProduct> migrateWorkProduct(MongoTemplate mongoTemplate, Alpha alpha) {
+		List<SEWorkProduct> seWorkProductList = new ArrayList<>();
 		for (WorkProduct workProduct : alpha.getWorkProducts()) {
-			List<SELevelOfDetail> seLevelOfDetail = new ArrayList<>();
-			migrateLevelOfDetails(mongoTemplate, workProduct.getLevelOfDetails(), seLevelOfDetail);
 			SEWorkProduct seWorkproduct = MigrationMapper.toSEWorkproduct(workProduct);
-			seWorkproduct.setLevelOfDetail(seLevelOfDetail);
+			seWorkproduct.setLevelOfDetail(migrateLevelOfDetails(mongoTemplate, workProduct.getLevelOfDetails()));
 			mongoTemplate.save(seWorkproduct);
 			seWorkProductList.add(seWorkproduct);
 		}
+		return seWorkProductList;
 	}
 
-	private void migrateLevelOfDetails(MongoTemplate mongoTemplate, List<LevelOfDetail> levelOfDetails,
-			List<SELevelOfDetail> seLevelOfDetails) {
+	private List<SELevelOfDetail> migrateLevelOfDetails(MongoTemplate mongoTemplate,
+			List<LevelOfDetail> levelOfDetails) {
+		List<SELevelOfDetail> seLevelOfDetails = new ArrayList<>();
 		for (LevelOfDetail levelOfDetail : levelOfDetails) {
-			List<SECheckpoint> seCheckpointList = new ArrayList<>();
-			migrateCheckpoints(mongoTemplate, levelOfDetail.getCheckpoints(), seCheckpointList);
 			SELevelOfDetail seLevelOfDetail = MigrationMapper.toSELevelOfDetail(levelOfDetail);
-			seLevelOfDetail.setCheckListItem(seCheckpointList);
+			seLevelOfDetail.setCheckListItem(migrateCheckpoints(mongoTemplate, levelOfDetail.getCheckpoints()));
 			mongoTemplate.save(seLevelOfDetail);
 			seLevelOfDetails.add(seLevelOfDetail);
 		}
-
+		return seLevelOfDetails;
 	}
 
-	private void migrateStates(MongoTemplate mongoTemplate, Alpha alpha, List<SEState> seStateList) {
+	private List<SEState> migrateStates(MongoTemplate mongoTemplate, Alpha alpha) {
+		List<SEState> seStateList = new ArrayList<>();
 		for (State state : alpha.getStates()) {
-			List<SECheckpoint> seCheckpointList = new ArrayList<>();
-			migrateCheckpoints(mongoTemplate, state.getCheckpoints(), seCheckpointList);
 			SEState seState = MigrationMapper.toSEState(state);
-			seState.setCheckListItem(seCheckpointList);
+			seState.setCheckListItem(migrateCheckpoints(mongoTemplate, state.getCheckpoints()));
 			mongoTemplate.save(seState);
 			seStateList.add(seState);
 		}
+		return seStateList;
 	}
 
-	private void migrateCheckpoints(MongoTemplate mongoTemplate, List<Checkpoint> checkpoints,
-			List<SECheckpoint> seCheckpointList) {
+	private List<SECheckpoint> migrateCheckpoints(MongoTemplate mongoTemplate, List<Checkpoint> checkpoints) {
+		List<SECheckpoint> seCheckpointList = new ArrayList<>();
 		for (Checkpoint checkpoint : checkpoints) {
 			SECheckpoint seCheckpoint = MigrationMapper.toSECheckpoint(checkpoint);
 			mongoTemplate.save(seCheckpoint);
 			seCheckpointList.add(seCheckpoint);
 		}
+		return seCheckpointList;
 	}
 }
