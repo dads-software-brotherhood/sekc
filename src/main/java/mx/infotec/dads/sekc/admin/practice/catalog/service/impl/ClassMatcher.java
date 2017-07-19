@@ -30,7 +30,7 @@ public class ClassMatcher {
         kernel.setName(seKernel.getName());
         kernel.setDescription(seKernel.getDescription());
         kernel.setBriefDescription(seKernel.getBriefDescription());
-        kernel.setAdditionalProperty("aresOfConcerns", seKernel.getAreaOfConcerns());
+        kernel.setAdditionalProperty("aresOfConcerns", seKernel.getOwnedElements());
         return kernel;
     }
     
