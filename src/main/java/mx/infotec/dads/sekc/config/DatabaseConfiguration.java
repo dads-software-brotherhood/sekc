@@ -26,7 +26,7 @@ import java.util.List;
 
 @Configuration
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
-@EnableMongoRepositories(basePackages = { "mx.infotec.dads.sekc.repository", "mx.infotec.dads.essence.repository" })
+@EnableMongoRepositories(basePackages = { "mx.infotec.dads.sekc.repository", "mx.infotec.dads.essence.repository", "mx.infotec.dads.sekc.admin" })
 @Import(value = MongoAutoConfiguration.class)
 @EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class DatabaseConfiguration {

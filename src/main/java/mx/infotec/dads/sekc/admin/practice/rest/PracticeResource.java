@@ -35,7 +35,7 @@ public class PracticeResource {
     
     private static final String ENTITY_NAME = "practices";
 
-    @PostMapping("/practices/")
+    @PostMapping("/practices")
     public ResponseEntity createPractice(@RequestBody PracticeDto practice) {
         ResponseWrapper responseData;
         responseData = practiceService.save(practice);
@@ -54,7 +54,7 @@ public class PracticeResource {
             .body(responseData.toString());
     }
 
-    @GetMapping(value = { "/practices/", "/practices/{id}" })
+    @GetMapping(value = { "/practices", "/practices/{id}" })
     public ResponseEntity practiceGet(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "includeFields", required = false) List<String> includeFields,
             @ApiParam Pageable pageable) {
