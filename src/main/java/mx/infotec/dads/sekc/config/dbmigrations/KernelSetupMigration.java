@@ -19,6 +19,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetency;
+import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
@@ -27,6 +28,7 @@ import mx.infotec.dads.sekc.config.dbmigrations.domain.Alpha;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.AreasOfConcern;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Checkpoint;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Competency;
+import mx.infotec.dads.sekc.config.dbmigrations.domain.CompetencyLevel;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Kernel;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.KernelMigration;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.LevelOfDetail;
@@ -91,8 +93,27 @@ public class KernelSetupMigration {
 	private void migrateCompetencies(MongoTemplate mongoTemplate, List<Competency> competencies,
 			List<SECompetency> competencyList) {
 		for (Competency competency : competencies) {
-			
+			List<SECompetencyLevel> competencyLevelList = new ArrayList<>();
+			migrateCompetencyLevel(mongoTemplate, competency.getCompetencyLevels(), competencyLevelList);
+			SECompetency seCompetency = MigrationMapper.toSECompetency(competency);
+			seCompetency.setPossibleLevel(new ArrayList<>());
+			seCompetency.getPossibleLevel().addAll(competencyLevelList);
+			mongoTemplate.save(seCompetency);
+			competencyList.add(seCompetency);
 
+		}
+	}
+
+	private void migrateCompetencyLevel(MongoTemplate mongoTemplate, List<CompetencyLevel> competencyLevels,
+			List<SECompetencyLevel> competencyLevelList) {
+		for (CompetencyLevel competencyLevel : competencyLevels) {
+			List<SECheckpoint> seCheckpointList = new ArrayList<>();
+			migrateCheckpoints(mongoTemplate, competencyLevel.getCheckpoints(), seCheckpointList);
+			SECompetencyLevel seCompetencyLevel = MigrationMapper.toSECompetencyLevel(competencyLevel);
+			seCompetencyLevel.setChecklistItem(new ArrayList<>());
+			seCompetencyLevel.getChecklistItem().addAll(seCheckpointList);
+			mongoTemplate.save(seCompetencyLevel);
+			competencyLevelList.add(seCompetencyLevel);
 		}
 	}
 
