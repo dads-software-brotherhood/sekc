@@ -1,18 +1,21 @@
 {
-    "repository": {
-        "title": "Repositorio",
-     	"button": {
-            "cancel": "Cancelar",
-            "save": "Guardar"
-        },
-        "lable": {
-            "origin": "Origen",
-            "email" : "Email",
-            "url" : "URL",
-            "version" : "Essence Versión",
-            "dataModel" : "Data model versión",
-            "otherPractices" : "Relación con otras prácticas",
-            "description" : "Descripción"
-        }
-    }
+	"repository": {
+		"home": {
+			"title": "Repositories",
+			"createLabel": "Crear nuevo Repository",
+			"createOrEditLabel": "Crear o editar Repository"
+		},
+		"created": "Un nuevo Repository ha sido creado con el identificador {{ param }}",
+		"updated": "Un Repository ha sido actualizado con el identificador {{ param }}",
+		"deleted": "Un Repository ha sido eliminado con el identificador {{ param }}",
+		"delete": {
+			"question": "¿Seguro que quiere eliminar Repository {{ id }}?"
+		},
+		"detail": {
+			"title": "Repository"
+		},
+		"name": "Name",
+		"url": "Url",
+		"description": "Description"
+	}
 }
