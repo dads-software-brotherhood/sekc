@@ -39,6 +39,12 @@
 
      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
     <li menu-toggle id="entity-menu" ng-hide="true" name="Entities" icon="md md-assignment-ind" ng-class="{active: vm.$state.includes('entity')}">
+        <li ui-sref-active="active">
+                                <a ui-sref="repository-repository" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.repositoryRepository">Repository Repository</span>
+                                </a>
+                            </li>
         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
     </li>
     <li menu-toggle id="admin-menu" name="Administration" icon="md  md-account-balance" ng-class="{active: vm.$state.includes('admin')}"  has-authority="ROLE_ADMIN" >
