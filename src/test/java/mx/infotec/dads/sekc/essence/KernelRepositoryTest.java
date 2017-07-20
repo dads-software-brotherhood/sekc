@@ -24,6 +24,8 @@
 package mx.infotec.dads.sekc.essence;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +41,6 @@ import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.competency.SECompetency;
-import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SELanguageElement;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
@@ -69,21 +70,20 @@ public class KernelRepositoryTest {
 
     private void visitKernel(SEKernel seKernel) {
         LOGGER.info("[KERNEL]          ->" + seKernel.getName());
-        for (SELanguageElement seLanguageElement : seKernel.getOwnedElements()) {
-            visitLanguageElement(seLanguageElement);
+        for (SEAreaOfConcern seAreaOfConcern : filterAreaOfConcerns(seKernel)) {
+            visitAreaOfConcern(seAreaOfConcern);
         }
     }
 
-    private void visitLanguageElement(SELanguageElement seLanguageElement) {
-        if (seLanguageElement instanceof SEAreaOfConcern) {
-            SEAreaOfConcern seAreaOfConcern = (SEAreaOfConcern) seLanguageElement;
-            LOGGER.info("[AREA OF CONCERN] -->" + seAreaOfConcern.getName());
-            visitAreaOfConcern(seAreaOfConcern);
-
-        }
+    private List<SEAreaOfConcern> filterAreaOfConcerns(SEKernel seKernel) {
+        return seKernel.getOwnedElements().stream()
+                .filter(languageElement -> languageElement instanceof SEAreaOfConcern)
+                .map(languageElement -> (SEAreaOfConcern) languageElement)
+                .collect(Collectors.toList());
     }
 
     private void visitAreaOfConcern(SEAreaOfConcern seAreaOfConcern) {
+        LOGGER.info("[AREA OF CONCERN] -->" + seAreaOfConcern.getName());
         for (SELanguageElement seLangElemAreaOfConcern : seAreaOfConcern.getOwnedElements()) {
             if (seLangElemAreaOfConcern instanceof SEAlpha) {
                 SEAlpha seAlpha = (SEAlpha) seLangElemAreaOfConcern;
