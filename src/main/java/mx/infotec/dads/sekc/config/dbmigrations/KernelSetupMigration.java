@@ -47,7 +47,7 @@ public class KernelSetupMigration {
 
 	@ChangeSet(order = "01", author = "initiator", id = "03-createAlphasStatesCheckPointsCatalogs")
 	public void createKernel(MongoTemplate mongoTemplate) {
-		String kernelUrl = "https://gist.githubusercontent.com/danimaniarqsoft/6813e7c27d5b42bd3eda2844e87b107e/raw/4d50f9d651e22b2fbf2c231e5d618baeb2d00fc6/kernel.js";
+		String kernelUrl = "https://gist.githubusercontent.com/danimaniarqsoft/6813e7c27d5b42bd3eda2844e87b107e/raw/b348b061f77a11de323a2852e95e44396b793ded/kernel.js";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			KernelMigration kernelMigration = mapper.readValue(new URL(kernelUrl), KernelMigration.class);
