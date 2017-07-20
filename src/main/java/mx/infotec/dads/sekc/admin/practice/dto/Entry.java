@@ -20,31 +20,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Entry {
 
     @JsonProperty("alphaStates")
-    private List<AlphaState> alphaStates = null;
+    private AlphaState alphaStates;
     @JsonProperty("workProductsLevelofDetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
+    private WorkProductsLevelofDetail workProductsLevelofDetail;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alphaStates")
-    public List<AlphaState> getAlphaStates() {
+    public AlphaState getAlphaStates() {
         return alphaStates;
     }
 
     @JsonProperty("alphaStates")
-    public void setAlphaStates(List<AlphaState> alphaStates) {
+    public void setAlphaStates(AlphaState alphaStates) {
         this.alphaStates = alphaStates;
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
+    public WorkProductsLevelofDetail getWorkProductsLevelofDetail() {
         return workProductsLevelofDetail;
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
+    public void setWorkProductsLevelofDetail(WorkProductsLevelofDetail workProductsLevelofDetail) {
         this.workProductsLevelofDetail = workProductsLevelofDetail;
     }
 

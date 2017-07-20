@@ -41,7 +41,7 @@ public class LevelOfDetailServiceImpl implements LevelOfDetailService {
     private boolean getLevelOfDetailFromRequest(Object levelOfDetail, SELevelOfDetail levelOfDetailToPersistence){
         try{
             Map< String , Object > levelOfDetailMap = (Map< String , Object >) levelOfDetail;
-            repositoryUtil.fillSELaguageElementFields(levelOfDetailToPersistence, levelOfDetailMap);
+            // repositoryUtil.fillSELaguageElementFields(levelOfDetailToPersistence, levelOfDetailMap);
             
             levelOfDetailToPersistence.setDescription((String) levelOfDetailMap.get("description"));
             levelOfDetailToPersistence.setSufficientLevel((boolean) levelOfDetailMap.get("isSufficientLevel"));

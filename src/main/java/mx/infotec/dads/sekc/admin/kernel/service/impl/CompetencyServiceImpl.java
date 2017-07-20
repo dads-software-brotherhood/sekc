@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.repository.SECompetencyRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.CompetencyDto;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.CompetencyService;
+import mx.infotec.dads.sekc.admin.kernel.dto.PossibleLevel;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 import org.omg.essence.model.competency.CompetencyLevel;
 
@@ -35,16 +37,19 @@ public class CompetencyServiceImpl implements CompetencyService {
     private final Logger LOG = LoggerFactory.getLogger(CompetencyServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getCompetencyFromRequest(Object competency, SECompetency competencyToPersistence){
+    private boolean getCompetencyFromRequest(CompetencyDto competencyDto, SECompetency competencyToPersistence){
         try{
-            Map< String , Object > competencyMap = (Map< String , Object >) competency;
-            repositoryUtil.fillSEBasicElementFields(competencyToPersistence, competencyMap);
+            repositoryUtil.fillSEBasicElementFields(competencyToPersistence, competencyDto);
             
-            if (competencyMap.containsKey("possibleLevel")){
-                List<CompetencyLevel> possibleLevel = repositoryUtil.getDocuments((ArrayList<String>) competencyMap.get("levelOfDetail"), SECompetencyLevel.class);
-                if (!possibleLevel.isEmpty())
-                    competencyToPersistence.setPossibleLevel(possibleLevel);
-            }
+            if ( competencyDto.getPossibleLevel() != null){
+                competencyDto.getPossibleLevel().forEach((possibleLevel) -> {
+                    CompetencyLevel sePossibleLevel = (CompetencyLevel) repositoryUtil.getDocument( possibleLevel.getIdPossibleLevel(), SECompetencyLevel.class);
+                    if (possibleLevel != null) {
+                        competencyToPersistence.getPossibleLevel().add(sePossibleLevel);
+                    }
+                });
+            }   
+            
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -53,10 +58,10 @@ public class CompetencyServiceImpl implements CompetencyService {
     }
 
     @Override
-    public ResponseWrapper save(Object competency) {
+    public ResponseWrapper save(CompetencyDto competencyDto) {
         SECompetency competencyToPersistence = new SECompetency();
         response = new ResponseWrapper();
-        if (!getCompetencyFromRequest(competency, competencyToPersistence)){
+        if (!getCompetencyFromRequest(competencyDto, competencyToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{

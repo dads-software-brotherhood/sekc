@@ -1,8 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +13,13 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.repository.SECheckpointRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.CheckPointDto;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.CheckPointService;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
-import org.omg.essence.model.competency.CompetencyLevel;
+
 
 /**
  *
@@ -37,38 +36,30 @@ public class CheckPointServiceImpl implements CheckPointService {
     private final Logger LOG = LoggerFactory.getLogger(CheckPointServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getStateFromRequest(Object checkPoint, SECheckpoint checkPointToPersistence){
+    private boolean getCheckPointFromRequest(CheckPointDto checkPointDto, SECheckpoint checkPointToPersistence){
         try{
-            Map< String , Object > checkPointMap = (Map< String , Object >) checkPoint;
-            repositoryUtil.fillSELaguageElementFields(checkPointToPersistence, checkPointMap);
             
-            if (checkPointMap.containsKey("name"))
-                checkPointToPersistence.setName((String) checkPointMap.get("name"));
+            repositoryUtil.fillSELaguageElementFields(checkPointToPersistence, checkPointDto);
             
-            if (checkPointMap.containsKey("description"))
-                checkPointToPersistence.setDescription((String) checkPointMap.get("description"));
+            checkPointToPersistence.setName( checkPointDto.getName());
+            checkPointToPersistence.setDescription( checkPointDto.getDescription());
+            checkPointToPersistence.setShortDescription( checkPointDto.getShortDescription());
             
-            if (checkPointMap.containsKey("shortDescription"))
-                checkPointToPersistence.setShortDescription((String) checkPointMap.get("shortDescription"));
-            
-            if (checkPointMap.containsKey("level")){
-                SELevelOfDetail level = (SELevelOfDetail) repositoryUtil.getDocument( (String) checkPointMap.get("level"), SELevelOfDetail.class);
+            if (checkPointDto.getLevel() != null){
+                SELevelOfDetail level = (SELevelOfDetail) repositoryUtil.getDocument( checkPointDto.getLevel().getIdLevel(), SELevelOfDetail.class);
                 if (level != null)
                     checkPointToPersistence.setLevel(level);
             }
-            
-            if (checkPointMap.containsKey("state")){
-                SEState successor = (SEState) repositoryUtil.getDocument( (String) checkPointMap.get("state"), SEState.class);
-                if (successor != null)
-                    checkPointToPersistence.setState(successor);
+            if (checkPointDto.getState() != null){
+                SEState state = (SEState) repositoryUtil.getDocument( checkPointDto.getState().getIdState(), SEState.class);
+                if (state != null)
+                    checkPointToPersistence.setState(state);
             }
-            
-            if (checkPointMap.containsKey("competencyLevel")){
-                SECompetencyLevel competencyLevel = (SECompetencyLevel) (CompetencyLevel) repositoryUtil.getDocument((String) checkPointMap.get("competencyLevel"), SECompetencyLevel.class);
+            if (checkPointDto.getCompetencyLevel() != null){
+                SECompetencyLevel competencyLevel = (SECompetencyLevel) repositoryUtil.getDocument( checkPointDto.getCompetencyLevel().getIdCompetencyLevel(), SECompetencyLevel.class);
                 if (competencyLevel != null)
                     checkPointToPersistence.setCompetencyLevel( competencyLevel);
             }
-            
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -77,10 +68,10 @@ public class CheckPointServiceImpl implements CheckPointService {
     }
 
     @Override
-    public ResponseWrapper save(Object checkPoint) {
+    public ResponseWrapper save(CheckPointDto checkPoint) {
         SECheckpoint checkPointToPersistence = new SECheckpoint();
         response = new ResponseWrapper();
-        if (!getStateFromRequest(checkPoint, checkPointToPersistence)){
+        if (!getCheckPointFromRequest(checkPoint, checkPointToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{

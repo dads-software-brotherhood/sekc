@@ -4,7 +4,6 @@ package mx.infotec.dads.sekc.admin.practice.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,31 +16,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class CompletitionCriterion {
 
     @JsonProperty("alphaStates")
-    private List<AlphaState> alphaStates = null;
+    private AlphaState alphaStates;
     @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = null;
+    private WorkProductsLevelofDetail workProductsLevelofdetail;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alphaStates")
-    public List<AlphaState> getAlphaStates() {
+    public AlphaState getAlphaStates() {
         return alphaStates;
     }
 
     @JsonProperty("alphaStates")
-    public void setAlphaStates(List<AlphaState> alphaStates) {
+    public void setAlphaStates(AlphaState alphaStates) {
         this.alphaStates = alphaStates;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public List<WorkProductsLevelofDetail> getWorkProductsLevelofdetail() {
+    public WorkProductsLevelofDetail getWorkProductsLevelofDetail() {
         return workProductsLevelofdetail;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofDetail> workProductsLevelofdetail) {
+    public void setWorkProductsLevelofDetail(WorkProductsLevelofDetail workProductsLevelofdetail) {
         this.workProductsLevelofdetail = workProductsLevelofdetail;
     }
 

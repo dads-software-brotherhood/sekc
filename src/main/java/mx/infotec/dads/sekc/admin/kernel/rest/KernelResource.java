@@ -26,12 +26,12 @@ import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 @RestController
 @RequestMapping(API_PATH)
 public class KernelResource {
-    
+/*    
     @Autowired
     private KernelService kernelService;
     
-    @PostMapping("/kernels/")
-    public ResponseEntity kernelCreate( @RequestBody Object kernel ){
+    @PostMapping("/kernels")
+    public ResponseEntity kernelCreate( @RequestBody KernelDto kernel ){
         ResponseWrapper responseData;
         
         responseData = kernelService.save(kernel);
@@ -40,7 +40,7 @@ public class KernelResource {
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
     }
 
-    @GetMapping(value = { "/kernels/","/kernels/{id}" })
+    @GetMapping(value = { "/kernels","/kernels/{id}" })
     public ResponseEntity kernelGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -60,5 +60,5 @@ public class KernelResource {
         if (responseData.getError_message().equals(""))
             return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
         return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
-    }
+    }*/
 }

@@ -2,7 +2,6 @@ package mx.infotec.dads.sekc.admin.kernel.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.repository.SEActivitySpaceRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.ActivitySpaceDto;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
@@ -34,16 +34,19 @@ public class ActivitySpaceServiceImpl implements ActivitySpaceService {
     private final Logger LOG = LoggerFactory.getLogger(ActivitySpaceServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getActivitySpaceFromRequest(Object activitySpace, SEActivitySpace activitySpaceToPersistence){
+    private boolean getActivitySpaceFromRequest(ActivitySpaceDto activitySpaceDto, SEActivitySpace activitySpaceToPersistence){
         try{
-            Map< String , Object > activitySpaceMap = (Map< String , Object >) activitySpace;
-            repositoryUtil.fillSEBasicElementFields(activitySpaceToPersistence, activitySpaceMap);
             
-            if (activitySpaceMap.containsKey("input")){
-                List<SEAlpha> input = repositoryUtil.getDocuments((ArrayList<String>) activitySpaceMap.get("input"), SEAlpha.class);
-                if (!input.isEmpty())
-                    activitySpaceToPersistence.setInput(input);
-            }
+            repositoryUtil.fillSEBasicElementFields(activitySpaceToPersistence, activitySpaceDto);
+            
+            List<SEAlpha> inputList = new ArrayList<>();
+            activitySpaceDto.getInput().forEach((input) -> {
+                SEAlpha alpha = (SEAlpha) repositoryUtil.getDocument(input.getIdAlpha(), SEAlpha.class);
+                if (alpha != null)
+                    inputList.add(alpha);
+            });
+            activitySpaceToPersistence.setInput(inputList);
+            
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -52,10 +55,10 @@ public class ActivitySpaceServiceImpl implements ActivitySpaceService {
     }
 
     @Override
-    public ResponseWrapper save(Object activitySpace) {
+    public ResponseWrapper save(ActivitySpaceDto activitySpaceDto) {
         SEActivitySpace activitySpaceToPersistence = new SEActivitySpace();
         response = new ResponseWrapper();
-        if (!getActivitySpaceFromRequest(activitySpace, activitySpaceToPersistence)){
+        if (!getActivitySpaceFromRequest(activitySpaceDto, activitySpaceToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
