@@ -67,11 +67,11 @@ public class PracticeServiceImpl implements PracticeService {
                 Collection<Criterion> entryCriterionList = new ArrayList<>();
                 practiceDto.getConditions().getEntries().forEach((entry) -> {
                     SEEntryCriterion entryCriterion = new SEEntryCriterion();
-                    RandomRepositoryUtil repoUtil = new RandomRepositoryUtil();
-                    SEState state = (SEState) repoUtil.getDocument( entry.getAlphaStates().getIdState() , SEState.class);
+                    
+                    SEState state = (SEState) repositoryUtil.getDocument( entry.getAlphaStates().getIdState() , SEState.class);
                     if (state != null)
                         entryCriterion.setState(state);
-                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repoUtil.getDocument( 
+                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
                             entry.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
                     entryCriterion.setLevelOfDetail(levelofDetail);
                     entryCriterionList.add(entryCriterion);
@@ -85,11 +85,11 @@ public class PracticeServiceImpl implements PracticeService {
                 Collection<Criterion> resultCriterionList = new ArrayList<>();
                 practiceDto.getConditions().getResults().forEach((result) -> {
                     SECompletionCriterion resultCriterion = new SECompletionCriterion();
-                    RandomRepositoryUtil repoUtil = new RandomRepositoryUtil();
-                    SEState state = (SEState) repoUtil.getDocument( result.getAlphaStates().getIdState() , SEState.class);
+                    
+                    SEState state = (SEState) repositoryUtil.getDocument( result.getAlphaStates().getIdState() , SEState.class);
                     if (state != null)
                         resultCriterion.setState(state);
-                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repoUtil.getDocument( 
+                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
                             result.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
                     resultCriterion.setLevelOfDetail(levelofDetail);
                     resultCriterionList.add(resultCriterion);
