@@ -79,30 +79,6 @@ public class KernelRepositoryTest {
         seAreaOfConcern.getOwnedElements().forEach(element -> processAreaOfConcernElements(element));
     }
 
-    private void visitCompetency(SECompetency seCompetency) {
-        LOGGER.info("[COMPETENCY]      --->" + seCompetency.getName());
-        seCompetency.getPossibleLevel().forEach(level -> {
-            LOGGER.info("[COMPETENCY LEVEL]---->" + level.getName());
-            visitCheckpoints(level.getChecklistItem());
-        });
-    }
-
-    private void visitActivitySpace(SEActivitySpace seActivitySpace) {
-        LOGGER.info("[ACTIVITY SPACE] --->" + seActivitySpace.getName());
-    }
-
-    private void visitAlpha(SEAlpha seAlpha) {
-        LOGGER.info("[ALPHA]          --->" + seAlpha.getName());
-        seAlpha.getStates().forEach(state -> {
-            LOGGER.info("[STATE]          ---->" + state.getName());
-            visitCheckpoints(state.getCheckListItem());
-        });
-    }
-
-    private void visitCheckpoints(Collection<? extends Checkpoint> checkpoints) {
-        checkpoints.forEach(checkpoint -> LOGGER.info("[CHECKPOINT]     ----->" + checkpoint.getName()));
-    }
-
     private void processAreaOfConcernElements(SELanguageElement element) {
         if (element instanceof SEAlpha) {
             SEAlpha seAlpha = (SEAlpha) element;
@@ -115,4 +91,29 @@ public class KernelRepositoryTest {
             visitCompetency(seCompetency);
         }
     }
+
+    private void visitAlpha(SEAlpha seAlpha) {
+        LOGGER.info("[ALPHA]          --->" + seAlpha.getName());
+        seAlpha.getStates().forEach(state -> {
+            LOGGER.info("[STATE]          ---->" + state.getName());
+            visitCheckpoints(state.getCheckListItem());
+        });
+    }
+
+    private void visitActivitySpace(SEActivitySpace seActivitySpace) {
+        LOGGER.info("[ACTIVITY SPACE] --->" + seActivitySpace.getName());
+    }
+
+    private void visitCompetency(SECompetency seCompetency) {
+        LOGGER.info("[COMPETENCY]      --->" + seCompetency.getName());
+        seCompetency.getPossibleLevel().forEach(level -> {
+            LOGGER.info("[COMPETENCY LEVEL]---->" + level.getName());
+            visitCheckpoints(level.getChecklistItem());
+        });
+    }
+
+    private void visitCheckpoints(Collection<? extends Checkpoint> checkpoints) {
+        checkpoints.forEach(checkpoint -> LOGGER.info("[CHECKPOINT]     ----->" + checkpoint.getName()));
+    }
+
 }
