@@ -24,12 +24,9 @@
 package mx.infotec.dads.sekc.essence;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.omg.essence.model.competency.CompetencyLevel;
 import org.omg.essence.model.foundation.Checkpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +36,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SELanguageElement;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.essence.repository.SEKernelRepository;
 import mx.infotec.dads.sekc.SekcApp;
+import mx.infotec.dads.sekc.util.EssenceFilter;
 
 /**
  * Test for GeneratorService
@@ -63,47 +60,31 @@ public class KernelRepositoryTest {
 
     @Test
     public void getKernel() {
-        for (SEKernel seKernel : kernelRepository.findAll()) {
-            visitKernel(seKernel);
-        }
+        kernelRepository.findAll().forEach(seKernel -> visitKernel(seKernel));
     }
 
+    /**
+     * Process each element of the kernel
+     * 
+     * @param seKernel
+     */
     private void visitKernel(SEKernel seKernel) {
         LOGGER.info("[KERNEL]          ->" + seKernel.getName());
-        for (SEAreaOfConcern seAreaOfConcern : filterAreaOfConcerns(seKernel)) {
-            visitAreaOfConcern(seAreaOfConcern);
-        }
-    }
-
-    private List<SEAreaOfConcern> filterAreaOfConcerns(SEKernel seKernel) {
-        return seKernel.getOwnedElements().stream()
-                .filter(languageElement -> languageElement instanceof SEAreaOfConcern)
-                .map(languageElement -> (SEAreaOfConcern) languageElement)
-                .collect(Collectors.toList());
+        EssenceFilter.filterLanguageElement(seKernel.getOwnedElements(), SEAreaOfConcern.class)
+                .forEach(area -> visitAreaOfConcern(area));
     }
 
     private void visitAreaOfConcern(SEAreaOfConcern seAreaOfConcern) {
         LOGGER.info("[AREA OF CONCERN] -->" + seAreaOfConcern.getName());
-        for (SELanguageElement seLangElemAreaOfConcern : seAreaOfConcern.getOwnedElements()) {
-            if (seLangElemAreaOfConcern instanceof SEAlpha) {
-                SEAlpha seAlpha = (SEAlpha) seLangElemAreaOfConcern;
-                visitAlpha(seAlpha);
-            } else if (seLangElemAreaOfConcern instanceof SEActivitySpace) {
-                SEActivitySpace seActivitySpace = (SEActivitySpace) seLangElemAreaOfConcern;
-                visitActivitySpace(seActivitySpace);
-            } else if (seLangElemAreaOfConcern instanceof SECompetency) {
-                SECompetency seCompetency = (SECompetency) seLangElemAreaOfConcern;
-                visitCompetency(seCompetency);
-            }
-        }
+        seAreaOfConcern.getOwnedElements().forEach(element -> processAreaOfConcernElements(element));
     }
 
     private void visitCompetency(SECompetency seCompetency) {
         LOGGER.info("[COMPETENCY]      --->" + seCompetency.getName());
-        for (CompetencyLevel competencyLevel : seCompetency.getPossibleLevel()) {
-            LOGGER.info("[COMPETENCY LEVEL]---->" + competencyLevel.getName());
-            visitCheckpoints(competencyLevel.getChecklistItem());
-        }
+        seCompetency.getPossibleLevel().forEach(level -> {
+            LOGGER.info("[COMPETENCY LEVEL]---->" + level.getName());
+            visitCheckpoints(level.getChecklistItem());
+        });
     }
 
     private void visitActivitySpace(SEActivitySpace seActivitySpace) {
@@ -112,17 +93,26 @@ public class KernelRepositoryTest {
 
     private void visitAlpha(SEAlpha seAlpha) {
         LOGGER.info("[ALPHA]          --->" + seAlpha.getName());
-        for (SEState seState : seAlpha.getStates()) {
-            LOGGER.info("[STATE]          ---->" + seState.getName());
-            visitCheckpoints(seState.getCheckListItem());
-
-        }
+        seAlpha.getStates().forEach(state -> {
+            LOGGER.info("[STATE]          ---->" + state.getName());
+            visitCheckpoints(state.getCheckListItem());
+        });
     }
 
     private void visitCheckpoints(Collection<? extends Checkpoint> checkpoints) {
-        for (Checkpoint checkpoint : checkpoints) {
-            LOGGER.info("[CHECKPOINT]     ----->" + checkpoint.getName());
+        checkpoints.forEach(checkpoint -> LOGGER.info("[CHECKPOINT]     ----->" + checkpoint.getName()));
+    }
 
+    private void processAreaOfConcernElements(SELanguageElement element) {
+        if (element instanceof SEAlpha) {
+            SEAlpha seAlpha = (SEAlpha) element;
+            visitAlpha(seAlpha);
+        } else if (element instanceof SEActivitySpace) {
+            SEActivitySpace seActivitySpace = (SEActivitySpace) element;
+            visitActivitySpace(seActivitySpace);
+        } else if (element instanceof SECompetency) {
+            SECompetency seCompetency = (SECompetency) element;
+            visitCompetency(seCompetency);
         }
     }
 }
