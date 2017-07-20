@@ -184,5 +184,10 @@ public class PracticeDto {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+    
+    @Override
+    public String toString() {
+        return "PracticeDto{" + "idKernel=" + idKernel + ", name=" + name + ", objective=" + objective + ", briefDesciption=" + briefDesciption + ", description=" + description + ", consistencyRules=" + consistencyRules + ", relatedPractices=" + relatedPractices + ", author=" + author + ", keywords=" + keywords + ", conditions=" + conditions + ", thingsToWorkWith=" + thingsToWorkWith + ", thingsToDo=" + thingsToDo + ", additionalProperties=" + additionalProperties + '}';
+    }
 
 }

@@ -1,8 +1,14 @@
 package mx.infotec.dads.sekc.admin.practice.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECompletionCriterion;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
+import mx.infotec.dads.essence.model.foundation.SEKernel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +19,14 @@ import org.springframework.stereotype.Service;
 
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.repository.SEPracticeRepository;
+import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
+import org.omg.essence.model.activityspaceandactivity.Criterion;
 
 /**
  *
@@ -35,18 +43,62 @@ public class PracticeServiceImpl implements PracticeService {
     private final Logger LOG = LoggerFactory.getLogger(PracticeServiceImpl.class);
     private ResponseWrapper response;
 
-    private boolean getPracticeFromRequest(PracticeDto practice, SEPractice practiceToPersistence) {
+    private boolean getPracticeFromRequest(PracticeDto practiceDto, SEPractice sePractice) {
         try {
-            Map<String, Object> practiceMap = (Map<String, Object>) practice;
-            repositoryUtil.fillSEElementGroupFields(practiceToPersistence, practiceMap);
-            practiceToPersistence.setBriefDescription((String) practiceMap.get("consistencyRules"));
-            practiceToPersistence.setBriefDescription((String) practiceMap.get("objective"));
-            practiceToPersistence.setMeasures((Collection<String>) practiceMap.get("measures"));
-            practiceToPersistence.setEntry((Collection<String>) practiceMap.get("entry"));
-            practiceToPersistence.setResult((Collection<String>) practiceMap.get("result"));
-            practiceToPersistence.setKeyWords((List<String>) practiceMap.get("keyWords"));
-            practiceToPersistence.setAuthor((String) practiceMap.get("author"));
-
+            EssenceMapping.fillPractice(sePractice);
+            sePractice.setAuthor(practiceDto.getAuthor());
+            sePractice.setBriefDescription(practiceDto.getBriefDesciption());
+            sePractice.setConsistencyRules(practiceDto.getConsistencyRules());
+            sePractice.setKeyWords(practiceDto.getKeywords());
+            sePractice.setName(practiceDto.getName());
+            sePractice.setDescription(practiceDto.getDescription());
+            sePractice.setObjective(practiceDto.getObjective());
+            
+            if (practiceDto.getConditions().getMeasures() != null)
+                sePractice.setMeasures(practiceDto.getConditions().getMeasures());
+            
+            if (practiceDto.getIdKernel() != null){ 
+                SEKernel seKernel = (SEKernel) repositoryUtil.getDocument( practiceDto.getIdKernel(), SEKernel.class);
+                if (seKernel != null)
+                    sePractice.setOwner(seKernel);
+            }
+            // entryCriterion
+            if (practiceDto.getConditions().getEntries() != null){
+                Collection<Criterion> entryCriterionList = new ArrayList<>();
+                practiceDto.getConditions().getEntries().forEach((entry) -> {
+                    SEEntryCriterion entryCriterion = new SEEntryCriterion();
+                    
+                    SEState state = (SEState) repositoryUtil.getDocument( entry.getAlphaStates().getIdState() , SEState.class);
+                    if (state != null)
+                        entryCriterion.setState(state);
+                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
+                            entry.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
+                    entryCriterion.setLevelOfDetail(levelofDetail);
+                    entryCriterionList.add(entryCriterion);
+                    sePractice.getEntry().addAll(entry.getOtherConditions());
+                });
+                sePractice.setEntryCriterion(entryCriterionList);
+            }
+            // ---- entryCriterion
+            // resultCriterion
+            if (practiceDto.getConditions().getResults() != null){
+                Collection<Criterion> resultCriterionList = new ArrayList<>();
+                practiceDto.getConditions().getResults().forEach((result) -> {
+                    SECompletionCriterion resultCriterion = new SECompletionCriterion();
+                    
+                    SEState state = (SEState) repositoryUtil.getDocument( result.getAlphaStates().getIdState() , SEState.class);
+                    if (state != null)
+                        resultCriterion.setState(state);
+                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
+                            result.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
+                    resultCriterion.setLevelOfDetail(levelofDetail);
+                    resultCriterionList.add(resultCriterion);
+                    sePractice.getResult().addAll(result.getOtherConditions());
+                });
+                sePractice.setResultCriterion(resultCriterionList);
+            }
+            // ---- resultCriterion
+            
             return true;
         } catch (Exception e) {
             LOG.debug("Fail to obtain the needed FIELDS ", e);
@@ -55,15 +107,15 @@ public class PracticeServiceImpl implements PracticeService {
     }
 
     @Override
-    public ResponseWrapper save(PracticeDto practice) {
-        SEPractice practiceToPersistence = new SEPractice();
+    public ResponseWrapper save(PracticeDto practiceDto) {
+        SEPractice sePractice = new SEPractice();
         response = new ResponseWrapper();
-        if (!getPracticeFromRequest(practice, practiceToPersistence)) {
+        if (!getPracticeFromRequest(practiceDto, sePractice)) {
             response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         } else {
-            practiceRepository.save(practiceToPersistence);
-            response.setResponseObject(practiceToPersistence);
+            practiceRepository.save(sePractice);
+            response.setResponseObject(sePractice);
             response.setResponse_code(HttpStatus.OK);
         }
 

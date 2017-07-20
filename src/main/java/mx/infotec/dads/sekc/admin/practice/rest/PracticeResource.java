@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiParam;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
+import mx.infotec.dads.sekc.web.rest.util.HeaderUtil;
 
 /**
  *
@@ -31,15 +32,26 @@ public class PracticeResource {
 
     @Autowired
     private PracticeService practiceService;
+    
+    private static final String ENTITY_NAME = "practices";
 
     @PostMapping("/practices")
     public ResponseEntity createPractice(@RequestBody PracticeDto practice) {
         ResponseWrapper responseData;
         responseData = practiceService.save(practice);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity(responseData.getResponseObject(), responseData.getResponse_code());
-        return new ResponseEntity(responseData.toString(), responseData.getResponse_code());
-
+        
+        if (responseData.getError_message().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, practice.toString()))
+                    .body(responseData.getResponseObject());
+        }
+        /* 
+            the response_code can be NotFound, but that can't have a body, 
+            so we use badRequest with json error on body
+        */
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, practice.toString()))
+            .body(responseData.toString());
     }
 
     @GetMapping(value = { "/practices", "/practices/{id}" })
@@ -51,17 +63,27 @@ public class PracticeResource {
             responseData = practiceService.findOne(id, includeFields);
         else
             responseData = practiceService.findAll(pageable);
-
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity(responseData.getResponseObject(), responseData.getResponse_code());
-        return new ResponseEntity(responseData.toString(), responseData.getResponse_code());
+        
+        if (responseData.getError_message().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, id))
+                    .body(responseData.getResponseObject());
+        }
+        /* 
+            the response_code can be NotFound, but that can't have a body, 
+            so we use badRequest with json error on body
+        */
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "err_practices_get", "Error al obtener práctica"))
+            .body(responseData.toString());
     }
 
     @DeleteMapping("/practices/{id}")
     public ResponseEntity practiceDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = practiceService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity(responseData.getResponseObject(), responseData.getResponse_code());
-        return new ResponseEntity(responseData.toString(), responseData.getResponse_code());
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_practices_delete"))
+                .body(responseData.getResponseObject());
     }
 }

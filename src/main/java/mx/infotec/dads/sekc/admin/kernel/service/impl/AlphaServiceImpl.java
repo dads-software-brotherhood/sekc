@@ -19,11 +19,17 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProductManifest;
 import mx.infotec.dads.essence.repository.SEAlphaRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.AlphaDto;
+import mx.infotec.dads.sekc.admin.kernel.dto.State;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.AlphaResource;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.AlphaService;
+import mx.infotec.dads.sekc.admin.kernel.dto.Action;
+import mx.infotec.dads.sekc.admin.kernel.dto.AlphaAssociation;
+import mx.infotec.dads.sekc.admin.kernel.dto.AlphaContainment;
+import mx.infotec.dads.sekc.admin.kernel.dto.WorkProductManifest;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 /**
  *
@@ -40,41 +46,33 @@ public class AlphaServiceImpl implements AlphaService {
     private final Logger LOG = LoggerFactory.getLogger(AlphaResource.class );
     private ResponseWrapper response;
     
-    private boolean getAlphaFromRequest(Object alpha, SEAlpha alphaToPersistence){
+    private boolean getAlphaFromRequest(AlphaDto alphaDto, SEAlpha alphaToPersistence){
         try{
-            Map< String , Object > alphaMap = (Map< String , Object >) alpha;
-            repositoryUtil.fillSEBasicElementFields(alphaToPersistence, alphaMap);
+            repositoryUtil.fillSEBasicElementFields(alphaToPersistence, alphaDto);
             
-            if (alphaMap.containsKey("states")){
-                List<SEState> states = repositoryUtil.getDocuments((ArrayList<String>) alphaMap.get("states"), SEState.class);
-                if (!states.isEmpty())
-                    alphaToPersistence.setStates(states);
-            }
-            if (alphaMap.containsKey("action")){
-                List<SEAction> action = repositoryUtil.getDocuments((ArrayList<String>) alphaMap.get("action"), SEAction.class);
-                if (!action.isEmpty())
-                    alphaToPersistence.setAction(action);
-            }
-            if (alphaMap.containsKey("activitySpace")){
-                SEActivitySpace activitySpace = (SEActivitySpace) repositoryUtil.getDocument((String) alphaMap.get("activitySpace"), SEActivitySpace.class);
-                if ( activitySpace != null)
-                    alphaToPersistence.setActivitySpace(activitySpace);
-            }
-            if (alphaMap.containsKey("alphaContainment")){
-                List<SEAlphaContainment> alphaContainment = repositoryUtil.getDocuments((ArrayList<String>) alphaMap.get("alphaContainment"), SEAlphaContainment.class);
-                if (!alphaContainment.isEmpty())
-                    alphaToPersistence.setAlphaContainment(alphaContainment);
-            }
-            if (alphaMap.containsKey("alphaAssociation")){
-                List<SEAlphaAssociation> alphaAssociation = repositoryUtil.getDocuments((ArrayList<String>) alphaMap.get("alphaAssociation"), SEAlphaAssociation.class);
-                if (!alphaAssociation.isEmpty())
-                    alphaToPersistence.setAlphaAssociation(alphaAssociation);
-            }
-            if (alphaMap.containsKey("workProductManifest")){
-                List<SEWorkProductManifest> workProductManifest = repositoryUtil.getDocuments((ArrayList<String>) alphaMap.get("workProductManifest"), SEWorkProductManifest.class);
-                if (!workProductManifest.isEmpty())
-                    alphaToPersistence.setWorkProductManifest(workProductManifest);
-            }
+            alphaDto.getStates().stream().map((state) -> (SEState) repositoryUtil.getDocument(state.getIdState(), SEState.class)).filter((seState) -> (seState != null)).forEachOrdered((seState) -> {
+                alphaToPersistence.getStates().add(seState);
+            });
+            
+            alphaDto.getAction().stream().map((action) -> (SEAction) repositoryUtil.getDocument(action.getIdAction(), SEAction.class)).filter((seAction) -> (seAction != null)).forEachOrdered((seAction) -> {
+                alphaToPersistence.getAction().add(seAction);
+            });
+            
+            SEActivitySpace seActivitySpace = (SEActivitySpace) repositoryUtil.getDocument(alphaDto.getActivitySpace().getIdActivitySpace(), SEActivitySpace.class);
+            if ( seActivitySpace != null)
+                alphaToPersistence.setActivitySpace(seActivitySpace);
+            
+            alphaDto.getAlphaContainment().stream().map((alphaContainment) -> (SEAlphaContainment) repositoryUtil.getDocument(alphaContainment.getIdAlphaContainment(), SEAlphaContainment.class)).filter((seAlphaContainment) -> (seAlphaContainment != null)).forEachOrdered((seAlphaContainment) -> {
+                alphaToPersistence.getAlphaContainment().add(seAlphaContainment);
+            });
+            
+            alphaDto.getAlphaAssociation().stream().map((alphaAssociation) -> (SEAlphaAssociation) repositoryUtil.getDocument(alphaAssociation.getIdAlphaAssociation(), SEAlphaAssociation.class)).filter((seAlphaAssociation) -> ( seAlphaAssociation != null)).forEachOrdered((seAlphaAssociation) -> {
+                alphaToPersistence.getAlphaAssociation().add(seAlphaAssociation);
+            });
+            alphaDto.getWorkProductManifest().stream().map((workProductManifest) -> (SEWorkProductManifest) repositoryUtil.getDocument(workProductManifest.getIdWorkProductManifest(), SEWorkProductManifest.class)).filter((seWorkProductManifest) -> (seWorkProductManifest != null)).forEachOrdered((seWorkProductManifest) -> {
+                alphaToPersistence.getWorkProductManifest().add(seWorkProductManifest);
+            });
+            
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -83,7 +81,7 @@ public class AlphaServiceImpl implements AlphaService {
     }
 
     @Override
-    public ResponseWrapper save(Object alpha) {
+    public ResponseWrapper save(AlphaDto alpha) {
         SEAlpha alphaToPersistence = new SEAlpha();
         response = new ResponseWrapper();
         if (!getAlphaFromRequest(alpha, alphaToPersistence)){
@@ -149,12 +147,10 @@ public class AlphaServiceImpl implements AlphaService {
         response = new ResponseWrapper();
         SEAlpha alpha = (SEAlpha) findOne(id, null).getResponseObject();
         List<SEWorkProduct> workProductList = new ArrayList<>();
-        if (alpha != null){
-            if (alpha.getWorkProductManifest() != null){
-                alpha.getWorkProductManifest().forEach((workProductManifest) -> {
-                    workProductList.add(workProductManifest.getWorkProduct());
-                });
-            }
+        if (alpha != null && alpha.getWorkProductManifest() != null){
+            alpha.getWorkProductManifest().forEach((workProductManifest) -> {
+                workProductList.add(workProductManifest.getWorkProduct());
+            });
         }
         response.setResponseObject(workProductList);
 

@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.service;
 
+import mx.infotec.dads.sekc.admin.kernel.dto.AlphaDto;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import org.springframework.data.domain.Pageable;
 
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface AlphaService {
     
-    public ResponseWrapper save( Object alpha );
+    public ResponseWrapper save( AlphaDto alpha );
     public ResponseWrapper findAll(Pageable pag);
     public ResponseWrapper findOne(String id, java.util.List includeFields);
     public ResponseWrapper findWorkProductList(String id);

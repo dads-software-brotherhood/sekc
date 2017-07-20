@@ -15,6 +15,10 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.repository.SEStateRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.CheckListItem;
+import mx.infotec.dads.sekc.admin.kernel.dto.Criterion;
+import mx.infotec.dads.sekc.admin.kernel.dto.StateDto;
+import mx.infotec.dads.sekc.admin.kernel.dto.Successor;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
@@ -36,45 +40,41 @@ public class StateServiceImpl implements StateService {
     private final Logger LOG = LoggerFactory.getLogger(StateServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getStateFromRequest(Object state, SEState stateToPersistence){
+    private boolean getStateFromRequest(StateDto stateDto, SEState stateToPersistence){
         try{
-            Map< String , Object > stateMap = (Map< String , Object >) state;
-            repositoryUtil.fillSELaguageElementFields(stateToPersistence, stateMap);
+            repositoryUtil.fillSELaguageElementFields(stateToPersistence, stateDto);
             
-            if (stateMap.containsKey("name"))
-                stateToPersistence.setName((String) stateMap.get("name"));
+            stateToPersistence.setName( stateDto.getName());
+            stateToPersistence.setDescription( stateDto.getDescription());
             
-            if (stateMap.containsKey("description"))
-                stateToPersistence.setDescription((String) stateMap.get("description"));
-            
-            if (stateMap.containsKey("checkListItem")){
-                List<SECheckpoint> checkListItem = repositoryUtil.getDocuments((ArrayList<String>) stateMap.get("checkListItem"), SECheckpoint.class);
-                if (!checkListItem.isEmpty())
-                    stateToPersistence.setCheckListItem(checkListItem);
+            if (stateDto.getCheckListItem() != null){
+                stateDto.getCheckListItem().stream().map((checkListItem) -> (SECheckpoint) repositoryUtil.getDocument(checkListItem.getIdCheckPoint(), SECheckpoint.class)).filter((seCheckListItem) -> ( seCheckListItem != null)).forEachOrdered((seCheckListItem) -> {
+                    stateToPersistence.getCheckListItem().add(seCheckListItem);
+                });
+            }
+                
+            if (stateDto.getSuccessor()!= null){
+                SEState seState = (SEState) repositoryUtil.getDocument(stateDto.getSuccessor().getIdSuccessor(), SEState.class);
+                if ( seState != null)
+                    stateToPersistence.setSuccessor(seState);
             }
             
-            if (stateMap.containsKey("successor")){
-                SEState successor = (SEState) repositoryUtil.getDocument( (String) stateMap.get("successor"), SEState.class);
-                if (successor != null)
-                    stateToPersistence.setSuccessor(successor);
+            if (stateDto.getCriterion() != null){
+                stateDto.getCriterion().stream().map((criterion) -> repositoryUtil.getCorrectCriterionDocument( criterion.getType(), criterion.getIdCriterion())).filter((seCriterion) -> ( seCriterion != null)).forEachOrdered((seCriterion) -> {
+                    stateToPersistence.getCriterion().add(seCriterion);
+                });
             }
             
-            if (stateMap.containsKey("criterion")){
-                List<SECriterion> criterion = repositoryUtil.getDocuments((ArrayList<String>) stateMap.get("criterion"), SECriterion.class);
-                if (!criterion.isEmpty())
-                    stateToPersistence.setCriterion(criterion);
-            }
-            
-            if (stateMap.containsKey("alpha")){
-                SEAlpha alpha = (SEAlpha) repositoryUtil.getDocument( (String) stateMap.get("alpha"), SEAlpha.class);
+            if (stateDto.getAlpha() != null){
+                SEAlpha alpha = (SEAlpha) repositoryUtil.getDocument( stateDto.getAlpha().getIdAlpha(), SEAlpha.class);
                 if (alpha != null)
                     stateToPersistence.setAlpha(alpha);
             }
             
-            if (stateMap.containsKey("predecessor")){
-                SEState predecessor = (SEState) repositoryUtil.getDocument( (String) stateMap.get("predecessor"), SEState.class);
-                if (predecessor != null)
-                    stateToPersistence.setSuccessor(predecessor);
+            if (stateDto.getPredecessor()!= null){
+                SEState seState = (SEState) repositoryUtil.getDocument(stateDto.getPredecessor().getIdPredecessor(), SEState.class);
+                if ( seState != null)
+                    stateToPersistence.setPredecessor(seState);
             }
             return true;
         }catch( Exception e ){
@@ -84,10 +84,10 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
-    public ResponseWrapper save(Object state) {
+    public ResponseWrapper save(StateDto stateDto) {
         SEState stateToPersistence = new SEState();
         response = new ResponseWrapper();
-        if (!getStateFromRequest(state, stateToPersistence)){
+        if (!getStateFromRequest(stateDto, stateToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{

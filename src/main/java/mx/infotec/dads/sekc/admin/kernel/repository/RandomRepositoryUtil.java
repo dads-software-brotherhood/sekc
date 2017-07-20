@@ -19,6 +19,7 @@ import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.model.foundation.SETag;
 import mx.infotec.dads.essence.model.view.SEFeatureSelection;
 import mx.infotec.dads.essence.model.view.SEViewSelection;
+import mx.infotec.dads.essence.repository.SEActionRepository;
 import mx.infotec.dads.essence.repository.SEKernelRepository;
 import mx.infotec.dads.essence.repository.SELibraryRepository;
 import mx.infotec.dads.essence.repository.SEMethodRepository;
@@ -26,6 +27,8 @@ import mx.infotec.dads.essence.repository.SEPracticeAssetRepository;
 import mx.infotec.dads.essence.repository.SEPracticeRepository;
 import mx.infotec.dads.essence.repository.SEStateRepository;
 import mx.infotec.dads.essence.repository.SEActivitySpaceRepository;
+import mx.infotec.dads.essence.repository.SEAlphaAssociationRepository;
+import mx.infotec.dads.essence.repository.SEAlphaContainmentRepository;
 import mx.infotec.dads.essence.repository.SECheckpointRepository;
 import mx.infotec.dads.essence.repository.SECompetencyLevelRepository;
 import mx.infotec.dads.essence.repository.SECompletionCriterionRepository;
@@ -33,6 +36,17 @@ import mx.infotec.dads.essence.repository.SEEntryCriterionRepository;
 import mx.infotec.dads.essence.repository.SELevelOfDetailRepository;
 import mx.infotec.dads.essence.repository.SEMergeResolutionRepository;
 import mx.infotec.dads.essence.repository.SEUserDefinedTypeRepository;
+import mx.infotec.dads.essence.repository.SEWorkProductManifestRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.BasicElementDto;
+import mx.infotec.dads.sekc.admin.kernel.dto.Extension;
+import mx.infotec.dads.sekc.admin.kernel.dto.FeatureSelection;
+import mx.infotec.dads.sekc.admin.kernel.dto.LanguageElementDto;
+import mx.infotec.dads.sekc.admin.kernel.dto.PatternAssociation;
+import mx.infotec.dads.sekc.admin.kernel.dto.Property;
+import mx.infotec.dads.sekc.admin.kernel.dto.Referrer;
+import mx.infotec.dads.sekc.admin.kernel.dto.Resource;
+import mx.infotec.dads.sekc.admin.kernel.dto.Tag;
+import mx.infotec.dads.sekc.admin.kernel.dto.ViewSelection;
 import org.springframework.stereotype.Service;
 
 /**
@@ -70,74 +84,66 @@ public class RandomRepositoryUtil {
     private SEUserDefinedTypeRepository userDefinedTypeRepository;
     @Autowired
     private SECompletionCriterionRepository completionCriterionRepository;
+    @Autowired
+    private SEActionRepository actionRepository;
+    @Autowired
+    private SEAlphaContainmentRepository alphaContainmentRepository;
+    @Autowired
+    private SEAlphaAssociationRepository alphaAssociationRepository;
+    @Autowired
+    private SEWorkProductManifestRepository workProductManifestRepository;
     
-    public void fillSELaguageElementFields( SELanguageElement elementToPersistence, Map<String, Object> map) {
-        if (map.containsKey("suppressable"))
-            elementToPersistence.setSuppressable((boolean) map.get("suppressable"));
+    public void fillSELaguageElementFields(SELanguageElement elementToPersistence, LanguageElementDto languageElementDto) {
+        if (languageElementDto.getSuppressable() != null)
+            elementToPersistence.setSuppressable(languageElementDto.getSuppressable());
         
-        if (map.containsKey("owner") && map.get("owner") != null ){
-            SEElementGroup owner = getCorrectDocument( (String) map.get("owner") );
+        if (languageElementDto.getOwner() != null){
+            SEElementGroup owner = getCorrectDocument(languageElementDto.getOwner().getType(), languageElementDto.getOwner().getIdOwner());
             if (owner != null)
-                elementToPersistence.setOwner( owner );
+                elementToPersistence.setOwner(owner);
         }
-        
-        if (map.containsKey("tag") && map.get("tag") != null ){
-            List<SETag> collectionTags = getDocsCollection(map, "tag", SETag.class);
-            if (!collectionTags.isEmpty())
-                elementToPersistence.setTag(collectionTags);
-        }
-        
-        if (map.containsKey("resource") && map.get("resource") != null ){
-            List<SEResource> collectionResources = getDocsCollection(map, "resource", SEResource.class);
-            if (!collectionResources.isEmpty())
-                elementToPersistence.setResource(collectionResources);
-        }
-        
-        if (map.containsKey("properties") && map.get("properties") != null ){
-            List<SEEndeavorProperty> collectionPropertys = getDocsCollection(map, "properties", SEEndeavorProperty.class);
-            if (!collectionPropertys.isEmpty())
-                elementToPersistence.setProperties(collectionPropertys);
-        }
-        
-        if (map.containsKey("viewSelection") && map.get("viewSelection") != null ){
-            List<SEViewSelection> collectionviewSelections = getDocsCollection(map, "viewSelection", SEViewSelection.class);
-            if (!collectionviewSelections.isEmpty())
-                elementToPersistence.setViewSelection(collectionviewSelections);
-        }
-        
-        if (map.containsKey("featureSelection") && map.get("featureSelection") != null ){
-            List<SEFeatureSelection> collectionfeatureSelections = getDocsCollection(map, "featureSelection", SEFeatureSelection.class);
-            if (!collectionfeatureSelections.isEmpty())
-                elementToPersistence.setFeatureSelection(collectionfeatureSelections);
-        }
-        
-        if (map.containsKey("extension") && map.get("extension") != null ){
-            List<SEExtensionElement> collectionextensions = getDocsCollection(map, "extension", SEExtensionElement.class);
-            if (!collectionextensions.isEmpty())
-                elementToPersistence.setExtension(collectionextensions);
-        }
-        
-        if (map.containsKey("referrer") && map.get("referrer") != null ){
-            SEElementGroup referrer = getCorrectDocument( (String) map.get("owner") );
-            if (referrer != null)
-                elementToPersistence.setOwner( referrer );
-        }
-        
-        if (map.containsKey("patternAssociation") && map.get("patternAssociation") != null ){
-            List<SEPatternAssociation> collectionpatternAssociations = getDocsCollection( map, "patternAssociation", SEPatternAssociation.class);
-            if (!collectionpatternAssociations.isEmpty())
-                elementToPersistence.setPatternAssociation(collectionpatternAssociations);
-        }
+        if (languageElementDto.getTag() != null){
+            languageElementDto.getTag().stream().map((tag) -> (SETag) getDocument(tag.getIdTag(), SETag.class)).filter((seTag) -> (seTag != null)).forEachOrdered((seTag) -> {
+                elementToPersistence.getTag().add(seTag);
+        });}
+        if (languageElementDto.getResource() != null){
+            languageElementDto.getResource().stream().map((resource) -> (SEResource) getDocument(resource.getIdResource(), SEResource.class)).filter((seResource) -> (seResource != null)).forEachOrdered((seResource) -> {
+                elementToPersistence.getResource().add(seResource);
+        });}
+        if (languageElementDto.getProperties() != null){
+            languageElementDto.getProperties().stream().map((property) -> (SEEndeavorProperty) getDocument(property.getIdProperties(), SEEndeavorProperty.class)).filter((seEndeavorProperty) -> (seEndeavorProperty != null)).forEachOrdered((seEndeavorProperty) -> {
+                elementToPersistence.getProperties().add(seEndeavorProperty);
+        });}
+        if (languageElementDto.getViewSelection() != null){
+            languageElementDto.getViewSelection().stream().map((viewSelection) -> (SEViewSelection) getDocument(viewSelection.getIdViewSelection(), SEViewSelection.class)).filter((seViewSelection) -> (seViewSelection != null)).forEachOrdered((seViewSelection) -> {
+                elementToPersistence.getViewSelection().add(seViewSelection);
+        });}
+        if (languageElementDto.getFeatureSelection() != null){
+            languageElementDto.getFeatureSelection().stream().map((featureSelection) -> (SEFeatureSelection) getDocument(featureSelection.getIdFeatureSelection(), SEFeatureSelection.class)).filter((seFeatureSelection) -> (seFeatureSelection != null)).forEachOrdered((seFeatureSelection) -> {
+                elementToPersistence.getFeatureSelection().add(seFeatureSelection);
+        });}
+        if (languageElementDto.getExtension() != null){
+            languageElementDto.getExtension().stream().map((extension) -> (SEExtensionElement) getDocument(extension.getIdExtension(), SEExtensionElement.class)).filter((seExtension) -> (seExtension != null)).forEachOrdered((seExtension) -> {
+                elementToPersistence.getExtension().add(seExtension);
+        });}
+        if (languageElementDto.getReferrer() != null){
+            languageElementDto.getReferrer().stream().map((referrer) -> getCorrectDocument(referrer.getType(), referrer.getIdReferrer())).filter((seElementGroup) -> (seElementGroup != null)).forEachOrdered((seElementGroup) -> {
+                elementToPersistence.getReferrer().add(seElementGroup);
+        });}
+        if (languageElementDto.getPatternAssociation() != null){
+            languageElementDto.getPatternAssociation().stream().map((patternAssociation) -> (SEPatternAssociation) getDocument(patternAssociation.getIdPatternAssociation(), SEPatternAssociation.class)).filter((sePatternAssociation) -> (sePatternAssociation != null)).forEachOrdered((sePatternAssociation) -> {
+                elementToPersistence.getPatternAssociation().add(sePatternAssociation);
+        });}
     }
     
-    public void fillSEBasicElementFields( SEBasicElement elementToPersistence, Map<String, Object> map) {
+    public void fillSEBasicElementFields( SEBasicElement elementToPersistence, BasicElementDto basicElementDto) {
         
-        fillSELaguageElementFields(elementToPersistence, map);
+        fillSELaguageElementFields(elementToPersistence, basicElementDto);
         
         //properties of SEBasicElement
-        elementToPersistence.setName((String) map.get("name"));
-        elementToPersistence.setBriefDescription((String) map.get("briefDescription"));
-        elementToPersistence.setDescription((String) map.get("description"));
+        elementToPersistence.setName( basicElementDto.getName());
+        elementToPersistence.setBriefDescription( basicElementDto.getBriefDescription());
+        elementToPersistence.setDescription( basicElementDto.getDescription());
         
         // TODO pendiente implementar GraphicalElement
         //    "icon":                 GraphicalElement
@@ -145,7 +151,7 @@ public class RandomRepositoryUtil {
     
     public void fillSEElementGroupFields( SEElementGroup elementToPersistence, Map<String, Object> map) {
         
-        fillSELaguageElementFields(elementToPersistence, map);
+        //TODO fillSELaguageElementFields(elementToPersistence, map);
         
         //properties of SEElementGroup
         elementToPersistence.setName((String) map.get("name"));
@@ -174,7 +180,7 @@ public class RandomRepositoryUtil {
     }
     
     public void fillSEResourceFields( SEResource elementToPersistence, Map<String, Object> map){
-         fillSELaguageElementFields(elementToPersistence, map);
+        //TODO fillSELaguageElementFields(elementToPersistence, map);
         
         //properties of SEBasicElement
         elementToPersistence.setContent((String) map.get("content"));
@@ -209,13 +215,46 @@ public class RandomRepositoryUtil {
         return collection;
     }
     
-    private SECriterion getCorrectCriterionDocument( String id) {
+    public SECriterion getCorrectCriterionDocument( String type, String id) {
         SECriterion criterion;
-        criterion = completionCriterionRepository.findOne(id);
-        if (criterion == null)
-            criterion = entryCriterionRepository.findOne(id);
+        switch (type){
+            case "completitionCriterion":
+                criterion = completionCriterionRepository.findOne(id);
+            break;
+            case "entryCriterion":
+                criterion = entryCriterionRepository.findOne(id);
+            break;
+            default:
+                criterion = null;
+            break;
+        }
         
         return criterion;
+    }
+    
+    private SEElementGroup getCorrectDocument( String type, String id) {
+        SEElementGroup elementGroup;
+        switch (type){
+            case "kernel":
+                elementGroup = kernelRepository.findOne(id);
+            break;
+            case "library":
+                elementGroup = libraryRepository.findOne(id);
+            break;
+            case "method":
+                elementGroup = methodRepository.findOne(id);
+            break;
+            case "practice":
+                elementGroup = practiceRepository.findOne(id);
+            break;
+            case "practiceAsset":
+                elementGroup = practiceAssetRepository.findOne(id);
+            break;
+            default:
+                elementGroup = null;
+            break;
+        }
+        return elementGroup;
     }
     
     private SEElementGroup getCorrectDocument( String id) {
@@ -275,8 +314,20 @@ public class RandomRepositoryUtil {
             case "SEUserDefinedType":
                 element = userDefinedTypeRepository.findOne(id);
             break;
+            case "SEAction":
+                element = actionRepository.findOne(id);
+            break;
+            case "SEAlphaContainment":
+                element = alphaContainmentRepository.findOne(id);
+            break;
+            case "SEAlphaAssociation":
+                element = alphaAssociationRepository.findOne(id);
+            break;
+            case "SEWorkProductManifest":
+                element = workProductManifestRepository.findOne(id);
             default:
                 element  = null;
+            break;
         }
         return element;
     }

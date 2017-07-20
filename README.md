@@ -33,3 +33,33 @@ el proyecto estárá disponible en la url:
 ```bash
 http://localhost:8080
 ```
+
+# Estructura del proyecto
+
+```
+webapp
+├── app                               - Your application
+│   ├── account                       - User account management UI
+│   ├── admin                         - Administration UI
+│   ├── blocks                        - Common building blocks like configuration and interceptors
+│   ├── components                    - Common components like alerting and form validation
+│   ├── entities                      - Generated entities (more information below)
+│   ├── home                          - Home page
+│   ├── layouts                       - Common page layouts like navigation bar and error pages
+│   ├── services                      - Common services like authentication and user management
+│   ├── app.constants.js              - Application constants
+│   ├── app.module.js                 - Application modules configuration
+│   ├── app.state.js                  - Main application router
+├── bower_components                  - Dependencies installed by Bower
+├── content                           - Static content
+│   ├── images                        - Images
+│   ├── styles                        - CSS stylesheets
+│   ├── fonts                         - Font files will be copied here
+├── i18n                              - Translation files
+├── scss                              - Sass style sheet files will be here if you choose the option
+├── swagger-ui                        - Swagger UI front-end
+├── 404.html                          - 404 page
+├── favicon.ico                       - Fav icon
+├── index.html                        - Index page
+├── robots.txt                        - Configuration for bots and Web crawlers
+```
