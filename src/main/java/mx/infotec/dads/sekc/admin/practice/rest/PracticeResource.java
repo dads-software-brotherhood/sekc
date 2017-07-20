@@ -32,7 +32,7 @@ public class PracticeResource {
     @Autowired
     private PracticeService practiceService;
 
-    @PostMapping("/practices/")
+    @PostMapping("/practices")
     public ResponseEntity createPractice(@RequestBody PracticeDto practice) {
         ResponseWrapper responseData;
         responseData = practiceService.save(practice);
@@ -42,7 +42,7 @@ public class PracticeResource {
 
     }
 
-    @GetMapping(value = { "/practices/", "/practices/{id}" })
+    @GetMapping(value = { "/practices", "/practices/{id}" })
     public ResponseEntity practiceGet(@PathVariable(value = "id", required = false) String id,
             @RequestParam(value = "includeFields", required = false) List<String> includeFields,
             @ApiParam Pageable pageable) {
