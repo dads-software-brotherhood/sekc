@@ -9,7 +9,7 @@
 
     function PracticeCatalogs ($resource) {
         var service = $resource('api/v1/catalogs', {}, {
-            'query': {method: 'GET', isArray: true},
+            'query': {method: 'GET'},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
