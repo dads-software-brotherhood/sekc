@@ -1,19 +1,19 @@
 package mx.infotec.dads.sekc.util;
 
-import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
-import mx.infotec.dads.essence.model.competency.SECompetency;
-import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
-import mx.infotec.dads.essence.model.foundation.SECheckpoint;
-import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
-import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
+import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
+import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
+import mx.infotec.dads.sekc.admin.practice.dto.Entry;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
-import mx.infotec.dads.sekc.config.dbmigrations.domain.ActivitySpace;
-import mx.infotec.dads.sekc.config.dbmigrations.domain.Alpha;
+import mx.infotec.dads.sekc.admin.practice.dto.Result;
+import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
 
 /**
  * SEEssenceMapper Mapper Used for PracticeDto mapping
@@ -27,9 +27,15 @@ public class SEEssenceMapper {
 
     }
 
-    public static SEPractice SEPractice(PracticeDto from) {
+    /**
+     * Map a PracticeDto to a SEPractice
+     * 
+     * @param from
+     * @return SEPractice
+     */
+    public static SEPractice mapSEPractice(PracticeDto from) {
         SEPractice to = new SEPractice();
-        to.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel())));
+        to.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEPractice.class));
         to.setName(from.getName());
         to.setBriefDescription(from.getBriefDesciption());
         to.setDescription(from.getDescription());
@@ -40,129 +46,109 @@ public class SEEssenceMapper {
         to.setObjective(from.getObjective());
         return to;
     }
-    // /**
-    // * Convert an AreaOfConcern entity to SEAreaOfConcern entity
-    // *
-    // * @param from
-    // * @return SEAreaOfConcern
-    // */
-    // public static SEAreaOfConcern toSEAreaOfConcern(PracticeDto from) {
-    // SEAreaOfConcern to = new SEAreaOfConcern();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // to.setBriefDescription(from.getBriefDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an Checkpoint entity to SECheckpoint entity
-    // *
-    // * @param from
-    // * @return SECheckpoint
-    // */
-    // public static SECheckpoint toSECheckpoint(PracticeDto from) {
-    // SECheckpoint to = new SECheckpoint();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // to.setShortDescription(from.getBriefDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an Alpha entity to SEAlpha entity
-    // *
-    // * @param from
-    // * @return Alpha
-    // */
-    // public static SEAlpha toSEAlpha(PracticeDto from) {
-    // SEAlpha to = new SEAlpha();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // to.setBriefDescription(from.getBriefDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an State entity to SEState entity
-    // *
-    // * @param from
-    // * @return SEState
-    // */
-    // public static SEState toSEState(PracticeDto from) {
-    // SEState to = new SEState();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an WorkProduct entity to SEWorkProduct entity
-    // *
-    // * @param from
-    // * @return SEWorkProduct
-    // */
-    // public static SEWorkProduct toSEWorkproduct(PracticeDto from) {
-    // SEWorkProduct to = new SEWorkProduct();
-    // to.setName(from.getName());
-    // to.setBriefDescription(from.getBriefDescription());
-    // to.setDescription(from.getDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an LevelOfDetail entity to SELevelOfDetail entity
-    // *
-    // * @param from
-    // * @return SELevelOfDetail
-    // */
-    // public static SELevelOfDetail toSELevelOfDetail(PracticeDto from) {
-    // SELevelOfDetail to = new SELevelOfDetail();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // to.setSufficientLevel(from.getIsSufficientLevel());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an ActivitySpace entity to SEActivitySpace entity
-    // *
-    // * @param from
-    // * @return SEActivitySpace
-    // */
-    // public static SEActivitySpace toSEActivitySpace(PracticeDto from) {
-    // SEActivitySpace to = new SEActivitySpace();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // to.setBriefDescription(from.getBriefDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an Competency entity to SECompetency entity
-    // *
-    // * @param from
-    // * @return SECompetency
-    // */
-    // public static SECompetency toSECompetency(PracticeDto from) {
-    // SECompetency to = new SECompetency();
-    // to.setName(from.getName());
-    // to.setDescription(from.getDescription());
-    // to.setBriefDescription(from.getBriefDescription());
-    // return to;
-    // }
-    //
-    // /**
-    // * Convert an CompetencyLevel entity to SECompetencyLevel entity
-    // *
-    // * @param from
-    // * @return SECompetencyLevel
-    // */
-    // public static SECompetencyLevel toSECompetencyLevel(PracticeDto from) {
-    // SECompetencyLevel to = new SECompetencyLevel();
-    // to.setName(from.getName());
-    // to.setBriefDescription(from.getBriefDescription());
-    // to.setLevel(from.getLevel());
-    // return to;
-    // }
 
+    /**
+     * Map Conditions from PracticeDto to a SEPractice
+     *
+     * @param from
+     * @return SEAreaOfConcern
+     */
+    public static SEPractice mapConditions(PracticeDto from, SEPractice to) {
+        Conditions conditions = from.getConditions();
+        mapEntriesCriterion(conditions.getEntries(), to);
+        mapResultsCriterion(conditions.getResults(), to);
+        to.setMeasures(conditions.getMeasures());
+        return to;
+    }
+
+    private static void mapResultsCriterion(List<Result> results, SEPractice to) {
+        results.forEach(result -> {
+            mapResultAlphaStatesCriterion(result.getAlphaStates(), to);
+            mapResultWorkProductLevelOfDetailCriterion(result.getWorkProductsLevelofDetail(), to);
+            mapResultOtherConditions(result.getOtherConditions(), to);
+        });
+    }
+
+    /**
+     * Map AlphaStates to SEPractice
+     * 
+     * @param alphaState
+     * @param to
+     */
+    private static SEPractice mapResultAlphaStatesCriterion(AlphaState alphaState, SEPractice to) {
+        Optional.of(alphaState).ifPresent(element -> {
+            Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
+            Objects.requireNonNull(to.getEntryCriterion(), "The EntryCriterion can't be null");
+            SECriterion seCriterion = EntityBuilder.build(criterion -> {
+                criterion.setState(EntityBuilder.build(seState -> {
+                    seState.setId(element.getIdAlpha());
+                }, SEState.class));
+            }, SECriterion.class);
+            to.getEntryCriterion().add(seCriterion);
+        });
+        return to;
+    }
+
+    /**
+     * Map WorkProductsLevelOfDetail to SEPractice. This method not map the
+     * Workproduct associated to the current levelOfDetail.
+     * 
+     * @param alphaState
+     * @param to
+     */
+    private static Object mapResultWorkProductLevelOfDetailCriterion(
+            WorkProductsLevelofDetail workProductsLevelofDetail, SEPractice to) {
+        Optional.of(workProductsLevelofDetail).ifPresent(element -> {
+            Objects.requireNonNull(element.getIdLevelOfDetail(), "The LevelOfDetal's Id can't be null");
+            Objects.requireNonNull(element.getIdWorkProduct(), "The WorkProduct's Id can't be null");
+            Objects.requireNonNull(to.getEntryCriterion(), "The EntryCriterion can't be null");
+            SECriterion seCriterion = EntityBuilder.build(criterion -> {
+                criterion.setLevelOfDetail(EntityBuilder.build(seLevelOfDetail -> {
+                    seLevelOfDetail.setId(element.getIdLevelOfDetail());
+                }, SELevelOfDetail.class));
+                // If it is necesary to map the idWorkProduct associated to this
+                // Level of Detail, do it here.
+            }, SECriterion.class);
+            to.getEntryCriterion().add(seCriterion);
+        });
+        return to;
+    }
+
+    /**
+     * Map Other Conditions to SEPractice
+     * 
+     * @param alphaState
+     * @param to
+     */
+    private static SEPractice mapResultOtherConditions(List<String> otherConditionsList, SEPractice to) {
+        Optional.of(otherConditionsList).ifPresent(conditions -> to.setEntry(otherConditionsList));
+        return to;
+    }
+
+    private static SEPractice mapEntriesCriterion(List<Entry> entriesList, SEPractice to) {
+        return null;
+
+    }
+
+    /**
+     * Map Things to Work With from PracticeDto to a SEPractice
+     * 
+     * @param from
+     * @param to
+     * @return SEPractice
+     */
+    public static SEPractice mapThingsToWorkWith(PracticeDto from, SEPractice to) {
+        return to;
+    }
+
+    /**
+     * Map Things to Do from PracticeDto to a SEPractice
+     * 
+     * @param from
+     * @param to
+     * @return SEPractice
+     */
+    public static SEPractice mapThingsToDo(PracticeDto from, SEPractice to) {
+        return to;
+    }
 }

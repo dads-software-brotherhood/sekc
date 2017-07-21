@@ -3,12 +3,6 @@ package mx.infotec.dads.sekc.admin.practice.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import mx.infotec.dads.essence.model.activityspaceandactivity.SECompletionCriterion;
-import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
-import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
-import mx.infotec.dads.essence.model.foundation.SEKernel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECompletionCriterion;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.repository.SEPracticeRepository;
 import mx.infotec.dads.essence.util.EssenceMapping;
@@ -26,7 +26,6 @@ import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
-import org.omg.essence.model.activityspaceandactivity.Criterion;
 
 /**
  *
@@ -64,7 +63,7 @@ public class PracticeServiceImpl implements PracticeService {
             }
             // entryCriterion
             if (practiceDto.getConditions().getEntries() != null){
-                Collection<Criterion> entryCriterionList = new ArrayList<>();
+                Collection<SECriterion> entryCriterionList = new ArrayList<>();
                 practiceDto.getConditions().getEntries().forEach((entry) -> {
                     SEEntryCriterion entryCriterion = new SEEntryCriterion();
                     
@@ -82,7 +81,7 @@ public class PracticeServiceImpl implements PracticeService {
             // ---- entryCriterion
             // resultCriterion
             if (practiceDto.getConditions().getResults() != null){
-                Collection<Criterion> resultCriterionList = new ArrayList<>();
+                Collection<SECriterion> resultCriterionList = new ArrayList<>();
                 practiceDto.getConditions().getResults().forEach((result) -> {
                     SECompletionCriterion resultCriterion = new SECompletionCriterion();
                     
