@@ -42,7 +42,8 @@
             'fsm',                    // sticky header
             'smoothScroll',
             'LocalStorageModule',
-            'ui.tinymce'
+            'ui.tinymce',
+            'ivh.treeview'
         ])
         .run(run);
 
