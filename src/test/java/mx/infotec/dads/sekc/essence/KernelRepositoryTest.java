@@ -45,7 +45,7 @@ import mx.infotec.dads.sekc.SekcApp;
 import mx.infotec.dads.sekc.util.EssenceFilter;
 
 /**
- * Test for GeneratorService
+ * Test Consulting a kernel
  * 
  * @author Daniel Cortes Pichardo
  *
@@ -74,11 +74,21 @@ public class KernelRepositoryTest {
                 .forEach(area -> visitAreaOfConcern(area));
     }
 
+    /**
+     * Visit an Area of Concern and print its elements
+     * 
+     * @param seAreaOfConcern
+     */
     private void visitAreaOfConcern(SEAreaOfConcern seAreaOfConcern) {
         LOGGER.info("[AREA OF CONCERN] -->" + seAreaOfConcern.getName());
         seAreaOfConcern.getOwnedElements().forEach(element -> processAreaOfConcernElements(element));
     }
 
+    /**
+     * Visit each Alpha, Activity Space and Competencies printing its values
+     * 
+     * @param element
+     */
     private void processAreaOfConcernElements(SELanguageElement element) {
         if (element instanceof SEAlpha) {
             SEAlpha seAlpha = (SEAlpha) element;
@@ -92,6 +102,11 @@ public class KernelRepositoryTest {
         }
     }
 
+    /**
+     * Visit each state of the alpha and print its name
+     * 
+     * @param seAlpha
+     */
     private void visitAlpha(SEAlpha seAlpha) {
         LOGGER.info("[ALPHA]          --->" + seAlpha.getName());
         seAlpha.getStates().forEach(state -> {
@@ -100,10 +115,21 @@ public class KernelRepositoryTest {
         });
     }
 
+    /**
+     * Visit the activity space and print It's name
+     * 
+     * @param seActivitySpace
+     */
     private void visitActivitySpace(SEActivitySpace seActivitySpace) {
         LOGGER.info("[ACTIVITY SPACE] --->" + seActivitySpace.getName());
     }
 
+    /**
+     * Visit comptenecy entity and all its possible Levels, It prints the name
+     * of the elements
+     * 
+     * @param seCompetency
+     */
     private void visitCompetency(SECompetency seCompetency) {
         LOGGER.info("[COMPETENCY]      --->" + seCompetency.getName());
         seCompetency.getPossibleLevel().forEach(level -> {
@@ -112,6 +138,11 @@ public class KernelRepositoryTest {
         });
     }
 
+    /**
+     * Visit each checkpoints and print the value
+     * 
+     * @param checkpoints
+     */
     private void visitCheckpoints(Collection<? extends Checkpoint> checkpoints) {
         checkpoints.forEach(checkpoint -> LOGGER.info("[CHECKPOINT]     ----->" + checkpoint.getName()));
     }

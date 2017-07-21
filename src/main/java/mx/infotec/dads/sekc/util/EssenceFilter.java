@@ -29,7 +29,7 @@ public class EssenceFilter {
      * @return
      */
     public static List<SEAreaOfConcern> filterAreaOfConcerns(SEKernel seKernel) {
-        return seKernel.getOwnedElements().stream()
+        return seKernel.getOwnedElements().parallelStream()
                 .filter(languageElement -> languageElement instanceof SEAreaOfConcern)
                 .map(languageElement -> (SEAreaOfConcern) languageElement).collect(Collectors.toList());
     }
@@ -43,7 +43,7 @@ public class EssenceFilter {
      * @return
      */
     public static List<SEAreaOfConcern> filterAreaOfConcerns(Collection<SELanguageElement> languageElements) {
-        return languageElements.stream().filter(languageElement -> languageElement instanceof SEAreaOfConcern)
+        return languageElements.parallelStream().filter(languageElement -> languageElement instanceof SEAreaOfConcern)
                 .map(languageElement -> (SEAreaOfConcern) languageElement).collect(Collectors.toList());
     }
 
@@ -57,7 +57,7 @@ public class EssenceFilter {
      */
     public static <T> List<T> filterLanguageElement(Collection<SELanguageElement> languageElements,
             Class<T> targetClass) {
-        return languageElements.stream().filter(element -> targetClass.isInstance(element))
+        return languageElements.parallelStream().filter(element -> targetClass.isInstance(element))
                 .map(element -> targetClass.cast(element)).collect(Collectors.toList());
     }
 }
