@@ -15,19 +15,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "name",
     "briefDescription",
-    "description"
+    "description",
+    "level"
 })
-public class AlphaContainment {
+public class Checkpoint {
 
     @JsonProperty("id")
     private String id;
-
     @JsonProperty("name")
     private String name;
     @JsonProperty("briefDescription")
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("level")
+    private Integer level;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -69,6 +71,16 @@ public class AlphaContainment {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonProperty("level")
+    public Integer getLevel() {
+        return level;
+    }
+
+    @JsonProperty("level")
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     @JsonAnyGetter

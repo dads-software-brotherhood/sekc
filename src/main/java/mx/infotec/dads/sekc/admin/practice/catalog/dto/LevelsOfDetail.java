@@ -17,9 +17,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "briefDescription",
     "description",
-    "competencyLevel"
+    "checkpoints"
 })
-public class Competency {
+public class LevelsOfDetail {
 
     @JsonProperty("id")
     private String id;
@@ -29,8 +29,8 @@ public class Competency {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("competencyLevel")
-    private List<CompetencyLevel> competencyLevel = null;
+    @JsonProperty("checkpoints")
+    private List<Checkpoint> checkpoints = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -74,14 +74,14 @@ public class Competency {
         this.description = description;
     }
 
-    @JsonProperty("competencyLevel")
-    public List<CompetencyLevel> getCompetencyLevel() {
-        return competencyLevel;
+    @JsonProperty("checkpoints")
+    public List<Checkpoint> getCheckpoints() {
+        return checkpoints;
     }
 
-    @JsonProperty("competencyLevel")
-    public void setCompetencyLevel(List<CompetencyLevel> competencyLevel) {
-        this.competencyLevel = competencyLevel;
+    @JsonProperty("checkpoints")
+    public void setCheckpoints(List<Checkpoint> checkpoints) {
+        this.checkpoints = checkpoints;
     }
 
     @JsonAnyGetter
