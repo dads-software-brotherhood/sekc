@@ -2,6 +2,7 @@
 package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -15,9 +16,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "id",
     "name",
     "briefDescription",
-    "level"
+    "description",
+    "checkpoints"
 })
-public class PossibleLevel {
+public class State {
 
     @JsonProperty("id")
     private String id;
@@ -25,8 +27,10 @@ public class PossibleLevel {
     private String name;
     @JsonProperty("briefDescription")
     private String briefDescription;
-    @JsonProperty("level")
-    private Integer level;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("checkpoints")
+    private List<Checkpoint> checkpoints = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -60,14 +64,24 @@ public class PossibleLevel {
         this.briefDescription = briefDescription;
     }
 
-    @JsonProperty("level")
-    public Integer getLevel() {
-        return level;
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
     }
 
-    @JsonProperty("level")
-    public void setLevel(Integer level) {
-        this.level = level;
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @JsonProperty("checkpoints")
+    public List<Checkpoint> getCheckpoints() {
+        return checkpoints;
+    }
+
+    @JsonProperty("checkpoints")
+    public void setCheckpoints(List<Checkpoint> checkpoints) {
+        this.checkpoints = checkpoints;
     }
 
     @JsonAnyGetter

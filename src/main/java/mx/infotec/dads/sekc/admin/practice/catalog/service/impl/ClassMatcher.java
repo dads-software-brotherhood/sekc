@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlphaContainment;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProductManifest;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
+import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ActivitySpace;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Alpha;
-import mx.infotec.dads.sekc.admin.practice.catalog.dto.AlphaContainment;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.Checkpoint;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Kernel;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Practice;
-import mx.infotec.dads.sekc.admin.practice.catalog.dto.WorkProductManifest;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Competency;
-import mx.infotec.dads.sekc.admin.practice.catalog.dto.PossibleLevel;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.CompetencyLevel;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.LevelsOfDetail;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.State;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.Workproduct;
 
 /**
  *
@@ -30,7 +34,7 @@ public class ClassMatcher {
         kernel.setName(seKernel.getName());
         kernel.setDescription(seKernel.getDescription());
         kernel.setBriefDescription(seKernel.getBriefDescription());
-        kernel.setAdditionalProperty("aresOfConcerns", seKernel.getOwnedElements());
+        //kernel.setAdditionalProperty("aresOfConcerns", seKernel.getOwnedElements());
         return kernel;
     }
     
@@ -40,40 +44,83 @@ public class ClassMatcher {
         alpha.setDescription(seAlpha.getDescription());
         alpha.setBriefDescription(seAlpha.getBriefDescription());
         
-        //AlphaContainment
-        List<AlphaContainment> alphaContainmentList = new ArrayList<>();
-        
-        if (seAlpha.getAlphaContainment() != null)
-            seAlpha.getAlphaContainment().forEach((seAlphaContainment) -> {
-                AlphaContainment alphaContainment = new AlphaContainment();
-                alphaContainmentList.add( matchAlphaConainment(alphaContainment, seAlphaContainment) );
+        List<State> stateList = new ArrayList<>();
+        if (seAlpha.getStates() != null){
+            seAlpha.getStates().forEach((seState) -> {
+                State state = new State();
+                stateList.add(matchState(state, seState));
             });
-        alpha.setAlphaContainment(alphaContainmentList);
-        //WorkProductManifest
-        List<WorkProductManifest> workProductManifestList = new ArrayList<>();
+            alpha.setStates(stateList);
+        }
         
-        if (seAlpha.getWorkProductManifest()!= null)
-            seAlpha.getWorkProductManifest().forEach((seWorkProductManifest) -> {
-                WorkProductManifest workProductManifest = new WorkProductManifest();
-                workProductManifestList.add( matchWorkProductManifest(workProductManifest, seWorkProductManifest) );
+        //workproducts
+        List<Workproduct> workProductList = new ArrayList<>();
+        if (seAlpha.getWorkProductManifest() != null){
+            seAlpha.getWorkProductManifest().stream().map((workProductManifest) -> workProductManifest.getWorkProduct()).forEachOrdered((seWorkProduct) -> {
+                Workproduct workProduct = new Workproduct();
+                workProductList.add(matchWorkProduct(workProduct, seWorkProduct));
             });
-        alpha.setWorkProductManifest(workProductManifestList);
+            alpha.setWorkproducts(workProductList);
+        }
         
         return alpha;
     }
     
-    public AlphaContainment matchAlphaConainment(AlphaContainment alphaContainment, SEAlphaContainment seAlphaContainment){
-        alphaContainment.setId(seAlphaContainment.getId());
-        // SEAlphaContainment doesn't have name, des, briefDesc...
-        return alphaContainment;
+    public State matchState(State state, SEState seState){
+        state.setId(seState.getId());
+        state.setName(seState.getName());
+        state.setDescription(seState.getDescription());
+        List<Checkpoint> checkpointList = new ArrayList<>();
+        if (seState.getCheckListItem() != null){
+            seState.getCheckListItem().forEach((seCheckPoint) -> {
+                Checkpoint checkpoint = new Checkpoint();
+                checkpointList.add(matchCheckpoint(checkpoint, seCheckPoint));
+            });
+            state.setCheckpoints(checkpointList);
+        }
+        return state;
     }
     
-    public WorkProductManifest matchWorkProductManifest(WorkProductManifest workProductManifest, SEWorkProductManifest seWorkProductManifest){
-        workProductManifest.setId(seWorkProductManifest.getId());
-        // SEWorkProductManifest doesn't have name, des, briefDesc...
-        return workProductManifest;
+    public Checkpoint matchCheckpoint(Checkpoint checkpoint, SECheckpoint seCheckpoint){
+        checkpoint.setId(seCheckpoint.getId());
+        checkpoint.setName(seCheckpoint.getName());
+        checkpoint.setDescription(seCheckpoint.getDescription());
+        checkpoint.setBriefDescription(seCheckpoint.getShortDescription());
+        return checkpoint;
     }
     
+    public Workproduct matchWorkProduct(Workproduct workProduct, SEWorkProduct seWorkProduct){
+        workProduct.setId(seWorkProduct.getId());
+        workProduct.setName(seWorkProduct.getName());
+        workProduct.setDescription(seWorkProduct.getDescription());
+        workProduct.setBriefDescription(seWorkProduct.getBriefDescription());
+        
+        List<LevelsOfDetail> levelsOfDetailList = new ArrayList<>();
+        if (seWorkProduct.getLevelOfDetail() != null){
+            seWorkProduct.getLevelOfDetail().forEach((seLevelOfDetail) -> {
+                LevelsOfDetail levelOfDetail = new LevelsOfDetail();
+                levelsOfDetailList.add(matchLevelsOfDetail(levelOfDetail, seLevelOfDetail));
+            });
+            workProduct.setLevelsOfDetails(levelsOfDetailList);
+        }
+        return workProduct;
+    }
+    
+    public LevelsOfDetail matchLevelsOfDetail(LevelsOfDetail levelOfDetail, SELevelOfDetail seLevelOfDetail){
+        levelOfDetail.setId(seLevelOfDetail.getId());
+        levelOfDetail.setName(seLevelOfDetail.getName());
+        levelOfDetail.setDescription(seLevelOfDetail.getDescription());
+        List<Checkpoint> checkpointList = new ArrayList<>();
+        if (seLevelOfDetail.getCheckListItem() != null){
+            seLevelOfDetail.getCheckListItem().forEach((seCheckPoint) -> {
+                Checkpoint checkpoint = new Checkpoint();
+                checkpointList.add(matchCheckpoint(checkpoint, seCheckPoint));
+            });
+            levelOfDetail.setCheckpoints(checkpointList);
+        }
+        return levelOfDetail;
+    }
+        
     public ActivitySpace matchActivitySpace(ActivitySpace activitySpace, SEActivitySpace seActivitySpace){
         activitySpace.setId(seActivitySpace.getId());
         activitySpace.setName(seActivitySpace.getName());
@@ -95,24 +142,34 @@ public class ClassMatcher {
         competency.setName(seCompetency.getName());
         competency.setDescription(seCompetency.getDescription());
         competency.setBriefDescription(seCompetency.getBriefDescription());
-        //PossibleLevel
-        List<PossibleLevel> possibleLevelList = new ArrayList<>();
-        
-        if (seCompetency.getPossibleLevel() != null)
-            seCompetency.getPossibleLevel().forEach((sePossibleLevel) -> {
-                PossibleLevel possibleLevel = new PossibleLevel();
-                possibleLevelList.add( matchPossibleLevel(possibleLevel, (SECompetencyLevel) sePossibleLevel) );
+        //CompetencyLevel
+        List<CompetencyLevel> competencyLevelList = new ArrayList<>();
+        if (seCompetency.getPossibleLevel() != null){
+            seCompetency.getPossibleLevel().forEach((seCompetencyLevel) -> {
+                CompetencyLevel competencyLevel = new CompetencyLevel();
+                competencyLevelList.add( matchCompetencyLevel(competencyLevel, (SECompetencyLevel) seCompetencyLevel));
             });
-        competency.setPossibleLevel(possibleLevelList);
+            competency.setCompetencyLevel(competencyLevelList);
+        }
+        
         return competency;
     }
     
-    public PossibleLevel matchPossibleLevel(PossibleLevel possibleLevel, SECompetencyLevel sePossibleLevel){
-        possibleLevel.setId(sePossibleLevel.getId());
-        possibleLevel.setName(sePossibleLevel.getName());
-        possibleLevel.setBriefDescription(sePossibleLevel.getBriefDescription());
-        possibleLevel.setLevel(sePossibleLevel.getLevel());
-        return possibleLevel;
+    public CompetencyLevel matchCompetencyLevel(CompetencyLevel competencyLevel, SECompetencyLevel seCompetencyLevel){
+        competencyLevel.setId(seCompetencyLevel.getId());
+        competencyLevel.setName(seCompetencyLevel.getName());
+        competencyLevel.setBriefDescription(seCompetencyLevel.getBriefDescription());
+        competencyLevel.setLevel(seCompetencyLevel.getLevel());
+        
+        List<Checkpoint> checkpointList = new ArrayList<>();
+        if (seCompetencyLevel.getChecklistItem() != null){
+            seCompetencyLevel.getChecklistItem().forEach((seCheckPoint) -> {
+                Checkpoint checkpoint = new Checkpoint();
+                checkpointList.add(matchCheckpoint(checkpoint, (SECheckpoint) seCheckPoint));
+            });
+            competencyLevel.setCheckpoints(checkpointList);
+        }
+        return competencyLevel;
     }
     
 }
