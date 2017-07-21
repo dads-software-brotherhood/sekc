@@ -217,7 +217,7 @@
             views: {
                 'content@': {
                     templateUrl: 'app/practice-management/practice-management-conditions.html',
-                    controller: '',
+                    controller: 'PracticeManagementConditionsController',
                     controllerAs: 'vm'
                 }
             },

@@ -11,6 +11,8 @@
         var vm = this;
 
         vm.load = load;
+        vm.limpiar = limpiar;
+        vm.practice = null;
         vm.indexKeyword = -1;
         vm.keywords = [];
 //        vm.description = {
@@ -30,7 +32,17 @@
         }
 
         function onSuccess(data, headers) {
-        	
+            vm.practice = localStorageService.get('practiceInEdition');
+            console.log(vm.practice);
+            if (angular.isUndefined(vm.practice) || vm.practice === null) {
+                vm.practice = {};
+            }
+            else if (!(angular.isUndefined(vm.practice.keywords) || vm.practice.keywords === null))
+            {
+                vm.keywords = vm.practice.keywords;
+            }
+            
+
         	localStorageService.set('actionsKinds', data.catalogs.actionsKinds);
         	localStorageService.set('kernels', data.catalogs.kernels);
         	localStorageService.set('activitySpaces', data.catalogs.activitySpaces);
@@ -73,8 +85,15 @@
              vm.indexKeyword = -1;
         }
     	
-    	function save () {
-    		//localStorageService.set('practica', vm.practice);
+        function save() {
+            vm.practice.keywords = vm.keywords;
+            console.log(vm.practice);
+            localStorageService.set('practiceInEdition', vm.practice);
+        }
+
+        function limpiar() {
+            vm.practice = {};
+            localStorageService.set('practiceInEdition', null);
         }
     	
     	vm.tinymceOptions = {

@@ -15,12 +15,12 @@
                 <form class="form">
                     <div class="form-group input-group">
                         <label>Measures</label>
-                        <input id="" class="form-control" type="text">
+                        <input type="text" ng-model="vm.newMeasure" class="form-control">
                         <div class="input-group-btn p-l-10">
-                            <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
-                        </div>
+                            <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addMeasure()"> Add </button> 
+						</div>
                     </div>
-                        <table class="table table-full table-full-small white">
+                    <table class="table table-full table-full-small white" ng-hide="!vm.measures.length">
                         <thead>
                             <tr>
                                 <th>Measure</th>
@@ -28,10 +28,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>sadasldas asldkasldklas adjirre vsdjcsc r </td>
-                                <td><button class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
-                            </tr>
+                            <tr ng-repeat="measure in vm.measures">
+                                <td>{{measure.name}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -45,68 +44,53 @@
                 <h5> <i class="fa fa-sign-in text-blue" aria-hidden="true"></i> Entries</h5> 
                 <div class="form-group filled">
                     <label>Alpha</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Alpha 1</option>
-                        <option value="">Alpha 2</option>
-                        <option value="">Alpha 3</option>
-                        <option value="">Alpha 4</option>
-                    </select>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.disabledAlpha" ng-change="vm.getChilds('alpha',1)">
+                 		<option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                	</select>
                 </div>
-                <div class="form-group filled">
+                <div class="form-group filled" ng-show="visible">
                     <label>Alpha State</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Alpha State 1</option>
-                        <option value="">Alpha State 2</option>
-                        <option value="">Alpha State 3</option>
-                        <option value="">Alpha State 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlpha" ng-model="vm.alphaState" ng-change="vm.getChilds('alpha',1)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled">
                     <label>Workproduct</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Workproduct 1</option>
-                        <option value="">Workproduct 2</option>
-                        <option value="">Workproduct 3</option>
-                        <option value="">Workproduct 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWork" ng-model="vm.workProduct" ng-change="vm.getChilds('workproduct',1)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="form-group filled">
+                <div class="form-group filled" ng-show="visible">
                     <label>Level of Detail</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Level 1</option>
-                        <option value="">Level 2</option>
-                        <option value="">Level 3</option>
-                        <option value="">Level 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWork" ng-model="vm.levelOfDetail" ng-change="vm.getChilds('workproduct',1)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Another Entry Criterio</label>
-                    <input type="text" class="form-control" required>
+                    <label>Another Entry Criteria</label>
+                    <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteria" ng-disabled="vm.disabledAnother" ng-change="vm.getChilds('another',1)">
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-md-offset-10 form-group">	
-                        <button class="btn btn-success" type="button"><span data-translate="practiceManagement.add">Add</span></button>
+                     <div class="col-md-2 col-md-offset-8 form-group">    
+                        <button class="btn btn-default" type="button" ng-click="vm.combos(1)"><span data-translate="practiceManagement.clean">Clean</span></button>
+                    </div>
+                    <div class="col-md-2 form-group">    
+                        <button class="btn btn-success" type="button" ng-click="vm.add()"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div> 
                 <br>
                 <div class="table-responsive white">
-                    <table class="table table-full table-full-small white">
+                    <table class="table table-full table-full-small white" ng-hide="!vm.entriesTable.length">
                         <thead>
                             <tr>
-                                <th>Entry</th>
-                                <th>State/Document</th>
+                                <th>Entries</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Alpha</td>
-                                <td>Alpha State</td>
-                                <td><button class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                           <tr ng-repeat="entrie in vm.entriesTable">
+                                <td>entrie.description</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.delete()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -118,68 +102,53 @@
                 <h5><i class="fa fa-sign-out text-blue" aria-hidden="true"></i> Results</h5>
                 <div class="form-group filled">
                     <label>Alpha</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Alpha 1</option>
-                        <option value="">Alpha 2</option>
-                        <option value="">Alpha 3</option>
-                        <option value="">Alpha 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlphaR" ng-model="vm.alphaResult" ng-change="vm.getChilds('alphaR',2)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="form-group filled">
+                <div class="form-group filled" ng-show="visibleR">
                     <label>Alpha State</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Alpha State 1</option>
-                        <option value="">Alpha State 2</option>
-                        <option value="">Alpha State 3</option>
-                        <option value="">Alpha State 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlphaR" ng-model="vm.alphaStateResult" ng-change="vm.getChilds('alphaR',2)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled">
                     <label>Workproduct</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Workproduct 1</option>
-                        <option value="">Workproduct 2</option>
-                        <option value="">Workproduct 3</option>
-                        <option value="">Workproduct 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWorkR" ng-model="vm.workProductResult" ng-change="vm.getChilds('workproductR',2)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="form-group filled">
+                <div class="form-group filled" ng-show="visibleR">
                     <label>Level of Detail</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Level 1</option>
-                        <option value="">Level 2</option>
-                        <option value="">Level 3</option>
-                        <option value="">Level 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWorkR" ng-model="vm.levelOfDetailResult" ng-change="vm.getChilds('workproductR',2)">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Another Entry Criterio</label>
-                    <input type="text" class="form-control" required>
+                    <label>Another Entry Criteria</label>
+                    <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteriaResult" ng-disabled="vm.disabledAnotherR" ng-change="vm.getChilds('anotherR',2)">
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-md-offset-10 form-group">	
+                    <div class="col-md-2 col-md-offset-8 form-group">    
+                        <button class="btn btn-default" type="button" ng-click="vm.combos(2)"><span data-translate="practiceManagement.clean">Clean</span></button>
+                    </div>
+                    <div class="col-md-2 form-group">    
                         <button class="btn btn-success" type="button"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div>
                 <br>
                 <div class="table-responsive white">
-                    <table class="table table-full table-full-small white">
+                    <table class="table table-full table-full-small white" ng-hide="!vm.resultsTable.length">
                         <thead>
                             <tr>
                                 <th>Results</th>
-                                <th>State/Document</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Alpha</td>
-                                <td>Alpha State</td>
-                                <td><button class="btn btn-link btn-round"><i class="md md-delete"></i></button></td>
+                            <tr ng-repeat="result in vm.resultsTable">
+                                <td>result.description</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.delete()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -189,7 +158,7 @@
         <div class="modal-footer  m-b-30">
             <button type="button" class="btn btn-default m-t-10">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-                    data-translate="entity.action.cancel">Cancel</span>
+                    data-translate="entity.action.cancel" ng-click="vm.cancel()">Cancel</span>
             </button>
             <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10">
             <span data-translate="entity.action.next">Next</span>

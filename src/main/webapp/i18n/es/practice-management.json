@@ -42,6 +42,7 @@
         "add" : "Agregar",
         "remove" : "Eliminar",
         "next" : "Siguiente",
-        "cancel" : "Cancelar"
+        "cancel" : "Cancelar",
+        "clean" : "Limpiar"
     }
 }
