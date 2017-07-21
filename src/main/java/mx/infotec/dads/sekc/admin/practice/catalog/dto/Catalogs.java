@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "kernels",
     "alphas",
+    "workproducts",
     "activitySpaces",
     "practices",
     "competencies",
@@ -27,6 +28,8 @@ public class Catalogs {
     private List<Kernel> kernels = null;
     @JsonProperty("alphas")
     private List<Alpha> alphas = null;
+    @JsonProperty("workproducts")
+    private List<Workproduct> workproducts = null;
     @JsonProperty("activitySpaces")
     private List<ActivitySpace> activitySpaces = null;
     @JsonProperty("practices")
@@ -35,7 +38,6 @@ public class Catalogs {
     private List<Competency> competencies = null;
     @JsonProperty("actionsKinds")
     private List<ActionsKind> actionsKinds = null;
-    
     @JsonProperty("resourcesTypes")
     private List<ResourcesType> resourcesTypes = null;
     @JsonIgnore
@@ -59,6 +61,16 @@ public class Catalogs {
     @JsonProperty("alphas")
     public void setAlphas(List<Alpha> alphas) {
         this.alphas = alphas;
+    }
+
+    @JsonProperty("workproducts")
+    public List<Workproduct> getWorkproducts() {
+        return workproducts;
+    }
+
+    @JsonProperty("workproducts")
+    public void setWorkproducts(List<Workproduct> workproducts) {
+        this.workproducts = workproducts;
     }
 
     @JsonProperty("activitySpaces")

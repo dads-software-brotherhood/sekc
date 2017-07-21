@@ -2,6 +2,7 @@ package mx.infotec.dads.sekc.admin.kernel.rest;
 
 import io.swagger.annotations.ApiParam;
 import java.util.List;
+import mx.infotec.dads.sekc.admin.kernel.dto.ActivitySpaceDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static mx.infotec.dads.sekc.web.rest.util.ApiConstant.API_PATH;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.kernel.service.ActivitySpaceService;
+import mx.infotec.dads.sekc.web.rest.util.HeaderUtil;
 /**
  *
  * @author wisog
@@ -29,17 +31,25 @@ public class ActivitySpaceResource {
     @Autowired
     private ActivitySpaceService activitySpaceService;
     
-    @PostMapping("/activitySpaces/")
-    public ResponseEntity activitySpaceCreate( @RequestBody Object activitySpace ){
+    private static final String ENTITY_NAME = "activitySpace";
+    
+    @PostMapping("/activitySpaces")
+    public ResponseEntity activitySpaceCreate( @RequestBody ActivitySpaceDto activitySpace ){
         ResponseWrapper responseData;
         
         responseData = activitySpaceService.save(activitySpace);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getError_message().equals("")){
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, activitySpace.toString()))
+                    .body(responseData.getResponseObject());
+        }
+        
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, activitySpace.toString()))
+            .body(responseData.toString());
     }
 
-    @GetMapping(value = { "/activitySpaces/","/activitySpaces/{id}" })
+    @GetMapping(value = { "/activitySpaces","/activitySpaces/{id}" })
     public ResponseEntity activitySpaceGet(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
@@ -48,16 +58,24 @@ public class ActivitySpaceResource {
             responseData = activitySpaceService.findOne(id, includeFields);    
         else
             responseData = activitySpaceService.findAll(pageable);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        
+        if (responseData.getError_message().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, id))
+                    .body(responseData.getResponseObject());
+        }
+        
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "err_activity_spaces_get", "Error al obtener Activity Space"))
+            .body(responseData.toString());
     }
     
     @DeleteMapping("/activitySpaces/{id}")
     public ResponseEntity activitySpaceDelete(@PathVariable("id") String id) {
         ResponseWrapper responseData = activitySpaceService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_activity_spaces_delete"))
+                .body(responseData.getResponseObject());
     }
 }

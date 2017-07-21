@@ -20,89 +20,131 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
-// */
-//package mx.infotec.dads.sekc.essence;
-//
-//import java.util.List;
-//
-//import org.joda.time.DateTime;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.test.context.junit4.SpringRunner;
-//
-//import mx.infotec.dads.essence.model.foundation.SEKernel;
-//import mx.infotec.dads.essence.repository.SEKernelRepository;
-//import mx.infotec.dads.sekc.SekcApp;
-//
-///**
-// * Test for GeneratorService
-// * 
-// * @author Daniel Cortes Pichardo
-// *
-// */
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = SekcApp.class)
-//public class KernelRepositoryTest {
-//    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
-//
-//    @Autowired
-//    private SEKernelRepository kernelRepository;
-//
-//    private static String id;
-//
-//    /**
-//     * 
-//     * @throws Exception
-//     */
-//    @Test
-//    public void insertKernel() throws Exception {
-//        LOGGER.info("insert practice");
-//        List<SEKernel> kernelList = kernelRepository.findAll();
-//        SEKernel kernel = new SEKernel();
-//        if (kernelList.isEmpty()) {
-//            kernel.setBriefDescription("Essence default kernel");
-//            kernel.setConsistencyRules("Consistencies rules");
-//            kernel.setDescription("Essence default kernel");
-//            kernel.setExtension(null);
-//            kernel.setFeatureSelection(null);
-//            kernel.setIcon(null);
-//            kernel.setMergeResolution(null);
-//            kernel.setName("essence-core");
-//            kernel.setOwnedElements(null);// por defecto no hay elementos
-//            kernel.setOwner(null);
-//            kernel.setPatternAssociation(null);
-//            kernel.setProperties(null);
-//            kernel.setReferredElements(null);
-//            kernel.setReferrer(null);
-//            kernel.setReferringMethod(null);
-//            kernel.setResource(null);
-//            kernel.setSuppressable(false);
-//            kernel.setTag(null);
-//            kernel.setViewSelection(null);
-//            kernel.setCreatedDate(new DateTime());
-//            kernel.setLastModifiedDate(new DateTime());
-//
-//        } else {
-//            kernel = kernelList.get(0);
-//            kernel.setName("otro nombre");
-//            kernel.setCreatedDate(new DateTime());
-//            kernel.setLastModifiedDate(new DateTime());
-//        }
-//
-//        kernelRepository.save(kernel);
-//        id = kernel.getId();
-//        LOGGER.info("id = {}", id);
-//    }
-//
-//    @Test
-//    public void getKernel() {
-//        LOGGER.info("get kernel id = {}", id);
-//        SEKernel kernel = kernelRepository.findOne(id);
-//        LOGGER.info("id: {}", kernel.getId());
-//    }
-//}
-//
+ */
+package mx.infotec.dads.sekc.essence;
+
+import java.util.Collection;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.omg.essence.model.foundation.Checkpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
+import mx.infotec.dads.essence.model.competency.SECompetency;
+import mx.infotec.dads.essence.model.foundation.SEKernel;
+import mx.infotec.dads.essence.model.foundation.SELanguageElement;
+import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
+import mx.infotec.dads.essence.repository.SEKernelRepository;
+import mx.infotec.dads.sekc.SekcApp;
+import mx.infotec.dads.sekc.util.EssenceFilter;
+
+/**
+ * Test Consulting a kernel
+ * 
+ * @author Daniel Cortes Pichardo
+ *
+ */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SekcApp.class)
+public class KernelRepositoryTest {
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private SEKernelRepository kernelRepository;
+
+    @Test
+    public void getKernel() {
+        kernelRepository.findAll().forEach(seKernel -> visitKernel(seKernel));
+    }
+
+    /**
+     * Process each element of the kernel
+     * 
+     * @param seKernel
+     */
+    private void visitKernel(SEKernel seKernel) {
+        LOGGER.info("[KERNEL]          ->" + seKernel.getName());
+        EssenceFilter.filterLanguageElement(seKernel.getOwnedElements(), SEAreaOfConcern.class)
+                .forEach(area -> visitAreaOfConcern(area));
+    }
+
+    /**
+     * Visit an Area of Concern and print its elements
+     * 
+     * @param seAreaOfConcern
+     */
+    private void visitAreaOfConcern(SEAreaOfConcern seAreaOfConcern) {
+        LOGGER.info("[AREA OF CONCERN] -->" + seAreaOfConcern.getName());
+        seAreaOfConcern.getOwnedElements().forEach(element -> processAreaOfConcernElements(element));
+    }
+
+    /**
+     * Visit each Alpha, Activity Space and Competencies printing its values
+     * 
+     * @param element
+     */
+    private void processAreaOfConcernElements(SELanguageElement element) {
+        if (element instanceof SEAlpha) {
+            SEAlpha seAlpha = (SEAlpha) element;
+            visitAlpha(seAlpha);
+        } else if (element instanceof SEActivitySpace) {
+            SEActivitySpace seActivitySpace = (SEActivitySpace) element;
+            visitActivitySpace(seActivitySpace);
+        } else if (element instanceof SECompetency) {
+            SECompetency seCompetency = (SECompetency) element;
+            visitCompetency(seCompetency);
+        }
+    }
+
+    /**
+     * Visit each state of the alpha and print its name
+     * 
+     * @param seAlpha
+     */
+    private void visitAlpha(SEAlpha seAlpha) {
+        LOGGER.info("[ALPHA]          --->" + seAlpha.getName());
+        seAlpha.getStates().forEach(state -> {
+            LOGGER.info("[STATE]          ---->" + state.getName());
+            visitCheckpoints(state.getCheckListItem());
+        });
+    }
+
+    /**
+     * Visit the activity space and print It's name
+     * 
+     * @param seActivitySpace
+     */
+    private void visitActivitySpace(SEActivitySpace seActivitySpace) {
+        LOGGER.info("[ACTIVITY SPACE] --->" + seActivitySpace.getName());
+    }
+
+    /**
+     * Visit comptenecy entity and all its possible Levels, It prints the name
+     * of the elements
+     * 
+     * @param seCompetency
+     */
+    private void visitCompetency(SECompetency seCompetency) {
+        LOGGER.info("[COMPETENCY]      --->" + seCompetency.getName());
+        seCompetency.getPossibleLevel().forEach(level -> {
+            LOGGER.info("[COMPETENCY LEVEL]---->" + level.getName());
+            visitCheckpoints(level.getChecklistItem());
+        });
+    }
+
+    /**
+     * Visit each checkpoints and print the value
+     * 
+     * @param checkpoints
+     */
+    private void visitCheckpoints(Collection<? extends Checkpoint> checkpoints) {
+        checkpoints.forEach(checkpoint -> LOGGER.info("[CHECKPOINT]     ----->" + checkpoint.getName()));
+    }
+
+}

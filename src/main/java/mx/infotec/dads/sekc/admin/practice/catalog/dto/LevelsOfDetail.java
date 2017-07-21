@@ -2,6 +2,7 @@
 package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -9,28 +10,34 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "name",
     "briefDescription",
-    "description"
+    "description",
+    "checkpoints"
 })
-public class WorkProductManifest {
+public class LevelsOfDetail {
 
     @JsonProperty("id")
     private String id;
-
     @JsonProperty("name")
     private String name;
     @JsonProperty("briefDescription")
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("checkpoints")
+    private List<Checkpoint> checkpoints = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    @JsonProperty("type")
+    private String type = "levelOfDetail";
+    
     @JsonProperty("id")
     public String getId() {
         return id;
@@ -69,6 +76,16 @@ public class WorkProductManifest {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonProperty("checkpoints")
+    public List<Checkpoint> getCheckpoints() {
+        return checkpoints;
+    }
+
+    @JsonProperty("checkpoints")
+    public void setCheckpoints(List<Checkpoint> checkpoints) {
+        this.checkpoints = checkpoints;
     }
 
     @JsonAnyGetter

@@ -2,6 +2,7 @@
 package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -9,15 +10,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "name",
     "briefDescription",
-    "level"
+    "description",
+    "levelsOfDetails"
 })
-public class PossibleLevel {
+public class Workproduct {
 
     @JsonProperty("id")
     private String id;
@@ -25,11 +29,15 @@ public class PossibleLevel {
     private String name;
     @JsonProperty("briefDescription")
     private String briefDescription;
-    @JsonProperty("level")
-    private Integer level;
+    @JsonProperty("description")
+    private String description;
+    @JsonProperty("levelsOfDetails")
+    private List<LevelsOfDetail> levelsOfDetails = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    @JsonProperty("type")
+    private String type = "workProduct";
+    
     @JsonProperty("id")
     public String getId() {
         return id;
@@ -60,14 +68,24 @@ public class PossibleLevel {
         this.briefDescription = briefDescription;
     }
 
-    @JsonProperty("level")
-    public Integer getLevel() {
-        return level;
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
     }
 
-    @JsonProperty("level")
-    public void setLevel(Integer level) {
-        this.level = level;
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @JsonProperty("levelsOfDetails")
+    public List<LevelsOfDetail> getLevelsOfDetails() {
+        return levelsOfDetails;
+    }
+
+    @JsonProperty("levelsOfDetails")
+    public void setLevelsOfDetails(List<LevelsOfDetail> levelsOfDetails) {
+        this.levelsOfDetails = levelsOfDetails;
     }
 
     @JsonAnyGetter

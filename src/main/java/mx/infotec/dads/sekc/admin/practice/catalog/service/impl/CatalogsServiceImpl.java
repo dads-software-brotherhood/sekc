@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.omg.essence.model.activityspaceandactivity.ActionKind;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
@@ -18,6 +19,7 @@ import mx.infotec.dads.essence.repository.SEAlphaRepository;
 import mx.infotec.dads.essence.repository.SECompetencyRepository;
 import mx.infotec.dads.essence.repository.SEKernelRepository;
 import mx.infotec.dads.essence.repository.SEPracticeRepository;
+import mx.infotec.dads.essence.repository.SEWorkProductRepository;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ActionsKind;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ActivitySpace;
@@ -30,7 +32,7 @@ import mx.infotec.dads.sekc.admin.practice.catalog.service.CatalogsService;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Competency;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ResourcesType;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ResourcesTypes;
-
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.Workproduct;
 
 /**
  *
@@ -49,10 +51,13 @@ public class CatalogsServiceImpl implements CatalogsService {
     private SEPracticeRepository practiceRepository;
     @Autowired
     private SECompetencyRepository competencyRepository;
+    @Autowired
+    private SEWorkProductRepository workProductRepository;
 
     private ResponseWrapper response;
 
     private void recoverCatalogFields(Catalogs catalogs){
+        
         ClassMatcher classMatcher = new ClassMatcher();
         //------List<Kernel>          kernels
         List<SEKernel> seKernelList = kernelRepository.findAll();
@@ -72,6 +77,16 @@ public class CatalogsServiceImpl implements CatalogsService {
             alphaList.add( classMatcher.matchAlpha(alpha, seAlpha) );
         });
         catalogs.setAlphas(alphaList);
+        //------List<Workproducts>           Workproduct
+        List<SEWorkProduct> seWorkProductList = workProductRepository.findAll();
+        List<Workproduct> workProductList = new ArrayList<>();
+        
+        seWorkProductList.forEach((seWorkProduct) -> {
+            Workproduct workProduct = new Workproduct();
+            workProductList.add( classMatcher.matchWorkProduct(workProduct, seWorkProduct) );
+        });
+        catalogs.setWorkproducts(workProductList);
+        
         //------List<ActivitySpace>   activitySpaces
         List<SEActivitySpace> seActivitySpacelList = activitySpaceRepository.findAll();
         List<ActivitySpace> activitySpaceList = new ArrayList<>();
@@ -103,6 +118,7 @@ public class CatalogsServiceImpl implements CatalogsService {
         List<ActionsKind> actionsKindList = new ArrayList<>();
         for (ActionKind value: ActionKind.values()){
             ActionsKind actionsKind = new ActionsKind();
+            actionsKind.setId(value.name());
             actionsKind.setName(value.name());
             actionsKindList.add( actionsKind );
         }
@@ -111,8 +127,8 @@ public class CatalogsServiceImpl implements CatalogsService {
         List<ResourcesType> resourcesTypeList = new ArrayList<>();
         for (ResourcesTypes value: ResourcesTypes.values()){
             ResourcesType resourcesType = new ResourcesType();
-            resourcesType.setId(value.getId());
-            resourcesType.setName(value.name());
+            resourcesType.setId(value.name());
+            resourcesType.setName(value.getValue());
             resourcesTypeList.add( resourcesType );
         }
         catalogs.setResourcesTypes(resourcesTypeList);

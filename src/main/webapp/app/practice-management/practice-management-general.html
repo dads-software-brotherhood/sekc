@@ -15,62 +15,52 @@
                         <div class="col-md-12">
                             <div class="form-group filled">
                                 <label data-translate="practiceManagement.selectKernel" >Select a Kernel</label>
-                                <select class="form-control" required>
-                                    <option value="" data-translate="entity.select.select">Selecciona</option>
-                                    <option value="">Kernel 1</option>
-                                    <option value="">Kernel 2</option>
-                                    <option value="">Kernel 3</option>
-                                    <option value="">Kernel 4</option>
-                                </select>
+                                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.kernels" ng-model="vm.practice.idKernel"> 
+		                            <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
+		                        </select> 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label data-translate="practiceManagement.name" >Name</label>
-                                <input type="text" class="form-control" ng-model="model.name" required>
+                                <input type="text" class="form-control" ng-model="vm.practice.name" required>
                             </div>
                         </div>
                          <div class="col-md-6">
                             <div class="form-group">
                                 <label data-translate="practiceManagement.author" >Autor</label>
-                                <input type="text" class="form-control"  required>
+                                <input type="text" class="form-control" ng-model="vm.practice.author" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea" data-translate="practiceManagement.objective">Objective</label>
-                                <textarea   class="form-control vertical" rows="2" id="objective" required></textarea>
+                                <textarea   class="form-control vertical" rows="2" ng-model="vm.practice.objective" required></textarea>
                             </div>    
                         </div>
 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea" data-translate="practiceManagement.briefDescription">Brief Description</label>
-                                <textarea class="form-control vertical" rows="3" id="briefdescription" required></textarea>
+                                <textarea class="form-control vertical" rows="3" ng-model="vm.practice.briefDescription" required></textarea>
                             </div>    
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea" data-translate="practiceManagement.description">Description</label>
-                                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" id="description" ng-model="vm.description.description" required></textarea>
+                                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.practice.description" required></textarea>
                             </div>  
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea"  data-translate="practiceManagement.consistencyRules">Consistency Rules</label>
-                                <textarea  class="form-control vertical" rows="3" id="consistencyrules" required ></textarea>
+                                <textarea  class="form-control vertical" rows="3" ng-model="vm.practice.consistencyRules" required ></textarea>
                             </div>    
                         </div>
                          <div class="col-md-12">
                             <div class="form-group filled">
                                 <label data-translate="practiceManagement.relatedPractices" >Select a Practices Related</label>
-                                <select class="form-control" required>
-                                    <option value="" data-translate="entity.select.select">Selecciona</option>
-                                    <option value="">Practices Related 1</option>
-                                    <option value="">Practices Related 2</option>
-                                    <option value="">Practices Related 3</option>
-                                    <option value="">Practices Related 4</option>
-                                </select>
+                                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.kernels" ng-model="vm.practice.relatedPractices" multiple></select>
                             </div>
                         </div>
                       
@@ -80,42 +70,6 @@
         </div>
         <div class="col-md-12">
             <div class="row">
-                <!--div class="col-md-12">
-                    <div class="well white">
-      					<input type="hidden" id="idUpdate" ng-model="idUpdate" />
-                        <form class="form">
-                          <div class="form-group input-group">
-                              <label data-translate="practiceManagement.keywords">Keywords</label>
-                            <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
-                            <div class="input-group-btn p-l-10">
-                              <button class="btn btn-default" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
-                            </div>
-                          </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-12" ng-hide="!vm.keywords.length">
-                    <div class="well white">
-                        <div class="table-responsive white">
-                            <table class="table table-full table-full-small white">
-                                <thead>
-                                    <tr>
-                                        <th>Keyword</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="keyword in vm.keywords">
-                                        <td> {{keyword.keyWord}} </td>
-                                        <td><button class="btn btn-link btn-round" ng-click="vm.updateKeyword($index, keyword)" ><i class="md md-edit"></button></td>
-                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteKeyword($index)"><i class="md md-delete"></i></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                     </div>
-                </div-->
                 <div class="col-md-12">
                     <div class="well white">
       			<input type="hidden" id="idUpdate" ng-model="idUpdate" />
@@ -124,7 +78,7 @@
                               <label data-translate="practiceManagement.keywords">Keywords</label>
                             <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
                             <div class="input-group-btn p-l-10">
-                              <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> {{vm.buttonAdd}} </button>
+                              <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> Add </button>
                             </div>
                           </div>
                         </form>
@@ -138,7 +92,10 @@
                     </div>
                 </div>
                 <div class="modal-footer  m-b-30">
-                    <button type="button" class="btn btn-default m-t-10">
+                    <button type="button" class="btn btn-default m-t-10" ng-click="vm.limpiar()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+                    </button>
+                    <button type="button" class="btn btn-default m-t-10" ng-click="vm.save()">
                     <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
                             data-translate="entity.action.cancel">Cancel</span>
                     </button>

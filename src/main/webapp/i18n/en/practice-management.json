@@ -43,6 +43,7 @@
         "add" : "Add",
         "remove" : "Remove",
         "next" : "Next",
-        "cancel" : "Cancel"
+        "cancel" : "Cancel",
+        "clean" : "Clean"
     }
 }

@@ -10,15 +10,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "name",
     "briefDescription",
     "description",
-    "alphaContainment",
-    "workProductManifest"
+    "states",
+    "workproducts"
 })
 public class Alpha {
 
@@ -26,18 +28,19 @@ public class Alpha {
     private String id;
     @JsonProperty("name")
     private String name;
-
     @JsonProperty("briefDescription")
     private String briefDescription;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("alphaContainment")
-    private List<AlphaContainment> alphaContainment = null;
-    @JsonProperty("workProductManifest")
-    private List<WorkProductManifest> workProductManifest = null;
+    @JsonProperty("states")
+    private List<State> states = null;
+    @JsonProperty("workproducts")
+    private List<Workproduct> workproducts = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    @JsonProperty("type")
+    private String type = "alpha";
+    
     @JsonProperty("id")
     public String getId() {
         return id;
@@ -78,24 +81,24 @@ public class Alpha {
         this.description = description;
     }
 
-    @JsonProperty("alphaContainment")
-    public List<AlphaContainment> getAlphaContainment() {
-        return alphaContainment;
+    @JsonProperty("states")
+    public List<State> getStates() {
+        return states;
     }
 
-    @JsonProperty("alphaContainment")
-    public void setAlphaContainment(List<AlphaContainment> alphaContainment) {
-        this.alphaContainment = alphaContainment;
+    @JsonProperty("states")
+    public void setStates(List<State> states) {
+        this.states = states;
     }
 
-    @JsonProperty("workProductManifest")
-    public List<WorkProductManifest> getWorkProductManifest() {
-        return workProductManifest;
+    @JsonProperty("workproducts")
+    public List<Workproduct> getWorkproducts() {
+        return workproducts;
     }
 
-    @JsonProperty("workProductManifest")
-    public void setWorkProductManifest(List<WorkProductManifest> workProductManifest) {
-        this.workProductManifest = workProductManifest;
+    @JsonProperty("workproducts")
+    public void setWorkproducts(List<Workproduct> workproducts) {
+        this.workproducts = workproducts;
     }
 
     @JsonAnyGetter

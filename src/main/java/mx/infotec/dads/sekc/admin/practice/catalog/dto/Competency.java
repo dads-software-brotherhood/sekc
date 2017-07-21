@@ -10,14 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
     "name",
     "briefDescription",
     "description",
-    "possibleLevel"
+    "competencyLevel"
 })
 public class Competency {
 
@@ -29,11 +31,13 @@ public class Competency {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("possibleLevel")
-    private List<PossibleLevel> possibleLevel = null;
+    @JsonProperty("competencyLevel")
+    private List<CompetencyLevel> competencyLevel = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    @JsonProperty("type")
+    private String type = "competency";
+    
     @JsonProperty("id")
     public String getId() {
         return id;
@@ -74,14 +78,14 @@ public class Competency {
         this.description = description;
     }
 
-    @JsonProperty("possibleLevel")
-    public List<PossibleLevel> getPossibleLevel() {
-        return possibleLevel;
+    @JsonProperty("competencyLevel")
+    public List<CompetencyLevel> getCompetencyLevel() {
+        return competencyLevel;
     }
 
-    @JsonProperty("possibleLevel")
-    public void setPossibleLevel(List<PossibleLevel> possibleLevel) {
-        this.possibleLevel = possibleLevel;
+    @JsonProperty("competencyLevel")
+    public void setCompetencyLevel(List<CompetencyLevel> competencyLevel) {
+        this.competencyLevel = competencyLevel;
     }
 
     @JsonAnyGetter

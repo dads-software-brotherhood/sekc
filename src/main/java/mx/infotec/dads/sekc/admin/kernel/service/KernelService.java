@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface KernelService {
     
-    public ResponseWrapper save( Object kernel );
+//TODO    public ResponseWrapper save( KernelDto kernel );
     public ResponseWrapper findAll(Pageable pag);
     public ResponseWrapper findOne(String id, java.util.List includeFields);
     public ResponseWrapper delete(String id);

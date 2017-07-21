@@ -33,6 +33,12 @@ public class MigrationMapper {
 
     }
 
+    /**
+     * Convert an Kernel entity to SEKernel entity
+     * 
+     * @param from
+     * @return SEKernel
+     */
     public static SEKernel toSEKernel(Kernel from) {
         SEKernel to = new SEKernel();
         to.setName(from.getName());
@@ -41,6 +47,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an AreaOfConcern entity to SEAreaOfConcern entity
+     * 
+     * @param from
+     * @return SEAreaOfConcern
+     */
     public static SEAreaOfConcern toSEAreaOfConcern(AreasOfConcern from) {
         SEAreaOfConcern to = new SEAreaOfConcern();
         to.setName(from.getName());
@@ -49,6 +61,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an Checkpoint entity to SECheckpoint entity
+     * 
+     * @param from
+     * @return SECheckpoint
+     */
     public static SECheckpoint toSECheckpoint(Checkpoint from) {
         SECheckpoint to = new SECheckpoint();
         to.setName(from.getName());
@@ -57,6 +75,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an Alpha entity to SEAlpha entity
+     * 
+     * @param from
+     * @return Alpha
+     */
     public static SEAlpha toSEAlpha(Alpha from) {
         SEAlpha to = new SEAlpha();
         to.setName(from.getName());
@@ -65,6 +89,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an State entity to SEState entity
+     * 
+     * @param from
+     * @return SEState
+     */
     public static SEState toSEState(State from) {
         SEState to = new SEState();
         to.setName(from.getName());
@@ -72,6 +102,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an WorkProduct entity to SEWorkProduct entity
+     * 
+     * @param from
+     * @return SEWorkProduct
+     */
     public static SEWorkProduct toSEWorkproduct(WorkProduct from) {
         SEWorkProduct to = new SEWorkProduct();
         to.setName(from.getName());
@@ -80,6 +116,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an LevelOfDetail entity to SELevelOfDetail entity
+     * 
+     * @param from
+     * @return SELevelOfDetail
+     */
     public static SELevelOfDetail toSELevelOfDetail(LevelOfDetail from) {
         SELevelOfDetail to = new SELevelOfDetail();
         to.setName(from.getName());
@@ -88,6 +130,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an ActivitySpace entity to SEActivitySpace entity
+     * 
+     * @param from
+     * @return SEActivitySpace
+     */
     public static SEActivitySpace toSEActivitySpace(ActivitySpace from) {
         SEActivitySpace to = new SEActivitySpace();
         to.setName(from.getName());
@@ -96,6 +144,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an Competency entity to SECompetency entity
+     * 
+     * @param from
+     * @return SECompetency
+     */
     public static SECompetency toSECompetency(Competency from) {
         SECompetency to = new SECompetency();
         to.setName(from.getName());
@@ -104,6 +158,12 @@ public class MigrationMapper {
         return to;
     }
 
+    /**
+     * Convert an CompetencyLevel entity to SECompetencyLevel entity
+     * 
+     * @param from
+     * @return SECompetencyLevel
+     */
     public static SECompetencyLevel toSECompetencyLevel(CompetencyLevel from) {
         SECompetencyLevel to = new SECompetencyLevel();
         to.setName(from.getName());

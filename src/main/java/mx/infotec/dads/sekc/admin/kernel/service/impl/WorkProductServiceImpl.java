@@ -15,6 +15,10 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProductManifest;
 import mx.infotec.dads.essence.repository.SEWorkProductRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.Action;
+import mx.infotec.dads.sekc.admin.kernel.dto.LevelOfDetail;
+import mx.infotec.dads.sekc.admin.kernel.dto.WorkProductDto;
+import mx.infotec.dads.sekc.admin.kernel.dto.WorkProductManifest;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
@@ -36,26 +40,24 @@ public class WorkProductServiceImpl implements WorkProductService {
     private final Logger LOG = LoggerFactory.getLogger(WorkProductServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getWorkProductFromRequest(Object workProduct, SEWorkProduct workProductToPersistence){
+    private boolean getWorkProductFromRequest(WorkProductDto workProductDto, SEWorkProduct workProductToPersistence){
         try{
-            Map< String , Object > workProductMap = (Map< String , Object >) workProduct;
-            repositoryUtil.fillSEBasicElementFields(workProductToPersistence, workProductMap);
+            repositoryUtil.fillSEBasicElementFields(workProductToPersistence, workProductDto);
             
-            if (workProductMap.containsKey("levelOfDetail")){
-                List<SELevelOfDetail> levelOfDetail = repositoryUtil.getDocuments((ArrayList<String>) workProductMap.get("levelOfDetail"), SELevelOfDetail.class);
-                if (!levelOfDetail.isEmpty())
-                    workProductToPersistence.setLevelOfDetail(levelOfDetail);
-            }
-            if (workProductMap.containsKey("action")){
-                List<SEAction> action = repositoryUtil.getDocuments((ArrayList<String>) workProductMap.get("action"), SEAction.class);
-                if (!action.isEmpty())
-                    workProductToPersistence.setAction(action);
-            }
-            if (workProductMap.containsKey("workProductManifest")){
-                List<SEWorkProductManifest> workProductManifest = repositoryUtil.getDocuments((ArrayList<String>) workProductMap.get("workProductManifest"), SEWorkProductManifest.class);
-                if (!workProductManifest.isEmpty())
-                    workProductToPersistence.setWorkProductManifest(workProductManifest);
-            }
+            if (workProductDto.getLevelOfDetail() != null){
+                workProductDto.getLevelOfDetail().stream().map((levelOfDetail) -> (SELevelOfDetail) repositoryUtil.getDocument( levelOfDetail.getIdLevelOfDetail(), SELevelOfDetail.class)).filter((seLevelOfDetail) -> ( seLevelOfDetail != null)).forEachOrdered((seLevelOfDetail) -> {
+                    workProductToPersistence.getLevelOfDetail().add(seLevelOfDetail);
+            });}
+            
+            if ( workProductDto.getAction() != null){
+                workProductDto.getAction().stream().map((action) -> (SEAction) repositoryUtil.getDocument(action.getIdAction(), SEAction.class)).filter((seAction) -> ( seAction != null)).forEachOrdered((seAction) -> {
+                    workProductToPersistence.getAction().add(seAction);
+            });}
+            
+            if (workProductDto.getWorkProductManifest() != null){
+                workProductDto.getWorkProductManifest().stream().map((workProductManifest) -> (SEWorkProductManifest) repositoryUtil.getDocument(workProductManifest.getIdWorkProductManifest(), SEWorkProductManifest.class)).filter((seWorkProductManifest) -> ( seWorkProductManifest != null)).forEachOrdered((seWorkProductManifest) -> {
+                    workProductToPersistence.getWorkProductManifest().add(seWorkProductManifest);
+            });}
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -64,7 +66,7 @@ public class WorkProductServiceImpl implements WorkProductService {
     }
 
     @Override
-    public ResponseWrapper save(Object workProduct) {
+    public ResponseWrapper save(WorkProductDto workProduct) {
         SEWorkProduct workProductToPersistence = new SEWorkProduct();
         response = new ResponseWrapper();
         if (!getWorkProductFromRequest(workProduct, workProductToPersistence)){

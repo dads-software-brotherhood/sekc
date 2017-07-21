@@ -23,8 +23,7 @@ spring:
         type: none
     data:
         mongodb:
-            host: localhost
-            port: 27117
+            uri: mongodb://localhost:27017
             database: sekc
     mail:
         host: localhost
