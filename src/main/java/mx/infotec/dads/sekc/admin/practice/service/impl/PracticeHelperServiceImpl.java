@@ -24,10 +24,39 @@ public class PracticeHelperServiceImpl implements PracticeHelperService {
     private final Logger LOGGER = LoggerFactory.getLogger(PracticeHelperServiceImpl.class);
 
     @Override
-    @Transactional
-    public PracticeDto save(PracticeDto practice) {
-        
-        return null;
+    public void saveGeneralInfo(PracticeDto practice) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void saveRelatedPractices(PracticeDto practice) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void saveKeywords(PracticeDto practice) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void saveConditions(PracticeDto practice) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void saveThingsToWorkWith(PracticeDto practice) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void saveThingsToDo(PracticeDto practice) {
+        // TODO Auto-generated method stub
+
     }
 
 }

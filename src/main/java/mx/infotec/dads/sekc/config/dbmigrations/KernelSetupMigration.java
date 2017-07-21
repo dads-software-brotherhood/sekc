@@ -9,7 +9,6 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.util.ObjectUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mongobee.changeset.ChangeLog;
@@ -26,7 +25,6 @@ import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
-import mx.infotec.dads.sekc.admin.practice.catalog.dto.WorkProductManifest;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.ActivitySpace;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Alpha;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.AreasOfConcern;
@@ -36,8 +34,6 @@ import mx.infotec.dads.sekc.config.dbmigrations.domain.CompetencyLevel;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Kernel;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.KernelMigration;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.LevelOfDetail;
-import mx.infotec.dads.sekc.config.dbmigrations.domain.State;
-import mx.infotec.dads.sekc.config.dbmigrations.domain.WorkProduct;
 import mx.infotec.dads.sekc.config.dbmigrations.util.MigrationException;
 import mx.infotec.dads.sekc.config.dbmigrations.util.MigrationMapper;
 
