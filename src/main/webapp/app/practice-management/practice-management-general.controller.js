@@ -34,7 +34,7 @@
             if (angular.isUndefined(vm.practice) || vm.practice === null) {
                 vm.practice = {};
             }
-            else if (!(angular.isUndefined(vm.practice.keywords) || vm.practice.keywords === null))
+            if (!(angular.isUndefined(vm.practice.keywords) || vm.practice.keywords === null))
             {
                 vm.keywords = vm.practice.keywords;
             }

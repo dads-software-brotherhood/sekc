@@ -43,11 +43,12 @@
             
 	        console.log(vm.practice);
 	        
-	        if (angular.isUndefined(vm.practice) || vm.practice === null) {
+	        if (angular.isUndefined(vm.practice.conditions) || vm.practice.conditions === null) {
 	        	
 	        	vm.practice.conditions = { entries : [], results : [], measures : [] }
                 
-            }else if (!(angular.isUndefined(vm.practice.conditions.measures) || vm.practice.conditions.measures === null))
+            }
+	        if (!(angular.isUndefined(vm.practice.conditions.measures) || vm.practice.conditions.measures === null))
             {
                 vm.measures = vm.practice.conditions.measures;
             }
