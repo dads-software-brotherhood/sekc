@@ -1,5 +1,9 @@
 package mx.infotec.dads.sekc.util;
 
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +19,8 @@ import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
+import mx.infotec.dads.sekc.admin.practice.dto.ThingsToDo;
+import mx.infotec.dads.sekc.admin.practice.dto.ThingsToWorkWith;
 import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
 
 /**
@@ -36,17 +42,21 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapSEPractice(PracticeDto from) {
+        validateGeneralInformation(from);
         SEPractice to = EntityBuilder.build(practice -> {
             EssenceMapping.fillPractice(practice);
             practice.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEKernel.class));
             practice.setName(from.getName());
+            practice.setObjective(from.getObjective());
             practice.setBriefDescription(from.getBriefDesciption());
             practice.setDescription(from.getDescription());
-            practice.setAuthor(from.getAuthor());
-            practice.setBriefDescription(from.getBriefDesciption());
             practice.setConsistencyRules(from.getConsistencyRules());
+            // {relatedPractice} property not yet mapped
+            practice.setAuthor(from.getAuthor());
             practice.setKeyWords(from.getKeywords());
-            practice.setObjective(from.getObjective());
+            mapConditions(from.getConditions(), practice);
+            mapThingsToWorkWith(from.getThingsToWorkWith(), practice);
+            mapThingsToDo(from.getThingsToDo(), practice);
         }, SEPractice.class);
         return to;
     }
@@ -54,13 +64,12 @@ public class SEEssenceMapper {
     /**
      * Map Conditions from PracticeDto to a SEPractice
      *
-     * @param from
+     * @param conditions
      * @return SEAreaOfConcern
      */
-    public static SEPractice mapConditions(PracticeDto from, SEPractice to) {
+    public static SEPractice mapConditions(Conditions conditions, SEPractice to) {
+        validateConditions(conditions);
         Objects.requireNonNull(to, "the Practice can not be null");
-        Objects.requireNonNull(from, "The practice Dto can not be null");
-        Conditions conditions = from.getConditions();
         mapCriterios(conditions.getEntries(), to.getEntryCriterion());
         mapCriterios(conditions.getResults(), to.getResultCriterion());
         to.setMeasures(conditions.getMeasures());
@@ -70,7 +79,7 @@ public class SEEssenceMapper {
     private static void mapCriterios(Collection<? extends Criteriable> criteriableList,
             Collection<SECriterion> seCriterionList) {
         criteriableList.forEach(entry -> {
-            Objects.requireNonNull(seCriterionList, "The Criterion List can not be null");
+            Objects.requireNonNull(seCriterionList, "The SECriterion List can not be null");
             mapResultAlphaStatesCriterion(entry.getAlphaStates(), seCriterionList);
             mapResultWorkProductLevelOfDetailCriterion(entry.getWorkProductsLevelofDetail(), seCriterionList);
             mapResultOtherConditions(entry.getOtherConditions(), seCriterionList);
@@ -106,9 +115,7 @@ public class SEEssenceMapper {
     private static Object mapResultWorkProductLevelOfDetailCriterion(
             WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
-            Objects.requireNonNull(element.getIdLevelOfDetail(), "The LevelOfDetal's Id can't be null");
-            Objects.requireNonNull(element.getIdWorkProduct(), "The WorkProduct's Id can't be null");
-            Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
+            validateWorkProductLevelOfDetailCriterion(criterionList, element);
             SECriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setLevelOfDetail(EntityBuilder.build(seLevelOfDetail -> {
                     seLevelOfDetail.setId(element.getIdLevelOfDetail());
@@ -140,22 +147,22 @@ public class SEEssenceMapper {
     /**
      * Map Things to Work With from PracticeDto to a SEPractice
      * 
-     * @param from
+     * @param thingsToWorkWith
      * @param to
      * @return SEPractice
      */
-    public static SEPractice mapThingsToWorkWith(PracticeDto from, SEPractice to) {
+    public static SEPractice mapThingsToWorkWith(ThingsToWorkWith thingsToWorkWith, SEPractice to) {
         return to;
     }
 
     /**
      * Map Things to Do from PracticeDto to a SEPractice
      * 
-     * @param from
+     * @param thingsToDo
      * @param to
      * @return SEPractice
      */
-    public static SEPractice mapThingsToDo(PracticeDto from, SEPractice to) {
+    public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
         return to;
     }
 }
