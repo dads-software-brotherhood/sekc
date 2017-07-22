@@ -47,6 +47,7 @@
         	localStorageService.set('kernels', data.catalogs.kernels);
         	localStorageService.set('activitySpaces', data.catalogs.activitySpaces);
         	localStorageService.set('alphas', data.catalogs.alphas);
+        	localStorageService.set('workproducts', data.catalogs.workproducts);
         	localStorageService.set('competencies', data.catalogs.competencies);
         	localStorageService.set('practices', data.catalogs.practices);
         	localStorageService.set('resourcesTypes', data.catalogs.resourcesTypes);

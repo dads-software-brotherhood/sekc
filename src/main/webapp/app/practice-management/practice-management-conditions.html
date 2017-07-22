@@ -2,7 +2,7 @@
     <div class="page-header">   
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
-            <li class="active"><a href="#">Conditions</a></li>
+            <li class="active"><a>Conditions</a></li>
             <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
            
@@ -44,25 +44,25 @@
                 <h5> <i class="fa fa-sign-in text-blue" aria-hidden="true"></i> Entries</h5> 
                 <div class="form-group filled">
                     <label>Alpha</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.disabledAlpha" ng-change="vm.getChilds('alpha',1)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.disabledAlpha" ng-change="vm.validaCombos('alpha',1)">
                  		<option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 	</select>
                 </div>
-                <div class="form-group filled" ng-show="visible">
+                <div class="form-group filled" ng-show="vm.visibleAlpha">
                     <label>Alpha State</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlpha" ng-model="vm.alphaState" ng-change="vm.getChilds('alpha',1)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.estados track by datos.id" ng-disabled="vm.disabledAlpha" ng-model="vm.alphaState">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled">
                     <label>Workproduct</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWork" ng-model="vm.workProduct" ng-change="vm.getChilds('workproduct',1)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.workproducts track by datos.id" ng-disabled="vm.disabledWork" ng-model="vm.workProduct" ng-change="vm.validaCombos('workproduct',1)">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="form-group filled" ng-show="visible">
+                <div class="form-group filled" ng-show="vm.visibleWorkproduct">
                     <label>Level of Detail</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWork" ng-model="vm.levelOfDetail" ng-change="vm.getChilds('workproduct',1)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.levels track by datos.id" ng-disabled="vm.disabledWork" ng-model="vm.levelOfDetail">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -75,7 +75,7 @@
                         <button class="btn btn-default" type="button" ng-click="vm.combos(1)"><span data-translate="practiceManagement.clean">Clean</span></button>
                     </div>
                     <div class="col-md-2 form-group">    
-                        <button class="btn btn-success" type="button" ng-click="vm.add()"><span data-translate="practiceManagement.add">Add</span></button>
+                        <button class="btn btn-success" type="button"  ng-click="vm.addItem(1)"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div> 
                 <br>
@@ -89,7 +89,7 @@
                         </thead>
                         <tbody>
                            <tr ng-repeat="entrie in vm.entriesTable">
-                                <td>entrie.description</td>
+                                <td>{{entrie.description}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.delete()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -102,25 +102,25 @@
                 <h5><i class="fa fa-sign-out text-blue" aria-hidden="true"></i> Results</h5>
                 <div class="form-group filled">
                     <label>Alpha</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlphaR" ng-model="vm.alphaResult" ng-change="vm.getChilds('alphaR',2)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlphaR" ng-model="vm.alphaResult" ng-change="vm.validaCombos('alphaR',2)">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="form-group filled" ng-show="visibleR">
+                <div class="form-group filled" ng-show="vm.visibleAlphaR">
                     <label>Alpha State</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlphaR" ng-model="vm.alphaStateResult" ng-change="vm.getChilds('alphaR',2)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledAlphaR" ng-model="vm.alphaStateResult">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled">
                     <label>Workproduct</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWorkR" ng-model="vm.workProductResult" ng-change="vm.getChilds('workproductR',2)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWorkR" ng-model="vm.workProductResult">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="form-group filled" ng-show="visibleR">
+                <div class="form-group filled" ng-show="vm.visibleWorkproductR">
                     <label>Level of Detail</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWorkR" ng-model="vm.levelOfDetailResult" ng-change="vm.getChilds('workproductR',2)">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.disabledWorkR" ng-model="vm.levelOfDetailResult" ng-change="vm.validaCombos('workproductR',2)">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -133,7 +133,7 @@
                         <button class="btn btn-default" type="button" ng-click="vm.combos(2)"><span data-translate="practiceManagement.clean">Clean</span></button>
                     </div>
                     <div class="col-md-2 form-group">    
-                        <button class="btn btn-success" type="button"><span data-translate="practiceManagement.add">Add</span></button>
+                        <button class="btn btn-success" type="button" ng-click="vm.addItem(2)"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div>
                 <br>
@@ -147,7 +147,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="result in vm.resultsTable">
-                                <td>result.description</td>
+                                <td>{{result.description}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.delete()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
