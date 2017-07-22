@@ -5,17 +5,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.omg.essence.model.activityspaceandactivity.Approach;
-
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
-import mx.infotec.dads.sekc.admin.practice.dto.Result;
 import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
 
 /**
@@ -37,16 +36,18 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapSEPractice(PracticeDto from) {
-        SEPractice to = new SEPractice();
-        to.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEPractice.class));
-        to.setName(from.getName());
-        to.setBriefDescription(from.getBriefDesciption());
-        to.setDescription(from.getDescription());
-        to.setAuthor(from.getAuthor());
-        to.setBriefDescription(from.getBriefDesciption());
-        to.setConsistencyRules(from.getConsistencyRules());
-        to.setKeyWords(from.getKeywords());
-        to.setObjective(from.getObjective());
+        SEPractice to = EntityBuilder.build(practice -> {
+            EssenceMapping.fillPractice(practice);
+            practice.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEKernel.class));
+            practice.setName(from.getName());
+            practice.setBriefDescription(from.getBriefDesciption());
+            practice.setDescription(from.getDescription());
+            practice.setAuthor(from.getAuthor());
+            practice.setBriefDescription(from.getBriefDesciption());
+            practice.setConsistencyRules(from.getConsistencyRules());
+            practice.setKeyWords(from.getKeywords());
+            practice.setObjective(from.getObjective());
+        }, SEPractice.class);
         return to;
     }
 
@@ -57,40 +58,42 @@ public class SEEssenceMapper {
      * @return SEAreaOfConcern
      */
     public static SEPractice mapConditions(PracticeDto from, SEPractice to) {
+        Objects.requireNonNull(to, "the Practice can not be null");
+        Objects.requireNonNull(from, "The practice Dto can not be null");
         Conditions conditions = from.getConditions();
-        mapCriterios(conditions.getEntries(), to);
-        mapCriterios(conditions.getResults(), to);
+        mapCriterios(conditions.getEntries(), to.getEntryCriterion());
+        mapCriterios(conditions.getResults(), to.getResultCriterion());
         to.setMeasures(conditions.getMeasures());
         return to;
     }
 
-    private static SEPractice mapCriterios(Collection<? extends Criteriable> criteriableList, SEPractice to) {
+    private static void mapCriterios(Collection<? extends Criteriable> criteriableList,
+            Collection<SECriterion> seCriterionList) {
         criteriableList.forEach(entry -> {
-            mapResultAlphaStatesCriterion(entry.getAlphaStates(), to);
-            mapResultWorkProductLevelOfDetailCriterion(entry.getWorkProductsLevelofDetail(), to);
-            mapResultOtherConditions(entry.getOtherConditions(), to);
+            Objects.requireNonNull(seCriterionList, "The Criterion List can not be null");
+            mapResultAlphaStatesCriterion(entry.getAlphaStates(), seCriterionList);
+            mapResultWorkProductLevelOfDetailCriterion(entry.getWorkProductsLevelofDetail(), seCriterionList);
+            mapResultOtherConditions(entry.getOtherConditions(), seCriterionList);
         });
-        return to;
     }
 
     /**
      * Map AlphaStates to SEPractice
      * 
      * @param alphaState
-     * @param to
+     * @param criterionList
      */
-    private static SEPractice mapResultAlphaStatesCriterion(AlphaState alphaState, SEPractice to) {
+    private static void mapResultAlphaStatesCriterion(AlphaState alphaState, Collection<SECriterion> criterionList) {
         Optional.of(alphaState).ifPresent(element -> {
             Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
-            Objects.requireNonNull(to.getEntryCriterion(), "The EntryCriterion can't be null");
+            Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
             SECriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setState(EntityBuilder.build(seState -> {
                     seState.setId(element.getIdAlpha());
                 }, SEState.class));
             }, SECriterion.class);
-            to.getEntryCriterion().add(seCriterion);
+            criterionList.add(seCriterion);
         });
-        return to;
     }
 
     /**
@@ -98,14 +101,14 @@ public class SEEssenceMapper {
      * Workproduct associated to the current levelOfDetail.
      * 
      * @param alphaState
-     * @param to
+     * @param criterionList
      */
     private static Object mapResultWorkProductLevelOfDetailCriterion(
-            WorkProductsLevelofDetail workProductsLevelofDetail, SEPractice to) {
+            WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
             Objects.requireNonNull(element.getIdLevelOfDetail(), "The LevelOfDetal's Id can't be null");
             Objects.requireNonNull(element.getIdWorkProduct(), "The WorkProduct's Id can't be null");
-            Objects.requireNonNull(to.getEntryCriterion(), "The EntryCriterion can't be null");
+            Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
             SECriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setLevelOfDetail(EntityBuilder.build(seLevelOfDetail -> {
                     seLevelOfDetail.setId(element.getIdLevelOfDetail());
@@ -113,20 +116,25 @@ public class SEEssenceMapper {
                 // If it is necesary to map the idWorkProduct associated to this
                 // Level of Detail, do it here.
             }, SECriterion.class);
-            to.getEntryCriterion().add(seCriterion);
+            criterionList.add(seCriterion);
         });
-        return to;
+        return criterionList;
     }
 
     /**
      * Map Other Conditions to SEPractice
      * 
      * @param alphaState
-     * @param to
+     * @param criterionList
      */
-    private static SEPractice mapResultOtherConditions(List<String> otherConditionsList, SEPractice to) {
-        Optional.of(otherConditionsList).ifPresent(conditions -> to.setEntry(otherConditionsList));
-        return to;
+    private static void mapResultOtherConditions(List<String> otherConditionsList,
+            Collection<SECriterion> criterionList) {
+        Optional.of(otherConditionsList).ifPresent(conditions -> {
+            SECriterion seCriterion = EntityBuilder.build(criterion -> {
+                criterion.setOtherConditions(otherConditionsList);
+            }, SECriterion.class);
+            criterionList.add(seCriterion);
+        });
     }
 
     /**
