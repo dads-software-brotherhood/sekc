@@ -4,6 +4,7 @@ package mx.infotec.dads.sekc.admin.practice.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,12 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "alphaStates",
-    "workProductsLevelofDetail",
-    "otherConditions"
-})
-public class Entry {
+@JsonPropertyOrder({ "alphaStates", "workProductsLevelofDetail", "otherConditions" })
+public class Entry implements Criteriable {
 
     @JsonProperty("alphaStates")
     private AlphaState alphaStates;
@@ -29,6 +26,7 @@ public class Entry {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alphaStates")
+    @Override
     public AlphaState getAlphaStates() {
         return alphaStates;
     }
@@ -39,6 +37,7 @@ public class Entry {
     }
 
     @JsonProperty("workProductsLevelofDetail")
+    @Override
     public WorkProductsLevelofDetail getWorkProductsLevelofDetail() {
         return workProductsLevelofDetail;
     }
@@ -49,6 +48,7 @@ public class Entry {
     }
 
     @JsonProperty("otherConditions")
+    @Override
     public List<String> getOtherConditions() {
         return otherConditions;
     }

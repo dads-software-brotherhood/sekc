@@ -1,8 +1,11 @@
 package mx.infotec.dads.sekc.util;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import org.omg.essence.model.activityspaceandactivity.Approach;
 
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
@@ -10,7 +13,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
-import mx.infotec.dads.sekc.admin.practice.dto.Entry;
+import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.dto.Result;
 import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
@@ -55,18 +58,19 @@ public class SEEssenceMapper {
      */
     public static SEPractice mapConditions(PracticeDto from, SEPractice to) {
         Conditions conditions = from.getConditions();
-        mapEntriesCriterion(conditions.getEntries(), to);
-        mapResultsCriterion(conditions.getResults(), to);
+        mapCriterios(conditions.getEntries(), to);
+        mapCriterios(conditions.getResults(), to);
         to.setMeasures(conditions.getMeasures());
         return to;
     }
 
-    private static void mapResultsCriterion(List<Result> results, SEPractice to) {
-        results.forEach(result -> {
-            mapResultAlphaStatesCriterion(result.getAlphaStates(), to);
-            mapResultWorkProductLevelOfDetailCriterion(result.getWorkProductsLevelofDetail(), to);
-            mapResultOtherConditions(result.getOtherConditions(), to);
+    private static SEPractice mapCriterios(Collection<? extends Criteriable> criteriableList, SEPractice to) {
+        criteriableList.forEach(entry -> {
+            mapResultAlphaStatesCriterion(entry.getAlphaStates(), to);
+            mapResultWorkProductLevelOfDetailCriterion(entry.getWorkProductsLevelofDetail(), to);
+            mapResultOtherConditions(entry.getOtherConditions(), to);
         });
+        return to;
     }
 
     /**
@@ -123,11 +127,6 @@ public class SEEssenceMapper {
     private static SEPractice mapResultOtherConditions(List<String> otherConditionsList, SEPractice to) {
         Optional.of(otherConditionsList).ifPresent(conditions -> to.setEntry(otherConditionsList));
         return to;
-    }
-
-    private static SEPractice mapEntriesCriterion(List<Entry> entriesList, SEPractice to) {
-        return null;
-
     }
 
     /**

@@ -12,12 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "alphaStates",
-    "workProductsLevelofDetail",
-    "otherConditions"
-})
-public class Result {
+@JsonPropertyOrder({ "alphaStates", "workProductsLevelofDetail", "otherConditions" })
+public class Result implements Criteriable {
 
     @JsonProperty("alphaStates")
     private AlphaState alphaStates;
@@ -29,6 +25,7 @@ public class Result {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alphaStates")
+    @Override
     public AlphaState getAlphaStates() {
         return alphaStates;
     }
@@ -39,6 +36,7 @@ public class Result {
     }
 
     @JsonProperty("workProductsLevelofDetail")
+    @Override
     public WorkProductsLevelofDetail getWorkProductsLevelofDetail() {
         return workProductsLevelofDetail;
     }
@@ -49,6 +47,7 @@ public class Result {
     }
 
     @JsonProperty("otherConditions")
+    @Override
     public List<String> getOtherConditions() {
         return otherConditions;
     }
