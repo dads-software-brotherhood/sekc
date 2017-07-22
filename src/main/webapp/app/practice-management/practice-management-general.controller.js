@@ -15,9 +15,6 @@
         vm.practice = null;
         vm.indexKeyword = -1;
         vm.keywords = [];
-//        vm.description = {
-//                "description": "<em>italic data in page javascript in head</em>"
-//        };
         
         vm.deleteKeyword = deleteKeyword;
         vm.clearKeyword = clearKeyword;

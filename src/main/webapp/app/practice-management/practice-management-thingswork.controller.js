@@ -5,12 +5,14 @@
         .module('sekcApp')
         .controller('PracticeManagementThingsWorkController', PracticeManagementThingsWorkController);
 
-    PracticeManagementThingsWorkController.$inject = [ 'AlertService', '$filter'];
+    PracticeManagementThingsWorkController.$inject = ['AlertService', '$filter', 'localStorageService', 'ivhTreeviewBfs'];
 
-    function PracticeManagementThingsWorkController ( AlertService, $filter) {
+    function PracticeManagementThingsWorkController(AlertService, $filter, localStorageService, ivhTreeviewBfs) {
         var vm = this;
 
-//        vm.load = load;
+        vm.load = load;
+        vm.save = save;
+        vm.alphasTree;
 //        vm.deleteEntryResult = deleteEntryResult;
 //        vm.addEntryResult = addEntryResult;
 //        vm.reset = reset;
@@ -35,12 +37,69 @@
 //        ];
 //        vm.measures = [];
 //        
-//        vm.load();
-//        
-//        
-//        function load () {
-//            Alpha.query(onSuccess, onError);
-//        }
+        vm.load();
+        
+        
+        function load () {
+            var alphas = localStorageService.get('alphas');
+            vm.alphasTree = [];
+            fillTreeNode(vm.alphasTree, alphas, '');
+            console.log(vm.alphasTree);
+        }
+
+        function fillTreeNode(treeNode, alphas, parent)
+        {
+            angular.forEach(alphas, function (alpha) {
+                if ((alpha.workproducts != null && alpha.workproducts.length > 0) ||
+                    (alpha.subAlphas != null && alpha.subAlphas.length > 0)
+                )
+                {
+                    var alphaNode = {};
+                    alphaNode.label = alpha.name;
+                    alphaNode.value = parent + alpha.id;
+                    alphaNode.type = 'alpha';
+                    alphaNode.children = [];
+                    if (alpha.workproducts != null && alpha.workproducts.length > 0)
+                    {
+                        angular.forEach(alpha.workproducts, function (workproduct) {
+                            var wpNode = {
+                                label: workproduct.name,
+                                value: parent + alpha.id + '.' + workproduct.id,
+                                type: 'workproduct'
+                            }
+                            alphaNode.children.push(wpNode);
+                            alphaNode.children.push({
+                                label: 'P1',
+                                value: parent + alpha.id + '.' + 'P1',
+                                type: 'workproduct'
+                            });
+                            alphaNode.children.push({
+                                label: 'P2',
+                                value: parent + alpha.id + '.' + 'P2',
+                                type: 'workproduct'
+                            });
+                        });
+                    }
+                    if (alpha.subAlphas != null && alpha.subAlphas.length > 0)
+                    {
+                        fillTreeNode(alphaNode.children, alpha.subAlphas, parent + alpha.id + '.')
+                    }
+                    treeNode.push(alphaNode);
+                }
+            });
+        }
+
+        function save()
+        {
+            var selectedNodes = []
+            ivhTreeviewBfs(vm.alphasTree, function (node) {
+                if (node.selected) {
+                    selectedNodes.push(node)
+                }
+            })
+
+            console.log(selectedNodes);
+        }
 //        
 //        function onSuccess(data, headers) {
 //            vm.alphas = data;
