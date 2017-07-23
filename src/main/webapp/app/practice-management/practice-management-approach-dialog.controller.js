@@ -11,6 +11,15 @@
         var vm = this;
         
         vm.clear = clear;
+        vm.load = load;
+
+        vm.load();
+        
+
+        function load() {
+            
+	        
+        }
 
         function clear () {
             $uibModalInstance.dismiss('cancel');
