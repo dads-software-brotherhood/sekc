@@ -41,13 +41,6 @@
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
                     </select>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-11  form-group">	
-                        <button class="btn btn-success" type="button">
-                                <span data-translate="practiceManagement.add">Add</span>
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -100,7 +93,7 @@
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources">Consult Resources</button>
           			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.resources" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="col-md-8">
             <div class="well white">
@@ -203,12 +196,18 @@
        
     	<div class="modal-footer  m-b-30">
         	<button type="button" class="btn btn-default m-t-10" ng-click="vm.clear()">
-            	<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
             		data-translate="entity.action.cancel">Cancel</span>
         	</button>
+                <button class="btn btn-success" type="button">
+                    <span data-translate="practiceManagement.add">Add</span>
+                </button>
         	<button type="submit" class="btn btn-primary m-t-10">
-            	<span data-translate="entity.action.next">Next</span>
+                    <span data-translate="entity.action.next">Next</span>
        		</button>
+                
+                       
+                    
         </div>
     </div> 	
 </section>
