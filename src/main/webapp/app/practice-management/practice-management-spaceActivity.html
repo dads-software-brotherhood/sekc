@@ -29,18 +29,6 @@
                     <label class="control-label">Description</label>
                     <textarea class="form-control" name="description" ng-model="vm.practice.thingsToDo.Description"></textarea>
                 </div>
-               <div class="form-group filled">
-                    <label>Competency</label>
-                   	<select class="form-control" ng-options="datos.id as datos.name for datos in vm.competencies" ng-model="vm.practice.thingsToDo.competency"> 
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
-                    </select>
-                </div>
-                <div class="form-group filled">
-                    <label>Competency Level</label>
-                    <select class="form-control" ng-options="datos.id as datos.name for datos in vm.practice.thingsToDo.competency.competencyLevel" ng-model="vm.practice.thingsToDo.competencies.competencyLevel"> 
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
-                    </select>
-                </div>
             </div>
         </div>
     </div>
@@ -73,6 +61,10 @@
     <div class="row">
         <div class="col-md-4 text-center">
             <div class="well white">
+                <div class="m-b-15">
+                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency" ng-click="vm.load()" >Consult Competency</button>
+          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.approach" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
                 <div>
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach" ng-click="vm.load()" >Consult Approach</button>
           			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.approach" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -97,6 +89,24 @@
         </div>
         <div class="col-md-8">
             <div class="well white">
+                <div id="competency" class="collapse table-responsive white">
+                    <table class="table table-full table-full-small white">
+                        <thead>
+                            <tr>
+                                <th>Competency</th>
+                                <th>Level Competency</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="approach in vm.practice.thingsToDo.approaches">
+                                <td>{{approach.name}}</td>
+                                <td>{{approach.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach()"><i class="md md-delete"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div id="approach" class="collapse table-responsive white">
                     <table class="table table-full table-full-small white">
                         <thead>
@@ -200,7 +210,7 @@
                     <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
             		data-translate="entity.action.cancel">Cancel</span>
         	</button>
-                <button class="btn btn-success" type="button" ng-click="vm.save()">
+                <button type="button" class="btn btn-primary m-t-10"  ng-click="vm.save()">
                     <span data-translate="practiceManagement.add">Add</span>
                 </button>
         	<button type="submit" class="btn btn-primary m-t-10">
