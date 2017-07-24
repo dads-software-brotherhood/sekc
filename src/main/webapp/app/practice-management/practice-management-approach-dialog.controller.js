@@ -14,7 +14,6 @@
         vm.load = load;
         vm.cancel = cancel;
         vm.save = save;
-        vm.approaches = [];
         
         vm.load();
         

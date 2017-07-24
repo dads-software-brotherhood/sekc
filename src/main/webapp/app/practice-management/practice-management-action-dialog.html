@@ -1,62 +1,42 @@
 <form name="actionForm">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-	    		ng-click="vm.clear()">&times;</button>
+	    		ng-click="vm.cancel()">&times;</button>
 	  <h4 class="modal-title">Action</h4>
 	</div>
 	<div class="modal-body">
 	    <div class="form-group filled">
-	        <label class="pull-left" >Select a Action Kind</label>
-	        <select class="form-control" required>
-	            <option value="" data-translate="entity.select.select">Selecciona</option>
-	            <option value="">Action 1</option>
-	            <option value="">Action 2</option>
-	            <option value="">Action 3</option>
-	            <option value="">Action 4</option>
-	        </select>
+	        <label class="pull-left" >Action Kind</label>
+	        <select class="form-control" ng-options="datos.name for datos in vm.actionsKinds track by datos.id" ng-model="vm.actionKind">
+                <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+            </select>
 	    </div>
 	    <div class="form-group filled">
-	        <label class="pull-left" >Select a Alpha</label>
-	        <select class="form-control" required>
-	            <option value="" data-translate="entity.select.select">Selecciona</option>
-	            <option value="">Alpha 1</option>
-	            <option value="">Alpha 2</option>
-	            <option value="">Alpha 3</option>
-	            <option value="">Alpha4</option>
-	        </select>
+	        <label class="pull-left" >Alpha</label>
+	        <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null">
+           		<option style="display:none" value="" data-translate="entity.select.select">Select</option>
+          	</select>
 	    </div>
-	     <div class="form-group filled m-l-50">
-	        <label class="pull-left" >Select a Alpha State</label>
-	        <select class="form-control" required>
-	            <option value="" data-translate="entity.select.select">Selecciona</option>
-	            <option value="">Action 1</option>
-	            <option value="">Action 2</option>
-	            <option value="">Action 3</option>
-	            <option value="">Action 4</option>
-	        </select>
+	    <div class="form-group filled" ng-show="vm.alpha != null">
+            <label>Alpha State</label>
+            <select class="form-control" ng-options="datos.name for datos in vm.alpha.states track by datos.id" ng-model="vm.alphaState">
+                <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+            </select>
+        </div>
+	    <div class="form-group filled">
+	        <label class="pull-left" >Workproduct</label>
+	        <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null" ng-model="vm.workProduct">
+                <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+            </select>
 	    </div>
-	        <div class="form-group filled">
-	        <label class="pull-left" >Select a Workproduct</label>
-	        <select class="form-control" required>
-	            <option value="" data-translate="entity.select.select">Selecciona</option>
-	            <option value="">Workproduct 1</option>
-	            <option value="">Workproduct 2</option>
-	            <option value="">Workproduct 3</option>
-	            <option value="">Workproduct 4</option>
-	        </select>
-	    </div>
-	     <div class="form-group filled m-l-50">
-	        <label class="pull-left" >Select a Level of detail</label>
-	        <select class="form-control" required>
-	            <option value="" data-translate="entity.select.select">Selecciona</option>
-	            <option value="">Level 1</option>
-	            <option value="">Level 2</option>
-	            <option value="">Level 3</option>
-	            <option value="">Level 4</option>
-	        </select>
-	    </div>          
+	    <div class="form-group filled" ng-show="vm.workProduct != null">
+		    <label>Level of Detail</label>
+		    <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails track by datos.id" ng-model="vm.levelOfDetail">
+		        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+		    </select>
+		</div>         
 	</div>
 	<div class="modal-footer">
-	  <button type="button" class="btn btn-primary" ng-click="vm.clear()">Save changes</button>
+	  <button type="button" class="btn btn-primary" ng-click="vm.save()">Save changes</button>
 	</div>
 </form>

@@ -15,6 +15,11 @@
         
         
         vm.deleteApproach = deleteApproach;
+        vm.deleteAction = deleteAction;
+        vm.deleteEntry = deleteEntry;
+        vm.deleteCompletition = deleteCompletition;
+        vm.deleteResource = deleteResource;
+        vm.deleteActivitySpace = deleteActivitySpace;
         
         vm.save = save;
         vm.cancel = cancel;
@@ -58,6 +63,29 @@
         function deleteApproach (index) {
     		vm.practice.thingsToDo.approaches.splice(index, 1);
     		localStorageService.set('practiceInEdition', vm.practice);
+        }
+        
+        function deleteAction (index) {
+    		vm.practice.thingsToDo.actions.splice(index, 1);
+    		localStorageService.set('practiceInEdition', vm.practice);     	
+        }
+        
+        function deleteEntry (index) {
+    		vm.practice.thingsToDo.entryCriterion.splice(index, 1);
+    		localStorageService.set('practiceInEdition', vm.practice);   	
+        }
+        
+        function deleteCompletition (index) {
+    		vm.practice.thingsToDo.completitionCriterion.splice(index, 1);
+    		localStorageService.set('practiceInEdition', vm.practice);   	
+        }
+        
+        function deleteResource (index) {
+    		vm.practice.thingsToDo.resources.splice(index, 1);
+    		localStorageService.set('practiceInEdition', vm.practice);   	
+        }
+        
+        function deleteActivitySpace(index) {
         	
         }
 	}
