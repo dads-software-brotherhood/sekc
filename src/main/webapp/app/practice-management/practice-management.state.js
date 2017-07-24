@@ -288,6 +288,24 @@
                 });
             }]
         })
+        .state('practice-management-spaceActivity.competency', {
+            url: '/competency',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/practice-management/practice-management-competency-dialog.html',
+                    //controller: 'PracticeManagementApproachDialogController',
+                    //controllerAs: 'vm',
+                    backdrop: 'static'
+                }).result.then(function() {
+                    $state.go('practice-management-spaceActivity', null, { reload: true });
+                }, function() {
+                    $state.go('practice-management-spaceActivity');
+                });
+            }]
+        })
         .state('practice-management-spaceActivity.approach', {
             url: '/approach',
             data: {
