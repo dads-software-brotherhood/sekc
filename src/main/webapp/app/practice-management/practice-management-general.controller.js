@@ -15,9 +15,6 @@
         vm.practice = null;
         vm.indexKeyword = -1;
         vm.keywords = [];
-//        vm.description = {
-//                "description": "<em>italic data in page javascript in head</em>"
-//        };
         
         vm.deleteKeyword = deleteKeyword;
         vm.clearKeyword = clearKeyword;
@@ -37,7 +34,7 @@
             if (angular.isUndefined(vm.practice) || vm.practice === null) {
                 vm.practice = {};
             }
-            else if (!(angular.isUndefined(vm.practice.keywords) || vm.practice.keywords === null))
+            if (!(angular.isUndefined(vm.practice.keywords) || vm.practice.keywords === null))
             {
                 vm.keywords = vm.practice.keywords;
             }

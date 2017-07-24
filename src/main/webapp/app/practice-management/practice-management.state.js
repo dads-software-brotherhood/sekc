@@ -142,27 +142,6 @@
                 }]
             }
         })
-        .state('practice-management-spaceActivity', {
-            parent: 'practice-management',
-            url: '/practiceSpaceActivity/{login}',
-            data: {
-                authorities: ['ROLE_ADMIN'],
-                pageTitle: 'practice-management.spaceActivity.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/practice-management/practice-management-spaceActivity.html',
-//                    controller: 'PracticeManagementSpaceActivityController',
-//                    controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('activities');
-                    return $translate.refresh();
-                }]
-            }
-        })
         .state('practice-management.delete', {
             url: '/{login}/delete',
             data: {
@@ -269,6 +248,117 @@
                     return $translate.refresh();
                 }]
             }
+        })
+        .state('practice-management-spaceActivity', {
+            parent: 'practice-management',
+            url: '/spaceActivity/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-management-spaceActivity.html',
+                    controller: 'PracticeManagementSpaceActivityController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('practice-management-spaceActivity.action', {
+            url: '/action',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/practice-management/practice-management-action-dialog.html',
+                    controller: 'PracticeManagementActionDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static'
+                }).result.then(function() {
+                    $state.go('practice-management-spaceActivity', null, { reload: true });
+                }, function() {
+                    $state.go('practice-management-spaceActivity');
+                });
+            }]
+        })
+        .state('practice-management-spaceActivity.approach', {
+            url: '/approach',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/practice-management/practice-management-approach-dialog.html',
+                    controller: 'PracticeManagementApproachDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static'
+                }).result.then(function() {
+                    $state.go('practice-management-spaceActivity', null, { reload: true });
+                }, function() {
+                    $state.go('practice-management-spaceActivity');
+                });
+            }]
+        })
+        .state('practice-management-spaceActivity.completition', {
+            url: '/completition',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/practice-management/practice-management-completition-dialog.html',
+                    controller: 'PracticeManagementCompletitionDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static'
+                }).result.then(function() {
+                    $state.go('practice-management-spaceActivity', null, { reload: true });
+                }, function() {
+                    $state.go('practice-management-spaceActivity');
+                });
+            }]
+        })
+        .state('practice-management-spaceActivity.resources', {
+            url: '/resources',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/practice-management/practice-management-resources-dialog.html',
+                    controller: 'PracticeManagementResourcesDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static'
+                }).result.then(function() {
+                    $state.go('practice-management-spaceActivity', null, { reload: true });
+                }, function() {
+                    $state.go('practice-management-spaceActivity');
+                });
+            }]
+        })
+        .state('practice-management-spaceActivity.entry', {
+            url: '/entry',
+            data: {
+                authorities: ['ROLE_ADMIN']
+            },
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'app/practice-management/practice-management-entry-dialog.html',
+                    controller: 'PracticeManagementEntryDialogController',
+                    controllerAs: 'vm',
+                    backdrop: 'static'
+                }).result.then(function() {
+                    $state.go('practice-management-spaceActivity', null, { reload: true });
+                }, function() {
+                    $state.go('practice-management-spaceActivity');
+                });
+            }]
         });
     }
 })();

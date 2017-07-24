@@ -11,59 +11,35 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well white">
-                <form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
                 <div class="form-group filled">
                     <label>Activity Space</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Activity Space 1</option>
-                        <option value="">Activity Space 2</option>
-                        <option value="">Activity Space 3</option>
-                        <option value="">Activity Space 4</option>
+                    <select class="form-control" ng-options="datos.name for datos in vm.activitySpaces track by datos.id" ng-model="vm.practice.thingsToDo.idActivitySpace">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Activity Name</label>
-                    <input type="text" class="form-control" name="name"
-                           ng-model="vm.practice.name" required>
+                    <input type="text" class="form-control" name="name" ng-model="vm.practice.thingsToDo.name" required>
                 </div>
                 <div class="form-group">
                     <label class="control-label" >Brief Description</label>
-                    <textarea class="form-control" name="description"
-                           ng-model="vm.practice.description"></textarea>
+                    <textarea class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" data-translate="activities.label.description">Description</label>
-                    <textarea class="form-control" name="description"
-                           ng-model="vm.practice.description"></textarea>
+                    <label class="control-label">Description</label>
+                    <textarea class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
                 </div>
                <div class="form-group filled">
                     <label>Competency</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Competency 1</option>
-                        <option value="">Competency 2</option>
-                        <option value="">Competency 3</option>
-                        <option value="">Competency 4</option>
+                   	<select class="form-control" ng-options="datos.id as datos.name for datos in vm.competencies" ng-model="vm.practice.thingsToDo.competency"> 
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
                     </select>
                 </div>
                 <div class="form-group filled">
                     <label>Competency Level</label>
-                    <select class="form-control">
-                        <option value="" data-translate="entity.select.select">Select</option>
-                        <option value="">Level1</option>
-                        <option value="">Level 2</option>
-                        <option value="">Level 3</option>
-                        <option value="">Level 4</option>
+                    <select class="form-control" ng-options="datos.id as datos.name for datos in vm.practice.thingsToDo.competency" ng-model="vm.practice.thingsToDo.competency.competencyLevel"> 
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
                     </select>
-                </div>
-                </form>
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-11  form-group">	
-                        <button class="btn btn-success" type="button">
-                                <span data-translate="practiceManagement.add">Add</span>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -94,31 +70,30 @@
             </div>
         </div>
     </div>
-    
     <div class="row">
         <div class="col-md-4 text-center">
             <div class="well white">
                 <div>
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach" >Consult Approach</button>
-                    <button type="button" class="btn btn-md  btn-primary"  data-placement="top" data-title="New approach" data-animation="am-fade-and-slide-top" bs-modal="modal" data-template-url="app/practice-management/practice-model-approach.html"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.approach" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
                 <div class="m-t-15 m-b-15">
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action">Consult Action</button>
-                    <button type="button" class="btn btn-md btn-primary" data-placement="top" data-title="New action" data-animation="am-fade-and-slide-top" bs-modal="modal" data-template-url="app/practice-management/practice-model-action.html"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.action" data-title="Create action" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
                 <div class="m-b-15">
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio">Consult Entry </button>
-                    <button type="button" class="btn btn-md btn-primary" data-placement="top" data-title="New entry" bs-tooltip data-animation="am-fade-and-slide-top" bs-modal="modal" data-template-url="app/practice-management/practice-model-entry.html"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.entry" data-title="Create entry" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
                 <div class="m-b-15">
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition">Consult Completition</button>
-                    <button type="button" class="btn btn-md  btn-primary" data-placement="top" data-title="New completition" bs-tooltip data-animation="am-fade-and-slide-top" bs-modal="modal" data-template-url="app/practice-management/practice-model-completition.html"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.completition" data-title="Create completition" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
                 <div>
                     <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources">Consult Resources</button>
-                    <button type="button" class="btn btn-md btn-primary" data-placement="top" data-title="New resource" bs-tooltip data-animation="am-fade-and-slide-top" bs-modal="modal" data-template-url="app/practice-management/practice-model-resources.html"><i class="fa fa-plus" aria-hidden="true"></i></button>
+          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.resources" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
-            </div>
+            </div> 
         </div>
         <div class="col-md-8">
             <div class="well white">
@@ -217,19 +192,22 @@
             </div>
         </div>
     </div>
- 
-    
-    
     <div class="row">
        
     	<div class="modal-footer  m-b-30">
-        	<button type="button" class="btn btn-default m-t-10" data-dismiss="modal" ng-click="vm.clear()">
-            	<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+        	<button type="button" class="btn btn-default m-t-10" ng-click="vm.clear()">
+                    <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
             		data-translate="entity.action.cancel">Cancel</span>
         	</button>
+                <button class="btn btn-success" type="button">
+                    <span data-translate="practiceManagement.add">Add</span>
+                </button>
         	<button type="submit" class="btn btn-primary m-t-10">
-            	<span data-translate="entity.action.next">Next</span>
+                    <span data-translate="entity.action.next">Next</span>
        		</button>
+                
+                       
+                    
         </div>
     </div> 	
 </section>
