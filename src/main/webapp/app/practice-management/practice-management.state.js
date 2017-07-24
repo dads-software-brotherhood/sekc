@@ -228,7 +228,7 @@
                 }]
             }
         })
-            .state('practice-consult-menu', {
+        .state('practice-consult-menu', {
             parent: 'practice-management',
             url: '/practiceConsult/{login}',
             data: {
@@ -238,6 +238,27 @@
             views: {
                 'content@': {
                     templateUrl: 'app/practice-management/practice-consult-menu.html',
+                    //controller: 'PracticeManagementThingsWorkController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        .state('practice-consult-alpha', {
+            parent: 'practice-management',
+            url: '/practiceConsultAlpha/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-consult-alpha.html',
                     //controller: 'PracticeManagementThingsWorkController',
                     //controllerAs: 'vm'
                 }

@@ -101,12 +101,11 @@ select[multiple] {
     background-color:#d62d20;
     color:white;
 }
-/*MENU*/
+/*Menu Consultar Practica*/
 .menu {
   width: 100%;
   overflow: hidden;
 }
-
 .menu a {
   text-decoration: none;
   color: #333;
@@ -144,4 +143,10 @@ select[multiple] {
 .open-hide:hover + .menu {
   height: 100%;
   padding-top: 1em;
+}
+/*Consultas kernel*/
+.alpha-border{
+    border: solid 1px;
+    height:50%;
+    padding:15px;
 }

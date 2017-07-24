@@ -1,40 +1,39 @@
 <aside class="sidebar fixed" >
     <ul class="menu-links" ng-cloak>
-    <a class="open-hide">Menu</a>
-    <ul class="menu" menu-toggle  id="admin-menu" name="Practice Name" icon="icon-practice text-blue"  has-authority="ROLE_ADMIN" >
-        <ul menu-toggle id="thingsToWork" class="m-l-10" name="Things to Work With" icon="icon-alpha text-blue">
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-20 icon-alpha text-blue"></i>Alpha</span>
+      <a class="open-hide">Menu</a>
+        <ul class="menu" menu-toggle id="admin-menu" name="Practice Name" icon="icon-practice text-blue"  has-authority="ROLE_ADMIN" >
+            <li menu-toggle id="thingsToWork" class="m-l-10" name="Things to Work With" icon="icon-alpha text-blue">
+                <a menu-link href="#/practice-consult-alpha" ui-sref="practice-consult-alpha" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-20 icon-alpha text-blue"></i>Alpha</span>
+                </a>
+                <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-35 icon-work-product text-blue"></i>Workproduct</span>
+                </a>
             </li>
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-35 icon-work-product text-blue"></i>Workproduct</span>
+            <li menu-toggle id="thingsToDo" class="m-l-10" name="Things to Do" icon="icon-things-to-do text-blue">
+                <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-20 fa fa-ellipsis-h text-blue"></i>Activity Space</span>
+                </a>
+                <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-35 fa fa-tag text-blue"></i>Activity</span>
+                </a>
+            </li>
+            <li menu-toggle id="thingsToDo" class="m-l-10" name="Competencies" icon="icon-competency text-blue">
+                <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-20 icon-competency text-blue"></i>Competency</span>
+                </a>
+            </li>
+            <li menu-toggle id="thingsToDo" class="m-l-10" name="Areas of Concern" icon="icon-activity text-blue">
+                <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-20 icon-activity text-blue"></i>Customer</span>
+                </a>
+                <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-20 icon-activity text-blue"></i>Solution</span>
+                </a>
+                 <a menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                    <span><i class="m-l-20 icon-activity text-blue"></i>Endeavor</span>
+                </a>
             </li>
         </ul>
-        <ul menu-toggle id="thingsToDo" class="m-l-10" name="Things to Do" icon="icon-things-to-do text-blue">
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-20 fa fa-ellipsis-h text-blue"></i>Activity Space</span>
-            </li>
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-35 fa fa-tag text-blue"></i>Activity</span>
-            </li>
-        </ul>
-        <ul menu-toggle id="thingsToDo" class="m-l-10" name="Competencies" icon="icon-competency text-blue">
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-20 icon-competency text-blue"></i>Competency</span>
-            </li>
-        </ul>
-        <ul menu-toggle id="thingsToDo" class="m-l-10" name="Areas of Concern" icon="icon-activity text-blue">
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-20 icon-activity text-blue"></i>Customer</span>
-            </li>
-            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-20 icon-activity text-blue"></i>Solution</span>
-            </li>
-             <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
-                <span><i class="m-l-20 icon-activity text-blue"></i>Endeavor</span>
-            </li>
-        </ul>
-       
-     </ul>
     </ul>
 </aside>
