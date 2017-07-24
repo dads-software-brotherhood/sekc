@@ -5,9 +5,9 @@
         .module('sekcApp')
         .controller('PracticeManagementEntryDialogController',PracticeManagementEntryDialogController);
 
-    PracticeManagementEntryDialogController.$inject = ['$stateParams', '$uibModalInstance', 'JhiLanguageService'];
+    PracticeManagementEntryDialogController.$inject = ['$stateParams', '$uibModalInstance', 'JhiLanguageService', 'localStorageService'];
 
-    function PracticeManagementEntryDialogController ($stateParams,  $uibModalInstance, JhiLanguageService) {
+    function PracticeManagementEntryDialogController ($stateParams,  $uibModalInstance, JhiLanguageService, localStorageService) {
         var vm = this;
         
         vm.clear = clear;

@@ -21,8 +21,23 @@
             var alphas = localStorageService.get('alphas');
             vm.practice = localStorageService.get('practiceInEdition');
             vm.alphasTree = [];
+            if (vm.practice.thingsToWorkWith != null)
+            {
+                fillSelectedWorkproducts(vm.practice.thingsToWorkWith.alphasSelection, '');
+            }
+            console.log(vm.selectedWorkProducts);
             fillTreeNode(vm.alphasTree, alphas, '');
             console.log(vm.alphasTree);
+        }
+
+        function fillSelectedWorkproducts(alphas, father)
+        {
+            angular.forEach(alphas, function (alpha) {
+                angular.forEach(alpha.workProducts, function (workProduct) {
+                    vm.selectedWorkProducts.push(father + alpha.idAlpha + '.' + workProduct);
+                });
+                fillSelectedWorkproducts(alpha.subAlphas, father + alpha.id + '.');
+            });
         }
 
         function fillTreeNode(treeNode, alphas, parent)
@@ -45,21 +60,10 @@
                                 label: workproduct.name,
                                 value: parent + alpha.id + '.' + workproduct.id,
                                 type: 'workproduct',
-                                id: workproduct.id
+                                id: workproduct.id,
+                                selected: vm.selectedWorkProducts.indexOf(parent + alpha.id + '.' + workproduct.id) > -1
                             }
                             alphaNode.children.push(wpNode);
-                            alphaNode.children.push({
-                                label: 'P1',
-                                value: parent + alpha.id + '.' + 'P1',
-                                type: 'workproduct',
-                                id: 'P1'
-                            });
-                            alphaNode.children.push({
-                                label: 'P2',
-                                value: parent + alpha.id + '.' + 'P2',
-                                type: 'workproduct',
-                                id: 'P2'
-                            });
                         });
                     }
                     if (alpha.subAlphas != null && alpha.subAlphas.length > 0)

@@ -14,6 +14,8 @@
         vm.practice = null;
         
         
+        vm.deleteApproach = deleteApproach;
+        
         vm.save = save;
         vm.cancel = cancel;
         
@@ -30,10 +32,10 @@
 	        console.log(vm.practice);
 	        
 	        
-	        if (angular.isUndefined(vm.practice.thingsToWork) || vm.practice.thingsToWork === null) {
+	        if (angular.isUndefined(vm.practice.thingsToDo) || vm.practice.thingsToDo === null) {
 	        	
 
-		        vm.practice.thingsToWork = { competencies : [], results : [], measures : [] };
+		        vm.practice.thingsToDo = { competencies : [], approaches : [], actions : [], entryCriterion : [], completitionCriterion : [], resources : [] };
                 
             }
 	       
@@ -52,6 +54,12 @@
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
     	}
+        
+        function deleteApproach (index) {
+    		vm.practice.thingsToDo.approaches.splice(index, 1);
+    		localStorageService.set('practiceInEdition', vm.practice);
+        	
+        }
 	}
         
     
