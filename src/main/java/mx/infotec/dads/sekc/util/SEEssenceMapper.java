@@ -10,12 +10,15 @@ import java.util.Objects;
 import java.util.Optional;
 
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
+import mx.infotec.dads.sekc.admin.practice.dto.AlphasSelection;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
@@ -45,20 +48,30 @@ public class SEEssenceMapper {
         validateGeneralInformation(from);
         SEPractice to = EntityBuilder.build(practice -> {
             EssenceMapping.fillPractice(practice);
-            practice.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEKernel.class));
-            practice.setName(from.getName());
-            practice.setObjective(from.getObjective());
-            practice.setBriefDescription(from.getBriefDesciption());
-            practice.setDescription(from.getDescription());
-            practice.setConsistencyRules(from.getConsistencyRules());
-            // {relatedPractice} property not yet mapped
-            practice.setAuthor(from.getAuthor());
-            practice.setKeyWords(from.getKeywords());
+            mapGeneralInfo(from, practice);
+            mapRelatedPractices(from.getRelatedPractices(), practice);
             mapConditions(from.getConditions(), practice);
             mapThingsToWorkWith(from.getThingsToWorkWith(), practice);
             mapThingsToDo(from.getThingsToDo(), practice);
         }, SEPractice.class);
         return to;
+    }
+
+    /**
+     * Map GeneralInfo of a SEPractice
+     * 
+     * @param from
+     * @param practice
+     */
+    private static void mapGeneralInfo(PracticeDto from, SEPractice practice) {
+        practice.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEKernel.class));
+        practice.setName(from.getName());
+        practice.setObjective(from.getObjective());
+        practice.setBriefDescription(from.getBriefDesciption());
+        practice.setDescription(from.getDescription());
+        practice.setConsistencyRules(from.getConsistencyRules());
+        practice.setAuthor(from.getAuthor());
+        practice.setKeyWords(from.getKeywords());
     }
 
     /**
@@ -145,14 +158,37 @@ public class SEEssenceMapper {
     }
 
     /**
-     * Map Things to Work With from PracticeDto to a SEPractice
+     * Map Things to Work With from PracticeDto to SEPractice
      * 
      * @param thingsToWorkWith
      * @param to
      * @return SEPractice
      */
     public static SEPractice mapThingsToWorkWith(ThingsToWorkWith thingsToWorkWith, SEPractice to) {
+        List<AlphasSelection> alphasSelectionList = thingsToWorkWith.getAlphasSelection();
+        Objects.requireNonNull(alphasSelectionList, "You must select at least one alpha");
+        alphasSelectionList.forEach(alphaSelection -> {
+            SEAlpha seAlpha = EntityBuilder.build(alpha -> {
+                alpha.setId(alphaSelection.getIdAlpha());
+            }, SEAlpha.class);
+            // sub-alpha not yet mapped, if it is mandatory to map the subalphas
+            // id, do it here or consider to map in the same list of
+            // alphaSelectionList
+            mapIdsWorkProducts(to, alphaSelection);
+            to.getOwnedElements().add(seAlpha);
+        });
         return to;
+    }
+
+    private static void mapIdsWorkProducts(SEPractice to, AlphasSelection alphaSelection) {
+        Optional.of(alphaSelection.getWorkProducts()).ifPresent(workproductList -> {
+            workproductList.forEach(workProduct -> {
+                SEWorkProduct seWorkProduct = EntityBuilder.build(wp -> {
+                    wp.setId(workProduct);
+                }, SEWorkProduct.class);
+                to.getOwnedElements().add(seWorkProduct);
+            });
+        });
     }
 
     /**
@@ -163,6 +199,25 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
+        return to;
+    }
+
+    /**
+     * Map Related practice of the SEPractice
+     * 
+     * @param practicesIdsList
+     * @param to
+     * @return SEPractice
+     */
+    public static SEPractice mapRelatedPractices(List<String> practicesIdsList, SEPractice to) {
+        Optional.of(practicesIdsList).ifPresent(practiceList -> {
+            practiceList.forEach(practiceId -> {
+                SEPractice sePractice = EntityBuilder.build(practice -> {
+                    practice.setId(practiceId);
+                }, SEPractice.class);
+                to.getReferredElements().add(sePractice);
+            });
+        });
         return to;
     }
 }
