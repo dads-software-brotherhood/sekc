@@ -101,3 +101,47 @@ select[multiple] {
     background-color:#d62d20;
     color:white;
 }
+/*MENU*/
+.menu {
+  width: 100%;
+  overflow: hidden;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+}
+.menu a:hover {
+  color: #f20256;
+}
+
+.open-hide {
+  width: 35px;
+  height: 35px;
+  display: block;
+  background-image: url(/content/images/menu.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 25px;
+  text-indent: -9999em;
+}
+.open-hide:hover {
+  cursor: pointer;
+}
+
+.menu {
+  height: 0;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+.menu:hover {
+  height: 100%;
+  padding-top: 3em;
+}
+
+.open-hide:hover + .menu {
+  height: 100%;
+  padding-top: 1em;
+}

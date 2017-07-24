@@ -1,47 +1,40 @@
-<section class="p-b-20">
-    <div class="page-header">   
-        <ul class="nav nav-tabs">
-            <li class="active"><a>General</a></li>
-            <li><a href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
-            <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
-            <li><a href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
+<aside class="sidebar fixed" >
+    <ul class="menu-links" ng-cloak>
+    <a class="open-hide">Menu</a>
+    <ul class="menu" menu-toggle  id="admin-menu" name="Practice Name" icon="icon-practice text-blue"  has-authority="ROLE_ADMIN" >
+        <ul menu-toggle id="thingsToWork" class="m-l-10" name="Things to Work With" icon="icon-alpha text-blue">
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-20 icon-alpha text-blue"></i>Alpha</span>
+            </li>
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-35 icon-work-product text-blue"></i>Workproduct</span>
+            </li>
         </ul>
-    </div>
-    
-            </div>   
-        </div>
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="well white">
-      			<input type="hidden" id="idUpdate" ng-model="idUpdate" />
-                        <form class="form">
-                          <div class="form-group input-group">
-                              <label data-translate="practiceManagement.keywords">Keywords</label>
-                            <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
-                            <div class="input-group-btn p-l-10">
-                              <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> Add </button>
-                            </div>
-                          </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-12" ng-hide="!vm.keywords.length">
-                    <div>
-                        <button ng-repeat="keyword in vm.keywords" class="btn btn-default m-r-20 m-b-20">
-                            {{keyword.keyWord}} <i class="fa fa-times text-blue" aria-hidden="true" ng-click="vm.deleteKeyword($index)"> </i>
-                        </button>
-                    </div>
-                </div>
-                <div class="modal-footer  m-b-30">
-                    <button type="button" class="btn btn-default m-t-10" ng-click="vm.limpiar()">
-                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
-                    </button>
-                    <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10" ng-click="vm.save()">
-                    <span data-translate="entity.action.next">Next</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        <ul menu-toggle id="thingsToDo" class="m-l-10" name="Things to Do" icon="icon-things-to-do text-blue">
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-20 fa fa-ellipsis-h text-blue"></i>Activity Space</span>
+            </li>
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-35 fa fa-tag text-blue"></i>Activity</span>
+            </li>
+        </ul>
+        <ul menu-toggle id="thingsToDo" class="m-l-10" name="Competencies" icon="icon-competency text-blue">
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-20 icon-competency text-blue"></i>Competency</span>
+            </li>
+        </ul>
+        <ul menu-toggle id="thingsToDo" class="m-l-10" name="Areas of Concern" icon="icon-activity text-blue">
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-20 icon-activity text-blue"></i>Customer</span>
+            </li>
+            <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-20 icon-activity text-blue"></i>Solution</span>
+            </li>
+             <li menu-link href="#/" ui-sref="" ng-click="vm.collapseNavbar()">
+                <span><i class="m-l-20 icon-activity text-blue"></i>Endeavor</span>
+            </li>
+        </ul>
+       
+     </ul>
+    </ul>
+</aside>
