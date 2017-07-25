@@ -80,17 +80,25 @@
                 </div> 
                 <br>
                 <div class="table-responsive white">
-                    <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.entries.length">
-                        <thead>
+                  	<table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.entries.alphaStates.length && !vm.practice.conditions.entries.workProductsLevelofDetail.length && !vm.practice.conditions.entries.otherConditions.length">
+                    	<thead>
                             <tr>
                                 <th>Entries</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                           <tr ng-repeat="entrie in vm.practice.conditions.entries">
-                                <td>{{entrie.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index)"><i class="md md-delete"></i></button></td>
+                           <tr ng-repeat="alphaState in vm.practice.conditions.entries.alphaStates">
+                                <td>{{alphaState.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="workProductLevelofDetail in vm.practice.conditions.entries.workProductsLevelofDetail">
+                                <td>{{workProductLevelofDetail.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions">
+                                <td>{{otherConditions.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -138,17 +146,25 @@
                 </div>
                 <br>
                 <div class="table-responsive white">
-                    <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.results.length">
-                        <thead>
+                    <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.results.alphaStates.length && !vm.practice.conditions.results.workProductsLevelofDetail.length && !vm.practice.conditions.results.otherConditions.length">
+                    	<thead>
                             <tr>
                                 <th>Results</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="result in vm.practice.conditions.results">
-                                <td>{{result.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index)"><i class="md md-delete"></i></button></td>
+                           <tr ng-repeat="alphaState in vm.practice.conditions.results.alphaStates">
+                                <td>{{alphaState.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="workProductLevelofDetail in vm.practice.conditions.results.workProductsLevelofDetail">
+                                <td>{{workProductLevelofDetail.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions">
+                                <td>{{otherConditions.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>

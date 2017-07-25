@@ -23,11 +23,11 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label" >Brief Description</label>
-                    <textarea class="form-control" name="briefDescription" ng-model="vm.practice.thingsToDo.briefDescription"></textarea>
+                    <textarea  class="form-control" name="briefDescription" ng-model="vm.practice.thingsToDo.briefDescription"></textarea>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <textarea class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
+                    <textarea ui-tinymce="vm.tinymceOptions" class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@
                             <tr ng-repeat="competency in vm.practice.thingsToDo.competencies">
                                 <td>{{competency.competency}}</td>
                                 <td>{{competency.competencyLevel}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompetency()"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompetency($index)"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -120,7 +120,7 @@
                             <tr ng-repeat="approach in vm.practice.thingsToDo.approaches">
                                 <td>{{approach.name}}</td>
                                 <td>{{approach.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach()"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach($index)"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -135,10 +135,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="action in vm.practice.thingsToDo.actions">
-                                <td>{{action.idActionKind}}</td>
-                                <td>{{action.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction()"><i class="md md-delete"></i></button></td>
+                         	<tr ng-repeat="alphaState in vm.practice.thingsToDo.actions.alphaStates">
+                                <td>{{alphaState.idActionKind}}</td>
+                                <td>{{alphaState.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.actions.workProductsLevelofDetail">
+                                <td>{{workProductLevelofDetail.idActionKind}}</td>
+                                <td>{{workProductLevelofDetail.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -153,10 +158,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="entry in vm.practice.thingsToDo.entryCriterion">
-                                <td>{{entry.briefDescription}}</td>
-                                <td>{{entry.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry()"><i class="md md-delete"></i></button></td>
+                        	<tr ng-repeat="alphaState in vm.practice.thingsToDo.entryCriterion.alphaStates">
+                                <td>{{alphaState.briefDescription}}</td>
+                                <td>{{alphaState.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail">
+                                <td>{{workProductLevelofDetail.briefDescription}}</td>
+                                <td>{{workProductLevelofDetail.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="otherConditions in vm.practice.thingsToDo.entryCriterion.otherConditions">
+                                <td>{{otherConditions.briefDescription}}</td>
+                                <td>{{otherConditions.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -171,11 +186,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <tr ng-repeat="entry in vm.practice.thingsToDo.completitionCriterion">
-                                <td>{{entry.briefDescription}}</td>
-                                <td>{{entry.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition()"><i class="md md-delete"></i></button></td>
+                        	<tr ng-repeat="alphaState in vm.practice.thingsToDo.completitionCriterion.alphaStates">
+                                <td>{{alphaState.briefDescription}}</td>
+                                <td>{{alphaState.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail">
+                                <td>{{workProductLevelofDetail.briefDescription}}</td>
+                                <td>{{workProductLevelofDetail.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                            </tr>
+                            <tr ng-repeat="otherConditions in vm.practice.thingsToDo.completitionCriterion.otherConditions">
+                                <td>{{otherConditions.briefDescription}}</td>
+                                <td>{{otherConditions.description}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>

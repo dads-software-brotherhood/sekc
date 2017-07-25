@@ -13,7 +13,6 @@
         vm.load = load;
         vm.practice = null;
         
-        
         vm.deleteApproach = deleteApproach;
         vm.deleteAction = deleteAction;
         vm.deleteEntry = deleteEntry;
@@ -24,8 +23,7 @@
         
         vm.save = save;
         vm.clean = clean;
-        
-		
+        		
         vm.load();
         
 
@@ -40,9 +38,11 @@
 	        
 	        if (angular.isUndefined(vm.practice.thingsToDo) || vm.practice.thingsToDo === null) {
 	        	
-
 		        vm.practice.thingsToDo = { competencies : [], approaches : [], actions : [], entryCriterion : [], completitionCriterion : [], resources : [] };
-                
+		        vm.practice.thingsToDo.actions = { alphaStates : [], workProductsLevelofDetail : [] };
+		        vm.practice.thingsToDo.entryCriterion = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
+		        vm.practice.thingsToDo.completitionCriterion = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
+
             }
 	       
         }
@@ -56,18 +56,34 @@
     		localStorageService.set('practiceInEdition', vm.practice);
         }
         
-        function deleteAction (index) {
-    		vm.practice.thingsToDo.actions.splice(index, 1);
+        function deleteAction (index, tipo) {
+        	if(tipo == 'alpha'){
+        		vm.practice.thingsToDo.actions.alphaStates.splice(index, 1);
+    		}else if(tipo == 'workproduct'){
+        		vm.practice.thingsToDo.actions.workProductsLevelofDetail.splice(index, 1);
+    		}
     		localStorageService.set('practiceInEdition', vm.practice);     	
         }
         
-        function deleteEntry (index) {
-    		vm.practice.thingsToDo.entryCriterion.splice(index, 1);
+        function deleteEntry (index, tipo) {
+        	if(tipo == 'alpha'){
+        		vm.practice.thingsToDo.entryCriterion.alphaStates.splice(index, 1);
+    		}else if(tipo == 'workproduct'){
+        		vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail.splice(index, 1);
+    		}else if(tipo == 'other'){
+        		vm.practice.thingsToDo.entryCriterion.otherConditions.splice(index, 1);
+    		}
     		localStorageService.set('practiceInEdition', vm.practice);   	
         }
         
-        function deleteCompletition (index) {
-    		vm.practice.thingsToDo.completitionCriterion.splice(index, 1);
+        function deleteCompletition (index, tipo) {
+        	if(tipo == 'alpha'){
+        		vm.practice.thingsToDo.completitionCriterion.alphaStates.splice(index, 1);
+    		}else if(tipo == 'workproduct'){
+        		vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail.splice(index, 1);
+    		}else if(tipo == 'other'){
+        		vm.practice.thingsToDo.completitionCriterion.otherConditions.splice(index, 1);
+    		}
     		localStorageService.set('practiceInEdition', vm.practice);   	
         }
         
@@ -89,15 +105,15 @@
         	console.log(vm.practice);
             localStorageService.set('practiceInEdition', vm.practice);
             
-            if (vm.practice.id !== null && vm.practice.id !== undefined) {
-                Practice.update(vm.practice, onSaveSuccess, onSaveError);
-            } else {
-            	Practice.save(vm.practice, onSaveSuccess, onSaveError);
-            }
+//            if (vm.practice.id !== null && vm.practice.id !== undefined) {
+//                Practice.update(vm.practice, onSaveSuccess, onSaveError);
+//            } else {
+//            	Practice.save(vm.practice, onSaveSuccess, onSaveError);
+//            }
         }
         
         function onSaveSuccess (result) {
-//            vm.practice = {};
+//          vm.practice = {};
 //          localStorageService.set('practiceInEdition', null);
             $location.path('/practice-management');
         }

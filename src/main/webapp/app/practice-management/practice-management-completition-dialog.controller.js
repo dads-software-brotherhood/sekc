@@ -29,10 +29,12 @@
 	        
 	        if (angular.isUndefined(vm.practice.thingsToDo) || vm.practice.thingsToDo === null) {
 	        	
-
 		        vm.practice.thingsToDo = { competencies : [], approaches : [], actions : [], entryCriterion : [], completitionCriterion : [], resources : [] };
-                
             }
+	        if(angular.isUndefined(vm.practice.thingsToDo.completitionCriterion.alphaStates) || vm.practice.thingsToDo.completitionCriterion.alphaStates === null){
+		        vm.practice.thingsToDo.completitionCriterion = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }	
+	        }
+
               
         }
 
@@ -40,17 +42,17 @@
             if (vm.alpha != null && vm.alpha != undefined &&
                 vm.alphaState != null && vm.alphaState != undefined) {
 
-                vm.practice.thingsToDo.completitionCriterion.push({ description: vm.alpha.name + ' / ' + vm.alphaState.name, idAlpha: vm.alpha.id, idState: vm.alphaState.id, briefDescription : vm.description});
+                vm.practice.thingsToDo.completitionCriterion.alphaStates.push({ description: vm.alpha.name + ' / ' + vm.alphaState.name, idAlpha: vm.alpha.id, idState: vm.alphaState.id, briefDescription : vm.description});
             
             } else if (vm.workProduct != null && vm.workProduct != undefined && vm.workProduct != "" &&
                 vm.levelOfDetail != null && vm.levelOfDetail != undefined && vm.levelOfDetail != "") {
 
-            	vm.practice.thingsToDo.completitionCriterion.push({ description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name, idWorkProduct: vm.workProduct.id, idLevelOfDetail: vm.levelOfDetail.id, briefDescription : vm.description});
+            	vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail.push({ description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name, idWorkProduct: vm.workProduct.id, idLevelOfDetail: vm.levelOfDetail.id, briefDescription : vm.description});
 
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
 
-            	vm.practice.thingsToDo.completitionCriterion.push({ description: vm.anotherEntryCriteria, briefDescription : vm.description });
+            	vm.practice.thingsToDo.completitionCriterion.otherConditions.push({ description: vm.anotherEntryCriteria, briefDescription : vm.description });
             }
             
             localStorageService.set('practiceInEdition', vm.practice);
