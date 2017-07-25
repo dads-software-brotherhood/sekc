@@ -270,6 +270,49 @@
                 }]
             }
         })
+         .state('practice-consult-workproduct', {
+            parent: 'practice-management',
+            url: '/practiceConsultWorkproduct/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-consult-workproduct.html',
+                    //controller: 'PracticeManagementThingsWorkController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+          .state('practice-consult-ActivitySpace', {
+            parent: 'practice-management',
+            url: '/practiceConsultSpaceActiviy/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-consult-ActivitySpace.html',
+                    //controller: 'PracticeManagementThingsWorkController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+        
          .state('practice-management-completition', {
             parent: 'practice-management',
             url: '/practiceCompletition/{login}',
