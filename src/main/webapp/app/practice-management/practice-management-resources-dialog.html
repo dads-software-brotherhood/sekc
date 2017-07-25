@@ -7,7 +7,7 @@
      <div class="modal-body">
          <div class="form-group">
              <label for="textArea" class="pull-left">Content</label>
-             <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" id="resources" ng-model="vm.description" required></textarea>
+             <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.description" required></textarea>
          </div> 
          <div class="form-group filled">
              <label class="pull-left" >Type</label>
@@ -17,10 +17,10 @@
          </div>
          <div class="form-group">
              <label class="control-label">Attachment</label>
-             <input type="file" ngf-select ng-model="vm.attachment" name="file" accept="image/*" />
+             <input type="file" id="attachment" file-model='vm.attachment' accept="*">
          </div>        
      </div>
      <div class="modal-footer">
-       <button type="button" class="btn btn-primary" ng-click="vm.save()">Save changes</button>
+       <button type="button" class="btn btn-primary" ng-click="vm.save()">Add</button>
      </div>
 </form>

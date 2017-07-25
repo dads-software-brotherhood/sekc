@@ -5,9 +5,9 @@
         .module('sekcApp')
         .controller('PracticeManagementSpaceActivityController',PracticeManagementSpaceActivityController);
 
-    PracticeManagementSpaceActivityController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter'];
+    PracticeManagementSpaceActivityController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice'];
 
-    function PracticeManagementSpaceActivityController ($stateParams, JhiLanguageService, localStorageService, $filter) {
+    function PracticeManagementSpaceActivityController ($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice) {
         var vm = this;
 
         vm.load = load;
@@ -20,9 +20,10 @@
         vm.deleteCompletition = deleteCompletition;
         vm.deleteResource = deleteResource;
         vm.deleteActivitySpace = deleteActivitySpace;
+        vm.deleteCompetency = deleteCompetency;
         
         vm.save = save;
-        vm.cancel = cancel;
+        vm.clean = clean;
         
 		
         vm.load();
@@ -49,16 +50,6 @@
         function onError(error) {
             AlertService.error(error.data.message);
         }
-           
-        function save() {
-        	console.log(vm.practice)
-            localStorageService.set('practiceInEdition', vm.practice);
-        }
-    	
-        function cancel() {
-            vm.practice = {};
-            localStorageService.set('practiceInEdition', null);
-    	}
         
         function deleteApproach (index) {
     		vm.practice.thingsToDo.approaches.splice(index, 1);
@@ -85,9 +76,40 @@
     		localStorageService.set('practiceInEdition', vm.practice);   	
         }
         
+        function deleteCompetency (index) {
+        	vm.practice.thingsToDo.competencies.splice(index, 1);
+    		localStorageService.set('practiceInEdition', vm.practice); 
+        }
+        
         function deleteActivitySpace(index) {
         	
         }
+           
+        function save() {
+        	console.log(vm.practice);
+            localStorageService.set('practiceInEdition', vm.practice);
+            
+            if (vm.practice.id !== null && vm.practice.id !== undefined) {
+                Practice.update(vm.practice, onSaveSuccess, onSaveError);
+            } else {
+            	Practice.save(vm.practice, onSaveSuccess, onSaveError);
+            }
+        }
+        
+        function onSaveSuccess (result) {
+//            vm.practice = {};
+//          localStorageService.set('practiceInEdition', null);
+            $location.path('/practice-management');
+        }
+
+        function onSaveError () {
+        }
+    	
+        function clean() {
+        	vm.practice.thingsToDo = null;
+        	localStorageService.set('practiceInEdition', vm.practice);
+        	load();
+    	}
 	}
         
     

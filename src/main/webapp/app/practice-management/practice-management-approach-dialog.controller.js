@@ -10,7 +10,7 @@
     function PracticeManagementApproachDialogController ($stateParams,  $uibModalInstance, JhiLanguageService, localStorageService) {
         var vm = this;
         
-        vm.clear = clear;
+        vm.clean = clean;
         vm.load = load;
         vm.cancel = cancel;
         vm.save = save;
@@ -36,7 +36,7 @@
         		
         		vm.practice.thingsToDo.approaches.push({name : vm.name, description : vm.description});
                 localStorageService.set('practiceInEdition', vm.practice);
-                vm.clear();
+                vm.clean();
                 $uibModalInstance.dismiss('cancel');
 
             }
@@ -44,7 +44,7 @@
         }
         
         
-        function clear () {
+        function clean () {
         	vm.name = null;
         	vm.description = null;
         }

@@ -8,13 +8,13 @@
     Practice.$inject = ['$resource'];
 
     function Practice ($resource) {
-        var service = $resource('api/v1/practice', {}, {
+        var service = $resource('api/v1/practices', {}, {
             'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
-                    data = angular.fromJson(data);
-                    return data;
+                	 data = angular.isObject(data);
+                     return data;
                 }
             },
             'save': { method:'POST' },

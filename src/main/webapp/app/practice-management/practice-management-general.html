@@ -60,7 +60,7 @@
                          <div class="col-md-12">
                             <div class="form-group filled">
                                 <label data-translate="practiceManagement.relatedPractices" >Select a Practices Related</label>
-                                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.kernels" ng-model="vm.practice.relatedPractices" multiple></select>
+                                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.practices" ng-model="vm.practice.relatedPractices" multiple></select>
                             </div>
                         </div>
                       
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="modal-footer  m-b-30">
-                    <button type="button" class="btn btn-default m-t-10" ng-click="vm.limpiar()">
+                    <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
                         <span> Clean</span>
                     </button>
                     <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10" ng-click="vm.save()">

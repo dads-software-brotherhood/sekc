@@ -13,7 +13,7 @@
             <div class="well white">
                 <div class="form-group filled">
                     <label>Activity Space</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.activitySpaces track by datos.id" ng-model="vm.practice.thingsToDo.idActivitySpace">
+                    <select class="form-control" ng-options="datos.id as datos.name for datos in vm.activitySpaces" ng-model="vm.practice.thingsToDo.idActivitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <textarea class="form-control" name="description" ng-model="vm.practice.thingsToDo.Description"></textarea>
+                    <textarea class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
                 </div>
             </div>
         </div>
@@ -99,10 +99,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="approach in vm.practice.thingsToDo.approaches">
-                                <td>{{approach.name}}</td>
-                                <td>{{approach.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach()"><i class="md md-delete"></i></button></td>
+                            <tr ng-repeat="competency in vm.practice.thingsToDo.competencies">
+                                <td>{{competency.competency}}</td>
+                                <td>{{competency.competencyLevel}}</td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompetency()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -194,7 +194,7 @@
                             <tr ng-repeat="resource in vm.practice.thingsToDo.resources">
                                 <td>{{resource.content}}</td>
                                 <td>{{resource.idTypeResource}}</td>
-                                <td>File</td>
+                                <td>{{resource.fileName}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -206,11 +206,11 @@
     <div class="row">
        
     	<div class="modal-footer  m-b-30">
-            <button type="button" class="btn btn-default m-t-10" ng-click="vm.clear()">
+            <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
                 <span>Clean</span>
             </button>
-            <button type="submit" class="btn btn-primary m-t-10">
-                <span data-translate="entity.action.next">Next</span>
+            <button type="submit" class="btn btn-primary m-t-10" ng-click="vm.save()">
+                <span data-translate="entity.action.next">Save</span>
             </button>     
         </div>
     </div> 	

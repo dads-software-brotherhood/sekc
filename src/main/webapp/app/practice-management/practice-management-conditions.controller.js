@@ -5,9 +5,9 @@
         .module('sekcApp')
         .controller('PracticeManagementConditionsController',PracticeManagementConditionsController);
 
-    PracticeManagementConditionsController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter'];
+    PracticeManagementConditionsController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location'];
 
-    function PracticeManagementConditionsController ($stateParams, JhiLanguageService, localStorageService, $filter) {
+    function PracticeManagementConditionsController ($stateParams, JhiLanguageService, localStorageService, $filter, $location) {
         var vm = this;
 
         vm.load = load;
@@ -27,11 +27,11 @@
         vm.deleteResult = deleteResult;
         
         vm.save = save;
-        vm.cancel = cancel;
         
 		
         vm.load();
         
+        vm.clean = clean;
         vm.cleanEntries = cleanEntries;
         vm.cleanResults = cleanResults;
         
@@ -150,11 +150,14 @@
         	vm.practice.conditions.measures = vm.measures;
         	console.log(vm.practice)
             localStorageService.set('practiceInEdition', vm.practice);
+        	console.log($location.path());
+	        $location.path('/practice-management/practiceThingswork/');
         }
     	
-        function cancel() {
-            vm.practice = {};
-            localStorageService.set('practiceInEdition', null);
+        function clean() {
+        	vm.practice.conditions = null;
+        	localStorageService.set('practiceInEdition', vm.practice);
+        	load();
     	}
 	}
         
