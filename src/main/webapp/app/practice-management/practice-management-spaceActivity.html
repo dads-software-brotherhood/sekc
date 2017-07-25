@@ -17,6 +17,17 @@
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
+                <div class="row">
+                     <div class="col-md-2 col-md-offset-11 form-group">   
+                        <button class="btn btn-success" type="button"  ng-click=""><span data-translate="practiceManagement.add">Add</span></button>
+                     </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well white">
                 <div class="form-group">
                     <label class="control-label">Activity Name</label>
                     <input type="text" class="form-control" name="name" ng-model="vm.practice.thingsToDo.name" required>
@@ -29,10 +40,186 @@
                     <label class="control-label">Description</label>
                     <textarea ui-tinymce="vm.tinymceOptions" class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
                 </div>
+                <div class="row">
+                    <div class="col-md-4 text-center m-t-60">
+                        <div class="m-b-15">
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency" ng-click="vm.load()" >Consult Competency</button>
+                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.competency" data-title="Create competency" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach" ng-click="vm.load()" >Consult Approach</button>
+                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.approach" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="m-t-15 m-b-15">
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action" ng-click="vm.load()">Consult Action</button>
+                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.action" data-title="Create action" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="m-b-15">
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio" ng-click="vm.load()">Consult Entry </button>
+                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.entry" data-title="Create entry" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="m-b-15">
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition" ng-click="vm.load()">Consult Completition</button>
+                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.completition" data-title="Create completition" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources" ng-click="vm.load()">Consult Resources</button>
+                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.resources" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                    <div class="actions m-t-10 pull-right m-r-15 m-t-10">
+                        <button class="btn btn-primary btn-round btn-md " ng-click="vm.refresh()" data-title="Refresh" bs-tooltip>
+                           <span class="glyphicon glyphicon-refresh"></span>
+                        </button>
+                    </div>
+                    <div class="col-md-8 m-t-20">
+                        <div id="competency" class="collapse table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Competency</th>
+                                        <th>Level Competency</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="competency in vm.practice.thingsToDo.competencies">
+                                        <td>{{competency.competency}}</td>
+                                        <td>{{competency.competencyLevel}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompetency($index)"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="approach" class="collapse table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="approach in vm.practice.thingsToDo.approaches">
+                                        <td>{{approach.name}}</td>
+                                        <td>{{approach.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach($index)"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="action" class="collapse table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Action Kind</th>
+                                        <th>Alpha-State / Workproduct-Level of detail</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr ng-repeat="alphaState in vm.practice.thingsToDo.actions.alphaStates">
+                                        <td>{{alphaState.idActionKind}}</td>
+                                        <td>{{alphaState.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                    <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.actions.workProductsLevelofDetail">
+                                        <td>{{workProductLevelofDetail.idActionKind}}</td>
+                                        <td>{{workProductLevelofDetail.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                         <div id="entrycriterio" class="collapse table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr ng-repeat="alphaState in vm.practice.thingsToDo.entryCriterion.alphaStates">
+                                        <td>{{alphaState.briefDescription}}</td>
+                                        <td>{{alphaState.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                    <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail">
+                                        <td>{{workProductLevelofDetail.briefDescription}}</td>
+                                        <td>{{workProductLevelofDetail.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                    <tr ng-repeat="otherConditions in vm.practice.thingsToDo.entryCriterion.otherConditions">
+                                        <td>{{otherConditions.briefDescription}}</td>
+                                        <td>{{otherConditions.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    <div id="completition" class="collapse table-responsive white">
+                        <table class="table table-full table-full-small white">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr ng-repeat="alphaState in vm.practice.thingsToDo.completitionCriterion.alphaStates">
+                                    <td>{{alphaState.briefDescription}}</td>
+                                    <td>{{alphaState.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                                <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail">
+                                    <td>{{workProductLevelofDetail.briefDescription}}</td>
+                                    <td>{{workProductLevelofDetail.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                                <tr ng-repeat="otherConditions in vm.practice.thingsToDo.completitionCriterion.otherConditions">
+                                    <td>{{otherConditions.briefDescription}}</td>
+                                    <td>{{otherConditions.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="resources" class="collapse table-responsive white">
+                        <table class="table table-full table-full-small white">
+                            <thead>
+                                <tr>
+                                    <th>Content</th>
+                                    <th>Type</th>
+                                    <th>Atachment</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="resource in vm.practice.thingsToDo.resources">
+                                    <td>{{resource.content}}</td>
+                                    <td>{{resource.idTypeResource}}</td>
+                                    <td>{{resource.fileName}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                     <div class="col-md-2 col-md-offset-10 form-group">    
+                        <button class="btn btn-default" type="button" ng-click=""><span data-translate="practiceManagement.clean">Clean</span></button>  
+                        <button class="btn btn-success" type="button"  ng-click=""><span data-translate="practiceManagement.add">Add</span></button>
+                    </div>
+                </div> 
             </div>
         </div>
     </div>
-    <div class="row" ng-hide="true">
+    <div class="row">
         <div class="col-md-12">
             <div class="well white">
                 <div class="table-responsive white">
@@ -51,175 +238,6 @@
                                 <td>{{spaceActivity.name}}</td>
                                 <td>{{spaceActivity.briefDescription}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivitySpace($index)"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 text-center">
-            <div class="well white">
-                <div class="m-b-15">
-                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency" ng-click="vm.load()" >Consult Competency</button>
-          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.competency" data-title="Create competency" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach" ng-click="vm.load()" >Consult Approach</button>
-          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.approach" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-                <div class="m-t-15 m-b-15">
-                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action" ng-click="vm.load()">Consult Action</button>
-          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.action" data-title="Create action" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-                <div class="m-b-15">
-                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio" ng-click="vm.load()">Consult Entry </button>
-          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.entry" data-title="Create entry" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-                <div class="m-b-15">
-                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition" ng-click="vm.load()">Consult Completition</button>
-          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.completition" data-title="Create completition" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources" ng-click="vm.load()">Consult Resources</button>
-          			<button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.resources" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-            </div> 
-        </div>
-        <div class="col-md-8">
-            <div class="well white">
-                <div id="competency" class="collapse table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Competency</th>
-                                <th>Level Competency</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="competency in vm.practice.thingsToDo.competencies">
-                                <td>{{competency.competency}}</td>
-                                <td>{{competency.competencyLevel}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompetency($index)"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="approach" class="collapse table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="approach in vm.practice.thingsToDo.approaches">
-                                <td>{{approach.name}}</td>
-                                <td>{{approach.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach($index)"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="action" class="collapse table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Action Kind</th>
-                                <th>Alpha-State / Workproduct-Level of detail</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                         	<tr ng-repeat="alphaState in vm.practice.thingsToDo.actions.alphaStates">
-                                <td>{{alphaState.idActionKind}}</td>
-                                <td>{{alphaState.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'alpha')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.actions.workProductsLevelofDetail">
-                                <td>{{workProductLevelofDetail.idActionKind}}</td>
-                                <td>{{workProductLevelofDetail.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                 <div id="entrycriterio" class="collapse table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        	<tr ng-repeat="alphaState in vm.practice.thingsToDo.entryCriterion.alphaStates">
-                                <td>{{alphaState.briefDescription}}</td>
-                                <td>{{alphaState.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail">
-                                <td>{{workProductLevelofDetail.briefDescription}}</td>
-                                <td>{{workProductLevelofDetail.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="otherConditions in vm.practice.thingsToDo.entryCriterion.otherConditions">
-                                <td>{{otherConditions.briefDescription}}</td>
-                                <td>{{otherConditions.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="completition" class="collapse table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Description</th>
-                                <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        	<tr ng-repeat="alphaState in vm.practice.thingsToDo.completitionCriterion.alphaStates">
-                                <td>{{alphaState.briefDescription}}</td>
-                                <td>{{alphaState.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'alpha')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail">
-                                <td>{{workProductLevelofDetail.briefDescription}}</td>
-                                <td>{{workProductLevelofDetail.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="otherConditions in vm.practice.thingsToDo.completitionCriterion.otherConditions">
-                                <td>{{otherConditions.briefDescription}}</td>
-                                <td>{{otherConditions.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="resources" class="collapse table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th>Content</th>
-                                <th>Type</th>
-                                <th>Atachment</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="resource in vm.practice.thingsToDo.resources">
-                                <td>{{resource.content}}</td>
-                                <td>{{resource.idTypeResource}}</td>
-                                <td>{{resource.fileName}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
