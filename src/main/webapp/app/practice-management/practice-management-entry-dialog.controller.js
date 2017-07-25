@@ -10,7 +10,7 @@
     function PracticeManagementEntryDialogController ($stateParams,  $uibModalInstance, JhiLanguageService, localStorageService) {
         var vm = this;
         
-        vm.clear = clear;
+        vm.clean = clean;
         vm.load = load;
         vm.save = save;
         vm.cancel = cancel;
@@ -28,38 +28,41 @@
 	        
 	        
 	        if (angular.isUndefined(vm.practice.thingsToDo) || vm.practice.thingsToDo === null) {
-	        	
 
 		        vm.practice.thingsToDo = { competencies : [], approaches : [], actions : [], entryCriterion : [], completitionCriterion : [], resources : [] };
-                
             }
-              
+	        if(angular.isUndefined(vm.practice.thingsToDo.entryCriterion.alphaStates) || vm.practice.thingsToDo.entryCriterion.alphaStates === null){
+		        
+	        	vm.practice.thingsToDo.entryCriterion = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
+
+	        }
+
         }
 
         function save() {
             if (vm.alpha != null && vm.alpha != undefined &&
                 vm.alphaState != null && vm.alphaState != undefined) {
 
-                vm.practice.thingsToDo.entryCriterion.push({ description: vm.alpha.name + ' / ' + vm.alphaState.name, idAlpha: vm.alpha.id, idState: vm.alphaState.id, briefDescription : vm.description});
+                vm.practice.thingsToDo.entryCriterion.alphaStates.push({ description: vm.alpha.name + ' / ' + vm.alphaState.name, idAlpha: vm.alpha.id, idState: vm.alphaState.id, briefDescription : vm.description});
             
             } else if (vm.workProduct != null && vm.workProduct != undefined && vm.workProduct != "" &&
                 vm.levelOfDetail != null && vm.levelOfDetail != undefined && vm.levelOfDetail != "") {
 
-            	vm.practice.thingsToDo.entryCriterion.push({ description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name, idWorkProduct: vm.workProduct.id, idLevelOfDetail: vm.levelOfDetail.id, briefDescription : vm.description});
+            	vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail.push({ description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name, idWorkProduct: vm.workProduct.id, idLevelOfDetail: vm.levelOfDetail.id, briefDescription : vm.description});
 
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
 
-            	vm.practice.thingsToDo.entryCriterion.push({ description: vm.anotherEntryCriteria, briefDescription : vm.description });
+            	vm.practice.thingsToDo.entryCriterion.otherConditions.push({ description: vm.anotherEntryCriteria, briefDescription : vm.description });
             }
             
             localStorageService.set('practiceInEdition', vm.practice);
-            vm.clear();
+            vm.clean();
             $uibModalInstance.dismiss('cancel');
 
         }
         
-        function clear () {
+        function clean () {
         	vm.alpha = null;
         	vm.alphaState = null;
         	vm.workProduct = null;

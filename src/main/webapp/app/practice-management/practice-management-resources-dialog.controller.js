@@ -10,11 +10,11 @@
     function PracticeManagementResourcesDialogController ($stateParams,  $uibModalInstance, JhiLanguageService, localStorageService) {
         var vm = this;
         
-        vm.clear = clear;
+        vm.clean = clean;
         vm.load = load;
         vm.cancel = cancel;
         vm.save = save;
-        
+        vm.attachment = null;
 
         vm.load();
         
@@ -34,11 +34,14 @@
 
         function save () { 
         	
-        	if(vm.type != null && vm.description != null){
+        	if(vm.type != null && vm.description != null && vm.attachment != null){
         		
-        		vm.practice.thingsToDo.resources.push({idTypeResource : vm.type.id, content : vm.description});
+        		var file = new FormData();
+        		file.append('file', vm.attachment);
+                
+        		vm.practice.thingsToDo.resources.push({idTypeResource : vm.type.id, content : vm.description, file : file, fileName : vm.attachment.name});
                 localStorageService.set('practiceInEdition', vm.practice);
-                vm.clear();
+                vm.clean();
                 $uibModalInstance.dismiss('cancel');
 
             }
@@ -46,7 +49,7 @@
         }
         
         
-        function clear () {
+        function clean () {
         	vm.description = null;
         	vm.type = null;
         }

@@ -5,14 +5,17 @@
         .module('sekcApp')
         .controller('PracticeManagementThingsWorkController', PracticeManagementThingsWorkController);
 
-    PracticeManagementThingsWorkController.$inject = ['AlertService', '$filter', 'localStorageService', 'ivhTreeviewBfs'];
+    PracticeManagementThingsWorkController.$inject = ['AlertService', '$filter', 'localStorageService', 'ivhTreeviewBfs', '$location'];
 
-    function PracticeManagementThingsWorkController(AlertService, $filter, localStorageService, ivhTreeviewBfs) {
+    function PracticeManagementThingsWorkController(AlertService, $filter, localStorageService, ivhTreeviewBfs, $location) {
         var vm = this;
+        
         vm.practice = null;
         vm.selectedWorkProducts = [];
         vm.load = load;
         vm.save = save;
+        vm.clean = clean;
+        
         vm.alphasTree;
         vm.load();
         
@@ -74,14 +77,7 @@
                 }
             });
         }
-
-        function save()
-        {
-            vm.practice.thingsToWorkWith = { alphasSelection: [] };
-            fillThingsToWorkWith(vm.practice.thingsToWorkWith.alphasSelection, vm.alphasTree, 0);
-            localStorageService.set('practiceInEdition', vm.practice);
-            console.log(vm.practice.thingsToWorkWith);
-        }
+        
 
         function fillThingsToWorkWith(node, nodeOrigin, nivel)
         {
@@ -104,6 +100,22 @@
                 }
             });
         }
+
+        function save()
+        {
+            vm.practice.thingsToWorkWith = { alphasSelection: [] };
+            fillThingsToWorkWith(vm.practice.thingsToWorkWith.alphasSelection, vm.alphasTree, 0);
+            localStorageService.set('practiceInEdition', vm.practice);
+            console.log($location.path());
+	        $location.path('/practice-management/spaceActivity/');
+        }
+        
+        function clean() {
+        	vm.practice.thingsToWorkWith = null;
+        	localStorageService.set('practiceInEdition', vm.practice);
+        	load();
+    	}
+
     }
         
 })();

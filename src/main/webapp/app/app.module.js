@@ -43,7 +43,8 @@
             'smoothScroll',
             'LocalStorageModule',
             'ui.tinymce',
-            'ivh.treeview'
+            'ivh.treeview',
+            'file-model'
         ])
         .run(run);
 

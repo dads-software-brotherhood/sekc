@@ -5,13 +5,13 @@
         .module('sekcApp')
         .controller('PracticeManagementGeneralController',PracticeManagementGeneralController);
 
-    PracticeManagementGeneralController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', 'PracticeCatalogs'];
+    PracticeManagementGeneralController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', 'PracticeCatalogs', '$location'];
 
-    function PracticeManagementGeneralController ($stateParams, JhiLanguageService, localStorageService, PracticeCatalogs) {
+    function PracticeManagementGeneralController ($stateParams, JhiLanguageService, localStorageService, PracticeCatalogs, $location) {
         var vm = this;
 
         vm.load = load;
-        vm.limpiar = limpiar;
+        vm.clean = clean;
         vm.practice = null;
         vm.indexKeyword = -1;
         vm.keywords = [];
@@ -87,9 +87,11 @@
             vm.practice.keywords = vm.keywords;
             console.log(vm.practice);
             localStorageService.set('practiceInEdition', vm.practice);
+            console.log($location.path());
+	        $location.path('/practice-management/practiceConditions/');
         }
 
-        function limpiar() {
+        function clean() {
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
         }
