@@ -14,9 +14,13 @@ import org.springframework.stereotype.Service;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEAction;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.repository.SELevelOfDetailRepository;
+import mx.infotec.dads.sekc.admin.kernel.dto.CheckListItem;
+import mx.infotec.dads.sekc.admin.kernel.dto.Criterion;
+import mx.infotec.dads.sekc.admin.kernel.dto.LevelOfDetailDto;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
@@ -38,40 +42,48 @@ public class LevelOfDetailServiceImpl implements LevelOfDetailService {
     private final Logger LOG = LoggerFactory.getLogger(LevelOfDetailServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getLevelOfDetailFromRequest(Object levelOfDetail, SELevelOfDetail levelOfDetailToPersistence){
+    private boolean getLevelOfDetailFromRequest(LevelOfDetailDto levelOfDetailDto, SELevelOfDetail levelOfDetailToPersistence){
         try{
-            Map< String , Object > levelOfDetailMap = (Map< String , Object >) levelOfDetail;
-            // repositoryUtil.fillSELaguageElementFields(levelOfDetailToPersistence, levelOfDetailMap);
+            repositoryUtil.fillSELaguageElementFields(levelOfDetailToPersistence, levelOfDetailDto);
             
-            levelOfDetailToPersistence.setDescription((String) levelOfDetailMap.get("description"));
-            levelOfDetailToPersistence.setSufficientLevel((boolean) levelOfDetailMap.get("isSufficientLevel"));
-            levelOfDetailToPersistence.setName((String) levelOfDetailMap.get("name"));
+            levelOfDetailToPersistence.setName( levelOfDetailDto.getName());
             
-            if (levelOfDetailMap.containsKey("checkListItem")){
-                Collection<SECheckpoint> checkListItem =  repositoryUtil.getDocuments( (ArrayList<String>) levelOfDetailMap.get("checkListItem"), SECheckpoint.class);
-                if ( !checkListItem.isEmpty())
-                    levelOfDetailToPersistence.setCheckListItem(checkListItem);
+            levelOfDetailToPersistence.setDescription(levelOfDetailDto.getDescription());
+            levelOfDetailToPersistence.setSufficientLevel((boolean) levelOfDetailDto.getIsSufficientLevel());
+            
+            if (levelOfDetailDto.getCheckListItem() != null){
+                for (CheckListItem checkpoint: levelOfDetailDto.getCheckListItem()){
+                    SECheckpoint checkListItem =  (SECheckpoint) repositoryUtil.getDocument( checkpoint.getIdCheckPoint(), SECheckpoint.class);
+                    if ( checkListItem != null)
+                        levelOfDetailToPersistence.getCheckListItem().add(checkListItem);
+                }
             }
             
-            if (levelOfDetailMap.containsKey("successor")){
-                SELevelOfDetail successor = (SELevelOfDetail) repositoryUtil.getDocument((String) levelOfDetailMap.get("successor"), SELevelOfDetail.class);
-                if ( successor != null)
-                    levelOfDetailToPersistence.setSuccessor(successor);
-            }
-            //Collection<SECriterion> criterion;
-            if (levelOfDetailMap.containsKey("criterion")){
-                Collection<SECriterion> criterion = repositoryUtil.getDocuments((ArrayList<String>) levelOfDetailMap.get("criterion"), SECriterion.class);
-                if (!criterion.isEmpty())
-                    levelOfDetailToPersistence.setCriterion(criterion);
-            }
-            
-            if (levelOfDetailMap.containsKey("predecessor")){
-                SELevelOfDetail successor = (SELevelOfDetail) repositoryUtil.getDocument((String) levelOfDetailMap.get("predecessor"), SELevelOfDetail.class);
+            if (levelOfDetailDto.getSuccessor()!= null){
+                SELevelOfDetail successor = (SELevelOfDetail) repositoryUtil.getDocument( levelOfDetailDto.getSuccessor().getIdSuccessor(), SELevelOfDetail.class);
                 if ( successor != null)
                     levelOfDetailToPersistence.setSuccessor(successor);
             }
             
+            if (levelOfDetailDto.getCriterion() != null){
+                for (Criterion criterion : levelOfDetailDto.getCriterion()){
+                SECriterion seCriterion = (SECriterion) repositoryUtil.getDocument( criterion.getIdCriterion(), SECriterion.class);
+                if (seCriterion != null)
+                    levelOfDetailToPersistence.getCriterion().add(seCriterion);
+                }
+            }
             
+            if (levelOfDetailDto.getPredecessor()!= null){
+                SELevelOfDetail predecessor = (SELevelOfDetail) repositoryUtil.getDocument( levelOfDetailDto.getPredecessor().getIdPredecessor(), SELevelOfDetail.class);
+                if ( predecessor != null)
+                    levelOfDetailToPersistence.setPredecessor(predecessor);
+            }
+            
+            if (levelOfDetailDto.getWorkProduct() != null){
+                SEWorkProduct workProduct = (SEWorkProduct) repositoryUtil.getDocument( levelOfDetailDto.getWorkProduct().getIdWorkProduct(), SEWorkProduct.class);
+                if ( workProduct != null)
+                    levelOfDetailToPersistence.setWorkProduct(workProduct);
+            }
             
             return true;
         }catch( Exception e ){
@@ -81,10 +93,10 @@ public class LevelOfDetailServiceImpl implements LevelOfDetailService {
     }
 
     @Override
-    public ResponseWrapper save(Object levelOfDetail) {
+    public ResponseWrapper save(LevelOfDetailDto levelOfDetailDto) {
         SELevelOfDetail levelOfDetailToPersistence = new SELevelOfDetail();
         response = new ResponseWrapper();
-        if (!getLevelOfDetailFromRequest(levelOfDetail, levelOfDetailToPersistence)){
+        if (!getLevelOfDetailFromRequest(levelOfDetailDto, levelOfDetailToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{
