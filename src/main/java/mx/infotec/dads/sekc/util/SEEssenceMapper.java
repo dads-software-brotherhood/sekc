@@ -311,15 +311,4 @@ public class SEEssenceMapper {
         });
         return to;
     }
-
-    public static void main(String[] args) {
-        SECriterion seCriterion = EntityBuilder.build(criterion -> {
-            criterion.setLevelOfDetail(EntityBuilder.build(seLevelOfDetail -> {
-                seLevelOfDetail.setId("838383jjdj");
-            }, SELevelOfDetail.class));
-            // If it is necesary to map the idWorkProduct associated to this
-            // Level of Detail, do it here.
-        }, SECompletionCriterion.class);
-        System.out.println(seCriterion.getLevelOfDetail().getId());
-    }
 }
