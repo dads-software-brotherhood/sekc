@@ -324,7 +324,8 @@ public class SEEssenceMapper {
         Optional.of(activity.getActions()).ifPresent(actionList -> {
             actionList.forEach(action -> {
                 act.getAction().add(EntityBuilder.build(seAction -> {
-                    seAction.setKind(ActionKind.CREATE);
+                    // increment -> map action.getIdActionKind()
+                    seAction.setKind(ActionKind.READ);
                     mapAlphaStateToAction(action.getAlphaStates(), seAction);
                     mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
                 }, SEAction.class));
