@@ -12,8 +12,6 @@
 
         vm.load = load;
         vm.practice = null;
-        vm.indexMeasure = -1;
-        vm.measures = [];
         
         //measure
         vm.deleteMeasure = deleteMeasure;
@@ -44,7 +42,7 @@
 	        
 	        if (angular.isUndefined(vm.practice.conditions) || vm.practice.conditions === null) {
 	        	
-	        	vm.practice.conditions = { entries : [], results : [], measures : [] }
+	        	vm.practice.conditions = { measures : [] }
 	        	
 	        	vm.practice.conditions.entries = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
 	        	vm.practice.conditions.results = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
@@ -65,12 +63,7 @@
             if (!vm.newMeasure)
                 return;
             
-            if(vm.indexMeasure == -1)
-            {
-            	vm.measures.push({name: vm.newMeasure});
-            }else{
-            	vm.measures[vm.indexMeasure].measure = vm.newMeasure;
-            }
+            vm.measures.push(vm.newMeasure);
             console.log(vm.measures);
             vm.cleanMeasure();
     	}
