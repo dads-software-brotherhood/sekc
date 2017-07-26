@@ -333,6 +333,27 @@
                 }]
             }
         })
+           .state('practice-consult-competency', {
+            parent: 'practice-management',
+            url: '/practiceConsultCompetency/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-consult-competency.html',
+                    //controller: 'PracticeManagementThingsWorkController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
         
          .state('practice-management-completition', {
             parent: 'practice-management',

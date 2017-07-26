@@ -188,3 +188,33 @@ select[multiple] {
 .m-tn-8{
    margin-top:-8%; 
 }
+.competency1-border{
+    border: solid 1px;
+    height:50%;
+    width:100%;
+    padding:15px;
+}
+.competency2-border{
+    border: solid 1px;
+    height:50%;
+    width:95%;
+    padding:15px;
+}
+.competency3-border{
+    border: solid 1px;
+    height:50%;
+    width:90%;
+    padding:15px;
+}
+.competency4-border{
+    border: solid 1px;
+    height:50%;
+    width:85%;
+    padding:15px;
+}
+.competency5-border{
+    border: solid 1px;
+    height:50%;
+    width:80%;
+    padding:15px;
+}
