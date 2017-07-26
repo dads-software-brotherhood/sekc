@@ -4,6 +4,7 @@ package mx.infotec.dads.sekc.admin.practice.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +23,7 @@ public class CompletitionCriterion {
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofdetail> workProductsLevelofdetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
@@ -39,12 +40,12 @@ public class CompletitionCriterion {
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public List<WorkProductsLevelofdetail> getWorkProductsLevelofdetail() {
+    public List<WorkProductsLevelofDetail> getWorkProductsLevelofdetail() {
         return workProductsLevelofdetail;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofdetail> workProductsLevelofdetail) {
+    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofDetail> workProductsLevelofdetail) {
         this.workProductsLevelofdetail = workProductsLevelofdetail;
     }
 
