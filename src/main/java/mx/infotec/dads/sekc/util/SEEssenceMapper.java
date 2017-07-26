@@ -9,6 +9,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.omg.essence.model.activityspaceandactivity.ActionKind;
+
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEAction;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivity;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivityAssociation;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEApproach;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECompletionCriterion;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
@@ -16,9 +23,11 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
+import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.util.EssenceMapping;
+import mx.infotec.dads.sekc.admin.practice.dto.Activity;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
@@ -26,6 +35,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToDo;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToWorkWith;
 import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
+import mx.infotec.dads.sekc.exception.SekcException;
 
 /**
  * SEEssenceMapper Mapper Used for PracticeDto mapping
@@ -177,7 +187,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static Object mapResultWorkProductLevelOfDetailEntryCriterion(
+    private static void mapResultWorkProductLevelOfDetailEntryCriterion(
             WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
@@ -190,7 +200,6 @@ public class SEEssenceMapper {
             }, SEEntryCriterion.class);
             criterionList.add(seCriterion);
         });
-        return criterionList;
     }
 
     /**
@@ -256,11 +265,11 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapThingsToWorkWith(ThingsToWorkWith thingsToWorkWith, SEPractice to) {
-        List<String> alphasSelectionList = thingsToWorkWith.getAlphas();
-        Objects.requireNonNull(alphasSelectionList, "You must select at least one alpha");
-        alphasSelectionList.forEach(alphaSelection -> {
+        List<String> alphasIdsList = thingsToWorkWith.getAlphas();
+        Objects.requireNonNull(alphasIdsList, "You must select at least one alpha");
+        alphasIdsList.forEach(alphaId -> {
             SEAlpha seAlpha = EntityBuilder.build(alpha -> {
-                alpha.setId(alphaSelection);
+                alpha.setId(alphaId);
             }, SEAlpha.class);
             // sub-alpha not yet mapped, if it is mandatory to map the subalphas
             // id, do it here or consider to map in the same list of
@@ -271,11 +280,11 @@ public class SEEssenceMapper {
         return to;
     }
 
-    private static void mapIdsWorkProducts(SEPractice to, List<String> alphaSelection) {
-        Optional.of(alphaSelection).ifPresent(workproductList -> {
-            workproductList.forEach(workProduct -> {
+    private static void mapIdsWorkProducts(SEPractice to, List<String> workProductIdList) {
+        Optional.of(workProductIdList).ifPresent(idsList -> {
+            idsList.forEach(workProductId -> {
                 SEWorkProduct seWorkProduct = EntityBuilder.build(wp -> {
-                    wp.setId(workProduct);
+                    wp.setId(workProductId);
                 }, SEWorkProduct.class);
                 to.getReferredElements().add(seWorkProduct);
             });
@@ -290,7 +299,67 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
+        Optional.of(thingsToDo.getActivities()).orElseThrow(SekcException::new).forEach(activity -> {
+            SEActivity seActivity = EntityBuilder.build(act -> {
+                act.setName(activity.getName());
+                act.setBriefDescription(activity.getBriefDesciption());
+                act.setDescription(activity.getDescription());
+                mapCompetencyLevel(activity, act);
+                mapApproach(activity, act);
+                mapActions(activity, act);
+
+            }, SEActivity.class);
+            SEActivitySpace seActivitySpace = EntityBuilder.build(entity -> entity.setId(activity.getIdActivitySpace()),
+                    SEActivitySpace.class);
+            SEActivityAssociation seActivityAssociation = EntityBuilder.build(actAssociation -> {
+                actAssociation.setEnd1(seActivitySpace);
+                actAssociation.setEnd2(seActivity);
+            }, SEActivityAssociation.class);
+            to.getOwnedElements().add(seActivityAssociation);
+        });
         return to;
+    }
+
+    private static void mapActions(Activity activity, SEActivity act) {
+        Optional.of(activity.getActions()).ifPresent(actionList -> {
+            actionList.forEach(action -> {
+                act.getAction().add(EntityBuilder.build(seAction -> {
+                    seAction.setKind(ActionKind.CREATE);
+                    mapAlphaStateToAction(action.getAlphaStates(), seAction);
+                    mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
+                }, SEAction.class));
+            });
+        });
+    }
+
+    private static void mapLevelOfDetailToAction(List<WorkProductsLevelofDetail> workProductsLevelofDetail,
+            SEAction seAction) {
+    }
+
+    private static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
+        // TODO Auto-generated method stub
+    }
+
+    private static void mapApproach(Activity activity, SEActivity act) {
+        Optional.of(activity.getApproaches()).ifPresent(approachList -> {
+            approachList.forEach(approach -> {
+                act.getApproach().add(EntityBuilder.build(seApproach -> {
+                    seApproach.setName(approach.getName());
+                    seApproach.setDescription(approach.getDescription());
+                }, SEApproach.class));
+            });
+        });
+    }
+
+    private static void mapCompetencyLevel(Activity activity, SEActivity act) {
+        Optional.of(activity.getCompetencies()).ifPresent(competencyList -> {
+            competencyList.forEach(competency -> {
+                act.getRequiredCompetencyLevel().add(EntityBuilder.build(seCompetencyLeve -> {
+                    seCompetencyLeve.setId(competency.getIdCompetencyLevel());
+                    // if you must map competencyid do it here
+                }, SECompetencyLevel.class));
+            });
+        });
     }
 
     /**

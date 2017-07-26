@@ -23,6 +23,9 @@
  */
 package mx.infotec.dads.sekc.essence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,6 +39,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.repository.SEAlphaRepository;
 import mx.infotec.dads.sekc.SekcApp;
+import mx.infotec.dads.sekc.util.EntityBuilder;
 
 /**
  * Test for GeneratorService
@@ -53,15 +57,57 @@ public class AlphaRepositoryTest {
 
     private static String id;
 
-    @Test
+//    @Test
     public void getAlpha() {
         LOGGER.info("get practice id = {}", id);
         SEAlpha alpha = alphaRepository.findAll().get(0);
         for (SEState seState : alpha.getStates()) {
-        	LOGGER.info("->"+seState.getName());
-			for (SECheckpoint seCheckpoint : seState.getCheckListItem()) {
-				LOGGER.info("---->"+seCheckpoint.getName());
-			}
-		}
+            LOGGER.info("->" + seState.getName());
+            for (SECheckpoint seCheckpoint : seState.getCheckListItem()) {
+                LOGGER.info("---->" + seCheckpoint.getName());
+            }
+        }
+    }
+
+    @Test
+    public void saveAlpha() {
+        System.out.println("**********************************");
+        System.out.println("**********************************");
+        System.out.println("**************ANTES***************");
+        System.out.println("**********************************");
+        System.out.println("**********************************");
+        LOGGER.info("get practice id = {}", id);
+        SEAlpha alpha = alphaRepository.findAll().get(0);
+        SEAlpha find = alphaRepository.findOne(alpha.getId());
+        for (SEState seState : find.getStates()) {
+            LOGGER.info("->" + seState.getName());
+            for (SECheckpoint seCheckpoint : seState.getCheckListItem()) {
+                LOGGER.info("---->" + seCheckpoint.getName());
+            }
+        }
+        List<String> idsStates = new ArrayList<>();
+        for (SEState seState : find.getStates()) {
+            idsStates.add(seState.getId());
+        }
+        find.setStates(new ArrayList<>());
+        for (String id : idsStates) {
+            SEState state = EntityBuilder.build(ent -> {
+                ent.setId(id);
+            }, SEState.class);
+            find.getStates().add(state);
+        }
+        alphaRepository.save(alpha);
+        System.out.println("**********************************");
+        System.out.println("**********************************");
+        System.out.println("**************DESPUES***************");
+        System.out.println("**********************************");
+        System.out.println("**********************************");
+        SEAlpha otro = alphaRepository.findOne(alpha.getId());
+        for (SEState seState : otro.getStates()) {
+            LOGGER.info("->" + seState.getName());
+            for (SECheckpoint seCheckpoint : seState.getCheckListItem()) {
+                LOGGER.info("---->" + seCheckpoint.getName());
+            }
+        }
     }
 }
