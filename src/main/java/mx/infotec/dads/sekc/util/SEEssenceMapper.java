@@ -26,6 +26,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
@@ -307,10 +308,9 @@ public class SEEssenceMapper {
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
-                mapActivityCriterion(activity, act);
-                // mapActivityCompletitionCriterion();
-                // mapActivityResources();
-
+                mapCriterios(activity.getEntryCriterion(), act.getCriterion(), true);
+                mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
+                mapActivityResources(activity, act);
             }, SEActivity.class);
             SEActivitySpace seActivitySpace = EntityBuilder.build(entity -> entity.setId(activity.getIdActivitySpace()),
                     SEActivitySpace.class);
@@ -323,9 +323,14 @@ public class SEEssenceMapper {
         return to;
     }
 
-    private static void mapActivityCriterion(Activity activity, SEActivity act) {
-        mapCriterios(activity.getEntryCriterion(), act.getCriterion(), true);
-        mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
+    private static void mapActivityResources(Activity activity, SEActivity act) {
+        Optional.of(activity.getResources()).ifPresent(resourceList -> {
+            resourceList.forEach(resource -> {
+                act.getResource().add(EntityBuilder.build(seResource -> {
+                    seResource.setContent(resource.getContent());
+                }, SEResource.class));
+            });
+        });
     }
 
     private static void mapActions(Activity activity, SEActivity act) {
