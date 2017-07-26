@@ -18,12 +18,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "workProductsLevelofdetail",
     "otherConditions"
 })
-public class CompletitionCriterion {
+public class CompletitionCriterion implements Criteriable{
 
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
@@ -40,13 +40,13 @@ public class CompletitionCriterion {
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public List<WorkProductsLevelofDetail> getWorkProductsLevelofdetail() {
-        return workProductsLevelofdetail;
+    public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
+        return workProductsLevelofDetail;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofDetail> workProductsLevelofdetail) {
-        this.workProductsLevelofdetail = workProductsLevelofdetail;
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
+        this.workProductsLevelofDetail = workProductsLevelofDetail;
     }
 
     @JsonProperty("otherConditions")

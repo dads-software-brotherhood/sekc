@@ -307,6 +307,9 @@ public class SEEssenceMapper {
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
+                mapActivityCriterion(activity, act);
+                // mapActivityCompletitionCriterion();
+                // mapActivityResources();
 
             }, SEActivity.class);
             SEActivitySpace seActivitySpace = EntityBuilder.build(entity -> entity.setId(activity.getIdActivitySpace()),
@@ -320,12 +323,16 @@ public class SEEssenceMapper {
         return to;
     }
 
+    private static void mapActivityCriterion(Activity activity, SEActivity act) {
+        mapCriterios(activity.getEntryCriterion(), act.getCriterion(), true);
+        mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
+    }
+
     private static void mapActions(Activity activity, SEActivity act) {
         Optional.of(activity.getActions()).ifPresent(actionList -> {
             actionList.forEach(action -> {
                 act.getAction().add(EntityBuilder.build(seAction -> {
-                    // increment -> map action.getIdActionKind()
-                    seAction.setKind(ActionKind.READ);
+                    seAction.setKind(ActionKind.valueOf(action.getIdActionKind()));
                     mapAlphaStateToAction(action.getAlphaStates(), seAction);
                     mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
                 }, SEAction.class));
@@ -333,12 +340,25 @@ public class SEEssenceMapper {
         });
     }
 
-    private static void mapLevelOfDetailToAction(List<WorkProductsLevelofDetail> workProductsLevelofDetail,
-            SEAction seAction) {
+    private static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
+        Optional.of(alphaStates).ifPresent(alphaStateList -> {
+            alphaStateList.forEach(alphaState -> {
+                seAction.getAlpha().add(EntityBuilder.build(seAlphaNew -> {
+                    seAlphaNew.setId(alphaState.getIdAlpha());
+                }, SEAlpha.class));
+            });
+        });
     }
 
-    private static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
-        // TODO Auto-generated method stub
+    private static void mapLevelOfDetailToAction(List<WorkProductsLevelofDetail> workProductsLevelofDetail,
+            SEAction seAction) {
+        Optional.of(workProductsLevelofDetail).ifPresent(workProductsLevelofDetailList -> {
+            workProductsLevelofDetailList.forEach(workProduct -> {
+                seAction.getWorkProduct().add(EntityBuilder.build(seWorkProductNew -> {
+                    seWorkProductNew.setId(workProduct.getIdWorkProduct());
+                }, SEWorkProduct.class));
+            });
+        });
     }
 
     private static void mapApproach(Activity activity, SEActivity act) {
