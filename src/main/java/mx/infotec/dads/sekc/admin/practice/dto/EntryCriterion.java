@@ -20,31 +20,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class EntryCriterion {
 
     @JsonProperty("alphaStates")
-    private AlphaState alphaStates;
+    private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofDetail")
-    private WorkProductsLevelofDetail workProductsLevelofDetail;
+    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alphaStates")
-    public AlphaState getAlphaStates() {
+    public List<AlphaState> getAlphaStates() {
         return alphaStates;
     }
 
     @JsonProperty("alphaStates")
-    public void setAlphaStates(AlphaState alphaStates) {
+    public void setAlphaStates(List<AlphaState> alphaStates) {
         this.alphaStates = alphaStates;
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public WorkProductsLevelofDetail getWorkProductsLevelofDetail() {
+    public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
         return workProductsLevelofDetail;
     }
 
     @JsonProperty("workProductsLevelofDetail")
-    public void setWorkProductsLevelofDetail(WorkProductsLevelofDetail workProductsLevelofDetail) {
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
         this.workProductsLevelofDetail = workProductsLevelofDetail;
     }
 

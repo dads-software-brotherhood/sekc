@@ -15,14 +15,14 @@ public interface Criteriable {
      * 
      * @return AlphaState
      */
-    public AlphaState getAlphaStates();
+    public List<AlphaState> getAlphaStates();
 
     /**
      * get WorkProductsLevelOfDetail
      * 
      * @return WorkProductsLevelofDetail
      */
-    public WorkProductsLevelofDetail getWorkProductsLevelofDetail();
+    public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail();
 
     /**
      * get OtherConditions

@@ -28,6 +28,15 @@ select[multiple] {
 .m-t-135{
     margin-top: 135px;
 }
+.text-green{
+    color:#31B404;
+}
+.text-yellow{
+    color: #FFBF00;
+}
+.m-t-18 a{
+    margin-top:180%!important;
+}
 /*General*/
 .c-white a {
     
@@ -149,4 +158,23 @@ select[multiple] {
     border: solid 1px;
     height:50%;
     padding:15px;
+}
+.workproduct-border {
+  background-image: url(/content/images/workproduct.png);
+  background-repeat: no-repeat;
+  margin-left:2%;
+  width: 330px;
+  height: 100px;  
+  display: block; 
+}
+.ActivitySpace-border {
+  background-image: url(/content/images/ActivitySpace.png);
+  background-repeat: no-repeat;
+  margin-left:2%;
+  width: 350px;
+  height: 250px;  
+  display: block;
+}
+.m-tn-8{
+   margin-top:-8%; 
 }

@@ -12,35 +12,39 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "alphaStates", "workProductsLevelofdetail", "otherConditions" })
+@JsonPropertyOrder({
+    "alphaStates",
+    "workProductsLevelofdetail",
+    "otherConditions"
+})
 public class CompletitionCriterion {
 
     @JsonProperty("alphaStates")
-    private AlphaState alphaStates;
+    private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofdetail")
-    private WorkProductsLevelofDetail workProductsLevelofdetail;
+    private List<WorkProductsLevelofdetail> workProductsLevelofdetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("alphaStates")
-    public AlphaState getAlphaStates() {
+    public List<AlphaState> getAlphaStates() {
         return alphaStates;
     }
 
     @JsonProperty("alphaStates")
-    public void setAlphaStates(AlphaState alphaStates) {
+    public void setAlphaStates(List<AlphaState> alphaStates) {
         this.alphaStates = alphaStates;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public WorkProductsLevelofDetail getWorkProductsLevelofDetail() {
+    public List<WorkProductsLevelofdetail> getWorkProductsLevelofdetail() {
         return workProductsLevelofdetail;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofDetail(WorkProductsLevelofDetail workProductsLevelofdetail) {
+    public void setWorkProductsLevelofdetail(List<WorkProductsLevelofdetail> workProductsLevelofdetail) {
         this.workProductsLevelofdetail = workProductsLevelofdetail;
     }
 

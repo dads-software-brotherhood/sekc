@@ -4,7 +4,6 @@ package mx.infotec.dads.sekc.admin.practice.dto;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "idActionKind", "alphaStates", "workProductsLevelofDetail" })
+@JsonPropertyOrder({
+    "idActionKind",
+    "alphaStates",
+    "workProductsLevelofDetail"
+})
 public class Action {
 
     @JsonProperty("idActionKind")
