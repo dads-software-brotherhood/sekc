@@ -1,7 +1,7 @@
 package mx.infotec.dads.sekc.util;
 
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
 import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
 import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
 
 import java.util.Collection;
@@ -18,7 +18,6 @@ import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
-import mx.infotec.dads.sekc.admin.practice.dto.AlphasSelection;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
@@ -89,13 +88,16 @@ public class SEEssenceMapper {
         return to;
     }
 
-    private static void mapCriterios(Collection<? extends Criteriable> criteriableList,
-            Collection<SECriterion> seCriterionList) {
-        criteriableList.forEach(entry -> {
-            Objects.requireNonNull(seCriterionList, "The SECriterion List can not be null");
-            mapResultAlphaStatesCriterion(entry.getAlphaStates(), seCriterionList);
-            mapResultWorkProductLevelOfDetailCriterion(entry.getWorkProductsLevelofDetail(), seCriterionList);
-            mapResultOtherConditions(entry.getOtherConditions(), seCriterionList);
+    private static void mapCriterios(Criteriable criteriable, Collection<SECriterion> seCriterionList) {
+        Optional.of(criteriable.getAlphaStates()).ifPresent(alphaStates -> {
+            alphaStates.forEach(entry -> mapResultAlphaStatesCriterion(entry, seCriterionList));
+        });
+        Optional.of(criteriable.getWorkProductsLevelofDetail()).ifPresent(workProducts -> {
+            workProducts.forEach(entry -> mapResultWorkProductLevelOfDetailCriterion(entry, seCriterionList));
+        });
+        Optional.of(criteriable.getOtherConditions()).ifPresent(entry -> {
+            mapResultOtherConditions(entry, seCriterionList);
+
         });
     }
 
@@ -165,28 +167,28 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapThingsToWorkWith(ThingsToWorkWith thingsToWorkWith, SEPractice to) {
-        List<AlphasSelection> alphasSelectionList = thingsToWorkWith.getAlphasSelection();
+        List<String> alphasSelectionList = thingsToWorkWith.getAlphas();
         Objects.requireNonNull(alphasSelectionList, "You must select at least one alpha");
         alphasSelectionList.forEach(alphaSelection -> {
             SEAlpha seAlpha = EntityBuilder.build(alpha -> {
-                alpha.setId(alphaSelection.getIdAlpha());
+                alpha.setId(alphaSelection);
             }, SEAlpha.class);
             // sub-alpha not yet mapped, if it is mandatory to map the subalphas
             // id, do it here or consider to map in the same list of
             // alphaSelectionList
-            mapIdsWorkProducts(to, alphaSelection);
-            to.getOwnedElements().add(seAlpha);
+            to.getReferredElements().add(seAlpha);
         });
+        mapIdsWorkProducts(to, thingsToWorkWith.getWorkProducts());
         return to;
     }
 
-    private static void mapIdsWorkProducts(SEPractice to, AlphasSelection alphaSelection) {
-        Optional.of(alphaSelection.getWorkProducts()).ifPresent(workproductList -> {
+    private static void mapIdsWorkProducts(SEPractice to, List<String> alphaSelection) {
+        Optional.of(alphaSelection).ifPresent(workproductList -> {
             workproductList.forEach(workProduct -> {
                 SEWorkProduct seWorkProduct = EntityBuilder.build(wp -> {
                     wp.setId(workProduct);
                 }, SEWorkProduct.class);
-                to.getOwnedElements().add(seWorkProduct);
+                to.getReferredElements().add(seWorkProduct);
             });
         });
     }

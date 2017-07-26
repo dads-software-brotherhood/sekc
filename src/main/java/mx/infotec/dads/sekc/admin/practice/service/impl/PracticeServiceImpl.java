@@ -61,41 +61,43 @@ public class PracticeServiceImpl implements PracticeService {
                 if (seKernel != null)
                     sePractice.setOwner(seKernel);
             }
+            // DCP -> Comendado para adapar de acuerdo al nuevo PracticeDTO.
+            
             // entryCriterion
-            if (practiceDto.getConditions().getEntries() != null){
-                Collection<SECriterion> entryCriterionList = new ArrayList<>();
-                practiceDto.getConditions().getEntries().forEach((entry) -> {
-                    SEEntryCriterion entryCriterion = new SEEntryCriterion();
-                    
-                    SEState state = (SEState) repositoryUtil.getDocument( entry.getAlphaStates().getIdState() , SEState.class);
-                    if (state != null)
-                        entryCriterion.setState(state);
-                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
-                            entry.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
-                    entryCriterion.setLevelOfDetail(levelofDetail);
-                    entryCriterionList.add(entryCriterion);
-                    sePractice.getEntry().addAll(entry.getOtherConditions());
-                });
-                sePractice.setEntryCriterion(entryCriterionList);
-            }
-            // ---- entryCriterion
-            // resultCriterion
-            if (practiceDto.getConditions().getResults() != null){
-                Collection<SECriterion> resultCriterionList = new ArrayList<>();
-                practiceDto.getConditions().getResults().forEach((result) -> {
-                    SECompletionCriterion resultCriterion = new SECompletionCriterion();
-                    
-                    SEState state = (SEState) repositoryUtil.getDocument( result.getAlphaStates().getIdState() , SEState.class);
-                    if (state != null)
-                        resultCriterion.setState(state);
-                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
-                            result.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
-                    resultCriterion.setLevelOfDetail(levelofDetail);
-                    resultCriterionList.add(resultCriterion);
-                    sePractice.getResult().addAll(result.getOtherConditions());
-                });
-                sePractice.setResultCriterion(resultCriterionList);
-            }
+//            if (practiceDto.getConditions().getEntries() != null){
+//                Collection<SECriterion> entryCriterionList = new ArrayList<>();
+//                practiceDto.getConditions().getEntries().forEach((entry) -> {
+//                    SEEntryCriterion entryCriterion = new SEEntryCriterion();
+//                    
+//                    SEState state = (SEState) repositoryUtil.getDocument( entry.getAlphaStates().getIdState() , SEState.class);
+//                    if (state != null)
+//                        entryCriterion.setState(state);
+//                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
+//                            entry.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
+//                    entryCriterion.setLevelOfDetail(levelofDetail);
+//                    entryCriterionList.add(entryCriterion);
+//                    sePractice.getEntry().addAll(entry.getOtherConditions());
+//                });
+//                sePractice.setEntryCriterion(entryCriterionList);
+//            }
+//            // ---- entryCriterion
+//            // resultCriterion
+//            if (practiceDto.getConditions().getResults() != null){
+//                Collection<SECriterion> resultCriterionList = new ArrayList<>();
+//                practiceDto.getConditions().getResults().forEach((result) -> {
+//                    SECompletionCriterion resultCriterion = new SECompletionCriterion();
+//                    
+//                    SEState state = (SEState) repositoryUtil.getDocument( result.getAlphaStates().getIdState() , SEState.class);
+//                    if (state != null)
+//                        resultCriterion.setState(state);
+//                    SELevelOfDetail levelofDetail = (SELevelOfDetail) repositoryUtil.getDocument( 
+//                            result.getWorkProductsLevelofDetail().getIdLevelOfDetail() , SELevelOfDetail.class);
+//                    resultCriterion.setLevelOfDetail(levelofDetail);
+//                    resultCriterionList.add(resultCriterion);
+//                    sePractice.getResult().addAll(result.getOtherConditions());
+//                });
+//                sePractice.setResultCriterion(resultCriterionList);
+//            }
             // ---- resultCriterion
             
             return true;

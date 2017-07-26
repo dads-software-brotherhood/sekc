@@ -13,23 +13,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "alphasSelection"
+    "alphas",
+    "workProducts"
 })
 public class ThingsToWorkWith {
 
-    @JsonProperty("alphasSelection")
-    private List<AlphasSelection> alphasSelection = null;
+    @JsonProperty("alphas")
+    private List<String> alphas = null;
+    @JsonProperty("workProducts")
+    private List<String> workProducts = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("alphasSelection")
-    public List<AlphasSelection> getAlphasSelection() {
-        return alphasSelection;
+    @JsonProperty("alphas")
+    public List<String> getAlphas() {
+        return alphas;
     }
 
-    @JsonProperty("alphasSelection")
-    public void setAlphasSelection(List<AlphasSelection> alphasSelection) {
-        this.alphasSelection = alphasSelection;
+    @JsonProperty("alphas")
+    public void setAlphas(List<String> alphas) {
+        this.alphas = alphas;
+    }
+
+    @JsonProperty("workProducts")
+    public List<String> getWorkProducts() {
+        return workProducts;
+    }
+
+    @JsonProperty("workProducts")
+    public void setWorkProducts(List<String> workProducts) {
+        this.workProducts = workProducts;
     }
 
     @JsonAnyGetter

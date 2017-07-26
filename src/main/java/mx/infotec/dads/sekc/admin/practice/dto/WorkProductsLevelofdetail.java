@@ -2,7 +2,6 @@
 package mx.infotec.dads.sekc.admin.practice.dto;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -13,23 +12,36 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "activities"
+    "idWorkProduct",
+    "idLevelOfDetail"
 })
-public class ThingsToDo {
+public class WorkProductsLevelofdetail {
 
-    @JsonProperty("activities")
-    private List<Activity> activities = null;
+    @JsonProperty("idWorkProduct")
+    private String idWorkProduct;
+    @JsonProperty("idLevelOfDetail")
+    private String idLevelOfDetail;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("activities")
-    public List<Activity> getActivities() {
-        return activities;
+    @JsonProperty("idWorkProduct")
+    public String getIdWorkProduct() {
+        return idWorkProduct;
     }
 
-    @JsonProperty("activities")
-    public void setActivities(List<Activity> activities) {
-        this.activities = activities;
+    @JsonProperty("idWorkProduct")
+    public void setIdWorkProduct(String idWorkProduct) {
+        this.idWorkProduct = idWorkProduct;
+    }
+
+    @JsonProperty("idLevelOfDetail")
+    public String getIdLevelOfDetail() {
+        return idLevelOfDetail;
+    }
+
+    @JsonProperty("idLevelOfDetail")
+    public void setIdLevelOfDetail(String idLevelOfDetail) {
+        this.idLevelOfDetail = idLevelOfDetail;
     }
 
     @JsonAnyGetter

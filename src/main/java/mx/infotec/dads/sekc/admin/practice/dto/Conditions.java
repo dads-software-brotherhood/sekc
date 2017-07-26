@@ -20,31 +20,31 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Conditions {
 
     @JsonProperty("entries")
-    private List<Entry> entries = null;
+    private Entries entries;
     @JsonProperty("results")
-    private List<Result> results = null;
+    private Results results;
     @JsonProperty("measures")
     private List<String> measures = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("entries")
-    public List<Entry> getEntries() {
+    public Entries getEntries() {
         return entries;
     }
 
     @JsonProperty("entries")
-    public void setEntries(List<Entry> entries) {
+    public void setEntries(Entries entries) {
         this.entries = entries;
     }
 
     @JsonProperty("results")
-    public List<Result> getResults() {
+    public Results getResults() {
         return results;
     }
 
     @JsonProperty("results")
-    public void setResults(List<Result> results) {
+    public void setResults(Results results) {
         this.results = results;
     }
 
