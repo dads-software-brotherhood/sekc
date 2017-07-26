@@ -65,7 +65,7 @@
                 
             if(vm.indexKeyword == -1)
             {
-            	vm.keywords.push({keyWord: vm.newKeyword});
+            	vm.keywords.push(vm.newKeyword);
             }else{
             	vm.keywords[vm.indexKeyword].keyWord = vm.newKeyword;
             }
@@ -92,6 +92,7 @@
         }
 
         function clean() {
+        	vm.keywords = null;
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
         }
