@@ -40,7 +40,7 @@ public class KernelServiceImpl implements KernelService {
     private boolean getKernelFromRequest(Object kernel, SEKernel kernelToPersistence){
         try{
             Map< String , Object > kernelMap = (Map< String , Object >) kernel;
-            repositoryUtil.fillSEElementGroupFields(kernelToPersistence, kernelMap);
+         //   repositoryUtil.fillSEElementGroupFields(kernelToPersistence, kernelMap);
             
             if (kernelMap.containsKey("referringMethod")){
                 List<SEMethod> referringMethod = repositoryUtil.getDocuments((ArrayList<String>) kernelMap.get("referringMethod"), SEMethod.class);
