@@ -115,7 +115,7 @@ public class SEEssenceMapper {
     }
 
     /**
-     * Map a Other Criteriable Entity to a SECriteriable Collection
+     * Map a Criteriable Entity to a SECriteriable Collection
      * 
      * @param criteriable
      * @param seCriterionList
