@@ -26,6 +26,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
@@ -74,7 +75,7 @@ public class SEEssenceMapper {
      * @param from
      * @param practice
      */
-    private static void mapGeneralInfo(PracticeDto from, SEPractice practice) {
+    public static void mapGeneralInfo(PracticeDto from, SEPractice practice) {
         practice.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEKernel.class));
         practice.setName(from.getName());
         practice.setObjective(from.getObjective());
@@ -86,7 +87,7 @@ public class SEEssenceMapper {
     }
 
     /**
-     * Map Conditions from PracticeDto to a SEPractice
+     * Map Conditions from PracticeDto Entity to a SEPractice
      *
      * @param conditions
      * @return SEAreaOfConcern
@@ -100,14 +101,28 @@ public class SEEssenceMapper {
         return to;
     }
 
-    private static void mapCriterios(Criteriable criteriable, Collection<SECriterion> seCriterionList,
-            boolean isEntry) {
+    /**
+     * Map a Criteriable Entity to a SECriterion Collection
+     * 
+     * @param criteriable
+     * @param seCriterionList
+     * @param isEntry
+     */
+    public static void mapCriterios(Criteriable criteriable, Collection<SECriterion> seCriterionList, boolean isEntry) {
         mapAlphaCriterion(criteriable, seCriterionList, isEntry);
         mapWorkProductCriterion(criteriable, seCriterionList, isEntry);
         mapOtherCriterion(criteriable, seCriterionList, isEntry);
     }
 
-    private static void mapOtherCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
+    /**
+     * Map a Criteriable Entity to a SECriteriable Collection
+     * 
+     * @param criteriable
+     * @param seCriterionList
+     * @param isEntry
+     */
+
+    public static void mapOtherCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
             boolean isEntry) {
         Optional.of(criteriable.getOtherConditions()).ifPresent(entry -> {
             if (isEntry) {
@@ -118,7 +133,7 @@ public class SEEssenceMapper {
         });
     }
 
-    private static void mapWorkProductCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
+    public static void mapWorkProductCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
             boolean isEntry) {
         Optional.of(criteriable.getWorkProductsLevelofDetail()).ifPresent(workProducts -> {
             if (isEntry) {
@@ -129,7 +144,7 @@ public class SEEssenceMapper {
         });
     }
 
-    private static void mapAlphaCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
+    public static void mapAlphaCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
             boolean isEntry) {
         Optional.of(criteriable.getAlphaStates()).ifPresent(alphaStates -> {
             if (isEntry) {
@@ -146,7 +161,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static void mapResultAlphaStatesEntryCriterion(AlphaState alphaState,
+    public static void mapResultAlphaStatesEntryCriterion(AlphaState alphaState,
             Collection<SECriterion> criterionList) {
         Optional.of(alphaState).ifPresent(element -> {
             Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
@@ -166,7 +181,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static void mapResultAlphaStatesResultCriterion(AlphaState alphaState,
+    public static void mapResultAlphaStatesResultCriterion(AlphaState alphaState,
             Collection<SECriterion> criterionList) {
         Optional.of(alphaState).ifPresent(element -> {
             Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
@@ -187,7 +202,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static void mapResultWorkProductLevelOfDetailEntryCriterion(
+    public static void mapResultWorkProductLevelOfDetailEntryCriterion(
             WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
@@ -209,7 +224,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static Object mapResultWorkProductLevelOfDetailResultCriterion(
+    public static Object mapResultWorkProductLevelOfDetailResultCriterion(
             WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
@@ -231,7 +246,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static void mapResultOtherEntryConditions(List<String> otherConditionsList,
+    public static void mapResultOtherEntryConditions(List<String> otherConditionsList,
             Collection<SECriterion> criterionList) {
         Optional.of(otherConditionsList).ifPresent(conditions -> {
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
@@ -247,7 +262,7 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static void mapResultOtherResultConditions(List<String> otherConditionsList,
+    public static void mapResultOtherResultConditions(List<String> otherConditionsList,
             Collection<SECriterion> criterionList) {
         Optional.of(otherConditionsList).ifPresent(conditions -> {
             SECompletionCriterion seCriterion = EntityBuilder.build(criterion -> {
@@ -280,7 +295,7 @@ public class SEEssenceMapper {
         return to;
     }
 
-    private static void mapIdsWorkProducts(SEPractice to, List<String> workProductIdList) {
+    public static void mapIdsWorkProducts(SEPractice to, List<String> workProductIdList) {
         Optional.of(workProductIdList).ifPresent(idsList -> {
             idsList.forEach(workProductId -> {
                 SEWorkProduct seWorkProduct = EntityBuilder.build(wp -> {
@@ -307,7 +322,9 @@ public class SEEssenceMapper {
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
-
+                mapCriterios(activity.getEntryCriterion(), act.getCriterion(), true);
+                mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
+                mapActivityResources(activity, act);
             }, SEActivity.class);
             SEActivitySpace seActivitySpace = EntityBuilder.build(entity -> entity.setId(activity.getIdActivitySpace()),
                     SEActivitySpace.class);
@@ -320,11 +337,21 @@ public class SEEssenceMapper {
         return to;
     }
 
-    private static void mapActions(Activity activity, SEActivity act) {
+    public static void mapActivityResources(Activity activity, SEActivity act) {
+        Optional.of(activity.getResources()).ifPresent(resourceList -> {
+            resourceList.forEach(resource -> {
+                act.getResource().add(EntityBuilder.build(seResource -> {
+                    seResource.setContent(resource.getContent());
+                }, SEResource.class));
+            });
+        });
+    }
+
+    public static void mapActions(Activity activity, SEActivity act) {
         Optional.of(activity.getActions()).ifPresent(actionList -> {
             actionList.forEach(action -> {
                 act.getAction().add(EntityBuilder.build(seAction -> {
-                    seAction.setKind(ActionKind.CREATE);
+                    seAction.setKind(ActionKind.valueOf(action.getIdActionKind()));
                     mapAlphaStateToAction(action.getAlphaStates(), seAction);
                     mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
                 }, SEAction.class));
@@ -332,15 +359,28 @@ public class SEEssenceMapper {
         });
     }
 
-    private static void mapLevelOfDetailToAction(List<WorkProductsLevelofDetail> workProductsLevelofDetail,
+    public static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
+        Optional.of(alphaStates).ifPresent(alphaStateList -> {
+            alphaStateList.forEach(alphaState -> {
+                seAction.getAlpha().add(EntityBuilder.build(seAlphaNew -> {
+                    seAlphaNew.setId(alphaState.getIdAlpha());
+                }, SEAlpha.class));
+            });
+        });
+    }
+
+    public static void mapLevelOfDetailToAction(List<WorkProductsLevelofDetail> workProductsLevelofDetail,
             SEAction seAction) {
+        Optional.of(workProductsLevelofDetail).ifPresent(workProductsLevelofDetailList -> {
+            workProductsLevelofDetailList.forEach(workProduct -> {
+                seAction.getWorkProduct().add(EntityBuilder.build(seWorkProductNew -> {
+                    seWorkProductNew.setId(workProduct.getIdWorkProduct());
+                }, SEWorkProduct.class));
+            });
+        });
     }
 
-    private static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
-        // TODO Auto-generated method stub
-    }
-
-    private static void mapApproach(Activity activity, SEActivity act) {
+    public static void mapApproach(Activity activity, SEActivity act) {
         Optional.of(activity.getApproaches()).ifPresent(approachList -> {
             approachList.forEach(approach -> {
                 act.getApproach().add(EntityBuilder.build(seApproach -> {
@@ -351,7 +391,7 @@ public class SEEssenceMapper {
         });
     }
 
-    private static void mapCompetencyLevel(Activity activity, SEActivity act) {
+    public static void mapCompetencyLevel(Activity activity, SEActivity act) {
         Optional.of(activity.getCompetencies()).ifPresent(competencyList -> {
             competencyList.forEach(competency -> {
                 act.getRequiredCompetencyLevel().add(EntityBuilder.build(seCompetencyLeve -> {

@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "workProductsLevelofDetail",
     "otherConditions"
 })
-public class EntryCriterion {
+public class EntryCriterion implements Criteriable{
 
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
