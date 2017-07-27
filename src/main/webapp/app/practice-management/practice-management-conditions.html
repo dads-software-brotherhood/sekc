@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="measure in vm.measures">
-                                <td>{{measure.name}}</td>
+                                <td>{{measure}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>                            
                             </tr>
                         </tbody>
@@ -98,7 +98,7 @@
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions">
-                                <td>{{otherConditions.description}}</td>
+                                <td>{{otherConditions}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -164,7 +164,7 @@
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions">
-                                <td>{{otherConditions.description}}</td>
+                                <td>{{otherConditions}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>

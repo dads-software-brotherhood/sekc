@@ -92,7 +92,7 @@
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
 
-                vm.practice.conditions.entries.otherConditions.push({ description: vm.anotherEntryCriteria });
+                vm.practice.conditions.entries.otherConditions.push(vm.anotherEntryCriteria);
             }
             vm.cleanEntries();
 
@@ -111,7 +111,7 @@
             		
         	}else if(vm.anotherEntryCriteriaResult != null && vm.anotherEntryCriteriaResult != undefined){
 
-                vm.practice.conditions.results.otherConditions.push({description: vm.anotherEntryCriteriaResult});
+                vm.practice.conditions.results.otherConditions.push(vm.anotherEntryCriteriaResult);
             }
             vm.cleanResults();
     	

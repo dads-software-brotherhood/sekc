@@ -178,3 +178,8 @@ select[multiple] {
 .m-tn-8{
    margin-top:-8%; 
 }
+
+.modal-header, .modal-footer{
+	background-color: white;
+}
+}
