@@ -1,7 +1,8 @@
 {
 	"findPractice": {
 		"home": {
-			"title": "Buscar Práctica"
+			"title": "Buscar Práctica",
+			"results": "Resultados"
 		},
 		"search": "Buscar práctica",
 		"practice": {

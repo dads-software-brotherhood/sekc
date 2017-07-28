@@ -7,7 +7,7 @@
     FindPractice.$inject = ['$resource'];
 
     function FindPractice ($resource) {
-        var resourceUrl =  'api/v1/repositories/:id';
+        var resourceUrl =  'api/v1/practices/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

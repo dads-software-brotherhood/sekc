@@ -15,25 +15,36 @@
 	<div class="table-responsive">
 		<table class="jh-table table table-striped">
 			<thead>
-				<tr jh-sort="vm.predicate" ascending="vm.reverse"
-					callback="vm.transition()">
-					<th jh-sort-by="name"><span
-						data-translate="findPractice.practice.name">Name</span> <span
-						class="glyphicon glyphicon-sort"></span></th>
-					<th jh-sort-by="url"><span
-						data-translate="findPractice.practice.briefDescription">BriefDescription</span>
-						<span class="glyphicon glyphicon-sort"></span></th>
-					<th jh-sort-by="description"><span
-						data-translate="findPractice.practice.description">Description</span>
-						<span class="glyphicon glyphicon-sort"></span></th>
-					<th></th>
+				<tr>
+					<th><span data-translate="findPractice.home.results">Name</span>
+						<span class="glyphicon"></span></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="practice in vm.repositories track by practice.id">
-					<td>{{practice.name}}</td>
-					<td>{{practice.briefDescription}}</td>
-					<td>{{practice.description}}</td>
+				<tr ng-repeat="practice in vm.practices track by practice.idPractice">
+					<td>
+						<div class="col-md-8">
+							<div class="well white">
+								<form class="form-floating placeholder-form">
+									<fieldset>
+										<h5>{{practice.name}}</h5>
+										<h6>
+											<strong>BriefDescription</strong>
+										</h6>
+										<p>{{practice.briefDescription}}</p>
+										<h6>
+											<strong>Description</strong>
+										</h6>
+										<p>{{practice.description}}</p>
+										<h6>
+											<strong>Keywords</strong>
+										</h6>
+										<p>{{practice.keywords}}</p>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</td>
 					<td class="text-right">
 						<div class="btn-group flex-btn-group-container">
 							<button type="submit"
@@ -48,11 +59,12 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="text-center">
-		<jhi-item-count page="vm.page" total="vm.queryCount"
-			items-per-page="vm.itemsPerPage"></jhi-item-count>
-		<uib-pagination class="pagination-sm" total-items="vm.totalItems"
-			items-per-page="vm.itemsPerPage" ng-model="vm.page"
-			ng-change="vm.transition()"></uib-pagination>
-	</div>
+</div>
+<div class="text-center">
+	<jhi-item-count page="vm.page" total="vm.queryCount"
+		items-per-page="vm.itemsPerPage"></jhi-item-count>
+	<uib-pagination class="pagination-sm" total-items="vm.totalItems"
+		items-per-page="vm.itemsPerPage" ng-model="vm.page"
+		ng-change="vm.transition()"></uib-pagination>
+</div>
 </div>
