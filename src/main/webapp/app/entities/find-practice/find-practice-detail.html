@@ -1,20 +1,20 @@
 
 <div>
-    <h2><span data-translate="repository.detail.title">Repository</span> {{vm.repository.id}}</h2>
+    <h2><span data-translate="findPractice.home.title">Practice</span> {{vm.practice.name}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="repository.name">Name</span></dt>
+        <dt><span data-translate="findPractice.practice.name">Name</span></dt>
         <dd>
-            <span>{{vm.repository.name}}</span>
+            <span>{{vm.practice.name}}</span>
         </dd>
-        <dt><span data-translate="repository.url">Url</span></dt>
+        <dt><span data-translate="findPractice.practice.briefDescription">Url</span></dt>
         <dd>
-            <span>{{vm.repository.url}}</span>
+            <span>{{vm.practice.briefDescription}}</span>
         </dd>
-        <dt><span data-translate="repository.description">Description</span></dt>
+        <dt><span data-translate="findPractice.practice.description">Description</span></dt>
         <dd>
-            <span>{{vm.repository.description}}</span>
+            <span>{{vm.practice.description}}</span>
         </dd>
     </dl>
 
@@ -22,10 +22,5 @@
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button" ui-sref="repository-repository-detail.edit({id:vm.repository.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
     </button>
 </div>

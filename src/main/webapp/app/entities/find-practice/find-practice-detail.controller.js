@@ -10,10 +10,10 @@
     function FindPracticeDetailController($scope, $rootScope, $stateParams, previousState, entity, Repository) {
         var vm = this;
 
-        vm.repository = entity;
+        vm.practice = entity;
         vm.previousState = previousState.name;
 
-        var unsubscribe = $rootScope.$on('sekcApp:repositoryUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('sekcApp:findPracticeUpdate', function(event, result) {
             vm.repository = result;
         });
         $scope.$on('$destroy', unsubscribe);

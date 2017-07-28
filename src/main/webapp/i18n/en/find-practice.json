@@ -1,21 +1,13 @@
 {
 	"findPractice": {
 		"home": {
-			"title": "Find Practice",
-			"createLabel": "Create a new Repository",
-			"createOrEditLabel": "Create or edit a Repository"
+			"title": "Find Practice"
 		},
-		"created": "A new Repository is created with identifier {{ param }}",
-		"updated": "A Repository is updated with identifier {{ param }}",
-		"deleted": "A Repository is deleted with identifier {{ param }}",
-		"delete": {
-			"question": "Are you sure you want to delete Repository {{ id }}?"
-		},
-		"detail": {
-			"title": "Repository"
-		},
-		"name": "Name",
-		"url": "Url",
-		"description": "Description"
+		"search": "Search",
+		"practice": {
+			"name": "Name",
+			"briefDescription": "Brief Description",
+			"description": "Description"
+		}
 	}
 }
