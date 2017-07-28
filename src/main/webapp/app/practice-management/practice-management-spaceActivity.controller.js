@@ -16,32 +16,24 @@
         vm.addActivity = addActivity;
         vm.activityInEdition = null;
         vm.deleteActivity = deleteActivity;
+        vm.cleanModales = cleanModales;
+        vm.cleanModales();
 
-        vm.competency = null;
-        vm.competencyLevel = null;
         vm.addCompetency = addCompetency;
         vm.deleteCompetency = deleteCompetency;
-
-        vm.nameApproach = null;
-        vm.descriptionApproach = null;
+        
         vm.addApproach = addApproach;
         vm.deleteApproach = deleteApproach;
-
-        vm.alpha = null;
-    	vm.alphaState = null;
-    	vm.workProduct = null;
-    	vm.levelOfDetail = null;
-    	vm.descriptionEntry = null;
+        
         vm.addEntry= addEntry;
         vm.deleteEntry = deleteEntry;
+        vm.alphaEntryFilter = alphaEntryFilter;
+        vm.workProductsEntryFilter = workProductsEntryFilter 
         
-        vm.alphaCompletition = null;
-    	vm.alphaStateCompletition = null;
-    	vm.workProductCompletition = null;
-    	vm.levelOfDetailCompletition = null;
-    	vm.descriptionCompletition = null;
         vm.addCompletition= addCompletition;
         vm.deleteCompletition = deleteCompletition;
+        vm.alphaCompletitionFilter = alphaCompletitionFilter;
+        vm.workProductsCompletitionFilter = workProductsCompletitionFilter;
         
         vm.actionInEdition = newAction();
         vm.addAction = addAction;
@@ -49,10 +41,11 @@
         vm.deleteActionElement = deleteActionElement;
         vm.newAction = newAction;
         vm.fillAction = fillAction;
+        vm.alphaStateFilter = alphaStateFilter;
+        vm.workProductsFilter = workProductsFilter;
+        vm.competenciesFilter = competenciesFilter;
         
-        vm.type = null;
-		vm.descriptionCompletition = null;
-		vm.attachment = null;
+        
 		vm.addResource= addResource;
 	    vm.deleteResource = deleteResource;
        
@@ -62,8 +55,12 @@
         vm.load();
         
 
-        function load() {
-        	vm.practice = localStorageService.get('practiceInEdition');
+        function load()
+        {
+            vm.practice = localStorageService.get('practiceInEdition');
+            if (vm.practice == null) {
+                vm.practice = {};
+            }
         	vm.activitySpaces = localStorageService.get('activitySpaces');
             vm.competencies = localStorageService.get('competencies');
 
@@ -78,7 +75,6 @@
             }
 	       
         }
-        
         function onError(error) {
             AlertService.error(error.data.message);
         }
@@ -90,7 +86,6 @@
             vm.practice.thingsToDo.activities.push(vm.activityInEdition);
             vm.activityInEdition = newActivity();
         }
-
         function newActivity()
         {
             return {
@@ -110,14 +105,14 @@
                 }
             };
         }
-        
         function deleteActivity (index){
         	vm.practice.thingsToDo.activities.splice(index, 1);
         }
 
         //---------------- Competency -----------------
 
-        function addCompetency() {
+        function addCompetency()
+        {
             console.log(vm.activityInEdition);
             if (vm.competency != null && vm.competency != undefined &&
                 vm.competencyLevel != null && vm.competencyLevel != undefined)
@@ -128,14 +123,20 @@
                     idCompetencyLevel: vm.competencyLevel.id,
                     competencyLevel: vm.competencyLevel.level + ' / ' + vm.competencyLevel.name
                 });
-                vm.competency = null;
-                vm.competencyLevel = null;
+                vm.cleanModales();
                 $('#competencyDialog').modal('toggle');
             }
             console.log(vm.activityInEdition);
         }
-        function deleteCompetency (index) {
+        function deleteCompetency(index)
+        {
             vm.activityInEdition.competencies.splice(index, 1);
+        }
+        function competenciesFilter(alphaState) {
+            return $filter('filter')(vm.activityInEdition.competencies, {
+                idCompetency: vm.competency.id,
+                idCompetencyLevel: alphaState.id
+            }).length == 0;
         }
 
         //---------------- Approach -----------------
@@ -148,13 +149,12 @@
                     name: vm.nameApproach,
                     description: vm.descriptionApproach
                 });
-                vm.nameApproach = null;
-                vm.descriptionApproach = null;
+                vm.cleanModales();
                 $('#approachDialog').modal('toggle');
             }
         }
-
-        function deleteApproach(index) {
+        function deleteApproach(index)
+        {
             vm.activityInEdition.approaches.splice(index, 1);
         }
 
@@ -168,34 +168,35 @@
                 workProductsLevelofDetail: []
         		}
         }
-        
-        function fillAction() {
+        function fillAction()
+        {
             if (vm.alpha != null && vm.alpha != undefined &&
                 vm.alphaState != null && vm.alphaState != undefined)
             {
-                vm.actionInEdition.alphaStates.push(
-                    {
-                        description: vm.alpha.name + ' / ' + vm.alphaState.name,
-                        idAlpha: vm.alpha.id, idState: vm.alphaState.id
-                    }
-                );
-                vm.alpha = null;
-                vm.alphaState = null;
-                vm.actionKind = null;
+                if (vm.actionInEdition.workProductsLevelofDetail.length) {
+                    return;
+                } else {
+                    vm.actionInEdition.alphaStates.push(
+                        {
+                            description: vm.alpha.name + ' / ' + vm.alphaState.name,
+                            idAlpha: vm.alpha.id, idState: vm.alphaState.id
+                        }
+                    );
+                }
+                vm.cleanModales();
             } else if (vm.workProduct != null && vm.workProduct != undefined && vm.workProduct != "" &&
                 vm.levelOfDetail != null && vm.levelOfDetail != undefined && vm.levelOfDetail != "") {
-
-                vm.actionInEdition.workProductsLevelofDetail.push({
-                    description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name,
-                    idWorkProduct: vm.workProduct.id,
-                    idLevelOfDetail: vm.levelOfDetail.id,
-                });
-                vm.workProduct = null;
-                vm.levelOfDetail = null;
-                vm.actionKind = null;
+                if (vm.actionInEdition.alphaStates.length) {
+                    return;
+                } else {
+                    vm.actionInEdition.workProductsLevelofDetail.push({
+                        description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name,
+                        idWorkProduct: vm.workProduct.id,
+                        idLevelOfDetail: vm.levelOfDetail.id,
+                    });
+                }
             }   
         }
-
         function deleteActionElement(index, tipo)
         {
             if (tipo === "alpha")
@@ -219,14 +220,26 @@
                 $('#actionDialog').modal('toggle');
             }
         }
-
         function deleteAction(index) {
             vm.activityInEdition.actions.splice(index, 1);
+        }
+        function alphaStateFilter(alphaState) {
+            return $filter('filter')(vm.actionInEdition.alphaStates, {
+                idAlpha: vm.alpha.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workProductsFilter(levelOfDetails) {
+            return $filter('filter')(vm.actionInEdition.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProduct.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
         }
 
         //---------------- Entry -----------------
         
-        function addEntry() {
+        function addEntry()
+        {
             if (vm.alpha != null && vm.alpha != undefined &&
                 vm.alphaState != null && vm.alphaState != undefined) {
             	vm.activityInEdition.entryCriterion.alphaStates.push({
@@ -235,9 +248,7 @@
                     idState: vm.alphaState.id,
                     briefDescription: vm.descriptionEntry
                 });
-               vm.alpha = null;
-                vm.alphaState = null;
-            	vm.descriptionEntry = null;
+                vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             } else if (vm.workProduct != null && vm.workProduct != undefined && vm.workProduct != "" &&
                 vm.levelOfDetail != null && vm.levelOfDetail != undefined && vm.levelOfDetail != "") {
@@ -248,9 +259,7 @@
                     idLevelOfDetail: vm.levelOfDetail.id,
                     briefDescription: vm.descriptionEntry
                 });
-                vm.workProduct = null;
-                vm.levelOfDetail = null;
-            	vm.descriptionEntry = null;
+                vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
@@ -258,13 +267,12 @@
                     description: vm.anotherEntryCriteria,
                     briefDescription: vm.descriptionEntry
                 });
-                vm.anotherEntryCriteria = null;
-            	vm.descriptionEntry = null;
+                vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             }
         }
-
-        function deleteEntry (index, tipo) {
+        function deleteEntry(index, tipo)
+        {
         	if(tipo === 'alpha'){
         		vm.activityInEdition.entryCriterion.alphaStates.splice(index, 1);
         	}else if(tipo === 'workproduct'){
@@ -273,10 +281,22 @@
         		vm.activityInEdition.entryCriterion.otherConditions.splice(index, 1);
         	} 	
         }
-        
+        function alphaEntryFilter(alphaState) {
+            return $filter('filter')(vm.activityInEdition.entryCriterion.alphaStates, {
+                idAlpha: vm.alpha.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workProductsEntryFilter(levelOfDetails) {
+            return $filter('filter')(vm.activityInEdition.entryCriterion.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProduct.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
+        }
         //---------------- Completition -----------------
         
-        function addCompletition() {
+        function addCompletition()
+        {
             if (vm.alphaCompletition != null && vm.alphaCompletition != undefined &&
                 vm.alphaStateCompletition != null && vm.alphaStateCompletition != undefined) {
             	vm.activityInEdition.completitionCriterion.alphaStates.push({
@@ -285,9 +305,7 @@
                     idState: vm.alphaStateCompletition.id,
                     briefDescription: vm.descriptionCompletition
                 });
-               vm.alphaCompletition = null;
-                vm.alphaStateCompletition = null;
-            	vm.descriptionCompletition = null;
+                vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             } else if (vm.workProductCompletition != null && vm.workProductCompletition != undefined &&
                 vm.levelOfDetailCompletition != null && vm.levelOfDetailCompletition != undefined) {
@@ -298,9 +316,7 @@
                     idLevelOfDetail: vm.levelOfDetailCompletition.id,
                     briefDescription: vm.descriptionCompletition
                 });
-                vm.workProductCompletition = null;
-                vm.levelOfDetailCompletition = null;
-            	vm.descriptionCompletition = null;
+                vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             } else if (vm.anotherEntryCriteriaCompletition != null && vm.anotherEntryCriteriaCompletition != undefined &&
                 vm.anotherEntryCriteriaCompletition != "") {
@@ -308,13 +324,12 @@
                     description: vm.anotherEntryCriteriaCompletition,
                     briefDescription: vm.descriptionCompletition
                 });
-                vm.anotherEntryCriteriaCompletition = null;
-            	vm.descriptionCompletition = null;
+                vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             }
         }
-        
-        function deleteCompletition (index, tipo) {
+        function deleteCompletition(index, tipo)
+        {
         	if(tipo === 'alpha'){
         		vm.activityInEdition.completitionCriterion.alphaStates.splice(index, 1);
         	}else if(tipo === 'workproduct'){
@@ -323,27 +338,39 @@
         		vm.activityInEdition.completitionCriterion.otherConditions.splice(index, 1);
         	} 	
         }
+        function alphaCompletitionFilter(alphaState) {
+            return $filter('filter')(vm.activityInEdition.completitionCriterion.alphaStates, {
+                idAlpha: vm.alphaCompletition.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workProductsCompletitionFilter(levelOfDetails) {
+            return $filter('filter')(vm.activityInEdition.completitionCriterion.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProductCompletition.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
+        }
         
         //---------------- Resource -----------------
         
-        function addResource() {
+        function addResource()
+        {
 	        if(vm.type != null && vm.descriptionResource != null && vm.attachment != null){
 	    		var file = new FormData();
 	    		file.append('file', vm.attachment);
 	            
 	    		vm.activityInEdition.resources.push({idTypeResource : vm.type.id, content : vm.descriptionResource, file : vm.attachment, fileName : vm.attachment.name});
-	    		vm.type = null;
-	    		vm.descriptionResource = null;
-	    		vm.attachment = null;
+                vm.cleanModales();
 	            $('#resourceDialog').modal('toggle');
 	        }
         }
-
-        function deleteResource (index) {
+        function deleteResource(index)
+        {
         	vm.activityInEdition.resources.splice(index, 1);
         }
            
-        function save() {
+        function save()
+        {
         	console.log(vm.practice);
             localStorageService.set('practiceInEdition', vm.practice);
             if (vm.practice.id !== null && vm.practice.id !== undefined) {
@@ -352,17 +379,50 @@
             	Practice.save(vm.practice, onSaveSuccess, onSaveError);
             }
         }
-        
-        function onSaveSuccess (result) {
+
+        function onSaveSuccess(result)
+        {
 //          vm.practice = {};
 //          localStorageService.set('practiceInEdition', null);
             $location.path('/practice-management');
         }
 
-        function onSaveError () {
+        function onSaveError()
+        {
         }
-    	
-        function clean() {
+
+        function cleanModales()
+        {
+            vm.nameApproach = null;
+            vm.descriptionApproach = null;
+
+            vm.alphaCompletition = null;
+            vm.alphaStateCompletition = null;
+            vm.workProductCompletition = null;
+            vm.levelOfDetailCompletition = null;
+            vm.descriptionCompletition = null;
+
+            vm.type = null;
+            vm.attachment = null;
+            angular.element("input[type='file']").val(null);
+            vm.descriptionResource = null;
+
+            vm.competency = null;
+            vm.competencyLevel = null;
+
+            vm.alpha = null;
+            vm.alphaState = null;
+            vm.workProduct = null;
+            vm.levelOfDetail = null;
+            vm.descriptionEntry = null;
+            vm.anotherEntryCriteria = null;
+            vm.anotherEntryCriteriaCompletition = null;
+            
+            
+        }
+
+        function clean()
+        {
         	vm.activityInEdition = null;
     	}
 	}
