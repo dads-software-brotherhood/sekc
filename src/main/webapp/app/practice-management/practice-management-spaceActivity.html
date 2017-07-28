@@ -6,13 +6,6 @@
             <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li class="active"><a>Things to do </a></li>
         </ul>
-        <div class="row">
-            <div class="col-md-12 col-md-offset-11">
-                <button class="btn btn-primary btn-round btn-lg m-r-10" data-title="Create a new Activity Space" bs-tooltip>
-                    <span class="md md-add"></span>
-                </button>
-            </div>
-        </div>
     </div>
     <jhi-alert></jhi-alert>
     <!-- Activity space-->
@@ -21,7 +14,7 @@
             <div class="well white">
                 <div class="form-group filled">
                     <label>Activity Space</label>
-                    <select class="form-control" ng-options="datos.id as datos.name for datos in vm.activitySpaces" ng-model="vm.activityInEdition.idActivitySpace">
+                    <select class="form-control" ng-options="datos.name for datos in vm.activitySpaces track by datos.id" ng-model="vm.idActivitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -119,11 +112,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="alphaState in vm.activityInEdition.actions">
+                                    <tr ng-repeat-start="alphaState in vm.activityInEdition.actions">
                                         <td>{{alphaState.idActionKind}}</td>
-                                        <td>{{alphaState.description}}</td>
+                                        <td>
+                                            <ul>
+                                                <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
+                                                    {{alphaOrWorkproduct.description}}
+                                                </li>
+                                            </ul>
+                                            <ul>
+                                                <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
+                                                    {{alphaOrWorkproduct.description}}
+                                                </li>
+                                            </ul>
+                                        </td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'alpha')"><i class="md md-delete"></i></button></td>
                                     </tr>
+                                    <tr ng-repeat-end></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -229,7 +234,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="spaceActivity in vm.practice.thingsToDo.activities">
-                                <td>{{spaceActivity.idActivitySpace}}</td>
+                                <td>{{spaceActivity.nameActivitySpace}}</td>
                                 <td>{{spaceActivity.name}}</td>
                                 <td>{{spaceActivity.briefDescription}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivity($index)"><i class="md md-delete"></i></button></td>
@@ -512,3 +517,5 @@
         </div>
     </div>
 </div>
+
+

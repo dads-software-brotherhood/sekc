@@ -83,6 +83,8 @@
 
         function addActivity()
         {
+            vm.activityInEdition.idActivitySpace = vm.idActivitySpace.id;
+            vm.activityInEdition.nameActivitySpace = vm.idActivitySpace.name;
             vm.practice.thingsToDo.activities.push(vm.activityInEdition);
             vm.activityInEdition = newActivity();
         }
@@ -371,7 +373,8 @@
            
         function save()
         {
-        	console.log(vm.practice);
+            console.log(vm.practice);
+            console.log(JSON.stringify(vm.practice, null, "\t"));
             localStorageService.set('practiceInEdition', vm.practice);
             if (vm.practice.id !== null && vm.practice.id !== undefined) {
                 Practice.update(vm.practice, onSaveSuccess, onSaveError);
@@ -382,8 +385,8 @@
 
         function onSaveSuccess(result)
         {
-//          vm.practice = {};
-//          localStorageService.set('practiceInEdition', null);
+            vm.practice = {};
+            localStorageService.set('practiceInEdition', null);
             $location.path('/practice-management');
         }
 
