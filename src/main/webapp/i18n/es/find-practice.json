@@ -1,0 +1,13 @@
+{
+	"findPractice": {
+		"home": {
+			"title": "Buscar Práctica"
+		},
+		"search": "Buscar práctica",
+		"practice": {
+			"name": "Nombre",
+			"briefDescription": "Descripción corta",
+			"description": "Descripción"
+		}
+	}
+}
