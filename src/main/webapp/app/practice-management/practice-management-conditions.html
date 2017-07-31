@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="measure in vm.measures">
-                                <td>{{measure.name}}</td>
+                                <td>{{measure}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>                            
                             </tr>
                         </tbody>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group filled" ng-show="vm.alpha != null">
                     <label>Alpha State</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alpha.states track by datos.id" ng-model="vm.alphaState">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alpha.states | filter:vm.alphaEntryFilter track by datos.id" ng-model="vm.alphaState">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-group filled" ng-show="vm.workProduct != null">
                     <label>Level of Detail</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails track by datos.id" ng-model="vm.levelOfDetail">
+                    <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsEntryFilter track by datos.id" ng-model="vm.levelOfDetail">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -98,7 +98,7 @@
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions">
-                                <td>{{otherConditions.description}}</td>
+                                <td>{{otherConditions}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
@@ -117,19 +117,19 @@
                 </div>
                 <div class="form-group filled" ng-show="vm.alphaResult != null">
                     <label>Alpha State</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphaResult.states track by datos.id" ng-model="vm.alphaStateResult">
+                    <select class="form-control" ng-options="datos.name for datos in vm.alphaResult.states | filter:vm.alphaResultsFilter track by datos.id" ng-model="vm.alphaStateResult">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled">
                     <label>Workproduct</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alphaResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.workProductResult">
+                    <select class="form-control" ng-options="datos.name for datos in vm.workProducts  track by datos.id" ng-disabled="vm.alphaResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.workProductResult">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled" ng-show="vm.workProductResult != null">
                     <label>Level of Detail</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProductResult.levelsOfDetails track by datos.id" ng-model="vm.levelOfDetailResult">
+                    <select class="form-control" ng-options="datos.name for datos in vm.workProductResult.levelsOfDetails | filter:vm.workResultsEntryFilter track by datos.id" ng-model="vm.levelOfDetailResult">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -164,7 +164,7 @@
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
                             <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions">
-                                <td>{{otherConditions.description}}</td>
+                                <td>{{otherConditions}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>

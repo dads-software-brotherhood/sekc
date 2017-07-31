@@ -25,7 +25,12 @@
     	vm.deleteResult = deleteResult;
         vm.cleanEntries = cleanEntries;
         vm.cleanResults = cleanResults;
-        
+
+        vm.alphaEntryFilter = alphaEntryFilter;
+        vm.workProductsEntryFilter = workProductsEntryFilter;
+        vm.alphaResultsFilter = alphaResultsFilter;
+        vm.workResultsEntryFilter = workResultsEntryFilter;
+
         vm.save = save;
         vm.clean = clean;
         
@@ -34,7 +39,11 @@
         
 
         function load() {
-        	vm.practice = localStorageService.get('practiceInEdition');
+            vm.practice = localStorageService.get('practiceInEdition');
+            if (vm.practice == null)
+            {
+                vm.practice = {};
+            }
         	vm.alphas = localStorageService.get('alphas');
             vm.workProducts = localStorageService.get('workproducts');
             
@@ -92,7 +101,7 @@
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
 
-                vm.practice.conditions.entries.otherConditions.push({ description: vm.anotherEntryCriteria });
+                vm.practice.conditions.entries.otherConditions.push(vm.anotherEntryCriteria);
             }
             vm.cleanEntries();
 
@@ -111,7 +120,7 @@
             		
         	}else if(vm.anotherEntryCriteriaResult != null && vm.anotherEntryCriteriaResult != undefined){
 
-                vm.practice.conditions.results.otherConditions.push({description: vm.anotherEntryCriteriaResult});
+                vm.practice.conditions.results.otherConditions.push(vm.anotherEntryCriteriaResult);
             }
             vm.cleanResults();
     	
@@ -136,7 +145,33 @@
         		vm.practice.conditions.results.otherConditions.splice(index, 1);
     		}
     	}
-    	
+
+        function alphaEntryFilter(alphaState) {
+            return $filter('filter')(vm.practice.conditions.entries.alphaStates, {
+                idAlpha: vm.alpha.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workProductsEntryFilter(levelOfDetails) {
+            return $filter('filter')(vm.practice.conditions.entries.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProduct.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
+        }
+
+        function alphaResultsFilter(alphaState) {
+            return $filter('filter')(vm.practice.conditions.results.alphaStates, {
+                idAlpha: vm.alphaResult.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workResultsEntryFilter(levelOfDetails) {
+            return $filter('filter')(vm.practice.conditions.results.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProductResult.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
+        }
+
         function cleanEntries() {
             vm.alpha = null;
             vm.alphaState = null;

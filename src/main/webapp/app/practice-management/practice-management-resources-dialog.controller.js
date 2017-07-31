@@ -39,7 +39,7 @@
         		var file = new FormData();
         		file.append('file', vm.attachment);
                 
-        		vm.practice.thingsToDo.resources.push({idTypeResource : vm.type.id, content : vm.description, file : file, fileName : vm.attachment.name});
+        		vm.practice.thingsToDo.resources.push({idTypeResource : vm.type.id, content : vm.description, file : vm.attachment, fileName : vm.attachment.name});
                 localStorageService.set('practiceInEdition', vm.practice);
                 vm.clean();
                 $uibModalInstance.dismiss('cancel');

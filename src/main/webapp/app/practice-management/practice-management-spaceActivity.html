@@ -1,76 +1,69 @@
 <section>
-    <div class="page-header">   
+    <div class="page-header">
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
-              <li><a href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
+            <li><a href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
             <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li class="active"><a>Things to do </a></li>
         </ul>
     </div>
     <jhi-alert></jhi-alert>
+    <!-- Activity space-->
     <div class="row">
         <div class="col-md-12">
             <div class="well white">
                 <div class="form-group filled">
                     <label>Activity Space</label>
-                    <select class="form-control" ng-options="datos.id as datos.name for datos in vm.activitySpaces" ng-model="vm.practice.thingsToDo.idActivitySpace">
+                    <select class="form-control" ng-options="datos.name for datos in vm.activitySpaces track by datos.id" ng-model="vm.idActivitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
-                <div class="row">
-                     <div class="col-md-2 col-md-offset-11 form-group">   
-                        <button class="btn btn-success" type="button"  ng-click=""><span data-translate="practiceManagement.add">Add</span></button>
-                     </div>
-                </div> 
             </div>
         </div>
     </div>
+    <!-- Activity-->
+    <!-- <div class="row" ng-hide="!vm.activityInEdition.idActivitySpace"> -->
     <div class="row">
         <div class="col-md-12">
             <div class="well white">
                 <div class="form-group">
                     <label class="control-label">Activity Name</label>
-                    <input type="text" class="form-control" name="name" ng-model="vm.practice.thingsToDo.name" required>
+                    <input type="text" class="form-control" name="name" ng-model="vm.activityInEdition.name" required>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" >Brief Description</label>
-                    <textarea  class="form-control" name="briefDescription" ng-model="vm.practice.thingsToDo.briefDescription"></textarea>
+                    <label class="control-label">Brief Description</label>
+                    <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription"></textarea>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <textarea ui-tinymce="vm.tinymceOptions" class="form-control" name="description" ng-model="vm.practice.thingsToDo.description"></textarea>
+                    <textarea ui-tinymce="vm.tinymceOptions" class="form-control" name="description" ng-model="vm.activityInEdition.description"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-md-4 text-center m-t-60">
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency" ng-click="vm.load()" >Consult Competency</button>
-                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.competency" data-title="Create competency" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency">Consult Competency</button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#competencyDialog" data-title="Create competency" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach" ng-click="vm.load()" >Consult Approach</button>
-                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.approach" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach">Consult Approach</button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#approachDialog" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-t-15 m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action" ng-click="vm.load()">Consult Action</button>
-                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.action" data-title="Create action" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action">Consult Action</button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#actionDialog" data-title="Create action" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio" ng-click="vm.load()">Consult Entry </button>
-                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.entry" data-title="Create entry" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio">Consult Entry </button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#entryDialog" data-title="Create entry" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition" ng-click="vm.load()">Consult Completition</button>
-                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.completition" data-title="Create completition" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition">Consult Completition</button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#completitionDialog" data-title="Create completition" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources" ng-click="vm.load()">Consult Resources</button>
-                                        <button type="button" class="btn btn-md  btn-primary" ui-sref="practice-management-spaceActivity.resources" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources">Consult Resources</button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#resourceDialog" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
-                    </div>
-                    <div class="actions m-t-10 pull-right m-r-15 m-t-10">
-                        <button class="btn btn-primary btn-round btn-md " ng-click="vm.refresh()" data-title="Refresh" bs-tooltip>
-                           <span class="glyphicon glyphicon-refresh"></span>
-                        </button>
                     </div>
                     <div class="col-md-8 m-t-20">
                         <div id="competency" class="collapse table-responsive white">
@@ -83,7 +76,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="competency in vm.practice.thingsToDo.competencies">
+                                    <tr ng-repeat="competency in vm.activityInEdition.competencies">
                                         <td>{{competency.competency}}</td>
                                         <td>{{competency.competencyLevel}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompetency($index)"><i class="md md-delete"></i></button></td>
@@ -101,7 +94,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="approach in vm.practice.thingsToDo.approaches">
+                                    <tr ng-repeat="approach in vm.activityInEdition.approaches">
                                         <td>{{approach.name}}</td>
                                         <td>{{approach.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach($index)"><i class="md md-delete"></i></button></td>
@@ -119,20 +112,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <tr ng-repeat="alphaState in vm.practice.thingsToDo.actions.alphaStates">
+                                    <tr ng-repeat-start="alphaState in vm.activityInEdition.actions">
                                         <td>{{alphaState.idActionKind}}</td>
-                                        <td>{{alphaState.description}}</td>
+                                        <td>
+                                            <ul>
+                                                <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
+                                                    {{alphaOrWorkproduct.description}}
+                                                </li>
+                                            </ul>
+                                            <ul>
+                                                <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
+                                                    {{alphaOrWorkproduct.description}}
+                                                </li>
+                                            </ul>
+                                        </td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'alpha')"><i class="md md-delete"></i></button></td>
                                     </tr>
-                                    <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.actions.workProductsLevelofDetail">
-                                        <td>{{workProductLevelofDetail.idActionKind}}</td>
-                                        <td>{{workProductLevelofDetail.description}}</td>
-                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteAction($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                                    </tr>
+                                    <tr ng-repeat-end></tr>
                                 </tbody>
                             </table>
                         </div>
-                         <div id="entrycriterio" class="collapse table-responsive white">
+                        <div id="entrycriterio" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
@@ -142,17 +142,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                        <tr ng-repeat="alphaState in vm.practice.thingsToDo.entryCriterion.alphaStates">
+                                    <tr ng-repeat="alphaState in vm.activityInEdition.entryCriterion.alphaStates">
                                         <td>{{alphaState.briefDescription}}</td>
                                         <td>{{alphaState.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
                                     </tr>
-                                    <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail">
+                                    <tr ng-repeat="workProductLevelofDetail in vm.activityInEdition.entryCriterion.workProductsLevelofDetail">
                                         <td>{{workProductLevelofDetail.briefDescription}}</td>
                                         <td>{{workProductLevelofDetail.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                                     </tr>
-                                    <tr ng-repeat="otherConditions in vm.practice.thingsToDo.entryCriterion.otherConditions">
+                                    <tr ng-repeat="otherConditions in vm.activityInEdition.entryCriterion.otherConditions">
                                         <td>{{otherConditions.briefDescription}}</td>
                                         <td>{{otherConditions.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
@@ -160,62 +160,62 @@
                                 </tbody>
                             </table>
                         </div>
-                    <div id="completition" class="collapse table-responsive white">
-                        <table class="table table-full table-full-small white">
-                            <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <tr ng-repeat="alphaState in vm.practice.thingsToDo.completitionCriterion.alphaStates">
-                                    <td>{{alphaState.briefDescription}}</td>
-                                    <td>{{alphaState.description}}</td>
-                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'alpha')"><i class="md md-delete"></i></button></td>
-                                </tr>
-                                <tr ng-repeat="workProductLevelofDetail in vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail">
-                                    <td>{{workProductLevelofDetail.briefDescription}}</td>
-                                    <td>{{workProductLevelofDetail.description}}</td>
-                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                                </tr>
-                                <tr ng-repeat="otherConditions in vm.practice.thingsToDo.completitionCriterion.otherConditions">
-                                    <td>{{otherConditions.briefDescription}}</td>
-                                    <td>{{otherConditions.description}}</td>
-                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div id="completition" class="collapse table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="alphaState in vm.activityInEdition.completitionCriterion.alphaStates">
+                                        <td>{{alphaState.briefDescription}}</td>
+                                        <td>{{alphaState.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                    <tr ng-repeat="workProductLevelofDetail in vm.activityInEdition.completitionCriterion.workProductsLevelofDetail">
+                                        <td>{{workProductLevelofDetail.briefDescription}}</td>
+                                        <td>{{workProductLevelofDetail.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                    <tr ng-repeat="otherConditions in vm.activityInEdition.completitionCriterion.otherConditions">
+                                        <td>{{otherConditions.briefDescription}}</td>
+                                        <td>{{otherConditions.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="resources" class="collapse table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Content</th>
+                                        <th>Type</th>
+                                        <th>Atachment</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="resource in vm.activityInEdition.resources">
+                                        <td>{{resource.content}}</td>
+                                        <td>{{resource.idTypeResource}}</td>
+                                        <td>{{resource.fileName}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div id="resources" class="collapse table-responsive white">
-                        <table class="table table-full table-full-small white">
-                            <thead>
-                                <tr>
-                                    <th>Content</th>
-                                    <th>Type</th>
-                                    <th>Atachment</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="resource in vm.practice.thingsToDo.resources">
-                                    <td>{{resource.content}}</td>
-                                    <td>{{resource.idTypeResource}}</td>
-                                    <td>{{resource.fileName}}</td>
-                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
                 </div>
                 <div class="row">
-                     <div class="col-md-2 col-md-offset-10 form-group">    
-                        <button class="btn btn-default" type="button" ng-click=""><span data-translate="practiceManagement.clean">Clean</span></button>  
-                        <button class="btn btn-success" type="button"  ng-click=""><span data-translate="practiceManagement.add">Add</span></button>
+                    <div class="col-md-2 col-md-offset-10 form-group">
+                        <button class="btn btn-default" type="button" ng-click="vm.clean()"><span data-translate="practiceManagement.clean">Clean</span></button>
+                        <button class="btn btn-success" type="button" ng-click="vm.addActivity()"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
@@ -233,11 +233,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="spaceActivity in vm.practice.thingsToDo">
-                                <td>{{spaceActivity.idActivitySpace}}</td>
+                            <tr ng-repeat="spaceActivity in vm.practice.thingsToDo.activities">
+                                <td>{{spaceActivity.nameActivitySpace}}</td>
                                 <td>{{spaceActivity.name}}</td>
                                 <td>{{spaceActivity.briefDescription}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivitySpace($index)"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivity($index)"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -246,14 +246,276 @@
         </div>
     </div>
     <div class="row">
-       
-    	<div class="modal-footer  m-b-30">
-            <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
+        <div class="modal-footer  m-b-30">
+            <!-- <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
                 <span>Clean</span>
-            </button>
+            </button> -->
             <button type="submit" class="btn btn-primary m-t-10" ng-click="vm.save()">
-                <span data-translate="entity.action.next">Save</span>
-            </button>     
+                <span data-translate="entity.action.save">Save</span>
+            </button>
         </div>
-    </div> 	
+    </div>
 </section>
+
+<!-- MODALES -->
+
+<div class="modal fade" id="competencyDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Competency</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group filled">
+                <label>Competency</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.competencies track by datos.id" ng-model="vm.competency">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled">
+                <label>Competency Level</label>
+                <select class="form-control" ng-options="datos.level for datos in vm.competency.competencyLevel | filter:vm.competenciesFilter track by datos.id" ng-model="vm.competencyLevel">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addCompetency()">Add</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="approachDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Approach</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="pull-left">Name</label>
+                <input type="text" class="form-control" ng-model="vm.nameApproach" required>
+            </div>
+            <div class="form-group">
+                <label for="textArea" data-translate="practiceManagement.description" class="pull-left">Description</label>
+                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionApproach" required></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addApproach()">Add</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="actionDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Action</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group filled">
+                <label class="pull-left">Action Kind</label>
+                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.actionsKinds" ng-model="vm.actionInEdition.idActionKind">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-hide="vm.actionInEdition.workProductsLevelofDetail.length">
+                <label class="pull-left">Alpha</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-show="vm.alpha != null">
+                <label>Alpha State</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.alpha.states  | filter:vm.alphaStateFilter track by datos.id" ng-model="vm.alphaState">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-hide="vm.actionInEdition.alphaStates.length">
+                <label class="pull-left">Workproduct</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null" ng-model="vm.workProduct">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-show="vm.workProduct != null">
+                <label>Level of Detail</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsFilter track by datos.id" ng-model="vm.levelOfDetail">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.fillAction()">Add</button>
+            <div class="row" ng-hide="!vm.actionInEdition.alphaStates.length && !vm.actionInEdition.workProductsLevelofDetail.length">
+                <div class="col-md-12">
+                    <div class="well white">
+                        <div class="table-responsive white">
+                            <table class="table table-full table-full-small white">
+                                <thead>
+                                    <tr>
+                                        <th>Action Kind</th>
+                                        <th>Alpha-State / WorkProduct-Level of detail</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="actionElement in vm.actionInEdition.alphaStates">
+                                        <td>{{vm.actionInEdition.idActionKind}}</td>
+                                        <td>{{actionElement.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteActionElement($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                    <tr ng-repeat="actionElement in vm.actionInEdition.workProductsLevelofDetail">
+                                        <td>{{vm.actionInEdition.idActionKind}}</td>
+                                        <td>{{actionElement.description}}</td>
+                                        <td><button class="btn btn-link btn-round" ng-click="vm.deleteActionElement($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="vm.addAction()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="entryDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Entry</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="textArea" data-translate="practiceManagement.description" class="pull-left">Description</label>
+                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionEntry" required></textarea>
+            </div>
+            <div class="form-group filled">
+                <label class="pull-left">Select a Alpha</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-show="vm.alpha != null">
+                <label>Alpha State</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.alpha.states | filter:vm.alphaEntryFilter track by datos.id" ng-model="vm.alphaState">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled">
+                <label class="pull-left">Select a Workproduct</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null || vm.anotherEntryCriteria != null" ng-model="vm.workProduct">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-show="vm.workProduct != null">
+                <label>Level of Detail</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsEntryFilter track by datos.id" ng-model="vm.levelOfDetail">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Another Entry Criteria</label>
+                <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addEntry()">Add</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="completitionDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Completition</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="textArea" data-translate="practiceManagement.description" class="pull-left">Description</label>
+                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionCompletition" required></textarea>
+            </div>
+            <div class="form-group filled">
+                <label class="pull-left">Select a Alpha</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alphaCompletition" ng-disabled="vm.workProductCompletition != null || vm.anotherEntryCriteriaCompletition != null">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-show="vm.alphaCompletition != null">
+                <label>Alpha State</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.alphaCompletition.states | filter:vm.alphaCompletitionFilter track by datos.id" ng-model="vm.alphaStateCompletition">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled">
+                <label class="pull-left">Select a Workproduct</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alphaCompletition != null || vm.anotherEntryCriteriaCompletition != null" ng-model="vm.workProductCompletition">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group filled" ng-show="vm.workProductCompletition != null">
+                <label>Level of Detail</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.workProductCompletition.levelsOfDetails | filter:vm.workProductsCompletitionFilter track by datos.id" ng-model="vm.levelOfDetailCompletition">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Another Entry Criteria</label>
+                <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteriaCompletition" ng-disabled="vm.workProductCompletition != null || vm.alphaCompletition != null">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addCompletition()">Add</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="resourceDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Resources</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="textArea" class="pull-left">Content</label>
+                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionResource" required></textarea>
+            </div>
+            <div class="form-group filled">
+                <label class="pull-left">Type</label>
+                <select class="form-control" ng-options="datos.name for datos in vm.resourcesTypes track by datos.id" ng-model="vm.type">
+                    <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Attachment</label>
+                <input type="file" id="attachment" file-model='vm.attachment' accept="*">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addResource()">Add</button>
+        </div>
+    </div>
+</div>
+
+
