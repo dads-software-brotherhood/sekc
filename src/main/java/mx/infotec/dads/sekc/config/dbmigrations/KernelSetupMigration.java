@@ -3,6 +3,7 @@ package mx.infotec.dads.sekc.config.dbmigrations;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,6 +25,7 @@ import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
+import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.ActivitySpace;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Alpha;
@@ -56,6 +58,7 @@ public class KernelSetupMigration {
             seKernel.setOwnedElements(new ArrayList<>());
             seKernel.getOwnedElements().addAll(migrateAreasOfConcern(mongoTemplate, kernel.getAreasOfConcern()));
             mongoTemplate.save(seKernel);
+            migratePractices(mongoTemplate);
         } catch (IOException e) {
             log.error("Creating Kernel Error:", e);
             throw new MigrationException("Creating Kernel Error", e);
@@ -157,9 +160,11 @@ public class KernelSetupMigration {
             seAlpha.setStates(migrateStates(mongoTemplate, alpha));
             mongoTemplate.save(seAlpha);// without workproducts
             List<SEWorkProduct> seWorkProductList = migrateWorkProduct(mongoTemplate, alpha);
-            List<SEWorkProductManifest> migrateWorkProductManifest = migrateWorkProductManifest(mongoTemplate, seAlpha, seWorkProductList);
+            List<SEWorkProductManifest> migrateWorkProductManifest = migrateWorkProductManifest(mongoTemplate, seAlpha,
+                    seWorkProductList);
             seAlpha.setWorkProductManifest(migrateWorkProductManifest);
-            mongoTemplate.save(seAlpha);// with workProduct Manifest and workproducts
+            mongoTemplate.save(seAlpha);// with workProduct Manifest and
+                                        // workproducts
             alphaList.add(seAlpha);
         });
         return alphaList;
@@ -259,5 +264,26 @@ public class KernelSetupMigration {
             seCheckpointList.add(seCheckpoint);
         });
         return seCheckpointList;
+    }
+
+    /**
+     * Miagrate Test Practices
+     * 
+     * @param mongoTemplate
+     * @param checkpoints
+     * @return List<SECheckpoint>
+     */
+
+    private void migratePractices(MongoTemplate mongoTemplate) {
+
+        for (int i = 0; i < 1000; i++) {
+            SEPractice practice = new SEPractice();
+            practice.setName("Practice Example "+i);
+            practice.setBriefDescription("Arquitectura de software");
+            practice.setDescription("La arquitectura de software es una de las mejores del mundo");
+            practice.setObjective("el objetivo es implementar el diseño de una práctica de software para el mundo");
+            practice.setKeyWords(Arrays.asList("arquitectura", "innovation"));
+            mongoTemplate.save(practice);
+        }
     }
 }
