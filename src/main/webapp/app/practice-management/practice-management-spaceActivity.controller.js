@@ -219,6 +219,7 @@
             {
                 vm.activityInEdition.actions.push(vm.actionInEdition);
                 vm.actionInEdition = newAction();
+                vm.cleanModales();
                 $('#actionDialog').modal('toggle');
             }
         }
@@ -247,8 +248,7 @@
             	vm.activityInEdition.entryCriterion.alphaStates.push({
                     description: vm.alpha.name + ' / ' + vm.alphaState.name,
                     idAlpha: vm.alpha.id,
-                    idState: vm.alphaState.id,
-                    briefDescription: vm.descriptionEntry
+                    idState: vm.alphaState.id
                 });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
@@ -258,17 +258,15 @@
                 vm.activityInEdition.entryCriterion.workProductsLevelofDetail.push({
                     description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name,
                     idWorkProduct: vm.workProduct.id,
-                    idLevelOfDetail: vm.levelOfDetail.id,
-                    briefDescription: vm.descriptionEntry
+                    idLevelOfDetail: vm.levelOfDetail.id
                 });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
-                vm.activityInEdition.entryCriterion.otherConditions.push({
-                    description: vm.anotherEntryCriteria,
-                    briefDescription: vm.descriptionEntry
-                });
+                vm.activityInEdition.entryCriterion.otherConditions.push(
+                    vm.anotherEntryCriteria
+                );
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             }
@@ -304,8 +302,7 @@
             	vm.activityInEdition.completitionCriterion.alphaStates.push({
                     description: vm.alphaCompletition.name + ' / ' + vm.alphaStateCompletition.name,
                     idAlpha: vm.alphaCompletition.id,
-                    idState: vm.alphaStateCompletition.id,
-                    briefDescription: vm.descriptionCompletition
+                    idState: vm.alphaStateCompletition.id
                 });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
@@ -315,17 +312,15 @@
                 vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.push({
                     description: vm.workProductCompletition.name + ' / ' + vm.levelOfDetailCompletition.name,
                     idWorkProduct: vm.workProductCompletition.id,
-                    idLevelOfDetail: vm.levelOfDetailCompletition.id,
-                    briefDescription: vm.descriptionCompletition
+                    idLevelOfDetail: vm.levelOfDetailCompletition.id
                 });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             } else if (vm.anotherEntryCriteriaCompletition != null && vm.anotherEntryCriteriaCompletition != undefined &&
                 vm.anotherEntryCriteriaCompletition != "") {
-                vm.activityInEdition.completitionCriterion.otherConditions.push({
-                    description: vm.anotherEntryCriteriaCompletition,
-                    briefDescription: vm.descriptionCompletition
-                });
+                vm.activityInEdition.completitionCriterion.otherConditions.push(
+                    vm.anotherEntryCriteriaCompletition
+                );
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             }
@@ -357,11 +352,8 @@
         
         function addResource()
         {
-	        if(vm.type != null && vm.descriptionResource != null && vm.attachment != null){
-	    		var file = new FormData();
-	    		file.append('file', vm.attachment);
-	            
-	    		vm.activityInEdition.resources.push({idTypeResource : vm.type.id, content : vm.descriptionResource, file : vm.attachment, fileName : vm.attachment.name});
+            if (vm.type != null && vm.descriptionResource != null && vm.attachment != null) {
+                vm.activityInEdition.resources.push({ idTypeResource: vm.type.id, content: vm.descriptionResource, file: vm.attachment.base64, fileName: vm.attachment.filename});
                 vm.cleanModales();
 	            $('#resourceDialog').modal('toggle');
 	        }
@@ -427,7 +419,7 @@
         function clean()
         {
         	vm.activityInEdition = null;
-    	}
+        }
 	}
         
     
