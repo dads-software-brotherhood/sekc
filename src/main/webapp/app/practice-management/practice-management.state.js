@@ -354,6 +354,27 @@
                 }]
             }
         })
+        .state('practice-consult-areaOfConcern', {
+            parent: 'practice-management',
+            url: '/practiceConsultAreaOfConcern/{login}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-consult-areaOfConcern.html',
+                    //controller: 'PracticeManagementThingsWorkController',
+                    //controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
         
          .state('practice-management-completition', {
             parent: 'practice-management',
