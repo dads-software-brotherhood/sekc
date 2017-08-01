@@ -7,84 +7,168 @@
 
     PracticeManagementSpaceActivityController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice'];
 
-    function PracticeManagementSpaceActivityController ($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice) {
+    function PracticeManagementSpaceActivityController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice) {
         var vm = this;
 
         vm.load = load;
         vm.practice = null;
-        
-        vm.deleteApproach = deleteApproach;
-        vm.deleteAction = deleteAction;
-        vm.deleteEntry = deleteEntry;
-        vm.deleteCompletition = deleteCompletition;
-        vm.deleteResource = deleteResource;
-        vm.deleteActivitySpace = deleteActivitySpace;
+
+        vm.addActivity = addActivity;
+        vm.activityInEdition = null;
+        vm.deleteActivity = deleteActivity;
+        vm.cleanModales = cleanModales;
+        vm.cleanModales();
+
+        vm.addCompetency = addCompetency;
         vm.deleteCompetency = deleteCompetency;
         
+        vm.addApproach = addApproach;
+        vm.deleteApproach = deleteApproach;
+        
+        vm.addEntry= addEntry;
+        vm.deleteEntry = deleteEntry;
+        vm.alphaEntryFilter = alphaEntryFilter;
+        vm.workProductsEntryFilter = workProductsEntryFilter 
+        
+        vm.addCompletition= addCompletition;
+        vm.deleteCompletition = deleteCompletition;
+        vm.alphaCompletitionFilter = alphaCompletitionFilter;
+        vm.workProductsCompletitionFilter = workProductsCompletitionFilter;
+        
+        vm.actionInEdition = newAction();
+        vm.addAction = addAction;
+        vm.deleteAction = deleteAction;
+        vm.deleteActionElement = deleteActionElement;
+        vm.newAction = newAction;
+        vm.fillAction = fillAction;
+        vm.alphaStateFilter = alphaStateFilter;
+        vm.workProductsFilter = workProductsFilter;
+        vm.competenciesFilter = competenciesFilter;
+        
+        
+		vm.addResource= addResource;
+	    vm.deleteResource = deleteResource;
+       
         vm.save = save;
         vm.clean = clean;
         		
         vm.load();
         
 
-        function load() {
-        	
-        	vm.practice = localStorageService.get('practiceInEdition');
+        function load()
+        {
+            vm.practice = localStorageService.get('practiceInEdition');
+            if (vm.practice == null) {
+                vm.practice = {};
+            }
         	vm.activitySpaces = localStorageService.get('activitySpaces');
             vm.competencies = localStorageService.get('competencies');
-            
-	        console.log(vm.practice);
-	        
-	        
-	        if (angular.isUndefined(vm.practice.thingsToDo) || vm.practice.thingsToDo === null) {
-	        	
-		        vm.practice.thingsToDo = { competencies : [], approaches : [], actions : [], entryCriterion : [], completitionCriterion : [], resources : [] };
-		        vm.practice.thingsToDo.actions = { alphaStates : [], workProductsLevelofDetail : [] };
-		        vm.practice.thingsToDo.entryCriterion = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
-		        vm.practice.thingsToDo.completitionCriterion = { alphaStates : [], workProductsLevelofDetail : [], otherConditions: [] }
 
+            vm.actionsKinds = localStorageService.get('actionsKinds');
+            vm.workProducts = localStorageService.get('workproducts');
+            vm.alphas = localStorageService.get('alphas');
+            vm.resourcesTypes = localStorageService.get('resourcesTypes');
+
+            vm.activityInEdition = newActivity();
+            if (angular.isUndefined(vm.practice.thingsToDo) || vm.practice.thingsToDo === null) {
+	        	vm.practice.thingsToDo = { activities: [] }
             }
 	       
         }
-        
         function onError(error) {
             AlertService.error(error.data.message);
         }
-        
-        function deleteApproach (index) {
-    		vm.practice.thingsToDo.approaches.splice(index, 1);
-    		localStorageService.set('practiceInEdition', vm.practice);
+
+        //---------------- Activity -----------------
+
+        function addActivity()
+        {
+            vm.activityInEdition.idActivitySpace = vm.idActivitySpace.id;
+            vm.activityInEdition.nameActivitySpace = vm.idActivitySpace.name;
+            vm.practice.thingsToDo.activities.push(vm.activityInEdition);
+            vm.activityInEdition = newActivity();
         }
-        
-        function deleteAction (index, tipo) {
-        	if(tipo == 'alpha'){
-        		vm.practice.thingsToDo.actions.alphaStates.splice(index, 1);
-    		}else if(tipo == 'workproduct'){
-        		vm.practice.thingsToDo.actions.workProductsLevelofDetail.splice(index, 1);
-    		}
-    		localStorageService.set('practiceInEdition', vm.practice);     	
+        function newActivity()
+        {
+            return {
+                competencies: [],
+                approaches: [],
+                actions: [],
+                resources: [],
+                entryCriterion: {
+                    alphaStates: [],
+                    workProductsLevelofDetail: [],
+                    otherConditions: []
+                },
+                completitionCriterion: {
+                    alphaStates: [],
+                    workProductsLevelofDetail: [],
+                    otherConditions: []
+                }
+            };
         }
-        
-        function deleteEntry (index, tipo) {
-        	if(tipo == 'alpha'){
-        		vm.practice.thingsToDo.entryCriterion.alphaStates.splice(index, 1);
-    		}else if(tipo == 'workproduct'){
-        		vm.practice.thingsToDo.entryCriterion.workProductsLevelofDetail.splice(index, 1);
-    		}else if(tipo == 'other'){
-        		vm.practice.thingsToDo.entryCriterion.otherConditions.splice(index, 1);
-    		}
-    		localStorageService.set('practiceInEdition', vm.practice);   	
+        function deleteActivity (index){
+        	vm.practice.thingsToDo.activities.splice(index, 1);
         }
+
+        //---------------- Competency -----------------
+
+        function addCompetency()
+        {
+            console.log(vm.activityInEdition);
+            if (vm.competency != null && vm.competency != undefined &&
+                vm.competencyLevel != null && vm.competencyLevel != undefined)
+            {
+                vm.activityInEdition.competencies.push({
+                    idCompetency: vm.competency.id,
+                    competency: vm.competency.name,
+                    idCompetencyLevel: vm.competencyLevel.id,
+                    competencyLevel: vm.competencyLevel.level + ' / ' + vm.competencyLevel.name
+                });
+                vm.cleanModales();
+                $('#competencyDialog').modal('toggle');
+            }
+            console.log(vm.activityInEdition);
+        }
+        function deleteCompetency(index)
+        {
+            vm.activityInEdition.competencies.splice(index, 1);
+        }
+        function competenciesFilter(alphaState) {
+            return $filter('filter')(vm.activityInEdition.competencies, {
+                idCompetency: vm.competency.id,
+                idCompetencyLevel: alphaState.id
+            }).length == 0;
+        }
+
+        //---------------- Approach -----------------
         
-        function deleteCompletition (index, tipo) {
-        	if(tipo == 'alpha'){
-        		vm.practice.thingsToDo.completitionCriterion.alphaStates.splice(index, 1);
-    		}else if(tipo == 'workproduct'){
-        		vm.practice.thingsToDo.completitionCriterion.workProductsLevelofDetail.splice(index, 1);
-    		}else if(tipo == 'other'){
-        		vm.practice.thingsToDo.completitionCriterion.otherConditions.splice(index, 1);
-    		}
-    		localStorageService.set('practiceInEdition', vm.practice);   	
+        function addApproach()
+        {
+            if (vm.nameApproach != null && vm.descriptionApproach != null) {
+
+                vm.activityInEdition.approaches.push({
+                    name: vm.nameApproach,
+                    description: vm.descriptionApproach
+                });
+                vm.cleanModales();
+                $('#approachDialog').modal('toggle');
+            }
+        }
+        function deleteApproach(index)
+        {
+            vm.activityInEdition.approaches.splice(index, 1);
+        }
+
+        //---------------- Action -----------------
+        
+        function newAction() 
+        {
+            return {
+                idActionKind: null,
+                alphaStates: [],
+                workProductsLevelofDetail: []
+        		}
         }
         function fillAction()
         {
@@ -135,7 +219,6 @@
             {
                 vm.activityInEdition.actions.push(vm.actionInEdition);
                 vm.actionInEdition = newAction();
-                vm.cleanModales();
                 $('#actionDialog').modal('toggle');
             }
         }
@@ -164,7 +247,8 @@
             	vm.activityInEdition.entryCriterion.alphaStates.push({
                     description: vm.alpha.name + ' / ' + vm.alphaState.name,
                     idAlpha: vm.alpha.id,
-                    idState: vm.alphaState.id
+                    idState: vm.alphaState.id,
+                    briefDescription: vm.descriptionEntry
                 });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
@@ -174,19 +258,44 @@
                 vm.activityInEdition.entryCriterion.workProductsLevelofDetail.push({
                     description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name,
                     idWorkProduct: vm.workProduct.id,
-                    idLevelOfDetail: vm.levelOfDetail.id
+                    idLevelOfDetail: vm.levelOfDetail.id,
+                    briefDescription: vm.descriptionEntry
                 });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
                 vm.anotherEntryCriteria != "") {
-                vm.activityInEdition.entryCriterion.otherConditions.push(
-                    vm.anotherEntryCriteria
-                );
+                vm.activityInEdition.entryCriterion.otherConditions.push({
+                    description: vm.anotherEntryCriteria,
+                    briefDescription: vm.descriptionEntry
+                });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
             }
         }
+        function deleteEntry(index, tipo)
+        {
+        	if(tipo === 'alpha'){
+        		vm.activityInEdition.entryCriterion.alphaStates.splice(index, 1);
+        	}else if(tipo === 'workproduct'){
+        		vm.activityInEdition.entryCriterion.workProductsLevelofDetail.splice(index, 1);
+        	}else if(tipo === 'other'){
+        		vm.activityInEdition.entryCriterion.otherConditions.splice(index, 1);
+        	} 	
+        }
+        function alphaEntryFilter(alphaState) {
+            return $filter('filter')(vm.activityInEdition.entryCriterion.alphaStates, {
+                idAlpha: vm.alpha.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workProductsEntryFilter(levelOfDetails) {
+            return $filter('filter')(vm.activityInEdition.entryCriterion.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProduct.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
+        }
+        //---------------- Completition -----------------
         
         function addCompletition()
         {
@@ -195,7 +304,8 @@
             	vm.activityInEdition.completitionCriterion.alphaStates.push({
                     description: vm.alphaCompletition.name + ' / ' + vm.alphaStateCompletition.name,
                     idAlpha: vm.alphaCompletition.id,
-                    idState: vm.alphaStateCompletition.id
+                    idState: vm.alphaStateCompletition.id,
+                    briefDescription: vm.descriptionCompletition
                 });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
@@ -205,49 +315,83 @@
                 vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.push({
                     description: vm.workProductCompletition.name + ' / ' + vm.levelOfDetailCompletition.name,
                     idWorkProduct: vm.workProductCompletition.id,
-                    idLevelOfDetail: vm.levelOfDetailCompletition.id
+                    idLevelOfDetail: vm.levelOfDetailCompletition.id,
+                    briefDescription: vm.descriptionCompletition
                 });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             } else if (vm.anotherEntryCriteriaCompletition != null && vm.anotherEntryCriteriaCompletition != undefined &&
                 vm.anotherEntryCriteriaCompletition != "") {
-                vm.activityInEdition.completitionCriterion.otherConditions.push(
-                    vm.anotherEntryCriteriaCompletition
-                );
+                vm.activityInEdition.completitionCriterion.otherConditions.push({
+                    description: vm.anotherEntryCriteriaCompletition,
+                    briefDescription: vm.descriptionCompletition
+                });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
             }
+        }
+        function deleteCompletition(index, tipo)
+        {
+        	if(tipo === 'alpha'){
+        		vm.activityInEdition.completitionCriterion.alphaStates.splice(index, 1);
+        	}else if(tipo === 'workproduct'){
+        		vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.splice(index, 1);
+        	}else if(tipo === 'other'){
+        		vm.activityInEdition.completitionCriterion.otherConditions.splice(index, 1);
+        	} 	
+        }
+        function alphaCompletitionFilter(alphaState) {
+            return $filter('filter')(vm.activityInEdition.completitionCriterion.alphaStates, {
+                idAlpha: vm.alphaCompletition.id,
+                idState: alphaState.id
+            }).length == 0;
+        }
+        function workProductsCompletitionFilter(levelOfDetails) {
+            return $filter('filter')(vm.activityInEdition.completitionCriterion.workProductsLevelofDetail, {
+                idWorkProduct: vm.workProductCompletition.id,
+                idLevelOfDetail: levelOfDetails.id,
+            }).length == 0;
         }
         
         //---------------- Resource -----------------
         
         function addResource()
         {
-            if (vm.type != null && vm.descriptionResource != null && vm.attachment != null) {
-                vm.activityInEdition.resources.push({ idTypeResource: vm.type.id, content: vm.descriptionResource, file: vm.attachment.base64, fileName: vm.attachment.filename});
+	        if(vm.type != null && vm.descriptionResource != null && vm.attachment != null){
+	    		var file = new FormData();
+	    		file.append('file', vm.attachment);
+	            
+	    		vm.activityInEdition.resources.push({idTypeResource : vm.type.id, content : vm.descriptionResource, file : vm.attachment, fileName : vm.attachment.name});
                 vm.cleanModales();
 	            $('#resourceDialog').modal('toggle');
 	        }
         }
-           
-        function save() {
-        	console.log(vm.practice);
-            localStorageService.set('practiceInEdition', vm.practice);
-            
-//            if (vm.practice.id !== null && vm.practice.id !== undefined) {
-//                Practice.update(vm.practice, onSaveSuccess, onSaveError);
-//            } else {
-//            	Practice.save(vm.practice, onSaveSuccess, onSaveError);
-//            }
+        function deleteResource(index)
+        {
+        	vm.activityInEdition.resources.splice(index, 1);
         }
-        
-        function onSaveSuccess (result) {
-//          vm.practice = {};
-//          localStorageService.set('practiceInEdition', null);
+           
+        function save()
+        {
+            console.log(vm.practice);
+            console.log(JSON.stringify(vm.practice, null, "\t"));
+            localStorageService.set('practiceInEdition', vm.practice);
+            if (vm.practice.id !== null && vm.practice.id !== undefined) {
+                Practice.update(vm.practice, onSaveSuccess, onSaveError);
+            } else {
+            	Practice.save(vm.practice, onSaveSuccess, onSaveError);
+            }
+        }
+
+        function onSaveSuccess(result)
+        {
+            vm.practice = {};
+            localStorageService.set('practiceInEdition', null);
             $location.path('/practice-management');
         }
 
-        function onSaveError () {
+        function onSaveError()
+        {
         }
 
         function cleanModales()
@@ -283,7 +427,7 @@
         function clean()
         {
         	vm.activityInEdition = null;
-        }
+    	}
 	}
         
     
