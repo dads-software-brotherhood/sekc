@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icon-sekc';
-  src:  url('icon-sekc.eot?9zml8s');
-  src:  url('icon-sekc.eot?9zml8s#iefix') format('embedded-opentype'),
-    url('icon-sekc.ttf?9zml8s') format('truetype'),
-    url('icon-sekc.woff?9zml8s') format('woff'),
-    url('icon-sekc.svg?9zml8s#icon-sekc') format('svg');
+  src:  url('icon-sekc.eot?r9peqw');
+  src:  url('icon-sekc.eot?r9peqw#iefix') format('embedded-opentype'),
+    url('icon-sekc.ttf?r9peqw') format('truetype'),
+    url('icon-sekc.woff?r9peqw') format('woff'),
+    url('icon-sekc.svg?r9peqw#icon-sekc') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,86 +27,27 @@
 .icon-activity:before {
   content: "\e900";
 }
-.icon-activityspace .path1:before {
-  content: "\e901";
-  color: rgb(0, 0, 0);
-}
-.icon-activityspace .path2:before {
-  content: "\e902";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path3:before {
-  content: "\e903";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path4:before {
-  content: "\e904";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path5:before {
-  content: "\e905";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path6:before {
-  content: "\e906";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path7:before {
-  content: "\e907";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path8:before {
-  content: "\e908";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-activityspace .path9:before {
-  content: "\e909";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
 .icon-alpha:before {
-  content: "\e90a";
+  content: "\e901";
 }
 .icon-areaofconcern:before {
-  content: "\e90b";
+  content: "\e902";
 }
-.icon-competency .path1:before {
-  content: "\e90c";
-  color: rgb(0, 0, 0);
+.icon-competency:before {
+  content: "\e903";
 }
-.icon-competency .path2:before {
-  content: "\e90d";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
-}
-.icon-kernel .path1:before {
-  content: "\e90e";
-  color: rgb(0, 0, 0);
-}
-.icon-kernel .path2:before {
-  content: "\e90f";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
+.icon-kernel:before {
+  content: "\e904";
 }
 .icon-practice:before {
-  content: "\e910";
+  content: "\e905";
 }
 .icon-repo:before {
-  content: "\e911";
+  content: "\e906";
 }
-.icon-workproduct .path1:before {
-  content: "\e912";
-  color: rgb(0, 0, 0);
+.icon-spaceactivity:before {
+  content: "\e907";
 }
-.icon-workproduct .path2:before {
-  content: "\e913";
-  margin-left: -1em;
-  color: rgb(255, 255, 255);
+.icon-workproduct:before {
+  content: "\e908";
 }

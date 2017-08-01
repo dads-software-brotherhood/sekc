@@ -66,7 +66,7 @@
         </a>
         <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
     </li>
-    <li menu-toggle id="admin-menu" name="Consult Kernel" icon="icon-competency" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
+    <li menu-toggle id="admin-menu" name="Consult Kernel" icon="icon-kernel" ng-class="{active: vm.$state.includes('admin')}" has-authority="ROLE_ADMIN" >
         <a menu-link href="#/practice-management-general" ui-sref="practice-management-general" ng-click="vm.collapseNavbar()">
             <span>New practice</span>
         </a>
@@ -91,18 +91,18 @@
     </li>
       
      
-        <li  menu-toggle id="admin-menu" name="Consult Practice" icon="icon-repo"  has-authority="ROLE_ADMIN" >
+        <li  menu-toggle id="admin-menu" name="Consult Practice" icon="icon-practice"  has-authority="ROLE_ADMIN" >
             <ol menu-toggle id="thingsToWork" class="m-l-10" name="Things to Work With" icon="icon-alpha text-blue">
                 <a menu-link href="#/practice-consult-alpha" ui-sref="practice-consult-alpha" ng-click="vm.collapseNavbar()">
                     <span><i class="m-l-20 icon-alpha text-blue"></i>Alpha</span>
                 </a>
                 <a menu-link href="#/practice-consult-workproduct" ui-sref="practice-consult-workproduct" ng-click="vm.collapseNavbar()">
-                    <span><i class="m-l-35 icon-work-product text-blue"></i>Workproduct</span>
+                    <span><i class="m-l-35 icon-workproduct text-blue"></i>Workproduct</span>
                 </a>
             </ol>
-            <ol menu-toggle id="thingsToDo" class="m-l-10" name="Things to Do" icon="icon-things-to-do text-blue">
+            <ol menu-toggle id="thingsToDo" class="m-l-10" name="Things to Do" icon="icon-activity text-blue">
                 <a menu-link href="#/practice-consult-ActivitySpace" ui-sref="practice-consult-ActivitySpace" ng-click="vm.collapseNavbar()">
-                    <span><i class="m-l-20 icon-activityspace text-blue"></i>Activity Space</span>
+                    <span><i class="m-l-20 icon-spaceactivity text-blue"></i>Activity Space</span>
                 </a>
                 <a menu-link href="#/practice-consult-activity" ui-sref="practice-consult-activity" ng-click="vm.collapseNavbar()">
                     <span><i class="m-l-20 icon-activity text-blue"></i>Activity</span>
@@ -113,15 +113,15 @@
                     <span><i class="m-l-20 icon-competency text-blue"></i>Competency</span>
                 </a>
             </ol>
-            <ol menu-toggle id="thingsToDo" class="m-l-10" name="Areas of Concern" icon="icon-activity text-blue">
+            <ol menu-toggle id="thingsToDo" class="m-l-10" name="Areas of Concern" icon="icon-areaofconcern text-blue">
                 <a menu-link href="#/practice-consult-areaOfConcern" ui-sref="practice-consult-areaOfConcern" ng-click="vm.collapseNavbar()">
-                    <span><i class="m-l-20 icon-activity text-blue"></i>Customer</span>
+                    <span><i class="m-l-20 icon-areaofconcern text-blue"></i>Customer</span>
                 </a>
                 <a menu-link href="#/"  ng-click="vm.collapseNavbar()">
-                    <span><i class="m-l-20 icon-activity text-blue"></i>Solution</span>
+                    <span><i class="m-l-20 icon-areaofconcern text-blue"></i>Solution</span>
                 </a>
                  <a menu-link href="#/" ng-click="vm.collapseNavbar()">
-                    <span><i class="m-l-20 icon-activity text-blue"></i>Endeavor</span>
+                    <span><i class="m-l-20 icon-areaofconcern text-blue"></i>Endeavor</span>
                 </a>
             </ol>
         </li>
