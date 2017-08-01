@@ -80,7 +80,8 @@
     "textAngular": "1.5.1",
     "velocity": "1.2.3",
     "weather-icons": "2.0.10",
-    "angular-ui-tinymce": "latest"
+    "angular-ui-tinymce": "latest",
+    "angular-base64-upload" : "latest"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
