@@ -221,3 +221,7 @@ select[multiple] {
     width:80%;
     padding:15px;
 }
+
+.modal-header, .modal-footer{
+    background-color: white;
+}
