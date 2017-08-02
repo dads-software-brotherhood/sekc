@@ -10,16 +10,16 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('practice-consult-menu', {
-            parent: 'practice-management',
-            url: '/practiceConsult/{login}',
+            parent: 'app',
+            url: '/practiceConsult?page&sort',
             data: {
                 authorities: ['ROLE_ADMIN'],
-                pageTitle: 'practice-management.detail.title'
+                pageTitle: 'practiceManagement.home.title'
             },
             views: {
                 'content@': {
                     templateUrl: 'app/practice-management/practice-consult/practice-consult-menu.html',
-                    //controller: 'PracticeManagementThingsWorkController',
+                    //controller: 'PracticeManagementController',
                     //controllerAs: 'vm'
                 }
             },
@@ -28,10 +28,11 @@
                     $translatePartialLoader.addPart('practice-management');
                     return $translate.refresh();
                 }]
-            }
+
+            }        
         })
         .state('practice-consult-alpha', {
-            parent: 'practice-management',
+            parent: 'app',
             url: '/practiceConsultAlpha/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -52,7 +53,7 @@
             }
         })
          .state('practice-consult-workproduct', {
-            parent: 'practice-management',
+            parent: 'app',
             url: '/practiceConsultWorkproduct/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -73,7 +74,7 @@
             }
         })
           .state('practice-consult-ActivitySpace', {
-            parent: 'practice-management',
+            parent: 'app',
             url: '/practiceConsultSpaceActiviy/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -94,7 +95,7 @@
             }
         })
          .state('practice-consult-activity', {
-            parent: 'practice-management',
+            parent: 'app',
             url: '/practiceConsultActiviy/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -115,7 +116,7 @@
             }
         })
            .state('practice-consult-competency', {
-            parent: 'practice-management',
+            parent: 'app',
             url: '/practiceConsultCompetency/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -136,7 +137,7 @@
             }
         })
         .state('practice-consult-areaOfConcern', {
-            parent: 'practice-management',
+            parent: 'app',
             url: '/practiceConsultAreaOfConcern/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
@@ -147,27 +148,6 @@
                     templateUrl: 'app/practice-management/practice-consult/practice-consult-areaOfConcern.html',
                     //controller: 'PracticeManagementThingsWorkController',
                     //controllerAs: 'vm'
-                }
-            },
-            resolve: {
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('practice-management');
-                    return $translate.refresh();
-                }]
-            }
-        })
-        .state('practice-management-spaceActivity', {
-            parent: 'practice-management',
-            url: '/spaceActivity/{login}',
-            data: {
-                authorities: ['ROLE_ADMIN'],
-                pageTitle: 'practice-management.detail.title'
-            },
-            views: {
-                'content@': {
-                    templateUrl: 'app/practice-management/practice-consult/practice-management-spaceActivity.html',
-                    controller: 'PracticeManagementSpaceActivityController',
-                    controllerAs: 'vm'
                 }
             },
             resolve: {
