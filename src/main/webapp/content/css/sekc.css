@@ -225,3 +225,19 @@ select[multiple] {
 .modal-header, .modal-footer{
     background-color: white;
 }
+
+ul.ivh-treeview .ivh-treeview-toggle {
+    cursor: pointer;
+    margin-right: 5%;
+}
+ul.ivh-treeview {
+    list-style-type: none;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+ul.ivh-treeview li{
+    list-style-type: none;
+    margin-top: 2%;
+   
+}
+
