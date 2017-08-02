@@ -10,6 +10,10 @@ import java.util.List;
  */
 public interface Criteriable {
 
+    public void setAlphaStates(List<AlphaState> asList);
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> asList);
+    public void setOtherConditions(List<String> asList);
+    
     /**
      * getAlphaStates
      * 

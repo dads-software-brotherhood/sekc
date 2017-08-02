@@ -34,7 +34,7 @@ public class PracticeDto {
     private String name;
     @JsonProperty("objective")
     private String objective;
-    @JsonProperty("briefDesciption")
+    @JsonProperty("briefDescription")
     private String briefDesciption;
     @JsonProperty("description")
     private String description;

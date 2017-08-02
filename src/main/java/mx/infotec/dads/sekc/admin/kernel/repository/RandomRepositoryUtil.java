@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,7 @@ import mx.infotec.dads.sekc.admin.kernel.dto.Referrer;
 import mx.infotec.dads.sekc.admin.kernel.dto.Resource;
 import mx.infotec.dads.sekc.admin.kernel.dto.Tag;
 import mx.infotec.dads.sekc.admin.kernel.dto.ViewSelection;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
@@ -133,7 +135,8 @@ public class RandomRepositoryUtil {
     private SEFeatureSelectionRepository featureSelectionRepository;
     @Autowired
     private SEViewSelectionRepository viewSelectionRepository;
-    
+    @Autowired
+    public MongoTemplate mongoTemplate;
     
     
     public void fillSELaguageElementFields(SELanguageElement elementToPersistence, LanguageElementDto languageElementDto) {
@@ -478,6 +481,7 @@ public class RandomRepositoryUtil {
                 element  = null;
             break;
         }
+        Objects.requireNonNull(element, "The id " + id + " doesn't exist on " + clazz.getSimpleName());
         return element;
     }
 }

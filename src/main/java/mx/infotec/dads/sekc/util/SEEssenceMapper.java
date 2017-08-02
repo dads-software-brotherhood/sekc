@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.util;
 
+import java.util.ArrayList;
 import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
 import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
 import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
@@ -28,6 +29,7 @@ import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.util.EssenceMapping;
+import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
@@ -50,13 +52,15 @@ public class SEEssenceMapper {
 
     }
 
+    static RandomRepositoryUtil repoUtil;
     /**
      * Map a PracticeDto to a SEPractice
      * 
      * @param from
      * @return SEPractice
      */
-    public static SEPractice mapSEPractice(PracticeDto from) {
+    public static SEPractice mapSEPractice(PracticeDto from, RandomRepositoryUtil repoUtils) {
+        repoUtil = repoUtils;
         validateGeneralInformation(from);
         SEPractice to = EntityBuilder.build(practice -> {
             EssenceMapping.fillPractice(practice);
@@ -76,7 +80,7 @@ public class SEEssenceMapper {
      * @param practice
      */
     public static void mapGeneralInfo(PracticeDto from, SEPractice practice) {
-        practice.setOwner(EntityBuilder.build(p -> p.setId(from.getIdKernel()), SEKernel.class));
+        practice.setOwner((SEKernel) repoUtil.getDocument(from.getIdKernel(), SEKernel.class));
         practice.setName(from.getName());
         practice.setObjective(from.getObjective());
         practice.setBriefDescription(from.getBriefDesciption());
@@ -167,10 +171,9 @@ public class SEEssenceMapper {
             Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
             Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setState(EntityBuilder.build(seState -> {
-                    seState.setId(element.getIdState());
-                }, SEState.class));
+                criterion.setState((SEState) repoUtil.getDocument(element.getIdState(), SEState.class));
             }, SEEntryCriterion.class);
+            repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
         });
     }
@@ -187,10 +190,9 @@ public class SEEssenceMapper {
             Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
             Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
             SECompletionCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setState(EntityBuilder.build(seState -> {
-                    seState.setId(element.getIdState());
-                }, SEState.class));
+                criterion.setState((SEState) repoUtil.getDocument(element.getIdState(), SEState.class));
             }, SECompletionCriterion.class);
+            repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
         });
     }
@@ -199,7 +201,7 @@ public class SEEssenceMapper {
      * Map WorkProductsLevelOfDetail to SEPractice. This method not map the
      * Workproduct associated to the current levelOfDetail.
      * 
-     * @param alphaState
+     * @param workProductsLevelofDetail
      * @param criterionList
      */
     public static void mapResultWorkProductLevelOfDetailEntryCriterion(
@@ -207,12 +209,11 @@ public class SEEssenceMapper {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setLevelOfDetail(EntityBuilder.build(seLevelOfDetail -> {
-                    seLevelOfDetail.setId(element.getIdLevelOfDetail());
-                }, SELevelOfDetail.class));
+                criterion.setLevelOfDetail( (SELevelOfDetail) repoUtil.getDocument(element.getIdLevelOfDetail(), SELevelOfDetail.class));
                 // If it is necesary to map the idWorkProduct associated to this
                 // Level of Detail, do it here.
             }, SEEntryCriterion.class);
+            repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
         });
     }
@@ -221,7 +222,7 @@ public class SEEssenceMapper {
      * Map WorkProductsLevelOfDetail to SEPractice. This method not map the
      * Workproduct associated to the current levelOfDetail.
      * 
-     * @param alphaState
+     * @param workProductsLevelofDetail
      * @param criterionList
      */
     public static Object mapResultWorkProductLevelOfDetailResultCriterion(
@@ -229,12 +230,11 @@ public class SEEssenceMapper {
         Optional.of(workProductsLevelofDetail).ifPresent(element -> {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setLevelOfDetail(EntityBuilder.build(seLevelOfDetail -> {
-                    seLevelOfDetail.setId(element.getIdLevelOfDetail());
-                }, SELevelOfDetail.class));
+                criterion.setLevelOfDetail( (SELevelOfDetail) repoUtil.getDocument(element.getIdLevelOfDetail(), SELevelOfDetail.class));
                 // If it is necesary to map the idWorkProduct associated to this
                 // Level of Detail, do it here.
             }, SEEntryCriterion.class);
+            repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
         });
         return criterionList;
@@ -243,7 +243,7 @@ public class SEEssenceMapper {
     /**
      * Map Other Conditions to SEPractice
      * 
-     * @param alphaState
+     * @param otherConditionsList
      * @param criterionList
      */
     public static void mapResultOtherEntryConditions(List<String> otherConditionsList,
@@ -252,6 +252,7 @@ public class SEEssenceMapper {
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setOtherConditions(otherConditionsList);
             }, SEEntryCriterion.class);
+            repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
         });
     }
@@ -259,7 +260,7 @@ public class SEEssenceMapper {
     /**
      * Map Other Conditions to SEPractice
      * 
-     * @param alphaState
+     * @param otherConditionsList
      * @param criterionList
      */
     public static void mapResultOtherResultConditions(List<String> otherConditionsList,
@@ -268,6 +269,7 @@ public class SEEssenceMapper {
             SECompletionCriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setOtherConditions(otherConditionsList);
             }, SECompletionCriterion.class);
+            repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
         });
     }
@@ -283,12 +285,11 @@ public class SEEssenceMapper {
         List<String> alphasIdsList = thingsToWorkWith.getAlphas();
         Objects.requireNonNull(alphasIdsList, "You must select at least one alpha");
         alphasIdsList.forEach(alphaId -> {
-            SEAlpha seAlpha = EntityBuilder.build(alpha -> {
-                alpha.setId(alphaId);
-            }, SEAlpha.class);
+            SEAlpha seAlpha = (SEAlpha) repoUtil.getDocument(alphaId, SEAlpha.class);
             // sub-alpha not yet mapped, if it is mandatory to map the subalphas
             // id, do it here or consider to map in the same list of
             // alphaSelectionList
+            // No debería construir, debería recuperar
             to.getReferredElements().add(seAlpha);
         });
         mapIdsWorkProducts(to, thingsToWorkWith.getWorkProducts());
@@ -319,6 +320,11 @@ public class SEEssenceMapper {
                 act.setName(activity.getName());
                 act.setBriefDescription(activity.getBriefDesciption());
                 act.setDescription(activity.getDescription());
+                act.setRequiredCompetencyLevel(new ArrayList<>());
+                act.setApproach(new ArrayList<>());
+                act.setAction(new ArrayList<>());
+                act.setCriterion(new ArrayList<>());
+                act.setResource(new ArrayList<>());
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
@@ -326,12 +332,13 @@ public class SEEssenceMapper {
                 mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
                 mapActivityResources(activity, act);
             }, SEActivity.class);
-            SEActivitySpace seActivitySpace = EntityBuilder.build(entity -> entity.setId(activity.getIdActivitySpace()),
-                    SEActivitySpace.class);
+            repoUtil.mongoTemplate.save(seActivity);
+            SEActivitySpace seActivitySpace = (SEActivitySpace) repoUtil.getDocument(activity.getIdActivitySpace(), SEActivitySpace.class);
             SEActivityAssociation seActivityAssociation = EntityBuilder.build(actAssociation -> {
                 actAssociation.setEnd1(seActivitySpace);
                 actAssociation.setEnd2(seActivity);
             }, SEActivityAssociation.class);
+            repoUtil.mongoTemplate.save(seActivityAssociation);
             to.getOwnedElements().add(seActivityAssociation);
         });
         return to;
@@ -340,9 +347,11 @@ public class SEEssenceMapper {
     public static void mapActivityResources(Activity activity, SEActivity act) {
         Optional.of(activity.getResources()).ifPresent(resourceList -> {
             resourceList.forEach(resource -> {
-                act.getResource().add(EntityBuilder.build(seResource -> {
+                SEResource seresource = EntityBuilder.build(seResource -> {
                     seResource.setContent(resource.getContent());
-                }, SEResource.class));
+                }, SEResource.class);
+                repoUtil.mongoTemplate.save(seresource);
+                act.getResource().add(seresource);
             });
         });
     }
@@ -350,11 +359,15 @@ public class SEEssenceMapper {
     public static void mapActions(Activity activity, SEActivity act) {
         Optional.of(activity.getActions()).ifPresent(actionList -> {
             actionList.forEach(action -> {
-                act.getAction().add(EntityBuilder.build(seAction -> {
+                SEAction seaction = EntityBuilder.build(seAction -> {
                     seAction.setKind(ActionKind.valueOf(action.getIdActionKind()));
+                    seAction.setAlpha(new ArrayList<>());
+                    seAction.setWorkProduct(new ArrayList<>());
                     mapAlphaStateToAction(action.getAlphaStates(), seAction);
                     mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
-                }, SEAction.class));
+                }, SEAction.class);
+                repoUtil.mongoTemplate.save(seaction);
+                act.getAction().add(seaction);
             });
         });
     }
@@ -362,9 +375,7 @@ public class SEEssenceMapper {
     public static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
         Optional.of(alphaStates).ifPresent(alphaStateList -> {
             alphaStateList.forEach(alphaState -> {
-                seAction.getAlpha().add(EntityBuilder.build(seAlphaNew -> {
-                    seAlphaNew.setId(alphaState.getIdAlpha());
-                }, SEAlpha.class));
+                seAction.getAlpha().add( (SEAlpha) repoUtil.getDocument(alphaState.getIdAlpha(), SEAlpha.class));
             });
         });
     }
@@ -373,9 +384,7 @@ public class SEEssenceMapper {
             SEAction seAction) {
         Optional.of(workProductsLevelofDetail).ifPresent(workProductsLevelofDetailList -> {
             workProductsLevelofDetailList.forEach(workProduct -> {
-                seAction.getWorkProduct().add(EntityBuilder.build(seWorkProductNew -> {
-                    seWorkProductNew.setId(workProduct.getIdWorkProduct());
-                }, SEWorkProduct.class));
+                seAction.getWorkProduct().add( (SEWorkProduct) repoUtil.getDocument(workProduct.getIdWorkProduct(), SEWorkProduct.class));
             });
         });
     }
@@ -383,10 +392,12 @@ public class SEEssenceMapper {
     public static void mapApproach(Activity activity, SEActivity act) {
         Optional.of(activity.getApproaches()).ifPresent(approachList -> {
             approachList.forEach(approach -> {
-                act.getApproach().add(EntityBuilder.build(seApproach -> {
+                SEApproach seapproach = EntityBuilder.build(seApproach -> {
                     seApproach.setName(approach.getName());
                     seApproach.setDescription(approach.getDescription());
-                }, SEApproach.class));
+                }, SEApproach.class);
+                repoUtil.mongoTemplate.save(seapproach);
+                act.getApproach().add(seapproach);
             });
         });
     }
@@ -394,10 +405,8 @@ public class SEEssenceMapper {
     public static void mapCompetencyLevel(Activity activity, SEActivity act) {
         Optional.of(activity.getCompetencies()).ifPresent(competencyList -> {
             competencyList.forEach(competency -> {
-                act.getRequiredCompetencyLevel().add(EntityBuilder.build(seCompetencyLeve -> {
-                    seCompetencyLeve.setId(competency.getIdCompetencyLevel());
+                act.getRequiredCompetencyLevel().add( (SECompetencyLevel) repoUtil.getDocument(competency.getIdCompetencyLevel(), SECompetencyLevel.class));
                     // if you must map competencyid do it here
-                }, SECompetencyLevel.class));
             });
         });
     }
@@ -410,11 +419,10 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapRelatedPractices(List<String> practicesIdsList, SEPractice to) {
-        Optional.of(practicesIdsList).ifPresent(practiceList -> {
+        //relatedPractices are optional on the client
+        Optional.ofNullable(practicesIdsList).ifPresent(practiceList -> {
             practiceList.forEach(practiceId -> {
-                SEPractice sePractice = EntityBuilder.build(practice -> {
-                    practice.setId(practiceId);
-                }, SEPractice.class);
+                SEPractice sePractice = (SEPractice) repoUtil.getDocument(practiceId, SEPractice.class);
                 to.getReferredElements().add(sePractice);
             });
         });
