@@ -35,23 +35,22 @@ public class PracticeServiceImpl implements PracticeService {
     private final Logger LOG = LoggerFactory.getLogger(PracticeServiceImpl.class);
     private ResponseWrapper response;
 
-    private boolean getPracticeFromRequest(PracticeDto practiceDto, SEPractice sePractice, ResponseWrapper response) {
+    private SEPractice getPracticeFromRequest(PracticeDto practiceDto, ResponseWrapper response) {
         try {
-            sePractice = SEEssenceMapper.mapSEPractice(practiceDto, repoUtils);
-            return true;
+            return SEEssenceMapper.mapSEPractice(practiceDto, repoUtils);
         } catch (Exception e) {
             //e.printStackTrace();
             response.setError_message(e.getMessage());
             LOG.debug("Fail to map Pactice DTO ", e);
-            return false;
+            return null;
         }
     }
 
     @Override
     public ResponseWrapper save(PracticeDto practiceDto) {
-        SEPractice sePractice = new SEPractice();
         response = new ResponseWrapper();
-        if (!getPracticeFromRequest(practiceDto, sePractice, response)) {
+        SEPractice sePractice = getPracticeFromRequest(practiceDto, response);
+        if (sePractice == null ) {
             //Now we use error messages from exceptions inside dtoMapper
             //response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);

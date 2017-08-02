@@ -35,7 +35,7 @@ public class LibraryServiceImpl implements LibraryService {
     private boolean getLibraryFromRequest(Object library, SELibrary libraryToPersistence){
         try{
             Map< String , Object > libraryMap = (Map< String , Object >) library;
-            repositoryUtil.fillSEElementGroupFields(libraryToPersistence, libraryMap);
+            //TODO: repositoryUtil.fillSEElementGroupFields(libraryToPersistence, libraryMap);
             
             return true;
         }catch( Exception e ){

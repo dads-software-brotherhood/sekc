@@ -36,7 +36,7 @@ public class MethodServiceImpl implements MethodService {
     private boolean getMethodFromRequest(Object method, SEMethod methodToPersistence){
         try{
             Map< String , Object > methodMap = (Map< String , Object >) method;
-            repositoryUtil.fillSEElementGroupFields(methodToPersistence, methodMap);
+            //TODO: repositoryUtil.fillSEElementGroupFields(methodToPersistence, methodMap);
             methodToPersistence.setPurpose((String) methodMap.get("purpose"));
             
             if (methodMap.containsKey("baseKernel")){

@@ -35,7 +35,7 @@ public class PracticeAssetServiceImpl implements PracticeAssetService {
     private boolean getPracticeAssetFromRequest(Object practiceAsset, SEPracticeAsset practiceAssetToPersistence){
         try{
             Map< String , Object > practiceAssetMap = (Map< String , Object >) practiceAsset;
-            repositoryUtil.fillSEElementGroupFields(practiceAssetToPersistence, practiceAssetMap);
+            //TODO: repositoryUtil.fillSEElementGroupFields(practiceAssetToPersistence, practiceAssetMap);
             
             return true;
         }catch( Exception e ){
