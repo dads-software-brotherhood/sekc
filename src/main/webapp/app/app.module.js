@@ -44,7 +44,8 @@
             'LocalStorageModule',
             'ui.tinymce',
             'ivh.treeview',
-            'file-model'
+            'file-model',
+            'naif.base64'
         ])
         .run(run);
 

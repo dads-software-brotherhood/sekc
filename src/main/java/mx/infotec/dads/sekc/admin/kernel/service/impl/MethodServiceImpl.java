@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEMethod;
 import mx.infotec.dads.essence.repository.SEMethodRepository;
-import mx.infotec.dads.sekc.admin.kernel.dto.MethodDto;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
@@ -34,17 +33,18 @@ public class MethodServiceImpl implements MethodService {
     private final Logger LOG = LoggerFactory.getLogger(MethodServiceImpl.class );
     private ResponseWrapper response;
     
-    private boolean getMethodFromRequest(MethodDto methodDto, SEMethod methodToPersistence){
+    private boolean getMethodFromRequest(Object method, SEMethod methodToPersistence){
         try{
-            repositoryUtil.fillSEElementGroupFields(methodToPersistence, methodDto);
+            Map< String , Object > methodMap = (Map< String , Object >) method;
+            repositoryUtil.fillSEElementGroupFields(methodToPersistence, methodMap);
+            methodToPersistence.setPurpose((String) methodMap.get("purpose"));
             
-            methodToPersistence.setPurpose( methodDto.getPurpose());
-            
-            if (methodDto.getBaseKernel() != null){
-                SEKernel baseKernel =  (SEKernel) repositoryUtil.getDocument( methodDto.getBaseKernel().getIdBaseKernel(), SEKernel.class);
+            if (methodMap.containsKey("baseKernel")){
+                SEKernel baseKernel =  (SEKernel) repositoryUtil.getDocument((String) methodMap.get("baseKernel"), SEKernel.class);
                 if ( baseKernel != null)
                     methodToPersistence.setBaseKernel(baseKernel);
             }
+            
             return true;
         }catch( Exception e ){
             LOG.debug( "Fail to obtain the needed FIELDS ", e );
@@ -53,10 +53,10 @@ public class MethodServiceImpl implements MethodService {
     }
 
     @Override
-    public ResponseWrapper save(MethodDto methodDto) {
+    public ResponseWrapper save(Object method) {
         SEMethod methodToPersistence = new SEMethod();
         response = new ResponseWrapper();
-        if (!getMethodFromRequest(methodDto, methodToPersistence)){
+        if (!getMethodFromRequest(method, methodToPersistence)){
             response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
             response.setResponse_code(HttpStatus.BAD_REQUEST);
         }else{

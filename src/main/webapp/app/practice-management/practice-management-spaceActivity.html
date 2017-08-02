@@ -136,25 +136,21 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Description</th>
                                         <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="alphaState in vm.activityInEdition.entryCriterion.alphaStates">
-                                        <td>{{alphaState.briefDescription}}</td>
                                         <td>{{alphaState.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
                                     </tr>
                                     <tr ng-repeat="workProductLevelofDetail in vm.activityInEdition.entryCriterion.workProductsLevelofDetail">
-                                        <td>{{workProductLevelofDetail.briefDescription}}</td>
                                         <td>{{workProductLevelofDetail.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                                     </tr>
                                     <tr ng-repeat="otherConditions in vm.activityInEdition.entryCriterion.otherConditions">
-                                        <td>{{otherConditions.briefDescription}}</td>
-                                        <td>{{otherConditions.description}}</td>
+                                        <td>{{otherConditions}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                                     </tr>
                                 </tbody>
@@ -164,25 +160,21 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Description</th>
                                         <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="alphaState in vm.activityInEdition.completitionCriterion.alphaStates">
-                                        <td>{{alphaState.briefDescription}}</td>
                                         <td>{{alphaState.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'alpha')"><i class="md md-delete"></i></button></td>
                                     </tr>
                                     <tr ng-repeat="workProductLevelofDetail in vm.activityInEdition.completitionCriterion.workProductsLevelofDetail">
-                                        <td>{{workProductLevelofDetail.briefDescription}}</td>
                                         <td>{{workProductLevelofDetail.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                                     </tr>
                                     <tr ng-repeat="otherConditions in vm.activityInEdition.completitionCriterion.otherConditions">
-                                        <td>{{otherConditions.briefDescription}}</td>
-                                        <td>{{otherConditions.description}}</td>
+                                        <td>{{otherConditions}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
                                     </tr>
                                 </tbody>
@@ -219,7 +211,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">
         <div class="col-md-12">
             <div class="well white">
                 <div class="table-responsive white">
@@ -398,10 +390,6 @@
             <h4 class="modal-title">Entry</h4>
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label for="textArea" data-translate="practiceManagement.description" class="pull-left">Description</label>
-                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionEntry" required></textarea>
-            </div>
             <div class="form-group filled">
                 <label class="pull-left">Select a Alpha</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
@@ -447,10 +435,6 @@
             <h4 class="modal-title">Completition</h4>
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label for="textArea" data-translate="practiceManagement.description" class="pull-left">Description</label>
-                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionCompletition" required></textarea>
-            </div>
             <div class="form-group filled">
                 <label class="pull-left">Select a Alpha</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alphaCompletition" ng-disabled="vm.workProductCompletition != null || vm.anotherEntryCriteriaCompletition != null">
@@ -508,7 +492,10 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Attachment</label>
-                <input type="file" id="attachment" file-model='vm.attachment' accept="*">
+                <input type="file" base-sixty-four-input ng-model="vm.attachment" style="color: transparent">
+            </div>
+            <div class="form-group" ng-show="vm.attachment">
+                <label class="control-label">File: {{vm.attachment.filename}}</label>
             </div>
         </div>
         <div class="modal-footer">

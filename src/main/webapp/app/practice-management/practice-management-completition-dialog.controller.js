@@ -19,7 +19,7 @@
         
 
         function load() {
-            console.log(Activity);
+
             vm.workProducts = localStorageService.get('workproducts');
             vm.alphas = localStorageService.get('alphas');
             vm.practice = localStorageService.get('practiceInEdition');

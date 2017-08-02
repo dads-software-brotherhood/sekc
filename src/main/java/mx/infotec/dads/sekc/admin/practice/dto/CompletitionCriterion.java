@@ -23,7 +23,7 @@ public class CompletitionCriterion implements Criteriable{
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = null;
     @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = null;
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
@@ -41,12 +41,12 @@ public class CompletitionCriterion implements Criteriable{
 
     @JsonProperty("workProductsLevelofdetail")
     public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
-        return workProductsLevelofDetail;
+        return workProductsLevelofdetail;
     }
 
     @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
-        this.workProductsLevelofDetail = workProductsLevelofDetail;
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofdetail) {
+        this.workProductsLevelofdetail = workProductsLevelofdetail;
     }
 
     @JsonProperty("otherConditions")

@@ -2,7 +2,6 @@ package mx.infotec.dads.sekc.admin.kernel.repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -51,21 +50,8 @@ import mx.infotec.dads.essence.repository.SEViewSelectionRepository;
 import mx.infotec.dads.essence.repository.SEWorkProductManifestRepository;
 import mx.infotec.dads.essence.repository.SEWorkProductRepository;
 import mx.infotec.dads.sekc.admin.kernel.dto.BasicElementDto;
-import mx.infotec.dads.sekc.admin.kernel.dto.ElementGroupDto;
-import mx.infotec.dads.sekc.admin.kernel.dto.Extension;
-import mx.infotec.dads.sekc.admin.kernel.dto.FeatureSelection;
 import mx.infotec.dads.sekc.admin.kernel.dto.LanguageElementDto;
-import mx.infotec.dads.sekc.admin.kernel.dto.MergeResolution;
-import mx.infotec.dads.sekc.admin.kernel.dto.OwnedElement;
-import mx.infotec.dads.sekc.admin.kernel.dto.PatternAssociation;
-import mx.infotec.dads.sekc.admin.kernel.dto.Property;
-import mx.infotec.dads.sekc.admin.kernel.dto.ReferredElement;
-import mx.infotec.dads.sekc.admin.kernel.dto.Referrer;
-import mx.infotec.dads.sekc.admin.kernel.dto.Resource;
-import mx.infotec.dads.sekc.admin.kernel.dto.Tag;
-import mx.infotec.dads.sekc.admin.kernel.dto.ViewSelection;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -97,8 +83,6 @@ public class RandomRepositoryUtil {
     private SECheckpointRepository checkPointRepository;
     @Autowired
     private SEEntryCriterionRepository entryCriterionRepository;
-    @Autowired
-    private SECompletionCriterionRepository completitionCriterionRepository;
     @Autowired
     private SEMergeResolutionRepository mergeResolutionRepository;
     @Autowired
@@ -144,7 +128,7 @@ public class RandomRepositoryUtil {
             elementToPersistence.setSuppressable(languageElementDto.getSuppressable());
         
         if (languageElementDto.getOwner() != null){
-            SEElementGroup owner = (SEElementGroup) getCorrectDocument(languageElementDto.getOwner().getType(), languageElementDto.getOwner().getIdOwner());
+            SEElementGroup owner = getCorrectDocument(languageElementDto.getOwner().getType(), languageElementDto.getOwner().getIdOwner());
             if (owner != null)
                 elementToPersistence.setOwner(owner);
         }
@@ -174,7 +158,7 @@ public class RandomRepositoryUtil {
         });}
         if (languageElementDto.getReferrer() != null){
             languageElementDto.getReferrer().stream().map((referrer) -> getCorrectDocument(referrer.getType(), referrer.getIdReferrer())).filter((seElementGroup) -> (seElementGroup != null)).forEachOrdered((seElementGroup) -> {
-                elementToPersistence.getReferrer().add((SEElementGroup) seElementGroup);
+                elementToPersistence.getReferrer().add(seElementGroup);
         });}
         if (languageElementDto.getPatternAssociation() != null){
             languageElementDto.getPatternAssociation().stream().map((patternAssociation) -> (SEPatternAssociation) getDocument(patternAssociation.getIdPatternAssociation(), SEPatternAssociation.class)).filter((sePatternAssociation) -> (sePatternAssociation != null)).forEachOrdered((sePatternAssociation) -> {
@@ -195,34 +179,34 @@ public class RandomRepositoryUtil {
         //    "icon":                 GraphicalElement
     }
     
-    public void fillSEElementGroupFields( SEElementGroup elementToPersistence, ElementGroupDto elementGroupDto) {
+    public void fillSEElementGroupFields( SEElementGroup elementToPersistence, Map<String, Object> map) {
         
-        fillSELaguageElementFields(elementToPersistence, elementGroupDto);
+        //TODO fillSELaguageElementFields(elementToPersistence, map);
         
         //properties of SEElementGroup
-        elementToPersistence.setName( elementGroupDto.getName());
-        elementToPersistence.setBriefDescription(elementGroupDto.getBriefDescription());
-        elementToPersistence.setDescription(elementGroupDto.getDescription());
+        elementToPersistence.setName((String) map.get("name"));
         // TODO pendiente implementar GraphicalElement
         //    "icon":                 GraphicalElement
+        elementToPersistence.setBriefDescription((String) map.get("briefDescription"));
+        elementToPersistence.setDescription((String) map.get("description"));
         
-        if (elementGroupDto.getMergeResolution() != null){
-            elementGroupDto.getMergeResolution().stream().map((mergeResolution) -> (SEMergeResolution) getDocument(mergeResolution.getIdMergeResolution(), SEMergeResolution.class)).filter((seMergeResolution) -> (seMergeResolution != null)).forEachOrdered((seMergeResolution) -> {
-                elementToPersistence.getMergeResolution().add(seMergeResolution);
-            });
+        if (map.containsKey("mergeResolution") && map.get("mergeResolution") != null ){
+            List<SEMergeResolution> collectionMergeResolutions = getDocsCollection(map, "mergeResolution", SEMergeResolution.class);
+            if (!collectionMergeResolutions.isEmpty())
+                elementToPersistence.setMergeResolution(collectionMergeResolutions);
+        }
+        /* TODO: correctDocument for SELanguageElement objects
+        if (map.containsKey("ownedElements") && map.get("ownedElements") != null ){
+            List<SELanguageElement> ownedElements = getCorrectDocument( (String) map.get("ownedElements") );
+            if (ownedElements != null)
+                elementToPersistence.setOwnedElements( ownedElements );
         }
         
-        if ( elementGroupDto.getOwnedElements() != null){
-            elementGroupDto.getOwnedElements().stream().map((ownedElement) -> getCorrectDocument( ownedElement.getType(), ownedElement.getIdOwnedElements() )).filter((seOwnedElement) -> (seOwnedElement != null)).forEachOrdered((seOwnedElement) -> {
-                elementToPersistence.getOwnedElements().add(seOwnedElement);
-            });
-        }
-        
-        if ( elementGroupDto.getReferredElements()!= null){
-            elementGroupDto.getReferredElements().stream().map((referredElement) -> getCorrectDocument( referredElement.getType(), referredElement.getIdReferredElements() )).filter((seReferredElement) -> (seReferredElement != null)).forEachOrdered((seReferredElement) -> {
-                elementToPersistence.getReferredElements().add(seReferredElement);
-            });
-        }
+        if (map.containsKey("referredElements") && map.get("referredElements") != null ){
+            List<SELanguageElement> referredElements = getCorrectDocument( (String) map.get("referredElements") );
+            if (referredElements != null)
+                elementToPersistence.setReferredElements( referredElements );
+        }*/
     }
     
     public void fillSEResourceFields( SEResource elementToPersistence, Map<String, Object> map){
@@ -231,7 +215,7 @@ public class RandomRepositoryUtil {
         //properties of SEBasicElement
         elementToPersistence.setContent((String) map.get("content"));
         
-        /*
+        /* TODO: correctDocument for SELanguageElement objects
         if (map.containsKey("languageElement") && map.get("languageElement") != null ){
             SELanguageElement languageElement = getCorrectDocument( (String) map.get("languageElement"));
             if ( languageElement != null )
@@ -278,101 +262,29 @@ public class RandomRepositoryUtil {
         return criterion;
     }
     
-    private SELanguageElement getCorrectDocument( String type, String id) {
-        SELanguageElement languageElement;
+    private SEElementGroup getCorrectDocument( String type, String id) {
+        SEElementGroup elementGroup;
         switch (type){
             case "kernel":
-                languageElement = kernelRepository.findOne(id);
+                elementGroup = kernelRepository.findOne(id);
             break;
             case "library":
-                languageElement = libraryRepository.findOne(id);
+                elementGroup = libraryRepository.findOne(id);
             break;
             case "method":
-                languageElement = methodRepository.findOne(id);
+                elementGroup = methodRepository.findOne(id);
             break;
             case "practice":
-                languageElement = practiceRepository.findOne(id);
+                elementGroup = practiceRepository.findOne(id);
             break;
             case "practiceAsset":
-                languageElement = practiceAssetRepository.findOne(id);
-            break;
-            case "SEAction":
-                languageElement = actionRepository.findOne(id);
-            break;
-            case "SEActivityAssociation":
-                languageElement = activityAssociationRepository.findOne(id);
-            break;
-            case "alphaAssociation":
-                languageElement = alphaAssociationRepository.findOne(id);
-            break;
-            case "SEAlphaContainment":
-                languageElement = alphaContainmentRepository.findOne(id);
-            break;
-            case "SELevelOfDetail":
-                languageElement = levelOfDetailRepository.findOne(id);
-            break;
-            case "SEState":
-                languageElement =  stateRepository.findOne(id );
-            break;
-            case "workProductManifest":
-                languageElement = workProductManifestRepository.findOne(id);
-            break;
-            case "workProduct":
-                languageElement = workProductRepository.findOne(id);
-            break;
-            case "SECompetencyLevel":
-                languageElement = competencyLevelRepository.findOne(id);
-            break;
-            case "competency":
-                languageElement = competencyRepository.findOne(id);
-            break;
-            case "SECheckpoint":
-                languageElement = checkPointRepository.findOne(id);
-            break;
-            case "SEExtensionElement":
-                languageElement = extensionElementRepository.findOne(id);
-            break;
-            case "SEMergeResolution":
-                languageElement = mergeResolutionRepository.findOne(id);
-            break;
-            case "SEPatternAssociation":
-                languageElement = patternAssociationRepository.findOne(id);
-            break;
-            case "SEResource":
-                languageElement = resourceRepository.findOne(id);
-            break;
-            case "SETag":
-                languageElement = tagRepository.findOne(id);
-            break;
-            case "SEPattern":
-                languageElement = patternRepository.findOne(id);
-            break;
-            case "SEActivitySpace":
-                languageElement = activitySpaceRepository.findOne(id);
-            break;
-            case "SEFeatureSelection":
-                languageElement = featureSelectionRepository.findOne(id);
-            break;
-            case "SECriterion":
-                languageElement = entryCriterionRepository.findOne(id);
-            break;
-            case "SEUserDefinedType":
-                languageElement = userDefinedTypeRepository.findOne(id);
-            break;
-            case "SEViewSelection":
-                languageElement = viewSelectionRepository.findOne(id);
-            break;
-            case "completitionCriterion":
-                languageElement = completitionCriterionRepository.findOne(id);
-            break;
-            case "entryCriterion":
-                languageElement = entryCriterionRepository.findOne(id);
+                elementGroup = practiceAssetRepository.findOne(id);
             break;
             default:
-                languageElement = null;
+                elementGroup = null;
             break;
         }
-        return languageElement;
+        return elementGroup;
     }
     
     private SEElementGroup getCorrectDocument( String id) {
@@ -393,60 +305,6 @@ public class RandomRepositoryUtil {
     public Object getDocument( String id, Class clazz){
         Object element;
         switch ( clazz.getSimpleName()){
-            case "SEAction":
-                element = actionRepository.findOne(id);
-            break;
-            case "SEAlpha":
-                element = alphaRepository.findOne(id);
-            break;
-            case "SEActivityAssociation":
-                element = activityAssociationRepository.findOne(id);
-            break;
-            case "SEAlphaAssociation":
-                element = alphaAssociationRepository.findOne(id);
-            break;
-            case "SEAlphaContainment":
-                element = alphaContainmentRepository.findOne(id);
-            break;
-            case "SELevelOfDetail":
-                element = levelOfDetailRepository.findOne(id);
-            break;
-            case "SEState":
-                element =  stateRepository.findOne(id );
-            break;
-            case "SEWorkProductManifest":
-                element = workProductManifestRepository.findOne(id);
-            break;
-            case "SEWorkProduct":
-                element = workProductRepository.findOne(id);
-            break;
-            case "SECompetencyLevel":
-                element = competencyLevelRepository.findOne(id);
-            break;
-            case "SECompetency":
-                element = competencyRepository.findOne(id);
-            break;
-            case "SECheckpoint":
-                element = checkPointRepository.findOne(id);
-            break;
-            case "SEExtensionElement":
-                element = extensionElementRepository.findOne(id);
-            break;
-            case "SEMergeResolution":
-                element = mergeResolutionRepository.findOne(id);
-            break;
-            case "SEPatternAssociation":
-                element = patternAssociationRepository.findOne(id);
-            break;
-            case "SEResource":
-                element = resourceRepository.findOne(id);
-            break;
-            case "SETag":
-                element = tagRepository.findOne(id);
-            break;
-            case "SEPattern":
-                element = patternRepository.findOne(id);
-            break;
             case "SEKernel":
                 element = kernelRepository.findOne(id);
             break;
@@ -462,21 +320,41 @@ public class RandomRepositoryUtil {
             case "SEPracticeAsset":
                 element =  practiceAssetRepository.findOne(id );
             break;
+            case "SEState":
+                element =  stateRepository.findOne(id );
+            break;
             case "SEActivitySpace":
                 element = activitySpaceRepository.findOne(id);
             break;
-            case "SEFeatureSelection":
-                element = featureSelectionRepository.findOne(id);
+            case "SELevelOfDetail":
+                element = levelOfDetailRepository.findOne(id);
+            break;
+            case "SECompetencyLevel":
+                element = competencyLevelRepository.findOne(id);
+            break;
+            case "SECheckpoint":
+                element = checkPointRepository.findOne(id);
             break;
             case "SECriterion":
                 element = entryCriterionRepository.findOne(id);
             break;
+            case "SEMergeResolution":
+                element = mergeResolutionRepository.findOne(id);
+            break;
             case "SEUserDefinedType":
                 element = userDefinedTypeRepository.findOne(id);
             break;
-            case "SEViewSelection":
-                element = viewSelectionRepository.findOne(id);
+            case "SEAction":
+                element = actionRepository.findOne(id);
             break;
+            case "SEAlphaContainment":
+                element = alphaContainmentRepository.findOne(id);
+            break;
+            case "SEAlphaAssociation":
+                element = alphaAssociationRepository.findOne(id);
+            break;
+            case "SEWorkProductManifest":
+                element = workProductManifestRepository.findOne(id);
             default:
                 element  = null;
             break;

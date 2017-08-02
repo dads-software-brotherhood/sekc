@@ -1,7 +1,7 @@
 {
 	"repository": {
 		"home": {
-			"title": "Repositories",
+			"title": "  Repositories",
 			"createLabel": "Create a new Repository",
 			"createOrEditLabel": "Create or edit a Repository"
 		},

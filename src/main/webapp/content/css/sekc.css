@@ -37,6 +37,9 @@ select[multiple] {
 .m-t-18 a{
     margin-top:180%!important;
 }
+.m-ln-7{
+    margin-left:-7%;
+}
 /*General*/
 .c-white a {
     
@@ -174,12 +177,51 @@ select[multiple] {
   width: 350px;
   height: 250px;  
   display: block;
+  position:relative;
+}
+.activity-border {
+  background-image: url(/content/images/activity.png);
+  background-repeat: no-repeat;
+  margin-left:15%;
+  width: 350px;
+  height: 100px;  
+  
+  position:absolute;
 }
 .m-tn-8{
    margin-top:-8%; 
 }
+.competency1-border{
+    border: solid 1px;
+    height:50%;
+    width:100%;
+    padding:15px;
+}
+.competency2-border{
+    border: solid 1px;
+    height:50%;
+    width:95%;
+    padding:15px;
+}
+.competency3-border{
+    border: solid 1px;
+    height:50%;
+    width:90%;
+    padding:15px;
+}
+.competency4-border{
+    border: solid 1px;
+    height:50%;
+    width:85%;
+    padding:15px;
+}
+.competency5-border{
+    border: solid 1px;
+    height:50%;
+    width:80%;
+    padding:15px;
+}
 
 .modal-header, .modal-footer{
-	background-color: white;
-}
+    background-color: white;
 }
