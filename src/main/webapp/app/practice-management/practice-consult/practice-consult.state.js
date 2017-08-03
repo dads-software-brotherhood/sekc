@@ -20,7 +20,7 @@
                 'content@': {
                     templateUrl: 'app/practice-management/practice-consult/practice-consult-menu.html',
                     //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    //controllerAs: 'vm'S
                 }
             },
             resolve: {
