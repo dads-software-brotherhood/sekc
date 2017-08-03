@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icon-sekc';
-  src:  url('icon-sekc.eot?r9peqw');
-  src:  url('icon-sekc.eot?r9peqw#iefix') format('embedded-opentype'),
-    url('icon-sekc.ttf?r9peqw') format('truetype'),
-    url('icon-sekc.woff?r9peqw') format('woff'),
-    url('icon-sekc.svg?r9peqw#icon-sekc') format('svg');
+  src:  url('icon-sekc.eot?5xxfk0');
+  src:  url('icon-sekc.eot?5xxfk0#iefix') format('embedded-opentype'),
+    url('icon-sekc.ttf?5xxfk0') format('truetype'),
+    url('icon-sekc.woff?5xxfk0') format('woff'),
+    url('icon-sekc.svg?5xxfk0#icon-sekc') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -36,18 +36,21 @@
 .icon-competency:before {
   content: "\e903";
 }
-.icon-kernel:before {
+.icon-glosario:before {
   content: "\e904";
 }
-.icon-practice:before {
+.icon-kernel:before {
   content: "\e905";
 }
-.icon-repo:before {
+.icon-practice:before {
   content: "\e906";
 }
-.icon-spaceactivity:before {
+.icon-repo:before {
   content: "\e907";
 }
-.icon-workproduct:before {
+.icon-spaceactivity:before {
   content: "\e908";
+}
+.icon-workproduct:before {
+  content: "\e909";
 }
