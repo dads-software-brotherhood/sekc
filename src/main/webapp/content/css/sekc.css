@@ -67,6 +67,9 @@ select[multiple] {
     position: absolute; 
     margin-top: 7%;
 }
+.m-tn-8{
+   margin-top:-8%; 
+}
 #vertical-bar {
         border-left: 2px solid #26a69a;
         width:1px;
@@ -205,9 +208,7 @@ select[multiple] {
   
   position:absolute;
 }
-.m-tn-8{
-   margin-top:-8%; 
-}
+
 .competency1-border{
     border: solid 1px;
     height:50%;
@@ -239,6 +240,7 @@ select[multiple] {
     padding:15px;
 }
 
+/*Arbol things to work with */
 .modal-header, .modal-footer{
     background-color: white;
 }
@@ -257,4 +259,5 @@ ul.ivh-treeview li{
     margin-top: 2%;
    
 }
+/*Imagen home*/
 
