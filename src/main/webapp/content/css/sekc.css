@@ -170,6 +170,14 @@ select[multiple] {
   height: 100px;  
   display: block; 
 }
+.workproduct-2-border {
+  background-image: url(/content/images/workproduct-2.png);
+  background-repeat: no-repeat;
+  margin-left:2%;
+  width: 280px;
+  height: 100px;  
+  display: block; 
+}
 .ActivitySpace-border {
   background-image: url(/content/images/ActivitySpace.png);
   background-repeat: no-repeat;
