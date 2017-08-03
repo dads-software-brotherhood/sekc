@@ -187,6 +187,15 @@ select[multiple] {
   display: block;
   position:relative;
 }
+.ActivitySpace-2-border {
+  background-image: url(/content/images/ActivitySpace-2.png);
+  background-repeat: no-repeat;
+  margin-left:2%;
+  width: 350px;
+  height: 220px;  
+  display: block;
+  position:relative;
+}
 .activity-border {
   background-image: url(/content/images/activity.png);
   background-repeat: no-repeat;
