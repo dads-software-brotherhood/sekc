@@ -19,6 +19,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.PracticeConsultDto;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
 import mx.infotec.dads.sekc.admin.practice.service.util.PracticeConsultDtoMapper;
+import mx.infotec.dads.sekc.admin.practice.service.util.ClassMatcher;
 import mx.infotec.dads.sekc.util.SEEssenceMapper;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
@@ -92,9 +93,11 @@ public class PracticeServiceImpl implements PracticeService {
         Object document = practiceRepository.findOne(id);
         if (document != null) {
             response.setResponse_code(HttpStatus.OK);
-            if (includeFields != null)
-                document = RandomUtil.filterResponseFields(document, includeFields);
-            response.setResponseObject(document);
+            //if (includeFields != null)
+            //    document = RandomUtil.filterResponseFields(document, includeFields);
+            mx.infotec.dads.sekc.admin.practice.consult.dto.PracticeConsultDto onePractice = 
+                    ClassMatcher.matchPractice((SEPractice) document);
+            response.setResponseObject(onePractice);
         } else {
             response.setError_message(ErrorConstants.ERR_RECORD_NOT_FOUND);
             response.setResponse_code(HttpStatus.NOT_FOUND);
