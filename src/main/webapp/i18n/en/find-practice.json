@@ -1,0 +1,14 @@
+{
+	"findPractice": {
+		"home": {
+			"title": "Find Practice",
+			"results": "Results"
+		},
+		"search": "Search",
+		"practice": {
+			"name": "Name",
+			"briefDescription": "Brief Description",
+			"description": "Description"
+		}
+	}
+}

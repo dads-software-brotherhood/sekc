@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,10 @@ import mx.infotec.dads.essence.repository.SEPracticeRepository;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
+import mx.infotec.dads.sekc.admin.practice.dto.PracticeConsultDto;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
-
+import mx.infotec.dads.sekc.admin.practice.service.util.PracticeConsultDtoMapper;
 import mx.infotec.dads.sekc.util.SEEssenceMapper;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
@@ -70,18 +72,17 @@ public class PracticeServiceImpl implements PracticeService {
         return response;
     }
 
+    /**
+     * Get all the repositories.
+     *
+     * @param pageable
+     *            the pagination information
+     * @return the list of entities
+     */
     @Override
-    public ResponseWrapper findAll(Pageable pag) {
-        response = new ResponseWrapper();
-        List<SEPractice> docCollection = practiceRepository.findAll();
-        if (!docCollection.isEmpty()) {
-            response.setResponse_code(HttpStatus.OK);
-            response.setResponseObject(docCollection);
-        } else {
-            response.setError_message(ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
-        }
-        return response;
+    public Page<PracticeConsultDto> findAll(Pageable pageable) {
+        LOG.debug("Request to get all Repositories");
+        return practiceRepository.findAll(pageable).map(PracticeConsultDtoMapper::toDto);
     }
 
     @Override

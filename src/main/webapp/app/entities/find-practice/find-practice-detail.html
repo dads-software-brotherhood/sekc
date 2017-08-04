@@ -1,0 +1,26 @@
+
+<div>
+    <h2><span data-translate="findPractice.home.title">Practice</span> {{vm.practice.name}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="findPractice.practice.name">Name</span></dt>
+        <dd>
+            <span>{{vm.practice.name}}</span>
+        </dd>
+        <dt><span data-translate="findPractice.practice.briefDescription">BriefDescription</span></dt>
+        <dd>
+            <span>{{vm.practice.briefDescription}}</span>
+        </dd>
+        <dt><span data-translate="findPractice.practice.description">Description</span></dt>
+        <dd>
+            <span>{{vm.practice.description}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+</div>
