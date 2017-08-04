@@ -2,9 +2,9 @@
     <div class="page-header">
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
-            <li><a href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
-            <li><a href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
-            <li class="active"><a>Things to do </a></li>
+            <li><a data-translate="practiceManagement.conditions" href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
+            <li><a data-translate="practiceManagement.thingsToWorkWith.title" href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
+            <li class="active"><a data-translate="practiceManagement.thingsToDo.title">Things to do </a></li>
         </ul>
     </div>
     <jhi-alert></jhi-alert>
@@ -13,7 +13,7 @@
         <div class="col-md-12">
             <div class="well white">
                 <div class="form-group filled">
-                    <label>Activity Space</label>
+                    <label data-translate="practiceManagement.thingsToDo.spaceActivity">Activity Space</label>
                     <select class="form-control" ng-options="datos.name for datos in vm.activitySpaces track by datos.id" ng-model="vm.idActivitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
@@ -27,41 +27,41 @@
         <div class="col-md-12">
             <div class="well white">
                 <div class="form-group">
-                    <label class="control-label">Activity Name</label>
+                    <label class="control-label" data-translate="practiceManagement.thingsToDo.activityName">Activity Name</label>
                     <input type="text" class="form-control" name="name" ng-model="vm.activityInEdition.name" required>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Brief Description</label>
+                    <label class="control-label" data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</label>
                     <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Description</label>
+                    <label class="control-label" data-translate="practiceManagement.thingsToDo.description">Description</label>
                     <textarea ui-tinymce="vm.tinymceOptions" class="form-control" name="description" ng-model="vm.activityInEdition.description"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-md-4 text-center m-t-60">
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency">Consult Competency</button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-translate="practiceManagement.thingsToDo.consultCompetency" data-toggle="collapse" data-target="#competency">Consult Competency</button>
                             <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#competencyDialog" data-title="Create competency"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach">Consult Approach</button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-translate="practiceManagement.thingsToDo.consultApproach" data-toggle="collapse" data-target="#approach">Consult Approach</button>
                             <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#approachDialog" data-title="Create approach"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-t-15 m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action">Consult Action</button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-translate="practiceManagement.thingsToDo.consultAction" data-toggle="collapse" data-target="#action">Consult Action</button>
                             <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#actionDialog" data-title="Create action"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio">Consult Entry </button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-translate="practiceManagement.thingsToDo.consultEntry" data-toggle="collapse" data-target="#entrycriterio">Consult Entry </button>
                             <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#entryDialog" data-title="Create entry"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition">Consult Completition</button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-translate="practiceManagement.thingsToDo.consultCompletition" data-toggle="collapse" data-target="#completition">Consult Completition</button>
                             <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#completitionDialog" data-title="Create completition"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources">Consult Resources</button>
+                            <button type="button" class="btn btn-primary col-md-8 m-r-10" data-translate="practiceManagement.thingsToDo.consultResources" data-toggle="collapse" data-target="#resources">Consult Resources</button>
                             <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#resourceDialog" data-title="Create Resource"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                     </div>
@@ -70,9 +70,9 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Competency</th>
-                                        <th>Level Competency</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.thingsToDo.competency">Competency</th>
+                                        <th data-translate="practiceManagement.thingsToDo.competencyLevel">Level Competency</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,9 +88,9 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.thingsToDo.name">Name</th>
+                                        <th data-translate="practiceManagement.description">Description</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -106,9 +106,9 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Action Kind</th>
-                                        <th>Alpha-State / Workproduct-Level of detail</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.thingsToDo.actionKind">Action Kind</th>
+                                        <th >Alpha-State / Workproduct-Level of detail</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,7 +137,7 @@
                                 <thead>
                                     <tr>
                                         <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -161,7 +161,7 @@
                                 <thead>
                                     <tr>
                                         <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -184,10 +184,10 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Content</th>
-                                        <th>Type</th>
-                                        <th>Atachment</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.thingsToDo.content">Content</th>
+                                        <th data-translate="practiceManagement.thingsToDo.type">Type</th>
+                                        <th data-translate="practiceManagement.thingsToDo.attachment">Attachment</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -218,10 +218,10 @@
                     <table class="table table-full table-full-small white">
                         <thead>
                             <tr>
-                                <th>Activity Space</th>
-                                <th>Activity</th>
-                                <th>Brief Description</th>
-                                <th>Delete</th>
+                                <th data-translate="practiceManagement.thingsToDo.spaceActivity">Activity Space</th>
+                                <th data-translate="practiceManagement.thingsToDo.activity">Activity</th>
+                                <th data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</th>
+                                <th data-translate="practiceManagement.remove">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -256,25 +256,25 @@
     <div class="modal-dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Competency</h4>
+            <h4 class="modal-title" data-translate="practiceManagement.thingsToDo.competency">Competency</h4>
         </div>
         <div class="modal-body">
             <div class="form-group filled">
-                <label>Competency</label>
+                <label data-translate="practiceManagement.thingsToDo.competency">Competency</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.competencies track by datos.id" ng-model="vm.competency">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
             <div class="form-group filled" ng-hide="!vm.competency">
-                <label>Competency Level</label>
-                <select class="form-control" ng-options="datos.level as datos.level + '. '+ datos.name for datos in vm.competency.competencyLevel | filter:vm.competenciesFilter track by datos.id" ng-model="vm.competencyLevel">
+                <label data-translate="practiceManagement.thingsToDo.competencyLevel">Competency Level</label>
+                <select class="form-control" ng-options="datos.level + '. '+ datos.name for datos in vm.competency.competencyLevel | filter:vm.competenciesFilter" ng-model="vm.competencyLevel">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.addCompetency()">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addCompetency()" data-translate="practiceManagement.add">Add</button>
         </div>
     </div>
 </div>
@@ -285,11 +285,11 @@
     <div class="modal-dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Approach</h4>
+            <h4 class="modal-title" data-translate="practiceManagement.thingsToDo.approach">Approach</h4>
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <label class="pull-left">Name</label>
+                <label class="pull-left" data-translate="practiceManagement.thingsToDo.name">Name</label>
                 <input type="text" class="form-control" ng-model="vm.nameApproach" required>
             </div>
             <div class="form-group">
@@ -299,7 +299,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.addApproach()">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addApproach()"><span data-translate="practiceManagement.add">Add</span></button>
         </div>
     </div>
 </div>
@@ -310,11 +310,11 @@
     <div class="modal-dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Action</h4>
+            <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.action">Action</span></h4>
         </div>
         <div class="modal-body">
             <div class="form-group filled">
-                <label class="pull-left">Action Kind</label>
+                <label class="pull-left" data-translate="practiceManagement.thingsToDo.actionKind">Action Kind</label>
                 <select class="form-control" ng-options="datos.id as datos.name for datos in vm.actionsKinds" ng-model="vm.actionInEdition.idActionKind">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -346,7 +346,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.fillAction()">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.fillAction()"><span data-translate="practiceManagement.add">Add</span></button>
             <div class="row" ng-hide="!vm.actionInEdition.alphaStates.length && !vm.actionInEdition.workProductsLevelofDetail.length">
                 <div class="col-md-12">
                     <div class="well white">
@@ -354,9 +354,9 @@
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <tr>
-                                        <th>Action Kind</th>
+                                        <th data-translate="practiceManagement.thingsToDo.actionKind">Action Kind</th>
                                         <th>Alpha-State / WorkProduct-Level of detail</th>
-                                        <th>Delete</th>
+                                        <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -387,11 +387,11 @@
     <div class="modal-dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Entry</h4>
+            <h4 class="modal-title" data-translate="practiceManagement.entry">Entry</h4>
         </div>
         <div class="modal-body">
             <div class="form-group filled">
-                <label class="pull-left">Select a Alpha</label>
+                <label class="pull-left">Alpha</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -403,7 +403,7 @@
                 </select>
             </div>
             <div class="form-group filled">
-                <label class="pull-left">Select a Workproduct</label>
+                <label class="pull-left">Workproduct</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null || vm.anotherEntryCriteria != null" ng-model="vm.workProduct">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -421,7 +421,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.addEntry()">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addEntry()"><span data-translate="practiceManagement.add">Add</span></button>
         </div>
     </div>
 </div>
@@ -432,11 +432,11 @@
     <div class="modal-dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Completition</h4>
+            <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.consultCompletition">Completition</span></h4>
         </div>
         <div class="modal-body">
             <div class="form-group filled">
-                <label class="pull-left">Select a Alpha</label>
+                <label class="pull-left">Alpha</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alphaCompletition" ng-disabled="vm.workProductCompletition != null || vm.anotherEntryCriteriaCompletition != null">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -448,7 +448,7 @@
                 </select>
             </div>
             <div class="form-group filled">
-                <label class="pull-left">Select a Workproduct</label>
+                <label class="pull-left">Workproduct</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alphaCompletition != null || vm.anotherEntryCriteriaCompletition != null" ng-model="vm.workProductCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -466,7 +466,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.addCompletition()">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addCompletition()"><span data-translate="practiceManagement.add">Add</span></button>
         </div>
     </div>
 </div>
@@ -477,7 +477,7 @@
     <div class="modal-dialog">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Resources</h4>
+            <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.consultResources">Resources</span></h4>
         </div>
         <div class="modal-body">
             <div class="form-group">
@@ -485,22 +485,22 @@
                 <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionResource" required></textarea>
             </div>
             <div class="form-group filled">
-                <label class="pull-left">Type</label>
+                <label class="pull-left" data-translate="practiceManagement.thingsToDo.type">Type</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.resourcesTypes track by datos.id" ng-model="vm.type">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="control-label">Attachment</label>
+                <label class="control-label" data-translate="practiceManagement.thingsToDo.attachment">Attachment</label>
                 <input type="file" base-sixty-four-input ng-model="vm.attachment" style="color: transparent">
             </div>
             <div class="form-group" ng-show="vm.attachment">
-                <label class="control-label">File: {{vm.attachment.filename}}</label>
+                <label class="control-label"><span data-translate="practiceManagement.thingsToDo.file">File: </span>{{vm.attachment.filename}}</label>
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.addResource()">Add</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addResource()"><span data-translate="practiceManagement.add">Add</span></button>
         </div>
     </div>
 </div>

@@ -11,16 +11,12 @@
         "delete": {
             "question": "Are you sure you want to delete practice {{ login }}?"
         },
-          "alpha": {
+        "alpha": {
         "home": {
             "title": "Things to work with"
         },
-        "delete": {
-            "question": "¿Seguro que quieres eliminar ....?"
-        },
         "alphaSelect":"Select a alpha",
         "workproductSelect":"Select a alpha-workproduct",
-        
         "edit" : "Edit"
     },
         "detail": {
@@ -37,13 +33,45 @@
         "objective": "Objective",
         "keywords":"Keywords",
         "measures": "Measures",
+        "measure": "Measure",
         "entry": "Entry",
+       	"entries": "Entries",
         "result": "Result",
         "isSupresable": "isSupresable",
         "add" : "Add",
-        "remove" : "Remove",
+        "remove" : "Delete",
         "next" : "Next",
         "cancel" : "Cancel",
-        "clean" : "Clean"
+        "clean" : "Clean",
+        "save" : "Save",
+        "conditions" : "Conditions",
+        "thingsToWorkWith": {
+            "title": "Things to work with",
+        	"instructions": "Select an alpha with their subalpha and/or workproducts"
+        },
+        "thingsToDo": {
+        	"title": "Things to do",
+        	"spaceActivity": "Activity Space",
+        	"activityName": "Activity name",
+        	"activity": "Activity",
+        	"briefDescription": "Brief description",
+        	"description": "Description",
+        	"consultCompetency" : "Consult competency",
+        	"consultApproach" : "Consult approach",
+        	"consultAction" : "Consult action",
+        	"consultEntry" : "Consult entry",
+        	"consultCompletition" : "Consult completition",
+        	"consultResources" : "Consult resources",
+        	"competency" : "Competency",        	
+        	"competencyLevel" : "Competency Level",
+        	"name" :"Name",
+        	"actionKind":"Action kind",
+        	"content":"Content",
+        	"type":"Type",
+        	"attachment":"Attachment",
+        	"approach":"Approach",
+        	"action":"Action",
+        	"file":"File"
+        }
     }
 }

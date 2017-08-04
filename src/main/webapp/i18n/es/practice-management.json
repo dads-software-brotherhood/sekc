@@ -15,34 +15,63 @@
         "home": {
             "title": "Things to work with"
         },
-        "delete": {
-            "question": "¿Seguro que quieres eliminar ....?"
-        },
         "alphaSelect":"Selecciona un alpha",
-         "workproductSelect":"Selecciona un workproduct para el alpha",
+        "workproductSelect":"Selecciona un workproduct para el alpha",
         "edit" : "Editar"
     },
         "detail": {
             "title": "Práctica"
         },
         "selectKernel":"Selecciona un Kernel",
-        "name": "Nombre de la practica",
+        "name": "Nombre de la práctica",
         "author":"Autor",
         "icon": "Icono",
         "briefDescription": "Breve Descripción",
         "description": "Descripción",
-        "relatedPractices":"Practicas Relacionadas",
+        "relatedPractices":"Prácticas Relacionadas",
         "consistencyRules": "Reglas de consistencia",
         "objective": "Objetivo",
         "keywords":"Palabras Clave",
-        "measures": "Medidas",
-        "entry": "Entradas",
+        "measures": "Métricas",
+        "measure": "Métrica",
+        "entry": "Entrada",
+        "entries": "Entradas",
         "result": "Resultados",
         "isSupresable": "¿Puede ser eliminada?",
         "add" : "Agregar",
         "remove" : "Eliminar",
         "next" : "Siguiente",
         "cancel" : "Cancelar",
-        "clean" : "Limpiar"
+        "clean" : "Limpiar",
+        "save" : "Guardar",
+        "conditions" : "Conditions",
+        "thingsToWorkWith": {
+        	"title": "Things to work with",
+        	"instructions": "Selecciona un alpha con sus subalphas y/o workproucts"
+        },
+        "thingsToDo": {
+        	"title": "Things to do",
+        	"spaceActivity": "Espacio de actividad",
+        	"activityName": "Nombre de la actividad",
+        	"activity": "Actividad",
+        	"briefDescription": "Descripción breve",
+        	"description": "Descripción",
+        	"consultCompetency" : "Competencias",
+        	"consultApproach" : "Enfoques",
+        	"consultAction" : "Acciones",
+        	"consultEntry" : "Entradas",
+        	"consultCompletition" : "Criterios de terminaci�n",
+        	"consultResources" : "Recursos",
+        	"competency" : "Competencia",
+        	"competencyLevel" : "Nivel de competencia",
+        	"name" :"Nombre",
+        	"actionKind":"Tipo de acción",
+        	"content":"Contenido",
+        	"type":"Tipo",
+        	"attachment":"Archivo adjunto",
+        	"approach":"Enfoque",
+        	"action":"Acción",
+        	"file":"Archivo"
+        }
     }
 }
