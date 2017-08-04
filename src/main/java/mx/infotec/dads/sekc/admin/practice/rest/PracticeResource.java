@@ -67,8 +67,7 @@ public class PracticeResource {
 
     @GetMapping(value = { "/practices/{id}" })
     public ResponseEntity practiceGet(@PathVariable(value = "id", required = true) String id,
-            @RequestParam(value = "includeFields", required = false) List<String> includeFields,
-            @ApiParam Pageable pageable) {
+            @RequestParam(value = "includeFields", required = false) List<String> includeFields) {
         ResponseWrapper responseData;
         responseData = practiceService.findOne(id, includeFields);
         if (responseData.getError_message().equals("")) {
