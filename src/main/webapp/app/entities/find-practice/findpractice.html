@@ -23,11 +23,11 @@
 			<tbody>
 				<tr ng-repeat="practice in vm.practices track by practice.idPractice">
 					<td>
-						<div class="col-md-8">
+						<div class="col-md-12">
 							<div class="well white">
 								<form class="form-floating placeholder-form">
 									<fieldset>
-										<h5>{{practice.name}}</h5>
+										<h2 class="text-blue">{{practice.name}}</h2>
 										<h6>
 											<strong>BriefDescription</strong>
 										</h6>
@@ -39,20 +39,21 @@
 										<h6>
 											<strong>Keywords</strong>
 										</h6>
-										<p>{{practice.keywords}}</p>
+                                                                                <span class="label cyan lebel">{{practice.keywords}}</span>
+                                                                                <span class="label orange label">{{practice.keywords}}</span>
+                                                                                <span class="label teal label">{{practice.keywords}}</span>
+										<p></p>
 									</fieldset>
 								</form>
-							</div>
-						</div>
-					</td>
-					<td class="text-right">
-						<div class="btn-group flex-btn-group-container">
+                                                            <div class="btn-group flex-btn-group-container">
 							<button type="submit"
 								ui-sref="find-practice-detail({id:practice.id})"
-								class="btn btn-info btn-sm">
+								class="btn btn-primary btn-sm">
 								<span class="glyphicon glyphicon-eye-open"></span> <span
 									class="hidden-sm-down" data-translate="entity.action.view"></span>
 							</button>
+						</div>
+							</div>
 						</div>
 					</td>
 				</tr>

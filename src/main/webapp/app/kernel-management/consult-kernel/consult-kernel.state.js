@@ -18,7 +18,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/consult-kernel/consult-kernel-alphas.html',
+                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-alphas.html',
                     //controller: 'PracticeManagementController',
                     //controllerAs: 'vm'
                 }
@@ -40,7 +40,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/consult-kernel/consult-kernel-workproducts.html',
+                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-workproducts.html',
                     //controller: 'PracticeManagementThingsWorkController',
                     //controllerAs: 'vm'
                 }
@@ -61,7 +61,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/consult-kernel/consult-kernel-competency.html',
+                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-competency.html',
                     //controller: 'PracticeManagementController',
                     //controllerAs: 'vm'
                 }
@@ -83,7 +83,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/consult-kernel/consult-kernel-activitySpace.html',
+                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-activitySpace.html',
                     //controller: 'PracticeManagementController',
                     //controllerAs: 'vm'
                 }
@@ -104,7 +104,7 @@
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/consult-kernel/consult-kernel-areaOfConcern.html',
+                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-areaOfConcern.html',
                     //controller: 'PracticeManagementController',
                     //controllerAs: 'vm'
                 }
