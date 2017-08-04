@@ -42,27 +42,27 @@
                     <div class="col-md-4 text-center m-t-60">
                         <div class="m-b-15">
                             <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#competency">Consult Competency</button>
-                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#competencyDialog" data-title="Create competency" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#competencyDialog" data-title="Create competency"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
                             <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#approach">Consult Approach</button>
-                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#approachDialog" data-title="Create approach" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#approachDialog" data-title="Create approach"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-t-15 m-b-15">
                             <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#action">Consult Action</button>
-                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#actionDialog" data-title="Create action" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#actionDialog" data-title="Create action"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
                             <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#entrycriterio">Consult Entry </button>
-                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#entryDialog" data-title="Create entry" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#entryDialog" data-title="Create entry"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
                             <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#completition">Consult Completition</button>
-                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#completitionDialog" data-title="Create completition" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#completitionDialog" data-title="Create completition"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
                             <button type="button" class="btn btn-primary col-md-8 m-r-10" data-toggle="collapse" data-target="#resources">Consult Resources</button>
-                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#resourceDialog" data-title="Create Resource" bs-tooltip><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-md  btn-primary" data-toggle="modal" data-target="#resourceDialog" data-title="Create Resource"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     <div class="col-md-8 m-t-20">
@@ -265,7 +265,7 @@
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
-            <div class="form-group filled" ng-hide="!vm.competency">
+            <div class="form-group filled" ng-hide="!ssssvm.competency">
                 <label>Competency Level</label>
                 <select class="form-control" ng-options="datos.level as datos.level + '. '+ datos.name for datos in vm.competency.competencyLevel | filter:vm.competenciesFilter track by datos.id" ng-model="vm.competencyLevel">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
