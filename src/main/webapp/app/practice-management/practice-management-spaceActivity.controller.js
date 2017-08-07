@@ -379,7 +379,7 @@
         {
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
-            $location.path('/practice-management');
+            $location.path('/find-practice');
         }
 
         function onSaveError()
