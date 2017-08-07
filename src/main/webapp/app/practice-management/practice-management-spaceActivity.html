@@ -96,7 +96,7 @@
                                 <tbody>
                                     <tr ng-repeat="approach in vm.activityInEdition.approaches">
                                         <td>{{approach.name}}</td>
-                                        <td>{{approach.description}}</td>
+                                        <td><div ng-bind-html="approach.description"></div></td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteApproach($index)"><i class="md md-delete"></i></button></td>
                                     </tr>
                                 </tbody>
@@ -192,7 +192,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="resource in vm.activityInEdition.resources">
-                                        <td>{{resource.content}}</td>
+                                        <td><div ng-bind-html="resource.content"></div></td>
                                         <td>{{resource.idTypeResource}}</td>
                                         <td>{{resource.fileName}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
