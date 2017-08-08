@@ -51,10 +51,10 @@
                             <li><a>N/A</a></li>
                         </ul>
                         <h5>Keywords</h5>
-                        <span ng-repeat="keyword in vm.practice.keyWords"
-                              class="label keyWord{{$index % 5}}">
-	                       {{keyword}}
-						</span>
+                        <ul class="list-inline">
+						  <li ng-repeat="keyword in vm.practice.keyWords"
+						   	class="label keyWord{{$index % 6}}">{{keyword}}</li>
+						</ul>
                     </fieldset>
                 </form>
             </div> 
