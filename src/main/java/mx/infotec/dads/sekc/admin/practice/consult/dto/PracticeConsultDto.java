@@ -1,3 +1,4 @@
+
 package mx.infotec.dads.sekc.admin.practice.consult.dto;
 
 import java.util.HashMap;
@@ -21,7 +22,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "measures",
     "keyWords",
     "author",
-    "thingsToWorkWith"
+    "entries",
+    "results",
+    "thingsToWorkWith",
+    "thingsToDo"
 })
 public class PracticeConsultDto {
 
@@ -43,8 +47,14 @@ public class PracticeConsultDto {
     private List<String> keyWords = null;
     @JsonProperty("author")
     private String author;
+    @JsonProperty("entries")
+    private List<Entry> entries = null;
+    @JsonProperty("results")
+    private List<Result> results = null;
     @JsonProperty("thingsToWorkWith")
     private ThingsToWorkWith thingsToWorkWith;
+    @JsonProperty("thingsToDo")
+    private ThingsToDo thingsToDo;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -138,6 +148,26 @@ public class PracticeConsultDto {
         this.author = author;
     }
 
+    @JsonProperty("entries")
+    public List<Entry> getEntries() {
+        return entries;
+    }
+
+    @JsonProperty("entries")
+    public void setEntries(List<Entry> entries) {
+        this.entries = entries;
+    }
+
+    @JsonProperty("results")
+    public List<Result> getResults() {
+        return results;
+    }
+
+    @JsonProperty("results")
+    public void setResults(List<Result> results) {
+        this.results = results;
+    }
+
     @JsonProperty("thingsToWorkWith")
     public ThingsToWorkWith getThingsToWorkWith() {
         return thingsToWorkWith;
@@ -146,6 +176,16 @@ public class PracticeConsultDto {
     @JsonProperty("thingsToWorkWith")
     public void setThingsToWorkWith(ThingsToWorkWith thingsToWorkWith) {
         this.thingsToWorkWith = thingsToWorkWith;
+    }
+
+    @JsonProperty("thingsToDo")
+    public ThingsToDo getThingsToDo() {
+        return thingsToDo;
+    }
+
+    @JsonProperty("thingsToDo")
+    public void setThingsToDo(ThingsToDo thingsToDo) {
+        this.thingsToDo = thingsToDo;
     }
 
     @JsonAnyGetter

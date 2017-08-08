@@ -15,28 +15,22 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "id",
     "name",
-    "briefDesciption",
+    "briefDescription",
     "description",
-    "states",
-    "contains",
-    "workProducts"
+    "approach"
 })
-public class Alpha {
+public class Activity {
 
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("briefDesciption")
-    private String briefDesciption;
+    @JsonProperty("briefDescription")
+    private String briefDescription;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("states")
-    private List<State> states = null;
-    @JsonProperty("contains")
-    private List<Contain> contains = null;
-    @JsonProperty("workProducts")
-    private List<WorkProduct> workProducts = null;
+    @JsonProperty("approach")
+    private List<Approach> approach = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -60,14 +54,14 @@ public class Alpha {
         this.name = name;
     }
 
-    @JsonProperty("briefDesciption")
-    public String getBriefDesciption() {
-        return briefDesciption;
+    @JsonProperty("briefDescription")
+    public String getBriefDescription() {
+        return briefDescription;
     }
 
-    @JsonProperty("briefDesciption")
-    public void setBriefDesciption(String briefDesciption) {
-        this.briefDesciption = briefDesciption;
+    @JsonProperty("briefDescription")
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
     }
 
     @JsonProperty("description")
@@ -80,34 +74,14 @@ public class Alpha {
         this.description = description;
     }
 
-    @JsonProperty("states")
-    public List<State> getStates() {
-        return states;
+    @JsonProperty("approach")
+    public List<Approach> getApproach() {
+        return approach;
     }
 
-    @JsonProperty("states")
-    public void setStates(List<State> states) {
-        this.states = states;
-    }
-
-    @JsonProperty("contains")
-    public List<Contain> getContains() {
-        return contains;
-    }
-
-    @JsonProperty("contains")
-    public void setContains(List<Contain> contains) {
-        this.contains = contains;
-    }
-
-    @JsonProperty("workProducts")
-    public List<WorkProduct> getWorkProducts() {
-        return workProducts;
-    }
-
-    @JsonProperty("workProducts")
-    public void setWorkProducts(List<WorkProduct> workProducts) {
-        this.workProducts = workProducts;
+    @JsonProperty("approach")
+    public void setApproach(List<Approach> approach) {
+        this.approach = approach;
     }
 
     @JsonAnyGetter

@@ -1,7 +1,9 @@
 package mx.infotec.dads.sekc.admin.practice.service.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
@@ -11,14 +13,18 @@ import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SELanguageElement;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.Alpha;
+import mx.infotec.dads.sekc.admin.practice.consult.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.CheckListItem;
+import mx.infotec.dads.sekc.admin.practice.consult.dto.Entry;
 //import mx.infotec.dads.sekc.admin.practice.consult.dto.Competency;
 //import mx.infotec.dads.sekc.admin.practice.consult.dto.CompetencyLevel;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.LevelOfDetail;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.State;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.WorkProduct;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.PracticeConsultDto;
+import mx.infotec.dads.sekc.admin.practice.consult.dto.Result;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.ThingsToWorkWith;
+import mx.infotec.dads.sekc.admin.practice.consult.dto.WorkProductsLevelofDetail;
 
 /**
  *
@@ -119,9 +125,72 @@ public class ClassMatcher {
         practice.setMeasures( new ArrayList(sepractice.getMeasures()));
         practice.setKeyWords(sepractice.getKeyWords());
         practice.setAuthor(sepractice.getAuthor());
+        try{
+        practice.setEntries(matchEntries(sepractice));
+        practice.setResults(matchResults(sepractice));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         practice.setThingsToWorkWith(matchThingsToWorkWith(sepractice));
         
         return practice;
+    }
+    public static List<Entry> matchEntries(SEPractice sepractice){
+        List<Entry> entries = new ArrayList<>();
+        sepractice.getEntryCriterion().stream().map((entryCrit) -> {
+            Entry entry = new Entry();
+            List<AlphaState> alphStates = new ArrayList<>();
+            List<WorkProductsLevelofDetail> wpLevels = new ArrayList<>();
+            if (entryCrit.getState() != null){ //AlphaState Entry Criterion
+                AlphaState alphState = new AlphaState();
+                alphState.setIdState(entryCrit.getState().getId());
+                alphState.setState(entryCrit.getState().getName());
+                alphState.setIdAlpha(entryCrit.getState().getAlpha().getId());
+                alphState.setAlpha(entryCrit.getState().getAlpha().getName());
+                alphStates.add(alphState);
+            }else if (entryCrit.getLevelOfDetail() != null){ //WorkProduct-LevelOfDetail Entry Criterion
+                WorkProductsLevelofDetail wpLvlDetail = new WorkProductsLevelofDetail();
+                wpLvlDetail.setIdLevelOfDetail(entryCrit.getLevelOfDetail().getId());
+                wpLvlDetail.setLevelOfDetail(entryCrit.getLevelOfDetail().getName());
+                wpLvlDetail.setIdWorkProduct(entryCrit.getLevelOfDetail().getWorkProduct().getId());
+                wpLvlDetail.setWorkProduct(entryCrit.getLevelOfDetail().getWorkProduct().getName());
+                wpLevels.add(wpLvlDetail);
+            }else if (entryCrit.getOtherConditions() != null)
+                entry.setOtherConditions(new ArrayList( entryCrit.getOtherConditions()));
+            entry.setAlphaStates(alphStates);
+            entry.setWorkProductsLevelofDetail(wpLevels);
+            return entry;
+        }).forEachOrdered((entry) -> {
+            entries.add(entry);
+        });
+        return entries;
+    }
+    
+    public static List<Result> matchResults(SEPractice sepractice){
+        List<Result> results = new ArrayList<>();
+        sepractice.getResultCriterion().stream().map((resultCrit) -> {
+            Result result = new Result();
+            List<AlphaState> alphStates = new ArrayList<>();
+            List<WorkProductsLevelofDetail> wpLevels = new ArrayList<>();
+            if (resultCrit.getState() != null){ //AlphaState Entry Criterion
+                AlphaState alphState = new AlphaState();
+                alphState.setState(resultCrit.getState().getName());
+                alphState.setAlpha(resultCrit.getState().getAlpha().getName());
+                alphStates.add(alphState);
+            }else if (resultCrit.getLevelOfDetail() != null){ //WorkProduct-LevelOfDetail Entry Criterion
+                WorkProductsLevelofDetail wpLvlDetail = new WorkProductsLevelofDetail();
+                wpLvlDetail.setLevelOfDetail(resultCrit.getLevelOfDetail().getName());
+                wpLvlDetail.setWorkProduct(resultCrit.getLevelOfDetail().getWorkProduct().getName());
+                wpLevels.add(wpLvlDetail);
+            }else if (resultCrit.getOtherConditions() != null)
+                result.setOtherConditions(new ArrayList( resultCrit.getOtherConditions()));
+            result.setAlphaStates(alphStates);
+            result.setWorkProductsLevelofDetail(wpLevels);
+            return result;
+        }).forEachOrdered((result) -> {
+            results.add(result);
+        });
+        return results;
     }
     
     public static ThingsToWorkWith matchThingsToWorkWith(SEPractice sepractice){
