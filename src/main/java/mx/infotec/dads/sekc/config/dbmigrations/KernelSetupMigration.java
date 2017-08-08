@@ -157,8 +157,9 @@ public class KernelSetupMigration {
         List<SEAlpha> alphaList = new ArrayList<>();
         alphas.forEach(alpha -> {
             SEAlpha seAlpha = MigrationMapper.toSEAlpha(alpha);
-            seAlpha.setStates(migrateStates(mongoTemplate, alpha));
-            mongoTemplate.save(seAlpha);// without workproducts
+            mongoTemplate.save(seAlpha);// without states
+            seAlpha.setStates(migrateStates(mongoTemplate, alpha, seAlpha));
+            mongoTemplate.save(seAlpha);// with states & without workproducts
             List<SEWorkProduct> seWorkProductList = migrateWorkProduct(mongoTemplate, alpha);
             List<SEWorkProductManifest> migrateWorkProductManifest = migrateWorkProductManifest(mongoTemplate, seAlpha,
                     seWorkProductList);
@@ -237,12 +238,14 @@ public class KernelSetupMigration {
      * @param alpha
      * @return List<SEState>
      */
-    private List<SEState> migrateStates(MongoTemplate mongoTemplate, Alpha alpha) {
+    private List<SEState> migrateStates(MongoTemplate mongoTemplate, Alpha alpha, SEAlpha seAlpha) {
         List<SEState> seStateList = new ArrayList<>();
         alpha.getStates().forEach(state -> {
             SEState seState = MigrationMapper.toSEState(state);
-            seState.setCheckListItem(migrateCheckpoints(mongoTemplate, state.getCheckpoints()));
-            mongoTemplate.save(seState);
+            seState.setAlpha(seAlpha);
+            mongoTemplate.save(seState); //without checklists
+            seState.setCheckListItem(migrateCheckpoints(mongoTemplate, state.getCheckpoints(), seState));
+            mongoTemplate.save(seState); //with checklist
             seStateList.add(seState);
         });
         return seStateList;
@@ -260,6 +263,19 @@ public class KernelSetupMigration {
         List<SECheckpoint> seCheckpointList = new ArrayList<>();
         checkpoints.forEach(checkpoint -> {
             SECheckpoint seCheckpoint = MigrationMapper.toSECheckpoint(checkpoint);
+            mongoTemplate.save(seCheckpoint);
+            seCheckpointList.add(seCheckpoint);
+        });
+        return seCheckpointList;
+    }
+    /**
+     * This is for state-checkpoint relationship
+    */
+    private List<SECheckpoint> migrateCheckpoints(MongoTemplate mongoTemplate, List<Checkpoint> checkpoints, SEState seState) {
+        List<SECheckpoint> seCheckpointList = new ArrayList<>();
+        checkpoints.forEach(checkpoint -> {
+            SECheckpoint seCheckpoint = MigrationMapper.toSECheckpoint(checkpoint);
+            seCheckpoint.setState(seState);
             mongoTemplate.save(seCheckpoint);
             seCheckpointList.add(seCheckpoint);
         });
