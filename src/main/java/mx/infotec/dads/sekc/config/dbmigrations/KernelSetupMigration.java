@@ -58,7 +58,7 @@ public class KernelSetupMigration {
             seKernel.setOwnedElements(new ArrayList<>());
             seKernel.getOwnedElements().addAll(migrateAreasOfConcern(mongoTemplate, kernel.getAreasOfConcern()));
             mongoTemplate.save(seKernel);
-            migratePractices(mongoTemplate);
+            //migratePractices(mongoTemplate); 
         } catch (IOException e) {
             log.error("Creating Kernel Error:", e);
             throw new MigrationException("Creating Kernel Error", e);
