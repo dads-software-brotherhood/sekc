@@ -4,7 +4,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h3><i class="fa fa-tag text-blue"></i> Practice Name: "Arquitectura ...."</h3>
+                        <h3><i class="fa fa-tag text-blue"></i> Practice Name: "{{vm.practice.name}}"</h3>
                       
                     </fieldset>
                 </form>
@@ -17,9 +17,7 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Description</h5>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto 
-                            de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</p>
+                        <p><p ng-bind-html="vm.practice.description"></p></p>
                     </fieldset>
                 </form>
             </div>   
@@ -28,10 +26,8 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Objectives</h5>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                            relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta)
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</p>
+                        <h5>Objective</h5>
+                        <p>{{vm.practice.objective}}</p>
                     </fieldset>
                 </form>
             </div> 
@@ -41,10 +37,7 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Consistency Rules</h5>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                            relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen al manera que logró 
-                        </p>
+                        <p>{{vm.practice.consistencyRules}}</p>
                     </fieldset>
                 </form>
             </div> 
@@ -55,18 +48,12 @@
                     <fieldset>
                         <h5>Related Practices</h5>
                         <ul>
-                            <li><a>Practica 1</a></li>
-                            <li><a>Practica 2</a></li>
-                            <li><a>Practica 3</a></li>
-                            <li><a>Practica 4</a></li>
-                            <li><a>Practica 5</a></li>
+                            <li><a>N/A</a></li>
                         </ul>
                         <h5>Keywords</h5>
-                            <span class="label pink label">Informacion</span>
-                            <span class="label purple label">Arquitectura</span>
-                            <span class="label indigo label">Software</span>
-                            <span class="label green label">Desarrollo</span>
-                                   <span class="label orange label">Alphas</span>
+                        <span ng-repeat="keyword in vm.practice.keyWords" ng-class-even="'label indigo lebel'" ng-class-odd="'label green label'">
+	                       {{keyword}}
+						</span>
                     </fieldset>
                 </form>
             </div> 
@@ -78,9 +65,27 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Entries</h5>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                            relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta)
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</p>
+                        <p>
+                        <div ng-repeat-start="alphaState in vm.practice.entries">
+                             <ul>
+                                 <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
+                                     {{alphaOrWorkproduct.alpha}}/{{alphaOrWorkproduct.state}}
+                                 </li>
+                             </ul>
+                             <ul>
+                                 <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
+                                     {{alphaOrWorkproduct.workProduct}}/{{alphaOrWorkproduct.levelOfDetail}}
+                                 </li>
+                             </ul>
+                             <ul>
+                                 <li ng-repeat="alphaOrWorkproduct in alphaState.otherConditions">
+                                     {{alphaOrWorkproduct}}
+                                 </li>
+                             </ul>
+                         </div>
+                         <div ng-repeat-end />
+					    
+                        </p>
                     </fieldset>
                 </form>
             </div> 
@@ -90,9 +95,25 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Results</h5>
-                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de 
-                            relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) 
-                            desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen al manera que logró 
+                        <p>
+                        	<div ng-repeat-start="alphaState in vm.practice.results">
+                             <ul>
+                                 <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
+                                     {{alphaOrWorkproduct.alpha}}/{{alphaOrWorkproduct.state}}
+                                 </li>
+                             </ul>
+                             <ul>
+                                 <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
+                                     {{alphaOrWorkproduct.workProduct}}/{{alphaOrWorkproduct.levelOfDetail}}
+                                 </li>
+                             </ul>
+                             <ul>
+                                 <li ng-repeat="alphaOrWorkproduct in alphaState.otherConditions">
+                                     {{alphaOrWorkproduct}}
+                                 </li>
+                             </ul>
+                         </div>
+                         <div ng-repeat-end />
                         </p>
                     </fieldset>
                 </form>
@@ -103,19 +124,9 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Measures</h5>
-                        <ul>
-                            <li><a>Practica 1</a></li>
-                            <li><a>Practica 2</a></li>
-                            <li><a>Practica 3</a></li>
-                            <li><a>Practica 4</a></li>
-                            <li><a>Practica 5</a></li>
+                        <ul ng-repeat="measure in vm.practice.measures">
+                            <li><a>{{measure}}</a></li>
                         </ul>
-                        <h5>Keywords</h5>
-                            <span class="label pink label">Informacion</span>
-                            <span class="label purple label">Arquitectura</span>
-                            <span class="label indigo label">Software</span>
-                            <span class="label green label">Desarrollo</span>
-                                   <span class="label orange label">Alphas</span>
                     </fieldset>
                 </form>
             </div> 

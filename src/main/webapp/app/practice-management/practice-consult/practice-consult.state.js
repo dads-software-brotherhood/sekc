@@ -33,7 +33,7 @@
         })
         .state('practice-consult-general', {
             parent: 'app',
-            url: '/practiceConsultGeneral/',
+            url: '/practiceConsultGeneral/{idPractice}',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practiceManagement.home.title'
@@ -41,8 +41,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/practice-management/practice-consult/practice-consult-general.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'S
+                    controller: 'PracticeConsultGeneralController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
