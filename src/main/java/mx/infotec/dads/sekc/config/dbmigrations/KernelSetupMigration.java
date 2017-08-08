@@ -182,8 +182,9 @@ public class KernelSetupMigration {
         List<SEWorkProduct> seWorkProductList = new ArrayList<>();
         alpha.getWorkProducts().forEach(workProduct -> {
             SEWorkProduct seWorkproduct = MigrationMapper.toSEWorkproduct(workProduct);
-            seWorkproduct.setLevelOfDetail(migrateLevelOfDetails(mongoTemplate, workProduct.getLevelOfDetails()));
-            mongoTemplate.save(seWorkproduct);
+            mongoTemplate.save(seWorkproduct); // without LevelOfDetail
+            seWorkproduct.setLevelOfDetail(migrateLevelOfDetails(mongoTemplate, workProduct.getLevelOfDetails(), seWorkproduct));
+            mongoTemplate.save(seWorkproduct); // with LevelOfDetail
             seWorkProductList.add(seWorkproduct);
         });
         return seWorkProductList;
@@ -220,11 +221,12 @@ public class KernelSetupMigration {
      * @return List<SELevelOfDetail>
      */
     private List<SELevelOfDetail> migrateLevelOfDetails(MongoTemplate mongoTemplate,
-            List<LevelOfDetail> levelOfDetails) {
+            List<LevelOfDetail> levelOfDetails, SEWorkProduct seWorkProduct) {
         List<SELevelOfDetail> seLevelOfDetails = new ArrayList<>();
         levelOfDetails.forEach(levelOfDetail -> {
             SELevelOfDetail seLevelOfDetail = MigrationMapper.toSELevelOfDetail(levelOfDetail);
             seLevelOfDetail.setCheckListItem(migrateCheckpoints(mongoTemplate, levelOfDetail.getCheckpoints()));
+            seLevelOfDetail.setWorkProduct(seWorkProduct);
             mongoTemplate.save(seLevelOfDetail);
             seLevelOfDetails.add(seLevelOfDetail);
         });
