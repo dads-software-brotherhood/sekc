@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-md-12" ng-hide="!vm.keywords.length">
                     <div>
-                        <button ng-repeat="keyword in vm.keywords" class="btn btn-default m-r-20 m-b-20">
+                        <button ng-repeat="keyword in vm.keywords track by $index" class="btn btn-default m-r-20 m-b-20">
                             {{keyword}} <i class="fa fa-times text-blue" aria-hidden="true" ng-click="vm.deleteKeyword($index)"> </i>
                         </button>
                     </div>

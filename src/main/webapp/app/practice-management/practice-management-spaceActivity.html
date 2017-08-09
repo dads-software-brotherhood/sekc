@@ -149,7 +149,7 @@
                                         <td>{{workProductLevelofDetail.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                                     </tr>
-                                    <tr ng-repeat="otherConditions in vm.activityInEdition.entryCriterion.otherConditions">
+                                    <tr ng-repeat="otherConditions in vm.activityInEdition.entryCriterion.otherConditions track by $index">
                                         <td>{{otherConditions}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                                     </tr>
@@ -173,7 +173,7 @@
                                         <td>{{workProductLevelofDetail.description}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                                     </tr>
-                                    <tr ng-repeat="otherConditions in vm.activityInEdition.completitionCriterion.otherConditions">
+                                    <tr ng-repeat="otherConditions in vm.activityInEdition.completitionCriterion.otherConditions track by $index">
                                         <td>{{otherConditions}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteCompletition($index, 'other')"><i class="md md-delete"></i></button></td>
                                     </tr>
