@@ -41,8 +41,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/kernel-management/workproduct-management/consult-kernel-workproducts.html',
-                    //controller: 'PracticeManagementThingsWorkController',
-                    //controllerAs: 'vm'
+                    controller: 'ConsultKernelWorkproductsController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
