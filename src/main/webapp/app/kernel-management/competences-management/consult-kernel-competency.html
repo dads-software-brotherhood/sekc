@@ -1,25 +1,25 @@
 <section class="p-b-20">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
+			<div class="well white">
+				<div class="m-b-20">
+					<div ng-repeat="competency in vm.competencies track by competency.id">
+					<p>
+						<button class="btn btn-primary btn-block" 
+							data-target="#detalle" ng-click="vm.fillCompetency(competency)">{{competency.name}}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="col-md-9" ng-show="vm.competencyActual">
             <div class="well white">
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 1</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 2</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 3</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 4</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 5</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 6</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Competency 7</button></div>
-            </div>
-        </div>
-        <div class="col-md-10">
-            <div class="well white">
-                <div id="demo" class="collapse">
+                <div id="detalle">
                     <div class="row">
                         <div class="col-md-12">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
-                                    <h3><i class="icon-competency text-blue"></i> Competency Name: "asdfi"</h3>
-
+                                    <h3><i class="icon-competency text-blue"></i>{{vm.competencyActual.name}}</h3>
                                 </fieldset>
                             </form>
                         </div>
@@ -28,20 +28,18 @@
                         <div class="col-md-6">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
-                                    <div class="competency5-border  m-t-35">
-                                        <div><i class="icon-competency text-blue f30"></i><a data-animation="am-fade-and-slide-top" data-template-url="app/practice-management/practice-consult-levelCompetency.html" bs-modal="modal" class="f30"> Innovates</a></div>
-                                    </div>
-                                    <div class="competency4-border">
-                                        <div><i class="icon-competency text-blue f30"><a> Adapts</a> </i></div>
-                                    </div>
-                                    <div class="competency3-border">
-                                        <div><i class="icon-competency text-blue f30"><a> Masters</a></i></div>
-                                    </div>
-                                   <div class="competency2-border">
-                                       <div><i class="icon-competency text-blue f30"> <a> Applies</a></i></div>
-                                    </div>
-                                    <div class="competency1-border m-b-35">
-                                        <div><i class="icon-competency text-blue f30"> <a> Assists</a></i></div>
+                                	<div ng-repeat="competencyLevel in vm.competencyActual.competencyLevel track by competencyLevel.id">
+	                                    <div class="competency5-border  m-t-35">
+	                                        <div><i class="icon-competency text-blue f30"></i>
+	                                        	<a data-animation="am-fade-and-slide-top" 
+	                                        		ng-click="vm.fillLevel(competencyLevel)"
+													data-toggle="modal" 
+													data-target="#levels"
+	                                        		class="f30">
+	                                        		{{competencyLevel.name}}
+	                                        	</a>
+	                                        </div>
+	                                    </div>
                                     </div>
                                 </fieldset>
                             </form>
@@ -50,14 +48,15 @@
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Description</h5>
-                                    <p>Lorem Ipsum es simplemente. Lorem Ipsum ha  año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</p>
+                                    <p>{{vm.competencyActual.description}}</p>
                                 </fieldset>
                             </form>
                         </div>
                         <div class="col-md-6">
                                 <form class="form-floating placeholder-form">
                                 <fieldset>
-                                    <h5>Overview</h5>
+                                    <h5>Brief Description</h5>
+                                    <p>{{vm.competencyActual.briefDescription}}</p>
                                     <h6><strong>Resources</strong></h6>
                                         <li><a>Product Owership</a></li>
                                         <li><a>Card Resources</a></li>
@@ -72,3 +71,27 @@
         </div>
     </div>
 </section>
+
+
+<div class="modal fade" id="levels" tabindex="-1" role="dialog" 
+	aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h2 ><i class="icon-competency text-blue"></i>{{vm.competencyActual.name}}</h2>
+            </div>
+            <div class="modal-body">
+                <h4><i class=" md-spellcheck text-blue"></i>{{vm.levelActual.name}}</h4>
+                <div class="form-group m-l-20">
+                	<div ng-repeat="checkpoint in vm.levelActual.checkpoints track by checkpoint.id">
+	                    <div class="checkbox">
+	                          <input type="checkbox" checked>
+	                          <span>{{checkpoint.name}}</span>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</div>

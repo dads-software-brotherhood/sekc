@@ -12,7 +12,6 @@
         
         vm.practice = null;
         vm.load = load;
-        vm.catalogs = catalogs;
         vm.fillAlpha = fillAlpha;
         vm.fillState =fillState;
         
@@ -24,24 +23,17 @@
         			localStorageService.get('alphas') == null){
             	PracticeCatalogs.query(onSuccess, onError);
         	}else{
-        		vm.catalogs();
+            	vm.alphas = localStorageService.get('alphas');
         	}
         }
 
         function onSuccess(data, headers) {
-        	
         	localStorageService.set('alphas', data.catalogs.alphas);
-        	
-        	vm.catalogs();
-        	
+        	vm.alphas = localStorageService.get('alphas');   	
         }
         
         function onError(error) {
             AlertService.error(error.data.message);
-        }
-        
-        function catalogs() {
-        	vm.alphas = localStorageService.get('alphas');
         }
         
         function fillAlpha(alpha){

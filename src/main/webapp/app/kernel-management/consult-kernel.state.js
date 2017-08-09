@@ -62,8 +62,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/kernel-management/competences-management/consult-kernel-competency.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    controller: 'ConsultKernelCompetenciesController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -84,8 +84,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/kernel-management/activityspace-management/consult-kernel-activitySpace.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    controller: 'ConsultKernelActivitySpaceController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {

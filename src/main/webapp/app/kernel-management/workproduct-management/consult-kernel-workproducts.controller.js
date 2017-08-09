@@ -12,7 +12,6 @@
         
         vm.practice = null;
         vm.load = load;
-        vm.catalogs = catalogs;
         vm.fillWorkproduct = fillWorkproduct;
         vm.fillLevelsOfDetail =fillLevelsOfDetail;
         
@@ -24,23 +23,17 @@
         			localStorageService.get('workproducts') == null){
             	PracticeCatalogs.query(onSuccess, onError);
         	}else{
-        		vm.catalogs();
+            	vm.workproducts = localStorageService.get('workproducts');
         	}
         }
 
         function onSuccess(data, headers) {
-        	
         	localStorageService.set('workproducts', data.catalogs.workproducts);
-        	vm.catalogs();
-        	
+        	vm.workproducts = localStorageService.get('workproducts');	
         }
         
         function onError(error) {
             AlertService.error(error.data.message);
-        }
-        
-        function catalogs() {
-        	vm.workproducts = localStorageService.get('workproducts');
         }
         
         function fillWorkproduct(workproduct){
