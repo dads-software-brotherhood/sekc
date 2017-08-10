@@ -15,27 +15,27 @@
             <div class="well white">
                 <div id="detalle">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 colorArea1">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
-                                        <h3>
-                                            <i class="icon-alpha text-blue"></i> {{vm.alphaActual.name}}
-                                        </h3>
+                                        <h2 class="f40">
+                                            <i class="icon-alpha"></i> {{vm.alphaActual.name}}
+                                        </h2>
                                 </fieldset>
                             </form>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 m-t-20">
+                        <div class="col-md-4 m-t-20 colorArea1">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>States</h5>
-                                    <div ng-repeat="state in vm.alphaActual.states track by state.id">
+                                    <div ng-repeat="state in vm.alphaActual.states track by state.id" class="m-b-15">
                                         <div class="alpha-border text-center">
                                                 <a data-animation="am-fade-and-slide-top"
-                                                        ng-click="vm.fillState(state)"
-                                                        data-toggle="modal" 
-                                                        data-target="#states">{{state.name}}</a>
+                                                    ng-click="vm.fillState(state)"
+                                                    data-toggle="modal" 
+                                                    data-target="#states">{{state.name}}</a>
                                         </div>
                                         <div class="text-center" ng-show="!$last">
                                                 <i class="fa fa-arrow-down fa fa-3x text-blue" aria-hidden="true"></i>

@@ -163,7 +163,7 @@ select[multiple] {
 .alpha-border{
     border: solid 1px;
     height:50%;
-    padding:15px;
+    padding:10px;
 }
 .workproduct-border {
   background-image: url(/content/images/workproduct.png);
@@ -262,13 +262,20 @@ ul.ivh-treeview li{
 
 /*Colores Area of concern*/
 .colorArea0{
-	background-color: #58FAD0 !important;
+	background-color: #2EFE9A !important;
+       color: black!important;
+        font-weight: bold!important;
 }
 .colorArea1{
-	background-color: #F2F5A9 !important;
+	background-color: #F4FA58 !important;
+        color: black!important;
+        font-weight: bold!important;
 }
 .colorArea2{
-	background-color: #58D3F7 !important;
+	background-color: #2E9AFE !important;
+     color: black!important;
+        font-weight: bold!important;
+        
 }
 
 /*Colores keywords find practice*/
