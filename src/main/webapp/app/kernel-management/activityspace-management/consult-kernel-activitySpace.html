@@ -1,22 +1,21 @@
 <section class="p-b-20">
     <div class="row">
-        <div class="col-md-3">
-			<div class="well white">
-				<div class="m-b-20">
-					<div ng-repeat="activitySpace in vm.activitySpaces track by activitySpace.id">
-					<p>
-						<button class="btn btn-primary btn-block" 
-							data-target="#detalle" 
-							ng-click="vm.fillActivitySpace(activitySpace)">{{activitySpace.name}}
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-        <div class="col-md-9" ng-show="vm.activitySpaceActual">
+        <div class="col-md-4">
+            <div class="well white">
+                <div class="m-b-20">
+                    <div ng-repeat="activitySpace in vm.activitySpaces track by activitySpace.id">
+                        <button class="btn btn-primary btn-block m-t-15" 
+                                data-target="#detalle" 
+                                ng-click="vm.fillActivitySpace(activitySpace)">{{activitySpace.name}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+	</div>
+        <div class="col-md-8" ng-show="vm.activitySpaceActual">
             <div class="well white">
                 <div id="detalle">
-                       <div class="row">
+                    <div class="row">
                         <div class="col-md-12">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
@@ -25,8 +24,8 @@
                             </form> 
                         </div>
                     </div>
-                     <div class="row">
-                        <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-4" ng-hide="true">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Entries</h5>
@@ -53,7 +52,7 @@
                                             <div class="m-t-20 m-l-75"><i class="icon-competency text-yellow f20"> Stakeholder</i></div>
                                         </div>
                                      <h5>Results</h5>
-                                        <div>
+                                     <div>
                                         <li>
                                             <a><i class="icon-alpha text-blue"></i> Alpha 1</a> 
                                         </li>
@@ -73,7 +72,7 @@
                                 </fieldset>
                             </form>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Description</h5>
@@ -81,7 +80,7 @@
                                 </fieldset>
                             </form>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" ng-hide="true">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Objectives</h5>
@@ -89,7 +88,7 @@
                                 </fieldset>
                             </form>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8" ng-hide="true">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Overview</h5>
@@ -107,7 +106,7 @@
                                         <p>Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el <a>ecido hace demasiado tiempo que un lector.</a></p>
                                 </fieldset>
                             </form> 
-                    </div>
+                        </div>
                     </div> 
                 </div> 
             </div>
