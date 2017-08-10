@@ -126,8 +126,8 @@
             views: {
                 'content@': {
                     templateUrl: 'app/kernel-management/consult-kernel-areaOfConcern.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    controller: 'ConsultKernelAreaOfConcernController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
