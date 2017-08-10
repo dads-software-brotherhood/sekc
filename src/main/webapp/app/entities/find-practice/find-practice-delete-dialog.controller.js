@@ -3,11 +3,11 @@
 
     angular
         .module('sekcApp')
-        .controller('PracticeManagementDeleteController', PracticeManagementDeleteController);
+        .controller('FindPracticeDeleteController', FindPracticeDeleteController);
 
-    PracticeManagementDeleteController.$inject = ['$uibModalInstance', 'entity', 'Practice'];
+    FindPracticeDeleteController.$inject = ['$stateParams', '$uibModalInstance', 'entity', 'FindPractice', 'JhiLanguageService'];
 
-    function PracticeManagementDeleteController ($uibModalInstance, entity, Practice) {
+    function FindPracticeDeleteController ($stateParams, $uibModalInstance, entity, FindPractice, JhiLanguageService) {
         var vm = this;
 
         vm.practice = entity;
@@ -18,8 +18,8 @@
             $uibModalInstance.dismiss('cancel');
         }
 
-        function confirmDelete (login) {
-            Practice.delete({login: login},
+        function confirmDelete (id) {
+        	FindPractice.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });

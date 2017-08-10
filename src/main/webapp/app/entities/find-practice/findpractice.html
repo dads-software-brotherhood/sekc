@@ -40,6 +40,7 @@
                                         </span>
                                     </fieldset>
                                 </form>
+                                <p>
                                 <div class="btn-group flex-btn-group-container m-t-10">
                                     <button type="submit"
                                             ui-sref="practice-consult-general({idPractice:practice.idPractice})"
@@ -47,13 +48,14 @@
                                             <span class="glyphicon glyphicon-eye-open"></span> <span
                                                   class="hidden-sm-down" data-translate="entity.action.view"></span>
                                     </button>
-                                    <button type="" class="btn btn-info btn-sm m-r-15" ng-hide="true">
+                                    <button type="submit" class="btn btn-info btn-sm m-r-15" ng-hide="true">
                                             <span class="fa fa-pencil"></span> 
-                                            <span> EDIT </span>
+                                            <span data-translate="entity.action.edit"> EDIT </span>
                                     </button>
-                                    <button type="" class="btn btn-danger btn-sm" ng-hide="true">
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                    		ui-sref="find-practice.delete({id:practice.idPractice})">
                                             <span class="fa fa-trash"></span> 
-                                            <span> DELETE </span>
+                                            <span data-translate="entity.action.delete"> DELETE </span>
                                     </button>
                                 </div>
                             </div>
