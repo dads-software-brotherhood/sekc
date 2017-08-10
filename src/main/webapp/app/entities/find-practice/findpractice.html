@@ -1,71 +1,65 @@
-<div>
-	<h2 data-translate="findPractice.home.title">Repositories</h2>
-	<jhi-alert></jhi-alert>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6 m-b-30 input-group">
-				<span class="input-group-addon"> <i
-					class="md md-search f20 text-blue"></i>
-				</span> <input type="text" class="form-control"
-					placeholder="{{ 'findPractice.search' | translate }}" autofocus />
-			</div>
-		</div>
-	</div>
-	<br />
-	<div class="table-responsive">
-		<table class="jh-table table table-striped">
-			<thead>
-				<tr>
-					<th><span data-translate="findPractice.home.results">Name</span>
-						<span class="glyphicon"></span></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr
-					ng-repeat="practice in vm.practices track by practice.idPractice">
-					<td>
-						<div class="col-md-12">
-							<div class="well white">
-								<form class="form-floating placeholder-form">
-									<fieldset>
-										<h2 class="text-blue">{{practice.name}}</h2>
-										<h6>
-											<strong>BriefDescription</strong>
-										</h6>
-										<p>{{practice.briefDescription}}</p>
-										<h6>
-											<strong>Description</strong>
-										</h6>
-										<p ng-bind-html="practice.description"></p>
-										<h6>
-											<strong>Keywords</strong>
-										</h6>
-										<span ng-repeat="keyword in practice.keywords" class="label color{{$index % 3}}">
-										    {{keyword}}
-										</span>
-										<p></p>
-									</fieldset>
-								</form>
-								<div class="btn-group flex-btn-group-container">
-									<button type="submit"
-										ui-sref="practice-consult-general({idPractice:practice.idPractice})"
-										class="btn btn-primary btn-sm">
-										<span class="glyphicon glyphicon-eye-open"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.view"></span>
-									</button>
-								</div>
-							</div>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-<div class="text-center">
-	<jhi-item-count page="vm.page" total="vm.queryCount"
-		items-per-page="vm.itemsPerPage"></jhi-item-count>
-	<uib-pagination class="pagination-sm" total-items="vm.totalItems"
-		items-per-page="vm.itemsPerPage" ng-model="vm.page"
-		ng-change="vm.transition()"></uib-pagination>
-</div>
+<section>
+    <h2 data-translate="findPractice.home.title">Find Practice</h2>
+    <div class="row">
+        <div class="col-md-6 m-b-30 input-group">
+            <span class="input-group-addon"> <i
+                    class="md md-search f20 text-blue"></i>
+            </span> <input type="text" class="form-control"
+                    placeholder="{{ 'findPractice.search' | translate }}" autofocus />
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="findPractice.home.results">Name</span>
+                        <span class="glyphicon"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="practice in vm.practices track by practice.idPractice">
+                    <td>
+                        <div class="col-md-12">
+                            <div class="well white">
+                                <form class="form-floating placeholder-form">
+                                    <fieldset>
+                                        <h2 class="text-blue">{{practice.name}}</h2>
+                                        <h6>
+                                                <strong>BriefDescription</strong>
+                                        </h6>
+                                        <p>{{practice.briefDescription}}</p>
+                                        <h6>
+                                                <strong>Description</strong>
+                                        </h6>
+                                        <p ng-bind-html="practice.description"></p>
+                                        <h6>
+                                                <strong>Keywords</strong>
+                                        </h6>
+                                        <span ng-repeat="keyword in practice.keywords" class="label color{{$index % 3}}">
+                                            {{keyword}}
+                                        </span>
+                                    </fieldset>
+                                </form>
+                                <div class="btn-group flex-btn-group-container m-t-10">
+                                    <button type="submit"
+                                            ui-sref="practice-consult-general({idPractice:practice.idPractice})"
+                                            class="btn btn-primary btn-sm">
+                                            <span class="glyphicon glyphicon-eye-open"></span> <span
+                                                    class="hidden-sm-down" data-translate="entity.action.view"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount"
+            items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems"
+            items-per-page="vm.itemsPerPage" ng-model="vm.page"
+            ng-change="vm.transition()"></uib-pagination>
+    </div>
+</section>
