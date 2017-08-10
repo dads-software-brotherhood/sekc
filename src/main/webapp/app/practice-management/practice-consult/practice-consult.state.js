@@ -137,7 +137,6 @@
                 }]
             }
         })
-        
            .state('practice-consult-competency', {
             parent: 'app',
             url: '/practiceConsultCompetency/{login}',

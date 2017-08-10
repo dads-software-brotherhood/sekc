@@ -1,16 +1,17 @@
 <section class="p-b-20">
     <div class="row">
         <div class="col-md-3">
-            <div class="well white">
-                <div class="m-b-20">
-                    <div ng-repeat="workproduct in vm.workproducts track by workproduct.id">
-                        <button class="btn btn-primary btn-block m-b-20"
-                                data-target="#detalle" ng-click="vm.fillWorkproduct(workproduct)">{{workproduct.name}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<div class="well white">
+				<div class="m-b-20">
+					<div ng-repeat="workproduct in vm.workproducts track by workproduct.id">
+					<p>
+						<button class="btn btn-primary btn-block" 
+							data-target="#detalle" ng-click="vm.fillWorkproduct(workproduct)">{{workproduct.name}}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
         <div class="col-md-9" ng-show="vm.workproductActual">
             <div class="well white">
                 <div id="detalle">
@@ -60,7 +61,7 @@
                                     <p>{{vm.workproductActual.briefDescription}}</p>
                                 </fieldset>
                             </form>
-                            <form class="form-floating placeholder-form" ng-hide="true">
+                            <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Produced by </h5>
                                     <li><i class="fa fa-plus text-green" aria-hidden="true"></i><a> Card Resources</a></li>
@@ -75,22 +76,24 @@
         </div>
     </div>
 </section>
+
+
 <div class="modal fade" id="levelsOfDetails" tabindex="-1" role="dialog" 
 	aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h2 class="text-center" 
-                 ><i class="icon-workproduct text-blue"></i> {{vm.workproductActual.name}}</h2>
-              <h3 class="m-l-15"><i class=" md-spellcheck text-blue"></i>{{vm.levelOfDetailActual.name}}</h3>
+              <h2 ><i class="icon-workproduct text-blue"></i> {{vm.workproductActual.name}}</h2>
             </div>
             <div class="modal-body">
+                <h4><i class=" md-spellcheck text-blue"></i>{{vm.levelOfDetailActual.name}}</h4>
                 <div class="form-group m-l-20">
                 	<div ng-repeat="checkpoint in vm.levelOfDetailActual.checkpoints track by checkpoint.id">
-	                    <i class="fa fa-check-square-o fa fa-lg text-blue "></i>
-	                    <span>{{checkpoint.name}}</span>
-	                    
+	                    <div class="checkbox">
+	                          <input type="checkbox" checked>
+	                          <span>{{checkpoint.name}}</span>
+	                    </div>
                     </div>
                 </div>
             </div>

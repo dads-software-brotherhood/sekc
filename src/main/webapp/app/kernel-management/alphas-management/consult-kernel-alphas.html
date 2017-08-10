@@ -1,111 +1,95 @@
 <section class="p-b-20">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="well white">
-                <div class="m-b-20">
-                    <div ng-repeat="alpha in vm.alphas track by alpha.id">
-                        <button class="btn btn-primary btn-block m-b-10" 
-                                data-target="#detalle" ng-click="vm.fillAlpha(alpha)">{{alpha.name}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9" ng-show="vm.alphaActual">
-            <div class="well white">
-                <div id="detalle">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                    <h3><i class="icon-alpha text-blue"></i> {{vm.alphaActual.name}}</h3>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                    <h5>States</h5>
-                                    <div ng-repeat="state in vm.alphaActual.states track by state.id">
-                                        <div class="alpha-border text-center">
-                                            <a data-animation="am-fade-and-slide-top"
-                                                        ng-click="vm.fillState(state)"
-                                                        data-toggle="modal" 
-                                                        data-target="#states">{{state.name}}</a>
-                                        </div>
-                                        <div class="text-center" ng-show="!$last">
-                                            <i class="fa fa-arrow-down fa fa-3x text-blue" aria-hidden="true"></i>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="col-md-8">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                        <h5>Description</h5>
-                                        <p>{{vm.alphaActual.description}}</p>
-                                </fieldset>
-                            </form>
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                        <h5>Brief Description</h5>
-                                        <p>{{vm.alphaActual.description}}</p>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="col-md-8" ng-hide="true">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                        <h5>Brief Description</h5>
-                                        <p>{{vm.alphaActual.briefDescription}}</p>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="row" ng-hide="true">
-                        <div class="col-md-4">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                        <h5>Progressed by</h5>
-                                        <li><a>Support the Team :: Hold a Retrospective</a></li>
-                                        <li><a>Card Resources</a></li>
-                                        <li><a>Card Resources</a></li>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="col-md-8">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                        <h5>Resources</h5>
-                                        <li><a>Card Resources</a></li>
-                                        <li><a>Card Resources</a></li>
-                                        <li><a>Product Owership</a></li>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="well white">
+				<div class="m-b-20">
+					<div ng-repeat="alpha in vm.alphas track by alpha.id">
+					<p>
+						<button class="btn btn-primary btn-block" 
+							data-target="#detalle" ng-click="vm.fillAlpha(alpha)">{{alpha.name}}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9" ng-show="vm.alphaActual">
+			<div class="well white">
+				<div id="detalle">
+					<div class="row">
+						<div class="col-md-12">
+							<form class="form-floating placeholder-form">
+								<fieldset>
+									<h3>
+										<i class="icon-alpha text-blue"></i> {{vm.alphaActual.name}}
+									</h3>
+
+								</fieldset>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<form class="form-floating placeholder-form">
+								<fieldset>
+									<h5>States</h5>
+									<div ng-repeat="state in vm.alphaActual.states track by state.id">
+										<div class="alpha-border text-center">
+											<a data-animation="am-fade-and-slide-top"
+												ng-click="vm.fillState(state)"
+												data-toggle="modal" 
+												data-target="#states">{{state.name}}</a>
+										</div>
+										<div class="text-center" ng-show="!$last">
+											<i class="fa fa-arrow-down fa fa-3x text-blue" aria-hidden="true"></i>
+										</div>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div class="col-md-8">
+
+							<form class="form-floating placeholder-form">
+								<fieldset>
+									<h5>Description</h5>
+									<p>{{vm.alphaActual.description}}</p>
+								</fieldset>
+							</form>
+
+						</div>
+						<div class="col-md-8">
+
+							<form class="form-floating placeholder-form">
+								<fieldset>
+									<h5>Brief Description</h5>
+									<p>{{vm.alphaActual.briefDescription}}</p>
+								</fieldset>
+							</form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+
+
 <div class="modal fade" id="states" tabindex="-1" role="dialog" 
 	aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="text-center"><i class="icon-alpha text-blue"></i> {{vm.alphaActual.name}}</h2>
-                <h3 class="m-l-15"><i class=" md-spellcheck text-blue"></i>{{vm.stateActual.name}}</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h2 ><i class="icon-alpha text-blue"></i> {{vm.alphaActual.name}}</h2>
             </div>
-            <div class="modal-body">  
+            <div class="modal-body">
+                <h4><i class=" md-spellcheck text-blue"></i>{{vm.stateActual.name}}</h4>
                 <div class="form-group m-l-20">
-                    <div ng-repeat="checkpoint in vm.stateActual.checkpoints track by checkpoint.id">
-                        <i class="fa fa-check-square-o fa fa-lg text-blue"></i>
-                        <span>{{checkpoint.name}}</span>
+                	<div ng-repeat="checkpoint in vm.stateActual.checkpoints track by checkpoint.id">
+	                    <div class="checkbox">
+	                          <input type="checkbox" checked>
+	                          <span>{{checkpoint.name}}</span>
+	                    </div>
                     </div>
                 </div>
             </div>
