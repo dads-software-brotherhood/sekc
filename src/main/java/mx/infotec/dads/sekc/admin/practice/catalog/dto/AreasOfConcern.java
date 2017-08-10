@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "id",
     "name",
     "briefDescription",
     "description",
@@ -23,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     "competencies"
 })
 public class AreasOfConcern {
-
+    @JsonProperty("id")
+    private String id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("briefDescription")
@@ -40,6 +42,16 @@ public class AreasOfConcern {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonProperty("type")
     private String type = "areaOfConcern";
+    
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
     
     @JsonProperty("name")
     public String getName() {
