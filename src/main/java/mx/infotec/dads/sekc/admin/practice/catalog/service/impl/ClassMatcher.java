@@ -42,6 +42,7 @@ public class ClassMatcher {
     }
     
     public AreasOfConcern matchAreaOfConcern(AreasOfConcern areaOfConcern, SEAreaOfConcern seAreaOfConcern) {
+        areaOfConcern.setId(seAreaOfConcern.getId());
         areaOfConcern.setName(seAreaOfConcern.getName());
         areaOfConcern.setBriefDescription(seAreaOfConcern.getBriefDescription());
         areaOfConcern.setDescription(seAreaOfConcern.getDescription());
