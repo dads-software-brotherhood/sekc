@@ -121,30 +121,6 @@
                 }]
             }
         })
-       
-        .state('practice-management.delete', {
-            url: '/{login}/delete',
-            data: {
-                authorities: ['ROLE_ADMIN']
-            },
-            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
-                $uibModal.open({
-                    templateUrl: 'app/practice-management/practice-management-delete-dialog.html',
-                    controller: 'PracticeManagementDeleteController',
-                    controllerAs: 'vm',
-                    size: 'md',
-                    resolve: {
-                        entity: ['Practice', function(Practice) {
-                            return Practice.get({login : $stateParams.login});
-                        }]
-                    }
-                }).result.then(function() {
-                    $state.go('practice-management', null, { reload: true });
-                }, function() {
-                    $state.go('^');
-                });
-            }]
-        })
          .state('practice-management-general', {
             parent: 'practice-management',
             url: '/practiceGeneral/{login}',

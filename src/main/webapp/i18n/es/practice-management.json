@@ -12,13 +12,13 @@
             "question": "¿Seguro que quieres eliminar la práctica?"
         },
         "alpha": {
-        "home": {
-            "title": "Things to work with"
-        },
-        "alphaSelect":"Selecciona un alpha",
-        "workproductSelect":"Selecciona un workproduct para el alpha",
-        "edit" : "Editar"
-    },
+	        "home": {
+	            "title": "Things to work with"
+	        },
+	        "alphaSelect":"Selecciona un alpha",
+	        "workproductSelect":"Selecciona un workproduct para el alpha",
+	        "edit" : "Editar"
+    	},
         "detail": {
             "title": "Práctica"
         },

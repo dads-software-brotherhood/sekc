@@ -9,7 +9,7 @@
         "updated": "An practice is updated with identifier {{ param }}",
         "deleted": "An practice is deleted with identifier {{ param }}",
         "delete": {
-            "question": "Are you sure you want to delete practice {{ login }}?"
+            "question": "Are you sure you want to delete this practice?"
         },
         "alpha": {
         "home": {
