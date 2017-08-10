@@ -4,7 +4,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h3><i class="fa fa-tag text-blue"></i> Practice Name: "{{vm.practice.name}}"</h3>
+                        <h2><i class="fa fa-tag text-blue"></i> {{vm.practice.name}}</h2>
                       
                     </fieldset>
                 </form>
@@ -51,9 +51,10 @@
                             <li><a>N/A</a></li>
                         </ul>
                         <h5>Keywords</h5>
-                        <span ng-repeat="keyword in vm.practice.keyWords" ng-class-even="'label indigo lebel'" ng-class-odd="'label green label'">
-	                       {{keyword}}
-						</span>
+                        <ul class="list-inline">
+						  <li ng-repeat="keyword in vm.practice.keyWords"
+						   	class="label keyWord{{$index % 6}}">{{keyword}}</li>
+						</ul>
                     </fieldset>
                 </form>
             </div> 
@@ -69,12 +70,12 @@
                         <div ng-repeat-start="alphaState in vm.practice.entries">
                              <ul>
                                  <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
-                                     {{alphaOrWorkproduct.alpha}}/{{alphaOrWorkproduct.state}}
+                                     {{alphaOrWorkproduct.alpha}} / {{alphaOrWorkproduct.state}}
                                  </li>
                              </ul>
                              <ul>
                                  <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
-                                     {{alphaOrWorkproduct.workProduct}}/{{alphaOrWorkproduct.levelOfDetail}}
+                                     {{alphaOrWorkproduct.workProduct}} / {{alphaOrWorkproduct.levelOfDetail}}
                                  </li>
                              </ul>
                              <ul>
@@ -99,12 +100,12 @@
                         	<div ng-repeat-start="alphaState in vm.practice.results">
                              <ul>
                                  <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
-                                     {{alphaOrWorkproduct.alpha}}/{{alphaOrWorkproduct.state}}
+                                     {{alphaOrWorkproduct.alpha}} / {{alphaOrWorkproduct.state}}
                                  </li>
                              </ul>
                              <ul>
                                  <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
-                                     {{alphaOrWorkproduct.workProduct}}/{{alphaOrWorkproduct.levelOfDetail}}
+                                     {{alphaOrWorkproduct.workProduct}} / {{alphaOrWorkproduct.levelOfDetail}}
                                  </li>
                              </ul>
                              <ul>

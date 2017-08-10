@@ -1,0 +1,102 @@
+<section class="p-b-20">
+    <div class="row">
+        <div class="col-md-3">
+			<div class="well white">
+				<div class="m-b-20">
+					<div ng-repeat="workproduct in vm.workproducts track by workproduct.id">
+					<p>
+						<button class="btn btn-primary btn-block" 
+							data-target="#detalle" ng-click="vm.fillWorkproduct(workproduct)">{{workproduct.name}}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="col-md-9" ng-show="vm.workproductActual">
+            <div class="well white">
+                <div id="detalle">
+                    <div class="row">
+                        <div class="col-md-12">
+                                <form class="form-floating placeholder-form">
+                                    <fieldset>
+                                        <h3><i class="icon-workproduct text-blue"></i> {{vm.workproductActual.name}}</h3>
+
+                                    </fieldset>
+                                </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form class="form-floating placeholder-form">
+                                <fieldset>
+                                    <h5>Levels of Details</h5>
+									<div
+										ng-repeat="level in vm.workproductActual.levelsOfDetails track by level.id">
+
+										<div class="workproduct-2-border text-center">
+											<a data-animation="am-fade-and-slide-top"
+												ng-click="vm.fillLevelsOfDetail(level)" data-toggle="modal"
+												data-target="#levelsOfDetails">{{level.name}}</a>
+										</div>
+										<div class="text-center m-tn-8" ng-show="!$last">
+											<i class="fa fa-arrow-down fa fa-3x text-blue"
+												aria-hidden="true"></i>
+										</div>
+									</div>
+								</fieldset>
+                            </form>   
+                        </div>
+                        <div class="col-md-8">
+                            <form class="form-floating placeholder-form">
+                                <fieldset>
+                                    <h5>Description</h5>
+                                    <p>{{vm.workproductActual.description}}</p>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="col-md-8">
+                            <form class="form-floating placeholder-form">
+                                <fieldset>
+                                    <h5>Brief Description</h5>
+                                    <p>{{vm.workproductActual.briefDescription}}</p>
+                                </fieldset>
+                            </form>
+                            <form class="form-floating placeholder-form">
+                                <fieldset>
+                                    <h5>Produced by </h5>
+                                    <li><i class="fa fa-plus text-green" aria-hidden="true"></i><a> Card Resources</a></li>
+                                    <li><i class=" md-file-upload text-blue"></i><a> Card Resources</a></li>
+                                    <li><i class=" md-file-upload text-blue"></i><a> Support the Team :: Hold a Retrospective</a></li>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="levelsOfDetails" tabindex="-1" role="dialog" 
+	aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h2 ><i class="icon-workproduct text-blue"></i> {{vm.workproductActual.name}}</h2>
+            </div>
+            <div class="modal-body">
+                <h4><i class=" md-spellcheck text-blue"></i>{{vm.levelOfDetailActual.name}}</h4>
+                <div class="form-group m-l-20">
+                	<div ng-repeat="checkpoint in vm.levelOfDetailActual.checkpoints track by checkpoint.id">
+	                    <div class="checkbox">
+	                          <input type="checkbox" checked>
+	                          <span>{{checkpoint.name}}</span>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+</div>

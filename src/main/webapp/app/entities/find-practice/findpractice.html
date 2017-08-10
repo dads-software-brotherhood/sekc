@@ -40,7 +40,7 @@
 										<h6>
 											<strong>Keywords</strong>
 										</h6>
-										<span ng-repeat="keyword in practice.keywords" ng-class-even="'label cyan lebel'" ng-class-odd="'label orange label'">
+										<span ng-repeat="keyword in practice.keywords" class="label color{{$index % 3}}">
 										    {{keyword}}
 										</span>
 										<p></p>

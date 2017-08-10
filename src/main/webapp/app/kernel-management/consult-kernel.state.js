@@ -11,16 +11,16 @@
         $stateProvider
         .state('consult-kernel-alphas', {
             parent: 'app',
-            url: '/consultKernel?page&sort',
+            url: '/consultAlphas',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practiceManagement.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-alphas.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    templateUrl: 'app/kernel-management/alphas-management/consult-kernel-alphas.html',
+                    controller: 'ConsultKernelAlphasController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -33,16 +33,16 @@
         })
         .state('consult-kernel-workproducts', {
             parent: 'app',
-            url: '/consultKernelWorkproducts/{login}',
+            url: '/consultKernelWorkproducts',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practice-management.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-workproducts.html',
-                    //controller: 'PracticeManagementThingsWorkController',
-                    //controllerAs: 'vm'
+                    templateUrl: 'app/kernel-management/workproduct-management/consult-kernel-workproducts.html',
+                    controller: 'ConsultKernelWorkproductsController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -54,16 +54,16 @@
         })
         .state('consult-kernel-competency', {
             parent: 'app',
-            url: '/consultKernelCompetency/(login)',
+            url: '/consultKernelCompetency',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practiceManagement.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-competency.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    templateUrl: 'app/kernel-management/competences-management/consult-kernel-competency.html',
+                    controller: 'ConsultKernelCompetenciesController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -76,16 +76,16 @@
         })
          .state('consult-kernel-activitySpace', {
             parent: 'app',
-            url: '/consultKernelActivitySpace/(login)',
+            url: '/consultKernelActivitySpace',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practiceManagement.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-activitySpace.html',
-                    //controller: 'PracticeManagementController',
-                    //controllerAs: 'vm'
+                    templateUrl: 'app/kernel-management/activityspace-management/consult-kernel-activitySpace.html',
+                    controller: 'ConsultKernelActivitySpaceController',
+                    controllerAs: 'vm'
                 }
             },
             resolve: {
@@ -97,14 +97,14 @@
         })
            .state('consult-kernel-areaOfConcern', {
             parent: 'app',
-            url: '/consultKernelAreaOfConcern/(login)',
+            url: '/consultKernelAreaOfConcern',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practiceManagement.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/kernel-management/consult-kernel/consult-kernel-areaOfConcern.html',
+                    templateUrl: 'app/kernel-management/consult-kernel-areaOfConcern.html',
                     //controller: 'PracticeManagementController',
                     //controllerAs: 'vm'
                 }

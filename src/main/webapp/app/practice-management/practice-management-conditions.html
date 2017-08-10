@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="measure in vm.measures">
+                            <tr ng-repeat="measure in vm.measures track by $index">
                                 <td>{{measure}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>                            
                             </tr>
@@ -97,7 +97,7 @@
                                 <td>{{workProductLevelofDetail.description}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
-                            <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions">
+                            <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions track by $index">
                                 <td>{{otherConditions}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>
@@ -163,7 +163,7 @@
                                 <td>{{workProductLevelofDetail.description}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'workproduct')"><i class="md md-delete"></i></button></td>
                             </tr>
-                            <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions">
+                            <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions track by $index">
                                 <td>{{otherConditions}}</td>
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'other')"><i class="md md-delete"></i></button></td>
                             </tr>

@@ -1,24 +1,26 @@
 <section class="p-b-20">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
+			<div class="well white">
+				<div class="m-b-20">
+					<div ng-repeat="activitySpace in vm.activitySpaces track by activitySpace.id">
+					<p>
+						<button class="btn btn-primary btn-block" 
+							data-target="#detalle" 
+							ng-click="vm.fillActivitySpace(activitySpace)">{{activitySpace.name}}
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+        <div class="col-md-9" ng-show="vm.activitySpaceActual">
             <div class="well white">
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 1</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 2</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 3</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 4</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 5</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 6</button></div>
-                <div class="m-b-20"><button class="btn btn-primary" data-toggle="collapse" data-target="#demo">Activity Space 7</button></div>
-            </div>
-        </div>
-        <div class="col-md-10">
-            <div class="well white">
-                <div id="demo" class="collapse">
+                <div id="detalle">
                        <div class="row">
                         <div class="col-md-12">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
-                                    <h3><i class="icon-spaceactivity text-blue"></i> Activity Space name: "asdfi"</h3>
+                                    <h3><i class="icon-spaceactivity text-blue"></i> {{vm.activitySpaceActual.name}}</h3>
                                 </fieldset>
                             </form> 
                         </div>
@@ -75,7 +77,7 @@
                             <form class="form-floating placeholder-form">
                                 <fieldset>
                                     <h5>Description</h5>
-                                    <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</p>
+                                    <p>{{vm.activitySpaceActual.description}}</p>
                                 </fieldset>
                             </form>
                         </div>
