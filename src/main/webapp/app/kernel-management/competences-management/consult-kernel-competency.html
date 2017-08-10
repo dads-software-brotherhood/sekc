@@ -1,6 +1,6 @@
 <section class="p-b-20">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="well white">
                 <div class="m-b-20">
                     <div ng-repeat="competency in vm.competencies track by competency.id">
@@ -11,7 +11,7 @@
                 </div>
             </div>
 	</div>
-        <div class="col-md-9" ng-show="vm.competencyActual">
+        <div class="col-md-8" ng-show="vm.competencyActual">
             <div class="well white">
                 <div id="detalle">
                     <div class="row">
@@ -42,28 +42,32 @@
                             </form>
                         </div>
                         <div class="col-md-7">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                    <h5>Description</h5>
-                                    <p>{{vm.competencyActual.description}}</p>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="col-md-6">
-                            <form class="form-floating placeholder-form">
-                                <fieldset>
-                                    <h5>Brief Description</h5>
-                                    <p>{{vm.competencyActual.briefDescription}}</p>
-                                    <div ng-hide="true">
-                                        <h6><strong>Resources</strong></h6>
-                                            <li><a>Product Owership</a></li>
-                                            <li><a>Card Resources</a></li>
-                                        <h6><strong>Involved in</strong></h6>
-                                            <p>Es un hecho establecido hace demasiado tiemcon el <a>ecido hace demasiado tiempo que un lector.</a></p>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
+                            <div class="row">
+                                <div class=" col-md-12">
+                                <form class="form-floating placeholder-form">
+                                    <fieldset>
+                                        <h5>Description</h5>
+                                        <p>{{vm.competencyActual.description}}</p>
+                                    </fieldset>
+                                </form>
+                                </div>
+                                <div class="col-md-12">
+                                   <form class="form-floating placeholder-form">
+                                       <fieldset>
+                                           <h5>Brief Description</h5>
+                                           <p>{{vm.competencyActual.briefDescription}}</p>
+                                           <div ng-hide="true">
+                                               <h6><strong>Resources</strong></h6>
+                                                   <li><a>Product Owership</a></li>
+                                                   <li><a>Card Resources</a></li>
+                                               <h6><strong>Involved in</strong></h6>
+                                                   <p>Es un hecho establecido hace demasiado tiemcon el <a>ecido hace demasiado tiempo que un lector.</a></p>
+                                           </div>
+                                       </fieldset>
+                                   </form>
+                               </div>
+                            </div>
+                       </div>
                     </div> 
                 </div> 
             </div>

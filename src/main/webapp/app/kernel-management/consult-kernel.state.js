@@ -95,6 +95,27 @@
                 }]
                 }        
         })
+           .state('consult-glossary', {
+            parent: 'app',
+            url: '/consultGlossary',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practiceManagement.home.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/kernel-management/consult-kernel/consult-glossary.html',
+                    controller: 'ConsultKernelActivitySpaceController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+                }        
+        })
            .state('consult-kernel-areaOfConcern', {
             parent: 'app',
             url: '/consultKernelAreaOfConcern',
