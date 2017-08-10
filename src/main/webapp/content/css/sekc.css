@@ -262,20 +262,19 @@ ul.ivh-treeview li{
 
 /*Colores Area of concern*/
 .colorArea0{
-	background-color: #C9FFC9 !important;
-        color: black!important;
-        font-weight: bold!important;
+	background-color: #C9FFC9;
+        color: black;
+        font-weight: bold;
 }
 .colorArea1{
-	background-color: #FFFF99 !important;
-        color: black!important;
-        font-weight: bold!important;
+	background-color: #FFFF99;
+        color: black;
+        font-weight: bold;
 }
 .colorArea2{
-	background-color: #C6D9F1 !important;
-        color: black!important;
-        font-weight: bold!important;
-        
+	background-color: #C6D9F1;
+        color: black;
+        font-weight: bold;
 }
 
 /*Colores keywords find practice*/
