@@ -35,8 +35,9 @@
             AlertService.error(error.data.message);
         }
         
-        function fillAreaOfConcern(areaOfConcern){
+        function fillAreaOfConcern(areaOfConcern, index){
         	vm.areaOfConcernActual = areaOfConcern;
+        	vm.index = index;
         }
     }
 })();

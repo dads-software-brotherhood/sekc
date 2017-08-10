@@ -5,7 +5,7 @@
                 <div class="m-b-20">
                     <div ng-repeat="areaOfConcern in vm.areasOfConcern track by areaOfConcern.id">
                         <button class="btn btn-primary btn-block m-t-15 colorArea{{$index}}" 
-                                data-target="#detalle" ng-click="vm.fillAreaOfConcern(areaOfConcern)">{{areaOfConcern.name}}
+                                data-target="#detalle" ng-click="vm.fillAreaOfConcern(areaOfConcern,$index)">{{areaOfConcern.name}}
                         </button>
                     </div>
                 </div>
@@ -14,7 +14,7 @@
 	<div class="col-md-9" ng-show="vm.areaOfConcernActual">
             <div class="well white">
                 <div id="demo">
-                    <div class="row colorArea1">
+                    <div class="row colorArea{{vm.index}}">
                         <div class="col-md-12">
                             <form class="form-floating placeholder-form">
                                 <fieldset>
