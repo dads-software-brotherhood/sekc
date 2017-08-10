@@ -259,7 +259,19 @@ ul.ivh-treeview li{
     margin-top: 2%;
    
 }
+
 /*Colores Area of concern*/
+.colorArea0{
+	background-color: #58FAD0 !important;
+}
+.colorArea1{
+	background-color: #F2F5A9 !important;
+}
+.colorArea2{
+	background-color: #58D3F7 !important;
+}
+
+/*Colores keywords find practice*/
 .color0{
     background-color: #00bcd4;
     color: #ffffff;
@@ -275,6 +287,8 @@ ul.ivh-treeview li{
     color: #ffffff;    
     margin-right: 3px;
 }
+
+/*Colores keywords general*/
 .keyWord0{
     background-color: #e91e63;
     color: #ffffff;    
@@ -304,13 +318,4 @@ ul.ivh-treeview li{
 	background-color: #00bcd4;
     color: #ffffff;    
     margin-right: 3px; 
-}
-.colorArea1{
-    background-color:#F2F5A9; 
-}
-.colorArea2{
-    background-color:#58FAD0; 
-}
-.colorArea2{
-    background-color:#58D3F7}; 
 }
