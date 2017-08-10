@@ -34,6 +34,9 @@
         <a menu-link href="#/home" icon="md md-blur-on" >
             <span data-translate="global.menu.home"> Home</span>
         </a>
+        <a menu-link href="#/find-practice" icon="md md-search">
+        	<span data-translate="global.menu.findPractice">Find Practice</span>
+       </a>
         <li menu-toggle id="entity-menu" ng-hide="true" name="Entities" icon="md md-assignment-ind" ng-class="{active: vm.$state.includes('entity')}"></li>
         <li menu-toggle id="admin-menu" name="Administration" icon="md  md-account-balance" ng-class="{active: vm.$state.includes('admin')}"  has-authority="ROLE_ADMIN" >
             <a menu-link href="#/user management" ui-sref="user-management" ng-click="vm.collapseNavbar()">
@@ -80,9 +83,6 @@
             <a menu-link href="#/practice-management-general" ui-sref="practice-management-general" ng-click="vm.collapseNavbar()">
                 <span>New practice</span>
             </a>
-           	<a menu-link href="#/find-practice" ui-sref="find-practice" ng-click="vm.collapseNavbar()">
-            	<span>Find Practice</span>
-        	</a>
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
         </li>
         <li menu-toggle id="admin-menu" name="Management Repositories" icon="icon-repo" ng-class="{active: vm.$state.includes('admin')}" ng-hide="false" has-authority="ROLE_ADMIN" >
@@ -91,7 +91,7 @@
             </a>
         </li>
         <li  menu-toggle id="admin-menu" name="Consult Practice" icon="icon-practice"  has-authority="ROLE_ADMIN" >
-            <ol menu-link href="#/practice-consult-general" ui-sref="practice-consult-general" icon="icon-practice text-blue" class="m-l-10" ng-click="vm.collapseNavbar()">
+            <ol menu-link href="#/practice-consult-general" ui-sref="practice-consult-general" icon="icon-practice text-blue" class="m-l-10" ng-click="vm.collapseNavbar()" ng-hide="true">
                 <span>Practice General</span>    
             </ol>
             <ol menu-toggle id="thingsToWork" class="m-l-10" name="Things to Work With" icon="icon-alpha text-blue">

@@ -34,7 +34,8 @@
                 "database": "Database",
                 "jhipster-needle-menu-add-admin-element": "SEKC will add additional menu entries here (do not translate!)"
             },
-            "language": "Language"
+            "language": "Language",
+            "findPractice": "Find practice"
         },
         "form": {
             "username": "Username",
