@@ -20,7 +20,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "practices",
     "competencies",
     "actionsKinds",
-    "resourcesTypes"
+    "resourcesTypes",
+    "areasOfConcern"
 })
 public class Catalogs {
 
@@ -40,6 +41,9 @@ public class Catalogs {
     private List<ActionsKind> actionsKinds = null;
     @JsonProperty("resourcesTypes")
     private List<ResourcesType> resourcesTypes = null;
+    @JsonProperty("areasOfConcern")
+    private List<AreasOfConcern> areasOfConcerns = null;
+    
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -121,6 +125,16 @@ public class Catalogs {
     @JsonProperty("resourcesTypes")
     public void setResourcesTypes(List<ResourcesType> resourcesTypes) {
         this.resourcesTypes = resourcesTypes;
+    }
+
+    @JsonProperty("areasOfConcern")
+    public List<AreasOfConcern> getAreasOfConcerns() {
+        return areasOfConcerns;
+    }
+
+    @JsonProperty("areasOfConcern")
+    public void setAreasOfConcerns(List<AreasOfConcern> areasOfConcerns) {
+        this.areasOfConcerns = areasOfConcerns;
     }
 
     @JsonAnyGetter

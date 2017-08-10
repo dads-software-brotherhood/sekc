@@ -11,9 +11,12 @@ import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
+import mx.infotec.dads.essence.model.foundation.SELanguageElement;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ActivitySpace;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Alpha;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.AreasOfConcern;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Checkpoint;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Kernel;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Practice;
@@ -38,31 +41,59 @@ public class ClassMatcher {
         return kernel;
     }
     
-    public Alpha matchAlpha(Alpha alpha, SEAlpha seAlpha){
+    public AreasOfConcern matchAreaOfConcern(AreasOfConcern areaOfConcern, SEAreaOfConcern seAreaOfConcern) {
+        areaOfConcern.setName(seAreaOfConcern.getName());
+        areaOfConcern.setBriefDescription(seAreaOfConcern.getBriefDescription());
+        areaOfConcern.setDescription(seAreaOfConcern.getDescription());
+        
+        List<Alpha> alphas = new ArrayList<>();
+        List<ActivitySpace> activitySpaces = new ArrayList<>();
+        List<Competency> competencies = new ArrayList<>();
+        for (SELanguageElement element: seAreaOfConcern.getOwnedElements()){
+            switch (element.getClass().getSimpleName()){
+                case "SEAlpha":
+                    alphas.add(matchAlpha(new Alpha(), (SEAlpha) element, false));
+                break;
+                case "SEActivitySpace":
+                    activitySpaces.add(matchActivitySpace(new ActivitySpace(), (SEActivitySpace) element));
+                break;
+                case "SECompetency":
+                    competencies.add(matchCompetency(new Competency(), (SECompetency) element, false));
+                break;
+            }
+        }
+        areaOfConcern.setAlphas(alphas);
+        areaOfConcern.setActivitySpaces(activitySpaces);
+        areaOfConcern.setCompetencies(competencies);
+        return areaOfConcern;
+    }
+    
+    public Alpha matchAlpha(Alpha alpha, SEAlpha seAlpha, boolean subElements){
         alpha.setId(seAlpha.getId());
         alpha.setName(seAlpha.getName());
         alpha.setDescription(seAlpha.getDescription());
         alpha.setBriefDescription(seAlpha.getBriefDescription());
         
-        List<State> stateList = new ArrayList<>();
-        if (seAlpha.getStates() != null){
-            seAlpha.getStates().forEach((seState) -> {
-                State state = new State();
-                stateList.add(matchState(state, seState));
-            });
-            alpha.setStates(stateList);
+        if (subElements){
+            List<State> stateList = new ArrayList<>();
+            if (seAlpha.getStates() != null){
+                seAlpha.getStates().forEach((seState) -> {
+                    State state = new State();
+                    stateList.add(matchState(state, seState));
+                });
+                alpha.setStates(stateList);
+            }
+
+            //workproducts
+            List<Workproduct> workProductList = new ArrayList<>();
+            if (seAlpha.getWorkProductManifest() != null){
+                seAlpha.getWorkProductManifest().stream().map((workProductManifest) -> workProductManifest.getWorkProduct()).forEachOrdered((seWorkProduct) -> {
+                    Workproduct workProduct = new Workproduct();
+                    workProductList.add(matchWorkProduct(workProduct, seWorkProduct));
+                });
+                alpha.setWorkproducts(workProductList);
+            }
         }
-        
-        //workproducts
-        List<Workproduct> workProductList = new ArrayList<>();
-        if (seAlpha.getWorkProductManifest() != null){
-            seAlpha.getWorkProductManifest().stream().map((workProductManifest) -> workProductManifest.getWorkProduct()).forEachOrdered((seWorkProduct) -> {
-                Workproduct workProduct = new Workproduct();
-                workProductList.add(matchWorkProduct(workProduct, seWorkProduct));
-            });
-            alpha.setWorkproducts(workProductList);
-        }
-        
         return alpha;
     }
     
@@ -137,21 +168,23 @@ public class ClassMatcher {
         return practice;
     }
     
-    public Competency matchCompetency(Competency competency, SECompetency seCompetency){
+    public Competency matchCompetency(Competency competency, SECompetency seCompetency, boolean subElements){
         competency.setId(seCompetency.getId());
         competency.setName(seCompetency.getName());
         competency.setDescription(seCompetency.getDescription());
         competency.setBriefDescription(seCompetency.getBriefDescription());
-        //CompetencyLevel
-        List<CompetencyLevel> competencyLevelList = new ArrayList<>();
-        if (seCompetency.getPossibleLevel() != null){
-            seCompetency.getPossibleLevel().forEach((seCompetencyLevel) -> {
-                CompetencyLevel competencyLevel = new CompetencyLevel();
-                competencyLevelList.add( matchCompetencyLevel(competencyLevel, (SECompetencyLevel) seCompetencyLevel));
-            });
-            competency.setCompetencyLevel(competencyLevelList);
-        }
         
+        if (subElements){
+            //CompetencyLevel
+            List<CompetencyLevel> competencyLevelList = new ArrayList<>();
+            if (seCompetency.getPossibleLevel() != null){
+                seCompetency.getPossibleLevel().forEach((seCompetencyLevel) -> {
+                    CompetencyLevel competencyLevel = new CompetencyLevel();
+                    competencyLevelList.add( matchCompetencyLevel(competencyLevel, (SECompetencyLevel) seCompetencyLevel));
+                });
+                competency.setCompetencyLevel(competencyLevelList);
+            }
+        }
         return competency;
     }
     

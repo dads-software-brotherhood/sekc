@@ -14,8 +14,10 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.essence.repository.SEActivitySpaceRepository;
 import mx.infotec.dads.essence.repository.SEAlphaRepository;
+import mx.infotec.dads.essence.repository.SEAreaOfConcernRepository;
 import mx.infotec.dads.essence.repository.SECompetencyRepository;
 import mx.infotec.dads.essence.repository.SEKernelRepository;
 import mx.infotec.dads.essence.repository.SEPracticeRepository;
@@ -24,6 +26,7 @@ import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ActionsKind;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ActivitySpace;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Alpha;
+import mx.infotec.dads.sekc.admin.practice.catalog.dto.AreasOfConcern;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Catalogs;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.CatalogsDto;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Kernel;
@@ -53,6 +56,8 @@ public class CatalogsServiceImpl implements CatalogsService {
     private SECompetencyRepository competencyRepository;
     @Autowired
     private SEWorkProductRepository workProductRepository;
+    @Autowired
+    private SEAreaOfConcernRepository areaOfConcernRepository;
 
     private ResponseWrapper response;
 
@@ -74,7 +79,7 @@ public class CatalogsServiceImpl implements CatalogsService {
         
         seAlphaList.forEach((seAlpha) -> {
             Alpha alpha = new Alpha();
-            alphaList.add( classMatcher.matchAlpha(alpha, seAlpha) );
+            alphaList.add( classMatcher.matchAlpha(alpha, seAlpha, true) );
         });
         catalogs.setAlphas(alphaList);
         //------List<Workproducts>           Workproduct
@@ -111,7 +116,7 @@ public class CatalogsServiceImpl implements CatalogsService {
         
         seCompetencylList.forEach((seCompetency) -> {
             Competency competency = new Competency();
-            competencyList.add( classMatcher.matchCompetency(competency, seCompetency) );
+            competencyList.add( classMatcher.matchCompetency(competency, seCompetency, true) );
         });
         catalogs.setCompetencies(competencyList);
         //------List<ActionsKind>     actionsKinds
@@ -132,6 +137,15 @@ public class CatalogsServiceImpl implements CatalogsService {
             resourcesTypeList.add( resourcesType );
         }
         catalogs.setResourcesTypes(resourcesTypeList);
+        //-------List<AreasOfConcern> areasOfConcerns
+        List<SEAreaOfConcern> seAreasOfConcernList = areaOfConcernRepository.findAll();
+        List<AreasOfConcern> areasOfConcernList = new ArrayList<>();
+        
+        seAreasOfConcernList.forEach((seAreaOfConcern) -> {
+            AreasOfConcern areaOfConcern = new AreasOfConcern();
+            areasOfConcernList.add( classMatcher.matchAreaOfConcern(areaOfConcern, seAreaOfConcern) );
+        });
+        catalogs.setAreasOfConcerns(areasOfConcernList);
     }
     
     @Override
