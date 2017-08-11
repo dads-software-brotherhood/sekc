@@ -325,3 +325,15 @@ ul.ivh-treeview li{
     color: #ffffff;    
     margin-right: 3px; 
 }
+
+
+.background-home {
+
+ width: 1350px;
+  height: 800px; 
+  display: block;
+  background-image: url(/content/images/fondo-sekc.png);
+   background-repeat: no-repeat;
+  
+ 
+}
