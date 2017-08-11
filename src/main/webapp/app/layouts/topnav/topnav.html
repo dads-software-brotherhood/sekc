@@ -42,7 +42,28 @@
               </li>
           </ul>
         </li>
-         
+        <li  ng-switch="vm.isAuthenticated()">
+        	 <a class="m-l-20" ng-click="vm.login()" id="login" ng-hide="vm.isAuthenticated()">
+                    <span data-translate="global.menu.account.login"  aria-hidden="true">
+                        <span ng-switch-when="false"> Sign in</span>
+                    </span>
+                </a>
+                <a class="m-l-10" ui-sref="register" ng-hide="vm.isAuthenticated()">
+                    <span data-translate="global.menu.account.register"  aria-hidden="true">
+                        <span ng-switch-when="false">Register</span>
+                    </span>
+                </a>
+                <a  ng-click="vm.logout()" id="logout" ng-show="vm.isAuthenticated()">
+                    <span data-translate="global.menu.account.logout">
+                        <span ng-switch-when="true"> Sign out</span>
+                    </span>
+                </a>
+                <a class="m-l-10" ui-sref="settings"  name="Settings" ng-show="vm.isAuthenticated()">
+                    <span data-translate="global.menu.account.settings" >
+                       <span ng-switch-when="true"> Settings</span>
+                   </span>
+                </a>
+         </li>
         <li navbar-search class="pull-right"></li>
        
     </ul>
