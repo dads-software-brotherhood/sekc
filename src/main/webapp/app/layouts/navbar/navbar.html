@@ -34,7 +34,7 @@
         <a menu-link href="#/home" icon="md md-blur-on" >
             <span data-translate="global.menu.home"> Home</span>
         </a>
-        <a menu-link href="#/find-practice" icon="md md-search" ng-hide="true">
+        <a menu-link href="#/find-practice" icon="md md-search" ng-class="{active: vm.$state.includes('admin')}"  has-authority="ROLE_ADMIN" >
         	<span data-translate="global.menu.findPractice">Find Practice</span>
        </a>
         <li menu-toggle id="entity-menu" ng-hide="true" name="Entities" icon="md md-assignment-ind" ng-class="{active: vm.$state.includes('entity')}"></li>
