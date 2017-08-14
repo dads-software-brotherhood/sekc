@@ -21,6 +21,7 @@ public interface PracticeService {
 
     public ResponseWrapper delete(String id);
     
+    public ResponseWrapper update(PracticeDto practice);
     /**
      * Get all the practices.
      *
