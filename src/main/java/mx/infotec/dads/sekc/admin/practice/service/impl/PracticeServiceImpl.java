@@ -114,4 +114,38 @@ public class PracticeServiceImpl implements PracticeService {
         return response;
     }
 
+    @Override
+    public ResponseWrapper update(PracticeDto practiceDto) {
+        response = new ResponseWrapper();
+        
+        try{
+            // this throws NullPointerException if can't find it
+            SEPractice document = (SEPractice) repoUtils.getDocument(practiceDto.getId(), SEPractice.class);
+            
+            SEPractice sePractice = getPracticeFromRequest(practiceDto, response);
+            if (sePractice == null ) {
+                //Now we use error messages from exceptions inside dtoMapper
+                //response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
+                response.setResponse_code(HttpStatus.BAD_REQUEST);
+            } else {
+                //reemplaza documento existente por completo
+                sePractice.setId(practiceDto.getId());
+                practiceRepository.save(sePractice);
+                response.setResponseObject(sePractice);
+                response.setResponse_code(HttpStatus.OK);
+            }
+        
+        } catch (NullPointerException nue){ // if practice's id doesn't exists
+            response.setError_message(nue.getMessage());
+        }
+
+        // After object recreaion, before save it is a MUST to create a function
+        // to check the Data in the object
+        // if (ValidationsController.checkValid(practiceToPersistence) ){
+        // response.setError_message( "Invalid practice object, it can't be
+        // persisted" );
+        // response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
+        // }
+        return response;
+    }
 }

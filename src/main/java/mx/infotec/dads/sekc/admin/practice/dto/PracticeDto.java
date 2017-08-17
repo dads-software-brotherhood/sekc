@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "id",
     "idKernel",
     "name",
     "objective",
@@ -52,8 +53,20 @@ public class PracticeDto {
     private ThingsToWorkWith thingsToWorkWith;
     @JsonProperty("thingsToDo")
     private ThingsToDo thingsToDo;
+    @JsonProperty("id")
+    private String id;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("id")
+    public String getId() {
+        return id;
+    }
+    
+    @JsonProperty("id")
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @JsonProperty("idKernel")
     public String getIdKernel() {

@@ -125,12 +125,10 @@ public class ClassMatcher {
         practice.setMeasures( new ArrayList(sepractice.getMeasures()));
         practice.setKeyWords(sepractice.getKeyWords());
         practice.setAuthor(sepractice.getAuthor());
-        try{
+        
         practice.setEntries(matchEntries(sepractice));
         practice.setResults(matchResults(sepractice));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        
         practice.setThingsToWorkWith(matchThingsToWorkWith(sepractice));
         
         return practice;

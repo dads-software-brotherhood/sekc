@@ -1,48 +1,78 @@
 <nav class="navbar navbar-default navbar-fixed-top" ng-class="{scroll: (scroll>10)}" ng-controller="CrudController">
-  <div class="container-fluid">
-    <div class="navbar-header pull-left">
-      <button type="button" class="navbar-toggle pull-left m-15" data-activates=".sidebar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <ul class="breadcrumb">
-        <li><a href="#/">SECK</a></li>
-        <li ng-bind="pageTitle" class="active">Loading..</li>
-      </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="navbar-header pull-left">
+                <button type="button" class="navbar-toggle pull-left m-15" data-activates=".sidebar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="breadcrumb">
+                    <li><a href="#/">SECK</a></li>
+                    <li ng-bind="pageTitle" class="active">Loading..</li>
+                </ul>
+            </div>
+            <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
+                <li class="dropdown pull-right">
+                    <button class="dropdown-toggle pointer btn btn-round-sm btn-link withoutripple" bs-dropdown="dropdown"
+                            data-template-url="content/tpl/partials/dropdown-navbar.html" data-animation="mat-grow-top-right">
+                        <i class="md md-more-vert f20"></i>
+                    </button>
+                </li>
+                <li class="dropdown pull-right">
+                    <button class="dropdown-toggle pointer btn btn-round-sm btn-link" href="#/consult-glossary" ui-sref="consult-glossary">
+                        <span class="icon-glosario f20 text-blue"></span>
+                    </button>
+                </li>
+                <li class="dropdown pull-right">
+                    <button class="dropdown-toggle pointer btn btn-round-sm btn-link withoutripple" bs-dropdown="dropdown"
+                            data-template-url="content/tpl/partials/theme-picker.html"
+                            analytics-on="click" analytics-category="Themepicker" analytics-event="Open">
+                        <i class="md md-settings f20"></i>
+                    </button>
+                </li>
+
+                <li ui-sref-active="active" uib-dropdown class="dropdown pointer pull-right" ng-controller="JhiLanguageController as languageVm">
+                    <button class="dropdown-toggle pointer btn btn-round-sm btn-link" uib-dropdown-toggle href="" ng-if="languageVm.languages.length > 1">
+                        <span class="md md-translate f20"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu ng-if="languageVm.languages.length > 1">
+                        <li active-menu="{{language}}" ng-repeat="language in languageVm.languages">
+                            <a href="" ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language | findLanguageFromKey}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li navbar-search class="pull-right"></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xs-7 col-xs-push-5">
+                <ul class="list-inline">
+                    <li class="pull-right" ng-switch="vm.isAuthenticated()">
+                        <a class="m-l-20" ng-click="vm.login()" id="login" ng-hide="vm.isAuthenticated()">
+                            <span data-translate="global.menu.account.login" aria-hidden="true">
+                                <span ng-switch-when="false"> Sign in</span>
+                            </span>
+                        </a>
+                        <a class="m-l-10" ui-sref="register" ng-hide="vm.isAuthenticated()">
+                            <span data-translate="global.menu.account.register" aria-hidden="true">
+                                <span ng-switch-when="false">Register</span>
+                            </span>
+                        </a>
+                        <a ng-click="vm.logout()" id="logout" ng-show="vm.isAuthenticated()">
+                            <span data-translate="global.menu.account.logout">
+                                <span ng-switch-when="true"> Sign out</span>
+                            </span>
+                        </a>
+                        <a class="m-l-10" ui-sref="settings" name="Settings" ng-show="vm.isAuthenticated()">
+                            <span data-translate="global.menu.account.settings">
+                                <span ng-switch-when="true"> Settings</span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
-        <li class="dropdown pull-right">
-          <button class="dropdown-toggle pointer btn btn-round-sm btn-link withoutripple" bs-dropdown="dropdown"
-                  data-template-url="content/tpl/partials/dropdown-navbar.html" data-animation="mat-grow-top-right">
-            <i class="md md-more-vert f20"></i>
-          </button>
-        </li>
-        <li class="dropdown pull-right">
-            <button class="dropdown-toggle pointer btn btn-round-sm btn-link" href="#/consult-glossary" ui-sref="consult-glossary">
-                <span class="icon-glosario f20 text-blue"></span>
-            </button>
-        </li>
-        <li class="dropdown pull-right">
-          <button class="dropdown-toggle pointer btn btn-round-sm btn-link withoutripple" bs-dropdown="dropdown"
-                  data-template-url="content/tpl/partials/theme-picker.html"
-                  analytics-on="click" analytics-category="Themepicker" analytics-event="Open">
-            <i class="md md-settings f20"></i>
-          </button>
-        </li>
-        
-        <li ui-sref-active="active" uib-dropdown class="dropdown pointer pull-right" ng-controller="JhiLanguageController as languageVm">
-          <button class="dropdown-toggle pointer btn btn-round-sm btn-link" uib-dropdown-toggle href="" ng-if="languageVm.languages.length > 1">
-            <span class="md md-translate f20"></span>
-          </button>
-          <ul class="dropdown-menu" uib-dropdown-menu ng-if="languageVm.languages.length > 1">
-              <li active-menu="{{language}}" ng-repeat="language in languageVm.languages">
-                  <a href="" ng-click="languageVm.changeLanguage(language);vm.collapseNavbar();">{{language | findLanguageFromKey}}</a>
-              </li>
-          </ul>
-        </li>
-        <li navbar-search class="pull-right"></li>    
-    </ul>
-  </div>
 </nav>

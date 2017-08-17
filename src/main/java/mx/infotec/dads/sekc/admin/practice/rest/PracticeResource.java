@@ -30,6 +30,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
 import mx.infotec.dads.sekc.web.rest.util.HeaderUtil;
 import mx.infotec.dads.sekc.web.rest.util.PaginationUtil;
+import org.springframework.web.bind.annotation.PutMapping;
 
 /**
  *
@@ -64,7 +65,26 @@ public class PracticeResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, practice.toString()))
             .body(responseData.toString());
     }
-
+    
+    @PutMapping("/practices")
+    public ResponseEntity updatePractice(@RequestBody PracticeDto practice) {
+        ResponseWrapper responseData;
+        responseData = practiceService.update(practice);
+        
+        if (responseData.getError_message().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, practice.toString()))
+                    .body(responseData.getResponseObject());
+        }
+        /* 
+            the response_code can be NotFound, but that can't have a body, 
+            so we use badRequest with json error on body
+        */
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, practice.toString()))
+            .body(responseData.toString());
+    }
+    
     @GetMapping(value = { "/practices/{id}" })
     public ResponseEntity practiceGet(@PathVariable(value = "id", required = true) String id,
             @RequestParam(value = "includeFields", required = false) List<String> includeFields) {

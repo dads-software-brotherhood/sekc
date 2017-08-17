@@ -285,9 +285,7 @@ public class SEEssenceMapper {
     private static void mapIdsWorkProducts(SEPractice to, List<String> workProductIdList) {
         Optional.of(workProductIdList).ifPresent(idsList -> {
             idsList.forEach(workProductId -> {
-                SEWorkProduct seWorkProduct = EntityBuilder.build(wp -> {
-                    wp.setId(workProductId);
-                }, SEWorkProduct.class);
+                SEWorkProduct seWorkProduct = (SEWorkProduct) repoUtil.getDocument(workProductId, SEWorkProduct.class);
                 to.getReferredElements().add(seWorkProduct);
             });
         });
