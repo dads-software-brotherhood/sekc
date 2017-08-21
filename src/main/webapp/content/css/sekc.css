@@ -326,23 +326,23 @@ ul.ivh-treeview li{
     margin-right: 3px; 
 }
 .bordercustomer {
-    border: 0.2px solid black;
+    /*border: 0.2px solid black;*/
     background-color: #C9FFC9;
     color:black;
     border-radius: 10px;
     padding: 40px;
 }
 .bordersolution {
-    border: 0.2px solid black;
+    /*border: 0.2px solid black;*/
     background-color: #FFFF99;
     color:black;
     border-radius: 10px;
     padding: 40px;
 }
 .borderendeavor {
-    border: 0.2px solid black;
+    /*border: 0.2px solid black;*/
     background-color: #C6D9F1;
     color:black;
     border-radius: 10px;
-    padding: 70px;
+    padding: 40px;
 }
