@@ -1,63 +1,248 @@
-<section class="forms-basic" ng-cloak>
-    <!--div class="page-header">
-        <h1 data-translate="home.title">Software Engineering Knowledge Composer</h1>
-        <p class="lead" data-translate="home.subtitle">This is your homepage</p>
-    </div>
-    
-    <!---div ng-switch="vm.isAuthenticated()">
-        <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.authenticated" translate-compile>
-            If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-        </div>
-
-        <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.register" translate-compile>
-            You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
-        </div>
-    </div-->
-    <div class="well white">
-        <div class="row">
-            <div class="col-md-12m-b-10 text-center hidden-xs">
-                <div><img  src="content/images/sekc.png" alt="logo"/></div>
-            </div>  
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-xs-12 text-center">
-                <div><img  src="content/images/fondo.png" alt="logo" /></div>
-                <div> <img src="content/images/fondo-2.png"  /></div>
+<section class="charts" ng-controller="ChartsController">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="p-10 clearfix">
+                <h4 class="grey-text">
+                  <i class="md md-dashboard"></i>
+                  <span class="hidden-xs">Performance summary</span>
+                </h4>
             </div>
-            <div class="col-md-8 col-xs-12">
-               <div class=" m-b-30 input-group">
-				<span class="input-group-addon"> <i
-                                class="md md-search f20 text-blue"></i>
-                        </span> <input type="text" class="form-control"
-                                placeholder="{{ 'findPractice.search' | translate }}" autofocus />
+            <div class="col-sm-6 col-md-6">
+                <div class="card small load-chart">
+                    <div class="card-header">
+                        <div class="card-title">New Visits</div>
+                    </div>
+                    <div class="card-content">
+                        <div id="load-chart"></div>
+                    </div>
                 </div>
-                <p><strong>Essence</strong> es un lenguaje para definir métodos y prácticas comunes para toda la ingeniería de 
-                    software. <strong> Essence</strong> fue creado por Software Engineering Method and Theory (SEMAT) y aprobada por The Object 
-                    Management Group como estándar en 2014. <strong>Essence</strong> describe intuitivamente todos los aspectos comunes de un 
-                    esfuerzo de desarrollo de software y ayuda a los equipos a entender dónde están, qué falta o qué necesita 
-                    ser atendido, independientemente de la forma prescrita de trabajo de cada equipo.<strong>Essence</strong> es un 
-                    método-agnóstico y ayuda a crear un lenguaje común entre prácticas relacionadas para que todos estén 
-                    hablando el mismo idioma.</p>
-                <p><strong>Essence</strong> ayuda a pensar en las cosas escenciales para ingeniería de software:</p>
-                <ul>
-                    <li>Los Alphas son las cosas esenciales con las que siempre se trabaja</li>
-                    <li>Las Competencias son capacidades esenciales requeridas</li>
-                    <li>Los espacios de actividad son las cosas esenciales que hacer</li>
-                    <li>El entendimiento de donde se ésta</li>
-                    <li>El entendimiento de lo que debe atenderse</li>
-                    <li>El seguimiento del progreso y la “salud” del proyecto</li>
-                    <li>El mantener los proyectos en equilibrio y evite fallas catastróficas</li>
-                </ul>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="card small cpu-chart">
+                    <div class="card-header">
+                        <div class="card-title">Active Users</div>
+                    </div>
+                    <div class="card-content">
+                        <div id="cpu-chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="card small pie-chart">
+                    <div class="card-header">
+                      <div class="card-title">Prácticas</div>
+                    </div>
+                    <div class="card-content">
+                        <c3chart bindto-id="pie-chart">
+                          <chart-column column-id="Prácticas en proceso"
+                                        column-values="130"
+                                        column-type="pie"/>
+                          <chart-column column-id="Prácticas Modificadas"
+                                        column-values="120"
+                                        column-type="pie"/>
+                          <chart-column column-id="Prácticas Terminadas"
+                                        column-values="30"
+                                        column-type="pie"/>
+                          <chart-colors color-pattern="{{color_pattern}}"/>
+                        </c3chart>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row m-t-35">
-            <div class="col-md-8 col-md-offset-4">
-                <p data-translate="home.question" class="col-md-4">Repository Info at:</p>
-                <div class="col-md-8">
-                    <a href="https://github.com/danimaniarqsoft/essence-metamodel" target="_blank" data-translate="home.link.homepage" class="m-r-20" >Essence Meta-Model</a>
-                    <a href="https://github.com/dads-software-brotherhood/sekc" target="_blank" data-translate="home.link.stackoverflow" class="m-r-20">Software Engineering Knowledge Composer</a>
-                    <a href="https://dads.gitbooks.io/sekc/content/" target="_blank" data-translate="home.link.bugtracker"class="m-r-20">Documentación Oficial</a> 
-                </div>                    
+        <div class="col-md-4">
+            <h4 class="grey-text p-10">Top prácticas</h4>
+            <div class="card">
+                <div class="p-10 p-l-20 p-r-20 clearfix">
+                    <div class="badge pull-right">5</div>
+                    <div class="w600 f11 grey-text">Total</div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-small grey-text">
+                        <colgroup>
+                          <col width="">
+                          <col width=""/>
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                              <td>Adaptive Funding Essentials</td>
+                              <td class="pull-right">
+                                  <i class="fa fa-star f3" aria-hidden="true"> 
+                                      <i class="fa fa-star f3" aria-hidden="true"></i>
+                                      <i class="fa fa-star f3" aria-hidden="true"></i>
+                                      <i class="fa fa-star f3" aria-hidden="true"></i>
+                                      <i class="fa fa-star f3" aria-hidden="true"></i>
+                                  </i>
+                              </td>
+                            </tr>
+                            <tr>
+                                <td>Essential Unified Process</td>
+                                <td class="pull-right">
+                                    <i class="fa fa-star f3" aria-hidden="true"> 
+                                        <i class="fa fa-star f3" aria-hidden="true"></i>
+                                        <i class="fa fa-star f3" aria-hidden="true"></i>
+                                        <i class="fa fa-star f3" aria-hidden="true"></i>
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Unified Process Lifecycle Essentials</td>
+                                <td class="pull-right">
+                                    <i class="fa fa-star f3" aria-hidden="true"> 
+                                        <i class="fa fa-star f3" aria-hidden="true"></i>
+                                        <i class="fa fa-star f3" aria-hidden="true"></i>
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Periodic Alignment Essentials</td>
+                                <td class="pull-right">
+                                    <i class="fa fa-star f3" aria-hidden="true"> 
+                                        <i class="fa fa-star f3" aria-hidden="true"></i>
+                                    </i>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td>Iterative Essentials</td>
+                                <td class="pull-right">
+                                    <i class="fa fa-star f3" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+            <div class="p-h-40">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+                      <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Log</a></li>
+                      <li role="presentation" class=""><a ng-click="actionTab=2" aria-controls="home" role="tab" data-toggle="tab">Timeline</a></li>
+                      <li role="presentation"><a ng-click="actionTab=3" aria-controls="home" role="tab" data-toggle="tab">Messages</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+                            <ul class="timeline">
+                                <li>
+                                  <div class="timeline-badge">
+                                    <i class="icon-circle theme-border"></i>
+                                  </div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">E-mail confirmation</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>A new user has registered and confirmed his account</p>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                  <div class="timeline-badge">
+                                    <i class="icon-circle theme-secondary-border"></i>
+                                  </div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">User payment</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>A new user has payed a premium package</p>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="timeline-badge">
+                                    <i class="icon-circle green-border"></i>
+                                  </div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">E-mail confirmation</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>A new user has registered and confirmed his account</p>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                  <div class="timeline-badge">
+                                    <i class="icon-circle red-border accent-1"></i>
+                                  </div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">User payment</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>A new user has payed a premium package</p>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                                <li>
+                                  <div class="timeline-badge">
+                                    <i class="icon-circle theme-border"></i>
+                                  </div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">E-mail confirmation</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>A new user has registered and confirmed his account</p>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                  <div class="timeline-badge">
+                                    <i class="icon-circle brown-border"></i>
+                                  </div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title">User payment</h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <p>A new user has payed a premium package</p>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+                            <ul class="timeline" ng-init="(rows=[]).length=5;">
+                                <li ng-repeat="i in rows track by $index">
+                                    <div class="timeline-badge"><img placeholder-img class="img-responsive" /></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                          <h4 class="timeline-title" placeholder-name></h4>
+                                        </div>
+                                        <div class="timeline-body">
+                                          <span placeholder-p></span>
+                                          <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==3}">
+                            <ul class="timeline" ng-init="(rows=[]).length=5;">
+                                <li ng-repeat="i in rows track by $index">
+                                  <div class="timeline-badge" placeholder-icon></div>
+                                  <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                      <h4 class="timeline-title" placeholder-name></h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                      <span spanlaceholder-p></span>
+                                      <small class="text-muted"><i class="md md-timer"></i> 11 hours ago</small>
+                                    </div>
+                                  </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

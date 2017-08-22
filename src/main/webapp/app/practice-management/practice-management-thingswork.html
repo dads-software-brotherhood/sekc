@@ -7,7 +7,7 @@
             <li><a data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-spaceActivity" ui-sref="practice-management-spaceActivity">Things to do </a></li>
         </ul>
     </div>
-    <div class="row m-b-40">
+    <div class="row m-b-10">
         <div class="col-md-12">
             <div class="well white">
                 <div class="form-group">
@@ -20,16 +20,17 @@
                     <div ivh-treeview="vm.alphasTree" class="checkbox" ivh-treeview-default-selected-state="false">  
                     </div>
                 </div>
-                <div class="modal-footer  m-b-30">
-                    <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
-                        <span data-translate="practiceManagement.clean">Clean</span>
-                    </button>
-                    <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10" ng-click="vm.save()">
-                        <span data-translate="entity.action.next">Next</span>
-                    </button>
-                </div>
+              
             </div>
         </div>
+    </div>
+    <div class="pull-right m-b-30">
+        <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
+            <span data-translate="practiceManagement.clean">Clean</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10" ng-click="vm.save()">
+            <span data-translate="entity.action.next">Next</span>
+        </button>
     </div>
 </section>
 

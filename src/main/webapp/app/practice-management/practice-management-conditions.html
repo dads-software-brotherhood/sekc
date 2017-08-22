@@ -72,11 +72,9 @@
                     <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null" >
                 </div>
                 <div class="row">
-                     <div class="col-md-2 col-md-offset-8 form-group">    
-                        <button class="btn btn-default" type="button" ng-click="vm.cleanEntries()"><span data-translate="practiceManagement.clean">Clean</span></button>
-                    </div>
-                    <div class="col-md-2 form-group">    
-                        <button class="btn btn-success" type="button"  ng-click="vm.addEntry()"><span data-translate="practiceManagement.add">Add</span></button>
+                    <div class="pull-right m-r-10">
+                            <button class="btn btn-default" type="button" ng-click="vm.cleanEntries()"><span data-translate="practiceManagement.clean">Clean</span></button>
+                            <button class="btn btn-success" type="button"  ng-click="vm.addEntry()"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div> 
                 <br>
@@ -138,10 +136,8 @@
                     <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteriaResult"  ng-disabled="vm.workProductResult != null || vm.alphaResult != null" >
                 </div>
                 <div class="row">
-                    <div class="col-md-2 col-md-offset-8 form-group">    
+                    <div class="pull-right m-r-10">
                         <button class="btn btn-default" type="button" ng-click="vm.cleanResults()"><span data-translate="practiceManagement.clean">Clean</span></button>
-                    </div>
-                    <div class="col-md-2 form-group">    
                         <button class="btn btn-success" type="button" ng-click="vm.addResult()"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div>
@@ -172,9 +168,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer  m-b-30">
+        <div class="pull-right m-r-15 m-b-30">
             <button type="button" class="btn btn-default m-t-10">
-           <span ng-click="vm.clean()" data-translate="practiceManagement.clean">Clean</span>
+            <span ng-click="vm.clean()" data-translate="practiceManagement.clean">Clean</span>
             </button>
             <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10" ng-click="vm.save()">
             <span data-translate="entity.action.next">Next</span>
