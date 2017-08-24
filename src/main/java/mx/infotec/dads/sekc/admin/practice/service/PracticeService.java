@@ -27,7 +27,9 @@ public interface PracticeService {
      *
      * @param pageable
      *            the pagination information
+     * @param keywords
+     *            the keywords to use as filter
      * @return the list of entities
      */
-    Page<PracticeConsultDto> findAll(Pageable pageable);
+    Page<PracticeConsultDto> findAll(Pageable pageable, List<String> keywords);
 }

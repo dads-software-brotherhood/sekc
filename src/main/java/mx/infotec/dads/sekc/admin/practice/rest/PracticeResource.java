@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 
 import io.swagger.annotations.ApiParam;
+import java.util.ArrayList;
+import java.util.Optional;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeConsultDto;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
@@ -122,10 +124,13 @@ public class PracticeResource {
      */
     @GetMapping("/practices")
     @Timed
-    public ResponseEntity<List<PracticeConsultDto>> getAllPractices(@ApiParam Pageable pageable) {
+    public ResponseEntity<List<PracticeConsultDto>> getAllPractices(@ApiParam Pageable pageable, 
+            @RequestParam(value = "keywords", required = false) List<String> keywords) {
         log.debug("REST request to get a page of Practice");
-        Page<PracticeConsultDto> page = practiceService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/v1/practices");
+        if (keywords == null)
+            keywords = new ArrayList<>();
+        Page<PracticeConsultDto> page = practiceService.findAll(pageable, keywords);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, API_PATH + "/practices");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 }

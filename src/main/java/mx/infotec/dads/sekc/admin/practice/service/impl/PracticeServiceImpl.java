@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.practice.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -78,11 +79,15 @@ public class PracticeServiceImpl implements PracticeService {
      *
      * @param pageable
      *            the pagination information
+     * @param keywords
+     *            the keywords to use as filter
      * @return the list of entities
      */
     @Override
-    public Page<PracticeConsultDto> findAll(Pageable pageable) {
-        LOG.debug("Request to get all Repositories");
+    public Page<PracticeConsultDto> findAll(Pageable pageable, List<String> keywords) {
+        LOG.debug("Request to get all Practices");
+        if (!keywords.isEmpty() ) 
+            return practiceRepository.findByKeyWordsIn(keywords, pageable).map(PracticeConsultDtoMapper::toDto);
         return practiceRepository.findAll(pageable).map(PracticeConsultDtoMapper::toDto);
     }
 
