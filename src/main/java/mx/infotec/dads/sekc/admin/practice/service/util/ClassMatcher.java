@@ -22,6 +22,7 @@ import mx.infotec.dads.sekc.admin.practice.consult.dto.LevelOfDetail;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.State;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.WorkProduct;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.PracticeConsultDto;
+import mx.infotec.dads.sekc.admin.practice.consult.dto.RelatedPractice;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.Result;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.ThingsToWorkWith;
 import mx.infotec.dads.sekc.admin.practice.consult.dto.WorkProductsLevelofDetail;
@@ -125,7 +126,7 @@ public class ClassMatcher {
         practice.setMeasures( new ArrayList(sepractice.getMeasures()));
         practice.setKeyWords(sepractice.getKeyWords());
         practice.setAuthor(sepractice.getAuthor());
-        
+        practice.setRelatedPractices(matchRelatedPractices(sepractice));
         practice.setEntries(matchEntries(sepractice));
         practice.setResults(matchResults(sepractice));
         
@@ -133,6 +134,25 @@ public class ClassMatcher {
         
         return practice;
     }
+    
+    public static RelatedPractice matchRelatedPractice(SEPractice sepractice){
+        RelatedPractice related = new RelatedPractice();
+        related.setId(sepractice.getId());
+        related.setName(sepractice.getName());
+        return related;
+    }
+    
+    public static List<RelatedPractice> matchRelatedPractices(SEPractice sepractice){
+        List<RelatedPractice> relatedPractices = new ArrayList<>();
+        for (SELanguageElement element :  sepractice.getReferredElements() ){
+            if (element.getClass().getSimpleName().equals("SEPractice")){
+                relatedPractices.add(matchRelatedPractice((SEPractice) element));
+            }
+        }
+        
+        return relatedPractices;    
+    }
+    
     public static List<Entry> matchEntries(SEPractice sepractice){
         List<Entry> entries = new ArrayList<>();
         sepractice.getEntryCriterion().stream().map((entryCrit) -> {

@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "measures",
     "keyWords",
     "author",
+    "relatedPractices",
     "entries",
     "results",
     "thingsToWorkWith",
@@ -47,6 +48,8 @@ public class PracticeConsultDto {
     private List<String> keyWords = null;
     @JsonProperty("author")
     private String author;
+    @JsonProperty("relatedPractices")
+    private List<RelatedPractice> relatedPractices = null;
     @JsonProperty("entries")
     private List<Entry> entries = null;
     @JsonProperty("results")
@@ -146,6 +149,16 @@ public class PracticeConsultDto {
     @JsonProperty("author")
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    @JsonProperty("relatedPractices")
+    public List<RelatedPractice> getRelatedPractices() {
+        return relatedPractices;
+    }
+
+    @JsonProperty("relatedPractices")
+    public void setRelatedPractices(List<RelatedPractice> relatedPractices) {
+        this.relatedPractices = relatedPractices;
     }
 
     @JsonProperty("entries")
