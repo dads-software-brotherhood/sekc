@@ -5,7 +5,7 @@
             <span class="input-group-addon"> <i
                     class="md md-search f20 text-blue"></i>
             </span> <input type="text" class="form-control"
-                    placeholder="{{ 'findPractice.search' | translate }}" autofocus />
+                    placeholder="{{ 'findPractice.search' | translate }}" autofocus ng-model="vm.search" ng-change="vm.loadAll()" />
         </div>
     </div>
     <div class="table-responsive">

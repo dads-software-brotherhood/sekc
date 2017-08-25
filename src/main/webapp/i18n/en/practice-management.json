@@ -12,13 +12,13 @@
             "question": "Are you sure you want to delete this practice?"
         },
         "alpha": {
-        "home": {
-            "title": "Things to work with"
-        },
-        "alphaSelect":"Select a alpha",
-        "workproductSelect":"Select a alpha-workproduct",
-        "edit" : "Edit"
-    },
+	        "home": {
+	            "title": "Things to work with"
+	        },
+	        "alphaSelect":"Select a alpha",
+	        "workproductSelect":"Select a alpha-workproduct",
+	        "edit" : "Edit"
+    	},
         "detail": {
             "title": "Practice"
         },
@@ -37,6 +37,7 @@
         "entry": "Entry",
        	"entries": "Entries",
         "result": "Result",
+        "results": "Results",
         "isSupresable": "isSupresable",
         "add" : "Add",
         "remove" : "Delete",

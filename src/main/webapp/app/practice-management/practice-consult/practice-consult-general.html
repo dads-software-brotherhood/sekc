@@ -16,7 +16,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Description</h5>
+                        <h5><span data-translate="practiceManagement.description">Description</span></h5>
                         <p>
                         	<p>{{vm.practice.briefDescription}}</p>
                         	<a ng-click="mostrar=true"><span data-translate="practiceManagement.viewMore">View more</span></a>
@@ -30,7 +30,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Objective</h5>
+                        <h5><span data-translate="practiceManagement.objective">Objective</span></h5>
                         <p>{{vm.practice.objective}}</p>
                     </fieldset>
                 </form>
@@ -40,7 +40,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Consistency Rules</h5>
+                        <h5><span data-translate="practiceManagement.consistencyRules">Consistency Rules</span></h5>
                         <p>{{vm.practice.consistencyRules}}</p>
                     </fieldset>
                 </form>
@@ -50,13 +50,17 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Related Practices</h5>
+                        <h5><span data-translate="practiceManagement.relatedPractices">Related Practices</span></h5>
                         <div ng-repeat="relatedPractice in vm.practice.relatedPractices">
 	                        <ul>
-	                            <li><a ui-sref="practice-consult-general({idPractice:relatedPractice.id})">{{relatedPractice.name}}</a></li>
+	                            <li>
+	                            	<a ui-sref="practice-consult-general({idPractice:relatedPractice.id})">
+	                            		{{relatedPractice.name}}
+	                            	</a>
+	                            </li>
 	                        </ul>
                         </div>
-                        <h5>Keywords</h5>
+                        <h5><span data-translate="practiceManagement.keywords">Keywords</span></h5>
                         <ul class="list-inline">
 						  <li ng-repeat="keyword in vm.practice.keyWords"
 						   	class="label keyWord{{$index % 6}}">{{keyword}}</li>
@@ -71,7 +75,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Entries</h5>
+                        <h5><span data-translate="practiceManagement.entries">Entries</span></h5>
                         <p>
                         <div ng-repeat-start="alphaState in vm.practice.entries">
                              <ul>
@@ -101,7 +105,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Results</h5>
+                        <h5><span data-translate="practiceManagement.results">Results</span></h5>
                         <p>
                         	<div ng-repeat-start="alphaState in vm.practice.results">
                              <ul>
@@ -130,7 +134,7 @@
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h5>Measures</h5>
+                        <h5><span data-translate="practiceManagement.measures">Measures</span></h5>
                         <ul ng-repeat="measure in vm.practice.measures">
                             <li><a>{{measure}}</a></li>
                         </ul>
