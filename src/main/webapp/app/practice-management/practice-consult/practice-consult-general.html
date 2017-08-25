@@ -47,9 +47,11 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Related Practices</h5>
-                        <ul>
-                            <li><a>N/A</a></li>
-                        </ul>
+                        <div ng-repeat="relatedPractice in vm.practice.relatedPractices">
+	                        <ul>
+	                            <li><a ui-sref="practice-consult-general({idPractice:relatedPractice.id})">{{relatedPractice.name}}</a></li>
+	                        </ul>
+                        </div>
                         <h5>Keywords</h5>
                         <ul class="list-inline">
 						  <li ng-repeat="keyword in vm.practice.keyWords"
