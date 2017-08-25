@@ -45,6 +45,7 @@
         "clean" : "Clean",
         "save" : "Save",
         "conditions" : "Conditions",
+        "viewMore" : "View more",
         "thingsToWorkWith": {
             "title": "Things to work with",
         	"instructions": "Select an alpha with their subalpha and/or workproducts"

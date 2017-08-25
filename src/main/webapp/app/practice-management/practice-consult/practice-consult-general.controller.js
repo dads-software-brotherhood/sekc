@@ -5,9 +5,9 @@
         .module('sekcApp')
         .controller('PracticeConsultGeneralController', PracticeConsultGeneralController);
 
-    PracticeConsultGeneralController.$inject = ['$stateParams', 'FindPractice', '$location'];
+    PracticeConsultGeneralController.$inject = ['$stateParams', 'FindPractice', '$location', 'JhiLanguageService'];
 
-    function PracticeConsultGeneralController ($stateParams, FindPractice, $location) {
+    function PracticeConsultGeneralController ($stateParams, FindPractice, $location, JhiLanguageService) {
         var vm = this;
 
         vm.load = load;

@@ -17,7 +17,11 @@
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5>Description</h5>
-                        <p><p ng-bind-html="vm.practice.description"></p></p>
+                        <p>
+                        	<p>{{vm.practice.briefDescription}}</p>
+                        	<a ng-click="mostrar=true"><span data-translate="practiceManagement.viewMore">View more</span></a>
+                        	<p ng-show="mostrar" ng-bind-html="vm.practice.description"></p>
+                        </p>
                     </fieldset>
                 </form>
             </div>   
