@@ -9,8 +9,8 @@ sudo yum -y update
 
 #Downloading configuration files for java, maven, and mongodb
 
-curl https://gist.githubusercontent.com/danimaniarqsoft/177b6c8cb579f0cac87b8d13d74e886c/raw/619c9e672496cddab49e92f44765a295b488ffb0/maven.sh > maven.sh
-curl https://gist.githubusercontent.com/danimaniarqsoft/177b6c8cb579f0cac87b8d13d74e886c/raw/619c9e672496cddab49e92f44765a295b488ffb0/java.sh > java.sh
+curl https://gist.githubusercontent.com/danimaniarqsoft/177b6c8cb579f0cac87b8d13d74e886c/raw/95e33c95fdc10da4b9e958c4501cfad1f42f0cfb/maven.sh > maven.sh
+curl https://gist.githubusercontent.com/danimaniarqsoft/177b6c8cb579f0cac87b8d13d74e886c/raw/95e33c95fdc10da4b9e958c4501cfad1f42f0cfb/java.sh > java.sh
 
 
 sudo mv maven.sh /etc/profile.d/
