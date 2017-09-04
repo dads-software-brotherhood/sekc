@@ -33,6 +33,7 @@
                 vm.selectedWorkProducts = vm.practice.thingsToWorkWith.workProducts;
             }
             fillTreeNode(vm.alphasTree, alphas, '');
+            
         }
 
         
@@ -75,6 +76,7 @@
 
         function save()
         {
+        	console.log(vm.model);
             vm.practice.thingsToWorkWith = { alphas: [], workProducts:[] };
 
             ivhTreeviewBfs(vm.alphasTree, function (node) {

@@ -21,7 +21,6 @@
         loadAll();
 
         function loadAll () {
-        	console.log("");
             FindPractice.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
