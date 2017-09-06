@@ -45,7 +45,8 @@
             'ui.tinymce',
             'ivh.treeview',
             'file-model',
-            'naif.base64'
+            'naif.base64',
+            'minimal'
         ])
         .run(run);
 

@@ -210,8 +210,10 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">
+    </div>    
+    
+    
+    <div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">    
         <div class="col-md-12">
             <div class="well white">
                 <div class="table-responsive white">
@@ -222,6 +224,7 @@
                                 <th data-translate="practiceManagement.thingsToDo.activity">Activity</th>
                                 <th data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</th>
                                 <th data-translate="practiceManagement.remove">Delete</th>
+                                <th>Composition</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -229,7 +232,8 @@
                                 <td>{{spaceActivity.nameActivitySpace}}</td>
                                 <td>{{spaceActivity.name}}</td>
                                 <td>{{spaceActivity.briefDescription}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivity($index)"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivity($index, spaceActivity.idActivitySpace)"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" data-toggle="modal" data-target="#compositionActivitiesDialog"  ng-click="vm.compositionActivities(spaceActivity.idActivitySpace)"><i class="fa fa-area-chart" aria-hidden="true"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -237,6 +241,8 @@
             </div>
         </div>
     </div>
+   
+                   
     <div class="row">
         <div class="pull-right m-r-15 m-b-30">
             <!-- <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
@@ -504,5 +510,36 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="compositionActivitiesDialog" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" >
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.activity">Composition Activities</span></h4>
+        </div>
+        <div class="modal-body">
+            <!-- a go-diagram element referring to the model, originally written as: -->
+			  <go-diagram go-model="vm.model" style="border: solid 1px gray; width:100%; height:400px"></go-diagram> 
+			  <!--
+			  Number of node data: {{vm.model.nodeDataArray.length}}
+			  <br>
+			    Alpha node location: {{vm.model.findNodeDataForKey(1).loc}}
+			  <br>
+			  -->
+			  Selected activity: {{vm.model.selectedNodeData.key}}  <input type="text" ng-model="vm.model.selectedNodeData.name" class="ng-pristine ng-untouched ng-valid">
+			  <br>
+			  Number of links: {{vm.model.linkDataArray.length}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addCompositionActivities()"><span data-translate="practiceManagement.save">Save</span></button>
+        </div>
+    </div>
+</div>
+
+ 
+
 
 
