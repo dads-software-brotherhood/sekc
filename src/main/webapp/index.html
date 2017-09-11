@@ -48,7 +48,14 @@
     <link href="content/fonts/style.css" rel="stylesheet"/>
     <link href="content/css/sekc.css" rel="stylesheet"/>
     <link href="content/css/animate.css" rel="stylesheet" >
-    <link href="content/css/site.css" rel="stylesheet" ">
+    <link href="content/css/site.css" rel="stylesheet">
+    
+    <!--link href="content/css/bootstrap.min.css" rel="stylesheet">
+    <link href="content/css/base.css" rel="stylesheet">
+    <link href="content/css/vendor.css" rel="stylesheet">
+    <link href="content/css/inicio.css" rel="stylesheet"-->
+    
+
     <!-- endbuild -->
     
     <link href="/bower_components/angular-ivh-treeview/dist/ivh-treeview.css" rel="stylesheet" />
@@ -57,17 +64,17 @@
    
     
 </head>
+ <!--div ui-view="inicio" ng-cloak></div-->
 <body id="top" ng-app="sekcApp" ng-controller="MainController" ng-strict-di scroll-spy ng-class="[theme.template, theme.color]">
+   
     <main>
-        <!--[if lt IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <!--<page-ribbon></page-ribbon>-->
+        
+      
         <div ui-view="navbar" ng-cloak></div>
         <div class="main-container">
             <div ui-view="topnav" ng-cloak></div>
             <div class="main-content" ui-view="content" ng-cloak ng-view bs-affix-target init-ripples>
-                <!-- Angular views -->
+                
             </div>
 
             <!--div class="footer navbar-default navbar-fixed-bottom" ng-cloak>
@@ -482,7 +489,14 @@
     <script src="app/account/account.state.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
-
+    <script src="/content/js/jquery-2.1.3.min.js"></script>
+    <script src="/content/js/plugins.js"></script>
+    <script src="/content/js/inicio.js"></script>
+    
+    <script src="/content/js/popper.js"></script>
+    <script src="/content/js/bootstrap.min.js"></script>
+    <script src="/content/js/agency.min.js"></script>
+    
     <!-- build:js content/js/app.min.js -->
   <script src="content/js/wow.js"></script>
   <script src="content/js/app-materialism.js"></script>
@@ -491,7 +505,10 @@
   <script src="content/js/vendors/ripples.js"></script>
   <script src="content/js/vendors/fsm-sticky-header.js"></script>
   <script src="content/js/vendors/angular-smooth-scroll.js"></script>
-
+  
+ 
+ 
+   
   <script src="/content/js/colors.js"></script>
 
   <script src="/content/js/app.js"></script>
@@ -499,6 +516,7 @@
   <script src="/content/js/app.config.js"></script>
   <script src="/content/js/app.filters.js"></script>
   <script src="/content/js/app.demo.js"></script><!--@grep dist-->
+  
 
   <script src="/content/js/directives/formcontrol.js"></script>
   <script src="/content/js/directives/navbar-hover.js"></script>

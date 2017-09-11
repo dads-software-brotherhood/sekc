@@ -20,6 +20,11 @@
                     templateUrl: 'app/layouts/topnav/topnav.html',
                     controller: 'TopnavController',
                     controllerAs: 'vm'
+                },
+                'inicio@': {
+                    templateUrl: 'app/layouts/inicio/inicio.html',
+                    controller: '',
+                    controllerAs: 'vm'
                 }
                 
             },
