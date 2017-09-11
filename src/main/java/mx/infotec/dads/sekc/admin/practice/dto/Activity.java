@@ -17,6 +17,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "briefDesciption",
     "description",
+    "idActivity",
+    "to",
+    "created",
     "competencies",
     "approaches",
     "actions",
@@ -34,6 +37,12 @@ public class Activity {
     private String briefDesciption;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("idActivity")
+    private String idActivity;
+    @JsonProperty("to")
+    private List<String> to = null;
+    @JsonProperty("created")
+    private Boolean created;
     @JsonProperty("competencies")
     private List<Competency> competencies = null;
     @JsonProperty("approaches")
@@ -87,6 +96,36 @@ public class Activity {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @JsonProperty("idActivity")
+    public String getIdActivity() {
+        return idActivity;
+    }
+
+    @JsonProperty("idActivity")
+    public void setIdActivity(String idActivity) {
+        this.idActivity = idActivity;
+    }
+
+    @JsonProperty("to")
+    public List<String> getTo() {
+        return to;
+    }
+
+    @JsonProperty("to")
+    public void setTo(List<String> to) {
+        this.to = to;
+    }
+
+    @JsonProperty("created")
+    public Boolean getCreated() {
+        return created;
+    }
+
+    @JsonProperty("created")
+    public void setCreated(Boolean created) {
+        this.created = created;
     }
 
     @JsonProperty("competencies")
