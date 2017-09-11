@@ -1,8 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.repository.SEStateRepository;
-import mx.infotec.dads.sekc.admin.kernel.dto.CheckListItem;
-import mx.infotec.dads.sekc.admin.kernel.dto.Criterion;
 import mx.infotec.dads.sekc.admin.kernel.dto.StateDto;
-import mx.infotec.dads.sekc.admin.kernel.dto.Successor;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.RandomUtil;
 import mx.infotec.dads.sekc.admin.kernel.rest.util.ResponseWrapper;

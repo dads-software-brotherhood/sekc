@@ -145,7 +145,7 @@ public class ClassMatcher {
     public static List<RelatedPractice> matchRelatedPractices(SEPractice sepractice){
         List<RelatedPractice> relatedPractices = new ArrayList<>();
         for (SELanguageElement element :  sepractice.getReferredElements() ){
-            if (element.getClass().getSimpleName().equals("SEPractice")){
+            if (element instanceof SEPractice){
                 relatedPractices.add(matchRelatedPractice((SEPractice) element));
             }
         }
@@ -215,7 +215,7 @@ public class ClassMatcher {
         ThingsToWorkWith tToWork = new ThingsToWorkWith();
         List<Alpha> alphas = new ArrayList<>();
         for (SELanguageElement element :  sepractice.getReferredElements() ){
-            if (element.getClass().getSimpleName().equals("SEAlpha")){
+            if (element instanceof SEAlpha){
                 alphas.add(matchAlpha( (SEAlpha) element));
             }
         }
