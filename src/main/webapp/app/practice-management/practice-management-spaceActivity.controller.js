@@ -83,6 +83,7 @@
 
         function addActivity()
         {   vm.activityInEdition.idActivity = 0; 
+        	vm.activityInEdition.created = true; 
         	vm.array=[];
             vm.activityInEdition.idActivitySpace = vm.idActivitySpace.id;
             vm.activityInEdition.nameActivitySpace = vm.idActivitySpace.name;
@@ -112,7 +113,7 @@
                 to: []
             };
         }
-        function deleteActivity (index, id){
+        function deleteActivity (index){
         	vm.practice.thingsToDo.activities.splice(index, 1);
         }
         function compositionActivities(idActivitySpace){
