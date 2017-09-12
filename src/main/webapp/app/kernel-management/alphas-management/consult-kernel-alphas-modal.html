@@ -1,4 +1,9 @@
-<!--section class="p-b-20">
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-body">
+          <section class="p-b-20">
     <div class="row">
         <div class="col-md-3">
             <div class="well white">
@@ -66,60 +71,12 @@
         </div>
     </div>
 </section>
-<div class="modal fade" id="states" tabindex="-1" role="dialog" 
-	aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="text-center"><i class="icon-alpha text-blue"></i> {{vm.alphaActual.name}}</h2>
-                <h3 class="m-l-15"><i class=" md-spellcheck text-blue"></i>{{vm.stateActual.name}}</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-group m-l-20">
-                    <div ng-repeat="checkpoint in vm.stateActual.checkpoints track by checkpoint.id">
-	                <i class="fa fa-check-square-o fa fa-lg text-blue"></i>         
-	                <span>{{checkpoint.name}}</span>   
-                    </div>
-                </div>
-            </div>
-        </div>
-   </div>
-</div-->
-<section class="p-b-20">
-    <div class="row well white">
-        <div class="col-md-12 bordercustomer">
-             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15" data-animation="am-fade-and-slide-top" data-template-url="app/kernel-management/alphas-management/consult-kernel-alphas-modal.html" bs-modal="modal">Opportunity</a></p>  
-            </div>
-            <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Stakeholders</a></p>  
-            </div> 
-        </div>
-        <div class="col-md-12 bordersolution m-t-15">
-             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Requirements</a></p>
-            </div>
-            <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Software System</a></p>  
-            </div> 
-        </div>
-         <div class="col-md-12 borderendeavor m-t-15">
-            <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Work</a></p> 
-            </div>
-            <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Team</a></p> 
-            </div>
-            <div class="col-md-12 m-t-50 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Way Of Working</a></p>
-        </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="$hide()">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="$hide()">Save changes</button>
+      </div>
     </div>
-</section>
+  </div>
+</div>
