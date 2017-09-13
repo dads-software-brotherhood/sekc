@@ -22,6 +22,7 @@ import mx.infotec.dads.essence.model.view.SEFeatureSelection;
 import mx.infotec.dads.essence.model.view.SEViewSelection;
 import mx.infotec.dads.essence.repository.SEActionRepository;
 import mx.infotec.dads.essence.repository.SEActivityAssociationRepository;
+import mx.infotec.dads.essence.repository.SEActivityRepository;
 import mx.infotec.dads.essence.repository.SEKernelRepository;
 import mx.infotec.dads.essence.repository.SELibraryRepository;
 import mx.infotec.dads.essence.repository.SEMethodRepository;
@@ -134,6 +135,8 @@ public class RandomRepositoryUtil {
     private SEFeatureSelectionRepository featureSelectionRepository;
     @Autowired
     private SEViewSelectionRepository viewSelectionRepository;
+    @Autowired
+    private SEActivityRepository activityRepository;
     @Autowired
     public MongoTemplate mongoTemplate;
     
@@ -394,6 +397,9 @@ public class RandomRepositoryUtil {
     public Object getDocument( String id, Class clazz){
         Object element;
         switch ( clazz.getSimpleName()){
+            case "SEActivity":
+                element = activityRepository.findOne(id);
+            break;
             case "SEAction":
                 element = actionRepository.findOne(id);
             break;
