@@ -53,6 +53,8 @@ public class SEEssenceMapper {
     }
 
     static RandomRepositoryUtil repoUtil;
+    
+    static ArrayList<String> idActivities;
     /**
      * Map a PracticeDto to a SEPractice
      * 
@@ -66,9 +68,7 @@ public class SEEssenceMapper {
             EssenceMapping.fillPractice(practice);
             mapGeneralInfo(from, practice);
             mapRelatedPractices(from.getRelatedPractices(), practice);
-            try{
-                mapConditions(from.getConditions(), practice);
-            }catch (Exception e){ e.printStackTrace();}
+            mapConditions(from.getConditions(), practice);
             mapThingsToWorkWith(from.getThingsToWorkWith(), practice);
             mapThingsToDo(from.getThingsToDo(), practice);
         }, SEPractice.class);
@@ -109,11 +109,9 @@ public class SEEssenceMapper {
 
     private static void mapCriterios(Criteriable criteriable, Collection<SECriterion> seCriterionList,
             boolean isEntry) {
-        try{
         mapAlphaCriterion(criteriable, seCriterionList, isEntry);
         mapWorkProductCriterion(criteriable, seCriterionList, isEntry);
         mapOtherCriterion(criteriable, seCriterionList, isEntry);
-        } catch (Exception e){ e.printStackTrace();}
     }
 
     private static void mapOtherCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
@@ -303,6 +301,7 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
+        idActivities = new ArrayList<>();
         Optional.of(thingsToDo.getActivities()).orElseThrow(SekcException::new).forEach(activity -> {
             SEActivity seActivity = EntityBuilder.build(act -> {
                 act.setName(activity.getName());
@@ -313,6 +312,7 @@ public class SEEssenceMapper {
                 act.setAction(new ArrayList<>());
                 act.setCriterion(new ArrayList<>());
                 act.setResource(new ArrayList<>());
+                act.setActivityAssociation(new ArrayList<>());
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
@@ -321,7 +321,8 @@ public class SEEssenceMapper {
             if (activity.getCreated()) // so if it's an update, override existing db document
                 seActivity.setId(activity.getIdActivity());
             repoUtil.mongoTemplate.save(seActivity);
-            activity.setIdActivity(seActivity.getId());
+            idActivities.add(seActivity.getId());
+            
             SEActivitySpace seActivitySpace = (SEActivitySpace) repoUtil.getDocument(activity.getIdActivitySpace(), SEActivitySpace.class);
             SEActivityAssociation seActivityAssociation = EntityBuilder.build(actAssociation -> {
                 actAssociation.setEnd1(seActivitySpace);
@@ -330,23 +331,25 @@ public class SEEssenceMapper {
             repoUtil.mongoTemplate.save(seActivityAssociation);
             to.getOwnedElements().add(seActivityAssociation);
         });
-        //mapActivitiesComposition(thingsToDo.getActivities());
+        mapActivitiesComposition(thingsToDo.getActivities());
         return to;
     }
     
     public static void mapActivitiesComposition(List<Activity> activities){
         for (int i=0; i< activities.size(); i++){
-            SEActivity act = (SEActivity) repoUtil.getDocument(activities.get(i).getIdActivity(), SEActivity.class);
-            for (String to: activities.get(i).getTo()){
-                //creamos la relación entre actividades
-                SEActivity act2 = (SEActivity) repoUtil.getDocument(activities.get(Integer.parseInt(to)).getIdActivity(), SEActivity.class);
-                if (act2 != null){
-                    SEActivityAssociation actAssociation = new SEActivityAssociation();
-                    actAssociation.setEnd1(act);
-                    actAssociation.setEnd2(act2);
-                    repoUtil.mongoTemplate.save(actAssociation);
-                    act.getActivityAssociation().add(actAssociation);
-                    repoUtil.mongoTemplate.save(act);
+            SEActivity act = (SEActivity) repoUtil.getDocument( idActivities.get(i), SEActivity.class);
+            if (!activities.get(i).getTo().isEmpty()){
+                for (String to: activities.get(i).getTo()){
+                    //creamos la relación entre actividades
+                    SEActivity act2 = (SEActivity) repoUtil.getDocument( idActivities.get(Integer.parseInt(to)), SEActivity.class);
+                    if (act2 != null){
+                        SEActivityAssociation actAssociation = new SEActivityAssociation();
+                        actAssociation.setEnd1(act);
+                        actAssociation.setEnd2(act2);
+                        repoUtil.mongoTemplate.save(actAssociation);
+                        act.getActivityAssociation().add(actAssociation);
+                        repoUtil.mongoTemplate.save(act);
+                    }
                 }
             }
         }
