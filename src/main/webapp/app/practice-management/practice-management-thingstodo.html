@@ -12,9 +12,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well white">
-                <div class="form-group filled">
+            	<div class="form-group filled">
+                    <label >Area of concern</label>
+                    <select class="form-control" ng-options="datos.name for datos in vm.areasOfConcern track by datos.id" ng-model="vm.areaOfConcern">
+                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                    </select>
+                </div>
+                <div class="form-group filled" ng-show="vm.areaOfConcern != null">
                     <label data-translate="practiceManagement.thingsToDo.spaceActivity">Activity Space</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.activitySpaces track by datos.id" ng-model="vm.idActivitySpace">
+                    <select class="form-control" ng-options="datos.name for datos in vm.areaOfConcern.activitySpaces track by datos.id" ng-model="vm.activitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
@@ -69,7 +75,7 @@
                         <div id="competency" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
-                                    <tr>
+                                	<tr>
                                         <th data-translate="practiceManagement.thingsToDo.competency">Competency</th>
                                         <th data-translate="practiceManagement.thingsToDo.competencyLevel">Level Competency</th>
                                         <th data-translate="practiceManagement.remove">Delete</th>
@@ -83,7 +89,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div><br/>
                         <div id="approach" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
@@ -101,7 +107,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div><br/>
                         <div id="action" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
@@ -131,7 +137,7 @@
                                     <tr ng-repeat-end></tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div><br/>
                         <div id="entrycriterio" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
@@ -155,7 +161,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div><br/>
                         <div id="completition" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>
@@ -179,7 +185,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div><br/>
                         <div id="resources" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
                                 <thead>

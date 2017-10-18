@@ -136,6 +136,37 @@
                 }
             },
             resolve: {
+            	entity: function () {
+                    return {
+                    	id: null, author: null, briefDescription: null, consistencyRules: null, description: null,
+                    	idKernel: null, name: null, objective: null, relatedPractices: null,
+                    	keyWords: []
+                    };
+                },
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('practice-management');
+                    return $translate.refresh();
+                }]
+            }
+        })
+         .state('practice-management-general.edit', {
+            parent: 'practice-management',
+            url: '/practiceGeneral/edit/{id}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'practice-management.detail.title'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/practice-management/practice-management-general.html',
+                    controller: 'PracticeManagementGeneralController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+            	entity: ['$stateParams', '$state', 'FindPractice', function($stateParams, $state, FindPractice) {
+                    return FindPractice.get({id : $stateParams.id}).$promise;
+                }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('practice-management');
                     return $translate.refresh();
@@ -184,17 +215,17 @@
                 }]
             }
         })
-        .state('practice-management-spaceActivity', {
+        .state('practice-management-thingsToDo', {
             parent: 'practice-management',
-            url: '/spaceActivity/{login}',
+            url: '/thingsToDo/{login}',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practice-management.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/practice-management-spaceActivity.html',
-                    controller: 'PracticeManagementSpaceActivityController',
+                    templateUrl: 'app/practice-management/practice-management-thingstodo.html',
+                    controller: 'PracticeManagementThingsToDoController',
                     controllerAs: 'vm'
                 }
             },

@@ -5,16 +5,15 @@
         .module('sekcApp')
         .controller('PracticeManagementGeneralController',PracticeManagementGeneralController);
 
-    PracticeManagementGeneralController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', 'PracticeCatalogs', '$location'];
+    PracticeManagementGeneralController.$inject = ['$stateParams', 'JhiLanguageService', 'entity', 'localStorageService', 'PracticeCatalogs', '$location'];
 
-    function PracticeManagementGeneralController ($stateParams, JhiLanguageService, localStorageService, PracticeCatalogs, $location) {
+    function PracticeManagementGeneralController ($stateParams, JhiLanguageService, entity ,localStorageService, PracticeCatalogs, $location) {
         var vm = this;
 
         vm.load = load;
         vm.clean = clean;
-        vm.practice = null;
+        vm.practice = entity;
         vm.indexKeyword = -1;
-        vm.keywords = [];
         
         vm.deleteKeyword = deleteKeyword;
         vm.clearKeyword = clearKeyword;
@@ -29,17 +28,13 @@
         }
 
         function onSuccess(data, headers) {
-            vm.practice = localStorageService.get('practiceInEdition');
-            console.log(vm.practice);
-            if (angular.isUndefined(vm.practice) || vm.practice === null) {
-                vm.practice = {};
+        	if (vm.practice.id == null) {
+	            vm.practice = localStorageService.get('practiceInEdition');
+	            console.log(vm.practice);
+	            if (angular.isUndefined(vm.practice) || vm.practice === null) {
+		              vm.practice = entity;
+	            }
             }
-            if (!(angular.isUndefined(vm.practice.keywords) || vm.practice.keywords === null))
-            {
-                vm.keywords = vm.practice.keywords;
-            }
-            
-
         	localStorageService.set('actionsKinds', data.catalogs.actionsKinds);
         	localStorageService.set('kernels', data.catalogs.kernels);
         	localStorageService.set('activitySpaces', data.catalogs.activitySpaces);
@@ -50,8 +45,7 @@
         	localStorageService.set('resourcesTypes', data.catalogs.resourcesTypes);
         	
         	vm.kernels = localStorageService.get('kernels');
-        	vm.practicesRelated = localStorageService.get('practices');
-        	
+        	vm.relatedPractices = localStorageService.get('practices');
         }
         
         function onError(error) {
@@ -65,17 +59,17 @@
                 
             if(vm.indexKeyword == -1)
             {
-            	vm.keywords.push(vm.newKeyword);
+            	vm.practice.keyWords.push(vm.newKeyword);
             }else{
-            	vm.keywords[vm.indexKeyword].keyWord = vm.newKeyword;
+            	vm.practice.keyWords[vm.indexKeyword].keyWord = vm.newKeyword;
             }
             
-            console.log(vm.keywords);
+            console.log(vm.practice.keyWords);
             vm.clearKeyword();
     	}
         
         function deleteKeyword (index) {
-            vm.keywords.splice(index, 1);
+        	vm.practice.keyWords.splice(index, 1);
         }
     	
     	function clearKeyword () {
@@ -84,15 +78,11 @@
         }
     	
         function save() {
-            vm.practice.keywords = vm.keywords;
-            console.log(vm.practice);
             localStorageService.set('practiceInEdition', vm.practice);
-            console.log($location.path());
 	        $location.path('/practice-management/practiceConditions/');
         }
 
         function clean() {
-        	vm.keywords = null;
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
         }

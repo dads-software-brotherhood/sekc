@@ -3,11 +3,11 @@
 
     angular
         .module('sekcApp')
-        .controller('PracticeManagementSpaceActivityController',PracticeManagementSpaceActivityController);
+        .controller('PracticeManagementThingsToDoController',PracticeManagementThingsToDoController);
 
-    PracticeManagementSpaceActivityController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice'];
+    PracticeManagementThingsToDoController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice'];
 
-    function PracticeManagementSpaceActivityController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice) {
+    function PracticeManagementThingsToDoController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice) {
         var vm = this;
 
         vm.load = load;
@@ -61,7 +61,7 @@
             if (vm.practice == null) {
                 vm.practice = {};
             }
-        	vm.activitySpaces = localStorageService.get('activitySpaces');
+        	vm.areasOfConcern = localStorageService.get('areasOfConcern');
             vm.competencies = localStorageService.get('competencies');
 
             vm.actionsKinds = localStorageService.get('actionsKinds');
