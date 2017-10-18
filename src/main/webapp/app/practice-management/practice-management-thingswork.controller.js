@@ -91,7 +91,7 @@
             });
 
             localStorageService.set('practiceInEdition', vm.practice);
-	        $location.path('/practice-management/spaceActivity/');
+	        $location.path('/practice-management/thingsToDo/');
         }
         
         function clean() {

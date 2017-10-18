@@ -8,7 +8,7 @@
     Practice.$inject = ['$resource'];
 
     function Practice ($resource) {
-        var service = $resource('api/v1/practices/:id', {}, {
+        var service = $resource('api/v1/practices/:idPractice', {}, {
             'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
