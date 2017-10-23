@@ -1,76 +1,88 @@
 <section>
-    <h2 data-translate="findPractice.home.title">Find Practice</h2>
-    <div class="row">
-        <div class="col-md-6 m-b-30 input-group">
-            <span class="input-group-addon"> <i
-                    class="md md-search f20 text-blue"></i>
-            </span> <input type="text" class="form-control"
-                    placeholder="{{ 'findPractice.search' | translate }}" autofocus ng-model="vm.search" ng-change="vm.loadAll()" />
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped">
-            <thead>
-                <tr>
-                    <th><span data-translate="findPractice.home.results">Name</span>
-                        <span class="glyphicon"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="practice in vm.practices track by practice.idPractice">
-                    <td>
-                        <div class="col-md-12">
-                            <div class="well white">
-                                <form class="form-floating placeholder-form">
-                                    <fieldset>
-                                        <h2 class="text-blue">{{practice.name}}</h2>
-                                        <!--h6>
+	<div class="page-header">
+		<div class="actions">
+			<button class="btn btn-primary btn-round btn-lg m-r-10"
+				ui-sref="practice-management-general" data-title="Create a new Practice"
+				bs-tooltip>
+				<span class="md md-add"></span>
+			</button>
+		</div>
+		<h1 data-translate="findPractice.home.title" class="icon-practice f10">Find
+			Practice</h1>
+		<div class="row">
+			<div class="col-md-6 m-b-30 input-group">
+				<span class="input-group-addon"> <i
+					class="md md-search f20 text-blue"></i>
+				</span> <input type="text" class="form-control"
+					placeholder="{{ 'findPractice.search' | translate }}" autofocus
+					ng-model="vm.search" ng-change="vm.loadAll()" />
+			</div>
+		</div>
+	</div>
+
+	<div class="table-responsive">
+		<table class="jh-table table table-striped">
+			<thead>
+				<tr>
+					<th><span data-translate="findPractice.home.results">Name</span>
+						<span class="glyphicon"></span>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="practice in vm.practices track by practice.idPractice">
+					<td>
+						<div class="col-md-12">
+							<div class="well white">
+								<form class="form-floating placeholder-form">
+									<fieldset>
+										<h2 class="text-blue">{{practice.name}}</h2>
+										<!--h6>
                                                 <strong>BriefDescription</strong>
                                         </h6-->
-                                        <p>{{practice.briefDescription}}</p>
-                                        <!--h6>
+										<p>{{practice.briefDescription}}</p>
+										<!--h6>
                                                 <strong>Description</strong>
                                         </h6>
                                         <p ng-bind-html="practice.description"></p-->
-                                        <h6>
-                                                <strong>Keywords</strong>
-                                        </h6>
-                                        <span ng-repeat="keyword in practice.keywords" class="label color{{$index % 3}}">
-                                            {{keyword}}
-                                        </span>
-                                    </fieldset>
-                                </form>
-                                <p>
-                                <div class="btn-group flex-btn-group-container m-t-10">
-                                    <button type="submit"
-                                            ui-sref="practice-consult-general({idPractice:practice.idPractice})"
-                                            class="btn btn-primary btn-sm m-r-15">
-                                            <span class="glyphicon glyphicon-eye-open"></span> <span
-                                                  class="hidden-sm-down" data-translate="entity.action.view"></span>
-                                    </button>
-                                    <button type="submit" class="btn btn-info btn-sm m-r-15"
-                                    		ui-sref="practice-management-general.edit({id:practice.idPractice})">
-                                            <span class="fa fa-pencil"></span> 
-                                            <span data-translate="entity.action.edit"> EDIT </span>
-                                    </button>
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                    		ui-sref="find-practice.delete({id:practice.idPractice})">
-                                            <span class="fa fa-trash"></span> 
-                                            <span data-translate="entity.action.delete"> DELETE </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="text-center">
-        <jhi-item-count page="vm.page" total="vm.queryCount"
-            items-per-page="vm.itemsPerPage"></jhi-item-count>
-        <uib-pagination class="pagination-sm" total-items="vm.totalItems"
-            items-per-page="vm.itemsPerPage" ng-model="vm.page"
-            ng-change="vm.transition()"></uib-pagination>
-    </div>
+										<h6>
+											<strong>Keywords</strong>
+										</h6>
+										<span ng-repeat="keyword in practice.keywords"
+											class="label color{{$index % 3}}"> {{keyword}} </span>
+									</fieldset>
+								</form>
+								<p>
+								<div class="btn-group flex-btn-group-container m-t-10">
+									<button type="submit"
+										ui-sref="practice-consult-general({idPractice:practice.idPractice})"
+										class="btn btn-primary btn-sm m-r-15">
+										<span class="glyphicon glyphicon-eye-open"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.view"></span>
+									</button>
+									<button type="submit" class="btn btn-info btn-sm m-r-15"
+										ui-sref="practice-management-general.edit({id:practice.idPractice})">
+										<span class="fa fa-pencil"></span> <span
+											data-translate="entity.action.edit"> EDIT </span>
+									</button>
+									<button type="submit" class="btn btn-danger btn-sm"
+										ui-sref="find-practice.delete({id:practice.idPractice})">
+										<span class="fa fa-trash"></span> <span
+											data-translate="entity.action.delete"> DELETE </span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="text-center">
+		<jhi-item-count page="vm.page" total="vm.queryCount"
+			items-per-page="vm.itemsPerPage"></jhi-item-count>
+		<uib-pagination class="pagination-sm" total-items="vm.totalItems"
+			items-per-page="vm.itemsPerPage" ng-model="vm.page"
+			ng-change="vm.transition()"></uib-pagination>
+	</div>
 </section>
