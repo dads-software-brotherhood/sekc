@@ -76,7 +76,6 @@
 
         function save()
         {
-        	console.log(vm.model);
             vm.practice.thingsToWorkWith = { alphas: [], workProducts:[] };
 
             ivhTreeviewBfs(vm.alphasTree, function (node) {

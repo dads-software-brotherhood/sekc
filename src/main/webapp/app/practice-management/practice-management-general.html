@@ -3,17 +3,18 @@
         <ul class="nav nav-tabs">
             <li class="active"><a>General</a></li>
             <li><a data-translate="practiceManagement.conditions" href="#/practice-management-conditions" 
-            		ui-sref="practice-management-conditions" ng-disabled="editForm.$invalid">Conditions</a></li>
+            		ui-sref="practice-management-conditions">Conditions</a></li>
             <li><a data-translate="practiceManagement.thingsToWorkWith.title" href="#/practice-management-thingswork" 
-            		ui-sref="practice-management-thingswork" ng-disabled="editForm.$invalid">Things to work with</a></li>
+            		ui-sref="practice-management-thingswork">Things to work with</a></li>
             <li><a data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-thingsToDo" 
-            		ui-sref="practice-management-thingsToDo" ng-disabled="editForm.$invalid">Things to do </a></li>
+            		ui-sref="practice-management-thingsToDo">Things to do </a></li>
         </ul>
     </div>
     <div class="row m-b-40">
         <div class="col-md-12">
             <div class="well white">
-                <form class="form-floating placeholder-form" name="editForm" role="form" ng-submit="vm.save()" show-validation>
+                <form class="form-floating placeholder-form" name="editForm" role="form"  
+                	 novalidate>
                     <fieldset>
                         <div class="col-md-12">
                             <div class="form-group filled">
@@ -24,7 +25,7 @@
 		                        </select>
 		                        <div ng-show="editForm.kernel.$invalid">
 			                		<p class="help-block"
-					                   ng-show="editForm.login.$error.required" data-translate="entity.validation.required">
+					                   ng-show="editForm.kernel.$error.required" data-translate="entity.validation.required">
 					                    This field is required.
 					                </p>
 					            </div> 
@@ -97,14 +98,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="textArea"  data-translate="practiceManagement.consistencyRules">Consistency Rules</label>
-                                <textarea  class="form-control vertical" rows="3" name="consistencyRules"
-                                	ng-model="vm.practice.consistencyRules" required ></textarea>
-                            	<div ng-show="editForm.description.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.consistencyRules.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-				            	</div>
+                                <textarea  class="form-control vertical" rows="3" 
+                                	ng-model="vm.practice.consistencyRules" ></textarea>
                             </div>    
                         </div>
                          <div class="col-md-12">
@@ -147,8 +142,8 @@
                     <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
                         <span> Clean</span>
                     </button>
-                    <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary m-t-10" >
-                    <span data-translate="entity.action.next">Next</span>
+                    <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary m-t-10" ng-click="vm.save()" >
+                    	<span data-translate="entity.action.next">Next</span>
                     </button>
                 </div>
             </div>

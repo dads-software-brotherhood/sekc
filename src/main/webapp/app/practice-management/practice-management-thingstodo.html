@@ -45,36 +45,36 @@
                     <textarea ui-tinymce="vm.tinymceOptions" class="form-control" rows="10" name="description" ng-model="vm.activityInEdition.description"></textarea>
                 </div>
                 <div class="row">
-                    <div class="col-md-2 text-center m-t-60">
+                    <div class="col-xs-3 text-center m-t-60">
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary btn-sm col-md-8"  data-toggle="collapse" data-target="#competency">Competency</button>
-                            <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#competencyDialog" data-title="Create competency"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm col-xs-8"  data-toggle="collapse" data-target="#competency">Competency</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#competencyDialog" data-title="Create competency"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-sm col-md-8 "  data-toggle="collapse" data-target="#approach">Approach</button>
-                            <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#approachDialog" data-title="Create approach"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <div class="m-b-15">
+                            <button type="button" class="btn btn-primary btn-sm col-xs-8"  data-toggle="collapse" data-target="#approach">Approach</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#approachDialog" data-title="Create approach"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
-                        <div class="m-t-15 m-b-15">
-                            <button type="button" class="btn btn-primary btn-sm col-md-8" data-toggle="collapse" data-target="#action">Action</button>
+                        <div class="m-b-15">
+                            <button type="button" class="btn btn-primary btn-sm col-xs-8" data-toggle="collapse" data-target="#action">Action</button>
                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#actionDialog" data-title="Create action"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary btn-sm col-md-8"  data-toggle="collapse" data-target="#entrycriterio">Entry </button>
+                            <button type="button" class="btn btn-primary btn-sm col-xs-8"  data-toggle="collapse" data-target="#entrycriterio">Entry </button>
                             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#entryDialog" data-title="Create entry"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div class="m-b-15">
-                            <button type="button" class="btn btn-primary btn-sm col-md-8"  data-toggle="collapse" data-target="#completition">Completition</button>
-                            <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#completitionDialog" data-title="Create completition"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm col-xs-8"  data-toggle="collapse" data-target="#completition">Completition</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#completitionDialog" data-title="Create completition"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                         <div>
-                            <button type="button" class="btn btn-primary btn-sm col-md-8" data-toggle="collapse" data-target="#resources">Resources</button>
-                            <button type="button" class="btn btn-sm  btn-primary" data-toggle="modal" data-target="#resourceDialog" data-title="Create Resource"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm col-xs-8" data-toggle="collapse" data-target="#resources">Resources</button>
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#resourceDialog" data-title="Create Resource"><i class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                     </div>
-                    <div class="col-md-10 m-t-20">
+                    <div class="col-xs-9 m-t-20">
                         <div id="competency" class="collapse table-responsive white">
                             <table class="table table-full table-full-small white">
-                                <h3 class=" text-center">Competencias </h3>
+                                <h3 class=" text-center"> Competencies </h3>
                                 <thead>
                                     <tr>
                                         <th data-translate="practiceManagement.thingsToDo.competency">Competency</th>
@@ -90,11 +90,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div><br/>
-                        <div id="approach" class="collapse table-responsive white">
+                        </div>
+                        <div id="approach" class="collapse table-responsive white m-t-10">
                             <table class="table table-full table-full-small white">
                                 <thead>
-                                     <h3 class=" text-center">Approach </h3>
+                                     <h3 class=" text-center"> Approaches </h3>
                                     <tr>
                                         <th data-translate="practiceManagement.thingsToDo.name">Name</th>
                                         <th data-translate="practiceManagement.description">Description</th>
@@ -109,11 +109,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div><br/>
-                        <div id="action" class="collapse table-responsive white">
+                        </div>
+                        <div id="action" class="collapse table-responsive white m-t-10">
                             <table class="table table-full table-full-small white">
                                 <thead>
-                                    <h3 class=" text-center">Action</h3>
+                                    <h3 class=" text-center">Actions</h3>
                                     <tr>
                                         <th data-translate="practiceManagement.thingsToDo.actionKind">Action Kind</th>
                                         <th >Alpha-State / Workproduct-Level of detail</th>
@@ -140,11 +140,11 @@
                                     <tr ng-repeat-end></tr>
                                 </tbody>
                             </table>
-                        </div><br/>
-                        <div id="entrycriterio" class="collapse table-responsive white">
+                        </div>
+                        <div id="entrycriterio" class="collapse table-responsive white m-t-10">
                             <table class="table table-full table-full-small white">
                                 <thead>
-                                    <h3 class=" text-center">Entry </h3>
+                                    <h3 class=" text-center">Entries </h3>
                                     <tr>
                                         <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
                                         <th data-translate="practiceManagement.remove">Delete</th>
@@ -165,11 +165,11 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div><br/>
-                        <div id="completition" class="collapse table-responsive white">
+                        </div>
+                        <div id="completition" class="collapse table-responsive white m-t-10">
                             <table class="table table-full table-full-small white">
                                 <thead>
-                                    <h3 class=" text-center">Completition </h3>
+                                    <h3 class=" text-center">Completion </h3>
                                     <tr>
                                         <th>Alpha-State / Workproduct-Level of detail / Other criterion</th>
                                         <th data-translate="practiceManagement.remove">Delete</th>
@@ -190,8 +190,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div><br/>
-                        <div id="resources" class="collapse table-responsive white">
+                        </div>
+                        <div id="resources" class="collapse table-responsive white m-t-10">
                             <table class="table table-full table-full-small white">
                                 <thead>
                                     <h3 class=" text-center">Resources</h3>
@@ -199,6 +199,7 @@
                                         <th data-translate="practiceManagement.thingsToDo.content">Content</th>
                                         <th data-translate="practiceManagement.thingsToDo.type">Type</th>
                                         <th data-translate="practiceManagement.thingsToDo.attachment">Attachment</th>
+                                        <th data-translate="practiceManagement.thingsToDo.size">Size</th>
                                         <th data-translate="practiceManagement.remove">Delete</th>
                                     </tr>
                                 </thead>
@@ -206,7 +207,17 @@
                                     <tr ng-repeat="resource in vm.activityInEdition.resources">
                                         <td><div ng-bind-html="resource.content"></div></td>
                                         <td>{{resource.idTypeResource}}</td>
-                                        <td>{{resource.fileName}}</td>
+                                        <td>
+	                                        <div ng-if="resource.idTypeResource != 'URL'">
+								            	<a ng-click="vm.openFile(resource.file, resource.idTypeResource)">
+								            	{{resource.fileName}}</a>
+								            </div>
+								            <div ng-if="resource.idTypeResource == 'URL'">
+								            	<a href="{{resource.fileName}}" target="_blank">
+								            	{{resource.fileName}}</a>
+								            </div>
+                                        </td>
+                                        <td>{{vm.byteSize(resource.idTypeResource)}}</td>
                                         <td><button class="btn btn-link btn-round" ng-click="vm.deleteResource()"><i class="md md-delete"></i></button></td>
                                     </tr>
                                 </tbody>
@@ -214,48 +225,66 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-2 col-md-offset-10 form-group">
+                <div class="row m-t-20">
+                    <div class="col-xs-3 col-xs-offset-9 form-group">
                         <button class="btn btn-default" type="button" ng-click="vm.clean()"><span data-translate="practiceManagement.clean">Clean</span></button>
                         <button class="btn btn-success" type="button" ng-click="vm.addActivity()"><span data-translate="practiceManagement.add">Add</span></button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
-    
-    
-    <div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">    
-        <div class="col-md-12">
-            <div class="well white">
-                <div class="table-responsive white">
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                            <tr>
-                                <th data-translate="practiceManagement.thingsToDo.spaceActivity">Activity Space</th>
-                                <th data-translate="practiceManagement.thingsToDo.activity">Activity</th>
-                                <th data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</th>
-                                <th data-translate="practiceManagement.remove">Delete</th>
-                                <th>Composition</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="spaceActivity in vm.practice.thingsToDo.activities">
-                                <td>{{spaceActivity.nameActivitySpace}}</td>
-                                <td>{{spaceActivity.name}}</td>
-                                <td>{{spaceActivity.briefDescription}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteActivity($index)"><i class="md md-delete"></i></button></td>
-                                <td><button class="btn btn-link btn-round" data-toggle="modal" data-target="#compositionActivitiesDialog"  ng-click="vm.compositionActivities(spaceActivity.idActivitySpace)"><i class="fa fa-area-chart" aria-hidden="true"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
-   
-                   
-    <div class="row">
+
+
+	<div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">
+		<div class="col-xs-1 col-xs-offset-11">
+			<div class="actions">
+				<button class="btn btn-primary btn-round btn-lg m-r-10 ng-scope"
+					ng-click="vm.compositionActivities()"
+					title="Composition" data-toggle="modal"
+					data-target="#compositionActivitiesDialog">
+					<div class="ripple-wrapper"></div>
+					<i class="fa fa-area-chart"></i>
+				</button>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="well white">
+				<div class="table-responsive white">
+					<table class="table table-full table-full-small white">
+						<thead>
+							<tr>
+								<th data-translate="practiceManagement.thingsToDo.spaceActivity">Activity Space</th>
+								<th data-translate="practiceManagement.thingsToDo.activity">Activity</th>
+								<th data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</th>
+								<th data-translate="practiceManagement.remove">Delete</th>
+								<th data-translate="practiceManagement.edit">Edit</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr
+								ng-repeat="spaceActivity in vm.practice.thingsToDo.activities">
+								<td>{{spaceActivity.nameActivitySpace}}</td>
+								<td>{{spaceActivity.name}}</td>
+								<td>{{spaceActivity.briefDescription}}</td>
+								<td><button class="btn btn-link btn-round"
+										ng-click="vm.deleteActivity($index)">
+										<i class="md md-delete"></i>
+									</button></td>
+								<td><button class="btn btn-link btn-round"
+										ng-click="vm.editActivity($index)">
+										<i class="md md-edit"></i>
+									</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
         <div class="pull-right m-r-15 m-b-30">
             <!-- <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
                 <span>Clean</span>
@@ -273,7 +302,7 @@
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" data-translate="practiceManagement.thingsToDo.competency">Competency</h4>
         </div>
         <div class="modal-body">
@@ -302,7 +331,7 @@
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" data-translate="practiceManagement.thingsToDo.approach">Approach</h4>
         </div>
         <div class="modal-body">
@@ -327,7 +356,7 @@
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.action">Action</span></h4>
         </div>
         <div class="modal-body">
@@ -404,7 +433,7 @@
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title" data-translate="practiceManagement.entry">Entry</h4>
         </div>
         <div class="modal-body">
@@ -449,8 +478,8 @@
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.consultCompletition">Completition</span></h4>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.consultCompletition">Completion</span></h4>
         </div>
         <div class="modal-body">
             <div class="form-group filled">
@@ -478,7 +507,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Another Completition Criteria</label>
+                <label>Another Completion Criteria</label>
                 <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteriaCompletition" ng-disabled="vm.workProductCompletition != null || vm.alphaCompletition != null">
             </div>
         </div>
@@ -494,7 +523,7 @@
      aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.consultResources">Resources</span></h4>
         </div>
         <div class="modal-body">
@@ -508,12 +537,18 @@
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.type.id != 'URL'">
                 <label class="control-label" data-translate="practiceManagement.thingsToDo.attachment">Attachment</label>
                 <input type="file" base-sixty-four-input ng-model="vm.attachment" style="color: transparent">
             </div>
-            <div class="form-group" ng-show="vm.attachment">
+            <div class="form-group" ng-show="vm.type.id == 'URL'">
+                <label class="control-label" data-translate="practiceManagement.thingsToDo.url">URL</label>
+                <input type="url" class="form-control" ng-model="vm.url" required>
+            </div>
+            <div class="form-group" ng-show="vm.attachment && vm.type.id != 'URL'">
                 <label class="control-label"><span data-translate="practiceManagement.thingsToDo.file">File</span>: {{vm.attachment.filename}}</label>
+                <br/>
+                <label class="control-label"><span data-translate="practiceManagement.thingsToDo.size">Size</span>: {{vm.byteSize(vm.attachment.base64)}}</label>
             </div>
         </div>
         <div class="modal-footer">
@@ -528,18 +563,11 @@
      aria-labelledby="myModalLabel" >
     <div class="modal-dialog">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <button type="button" class="close" ng-click="vm.cleanModales()" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.activity">Composition Activities</span></h4>
         </div>
         <div class="modal-body">
-            <!-- a go-diagram element referring to the model, originally written as: -->
 			  <go-diagram go-model="vm.model" style="border: solid 1px gray; width:100%; height:400px"></go-diagram> 
-			  <!--
-			  Number of node data: {{vm.model.nodeDataArray.length}}
-			  <br>
-			    Alpha node location: {{vm.model.findNodeDataForKey(1).loc}}
-			  <br>
-			  -->
 			  Selected activity: {{vm.model.selectedNodeData.key}}  <input type="text" ng-model="vm.model.selectedNodeData.name" class="ng-pristine ng-untouched ng-valid">
 			  <br>
 			  Number of links: {{vm.model.linkDataArray.length}}

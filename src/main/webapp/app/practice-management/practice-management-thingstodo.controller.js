@@ -5,9 +5,9 @@
         .module('sekcApp')
         .controller('PracticeManagementThingsToDoController',PracticeManagementThingsToDoController);
 
-    PracticeManagementThingsToDoController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice'];
+    PracticeManagementThingsToDoController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice', '$window', 'DataUtils'];
 
-    function PracticeManagementThingsToDoController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice) {
+    function PracticeManagementThingsToDoController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice, $window, DataUtils) {
         var vm = this;
 
         vm.load = load;
@@ -16,6 +16,7 @@
         vm.addActivity = addActivity;
         vm.activityInEdition = null;
         vm.deleteActivity = deleteActivity;
+        vm.editActivity = editActivity;
         vm.compositionActivities = compositionActivities;
         vm.addCompositionActivities = addCompositionActivities;
         vm.cleanModales = cleanModales;
@@ -49,6 +50,8 @@
         
 		vm.addResource= addResource;
 	    vm.deleteResource = deleteResource;
+	    vm.byteSize = DataUtils.byteSize;
+	    vm.openFile = DataUtils.openFile;
        
         vm.save = save;
         vm.clean = clean;
@@ -82,16 +85,29 @@
         //---------------- Activity -----------------
 
         function addActivity()
-        {   vm.activityInEdition.idActivity = 0; 
-        	vm.activityInEdition.created = true; 
-        	vm.array=[];
-            vm.activityInEdition.idActivitySpace = vm.idActivitySpace.id;
-            vm.activityInEdition.nameActivitySpace = vm.idActivitySpace.name;
-            //vm.array = $filter('filter')(vm.practice.thingsToDo.activities, {idActivitySpace: vm.activityInEdition.idActivitySpace});
-            vm.activityInEdition.idActivity = (vm.practice.thingsToDo.activities.length != 0) ? Math.max.apply(Math,vm.practice.thingsToDo.activities.map(function(o){return o.idActivity;})) +1 : 0;
-            console.log(vm.activityInEdition.idActivity);
-            vm.practice.thingsToDo.activities.push(vm.activityInEdition);
-            vm.activityInEdition = newActivity();
+        {   
+        	if(vm.activityInEdition.idActivity == null|| 
+					vm.activityInEdition.idActivity == undefined )
+        	{
+        		vm.activityInEdition.idActivity = 0;
+            	vm.activityInEdition.created = true; 
+            	vm.activityInEdition.idAreaOfConcern = vm.areaOfConcern.id;
+                vm.activityInEdition.idActivitySpace = vm.activitySpace.id;
+                vm.activityInEdition.nameActivitySpace = vm.activitySpace.name;
+                vm.activityInEdition.idActivity = (vm.practice.thingsToDo.activities.length != 0) ? 
+                									Math.max.apply(
+                												Math,vm.practice.thingsToDo.activities.map(
+                												function(o){return o.idActivity;})) +1 : 0;
+                console.log(vm.activityInEdition.idActivity);
+                vm.practice.thingsToDo.activities.push(vm.activityInEdition);
+               
+        	}else{
+        		var editedActivity = $filter('filter')(vm.practice.thingsToDo.activities, 
+    					{idActivity: vm.activityInEdition.idActivity})[0];
+        		editedActivity = vm.activityInEdition;
+        	}
+        	vm.activityInEdition = newActivity();
+        	
         }
         function newActivity()
         {
@@ -116,20 +132,23 @@
         function deleteActivity (index){
         	vm.practice.thingsToDo.activities.splice(index, 1);
         }
-        function compositionActivities(idActivitySpace){
+        function editActivity(index){
+        	vm.activityInEdition = vm.practice.thingsToDo.activities[index];
+        	$window.scrollTo(0, 0);
+        }
+        function compositionActivities(){
         	//actividades guardadas en thingsToDo
-        	vm.activitiesArray = $filter('filter')(vm.practice.thingsToDo.activities, {idActivitySpace: idActivitySpace});
-        	console.log(vm.activitiesArray);
         	 vm.activitiesDiagram = [];
         	 vm.activitiesRelation = [];
         	 //Se recorren las actividades para pintarlas en el diagrama
-        	angular.forEach(vm.activitiesArray, function(value, key) {
+        	angular.forEach(vm.practice.thingsToDo.activities, function(value, key) {
 	                var activity = {};
 	                activity.key = value.idActivity;
 	                activity.name = value.name;
-	                activity.color = "lightblue";
-	                activity.idActivitySpace = idActivitySpace;
+	                activity.color = "#1E88E5";
+	                activity.idActivitySpace = vm.practice.thingsToDo.activities[key].idActivitySpace;
 	                activity.to = value.to;
+	                activity.loc = value.goJsPosition;
 	                vm.activitiesDiagram.push(activity);
 	                //Se recorren las actividades que tiene relacionadas para agregarlas al diagrama
 	                angular.forEach(activity.to, function(value,key){
@@ -138,25 +157,33 @@
             });
         	
             vm.model = new go.GraphLinksModel(
-            		vm.activitiesDiagram, vm.activitiesRelation);
+            								vm.activitiesDiagram, 
+            								vm.activitiesRelation);
             vm.model.selectedNodeData = null;
         }
         function addCompositionActivities(){
+        	
         	//Se verifica que no hayan agregado más actividades de las que se pintan
-        	if(vm.model.nodeDataArray.length == vm.activitiesArray.length)
+        	if(vm.model.nodeDataArray.length == vm.practice.thingsToDo.activities.length)
         	{
+        		//Se recorren los nodos de las actividades para insertar su posición
+        		angular.forEach(vm.model.De, function(value, key) {
+        			//Se busca la actividad para asignar su relación en el objeto thingsTo Do
+        			var findActivityGoJS = $filter('filter')(vm.practice.thingsToDo.activities, 
+        					{idActivity: value.key})[0];
+        			findActivityGoJS.goJsPosition= vm.model.De[key].loc;
+        			findActivityGoJS.to = [];
+        		});
+        		
         		//Se recorren las relaciones de las actividades
         		angular.forEach(vm.model.ff, function(value, key) {
         			//Se busca la actividad para asignar su relación en el objeto thingsTo Do
         			var findActivity = $filter('filter')(vm.practice.thingsToDo.activities, 
-        					{idActivitySpace: vm.model.De[0].idActivitySpace, 
-        					idActivity: value.from})[0];
-        			 if($filter('filter')(findActivity.to, vm.model.ff[key].to).length == 0){
-        				 findActivity.to.push(vm.model.ff[key].to);
-        			 }
-            		 $('#compositionActivitiesDialog').modal('toggle');
-        					
+        					{idActivity: value.from})[0];
+        			findActivity.to.push(vm.model.ff[key].to);
         		});
+        		
+       		 $('#compositionActivitiesDialog').modal('toggle');
         	}else return;
         	
         }
@@ -229,7 +256,7 @@
                 } else {
                     vm.actionInEdition.alphaStates.push(
                         {
-                            description: vm.alpha.name + ' / ' + vm.alphaState.name,
+                            description: vm.alpha.name + ' - ' + vm.alphaState.name,
                             idAlpha: vm.alpha.id, idState: vm.alphaState.id
                         }
                     );
@@ -241,7 +268,7 @@
                     return;
                 } else {
                     vm.actionInEdition.workProductsLevelofDetail.push({
-                        description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name,
+                        description: vm.workProduct.name + ' - ' + vm.levelOfDetail.name,
                         idWorkProduct: vm.workProduct.id,
                         idLevelOfDetail: vm.levelOfDetail.id,
                     });
@@ -401,8 +428,16 @@
         
         function addResource()
         {
-            if (vm.type != null && vm.descriptionResource != null && vm.attachment != null) {
-                vm.activityInEdition.resources.push({ idTypeResource: vm.type.id, content: vm.descriptionResource, file: vm.attachment.base64, fileName: vm.attachment.filename });
+            if (vm.type != null && vm.descriptionResource != null) {
+            	var resource = {};
+            
+            	resource.file = (vm.type.id == "URL") ? vm.url : vm.attachment.base64;
+            	resource.fileName = (vm.type.id != "URL" && vm.attachment != null) ? vm.attachment.filename : vm.url;
+            	resource.idTypeResource = vm.type.id;
+            	resource.content = vm.descriptionResource;
+            	
+                vm.activityInEdition.resources.push(resource);
+                    
                 vm.cleanModales();
 	            $('#resourceDialog').modal('toggle');
 	        }
@@ -414,10 +449,9 @@
            
         function save()
         {
-            console.log(vm.practice);
             console.log(JSON.stringify(vm.practice, null, "\t"));
             localStorageService.set('practiceInEdition', vm.practice);
-            if (vm.practice.id !== null && vm.practice.id !== undefined) {
+            if (vm.practice.id !== null) {
                 Practice.update(vm.practice, onSaveSuccess, onSaveError);
             } else {
             	Practice.save(vm.practice, onSaveSuccess, onSaveError);
@@ -450,6 +484,7 @@
             vm.attachment = null;
             angular.element("input[type='file']").val(null);
             vm.descriptionResource = null;
+            vm.url = null;
 
             vm.competency = null;
             vm.competencyLevel = null;

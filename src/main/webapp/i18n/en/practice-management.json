@@ -41,6 +41,7 @@
         "isSupresable": "isSupresable",
         "add" : "Add",
         "remove" : "Delete",
+        "edit" : "Edit",
         "next" : "Next",
         "cancel" : "Cancel",
         "clean" : "Clean",
@@ -73,7 +74,9 @@
         	"attachment":"Attachment",
         	"approach":"Approach",
         	"action":"Action",
-        	"file":"File"
+        	"file":"File",
+        	"size":"Size",
+        	"url":"URL"
         }
     }
 }

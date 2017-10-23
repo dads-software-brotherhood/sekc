@@ -41,6 +41,7 @@
         "isSupresable": "¿Puede ser eliminada?",
         "add" : "Agregar",
         "remove" : "Eliminar",
+        "edit" : "Editar",
         "next" : "Siguiente",
         "cancel" : "Cancelar",
         "clean" : "Limpiar",
@@ -73,7 +74,9 @@
         	"attachment":"Archivo adjunto",
         	"approach":"Enfoque",
         	"action":"Acción",
-        	"file":"Archivo"
+        	"file":"Archivo",
+        	"size":"Tamaño",
+        	"url":"URL"
         }
     }
 }

@@ -9,7 +9,7 @@
 
     function PracticeManagementGeneralController ($stateParams, JhiLanguageService, entity ,localStorageService, PracticeCatalogs, $location) {
         var vm = this;
-
+        
         vm.load = load;
         vm.clean = clean;
         vm.practice = entity;
@@ -30,7 +30,6 @@
         function onSuccess(data, headers) {
         	if (vm.practice.id == null) {
 	            vm.practice = localStorageService.get('practiceInEdition');
-	            console.log(vm.practice);
 	            if (angular.isUndefined(vm.practice) || vm.practice === null) {
 		              vm.practice = entity;
 	            }
