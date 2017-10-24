@@ -13,6 +13,7 @@
             abbreviate: abbreviate,
             byteSize: byteSize,
             openFile: openFile,
+            downloadFile: downloadFile,
             toBase64: toBase64
         };
 

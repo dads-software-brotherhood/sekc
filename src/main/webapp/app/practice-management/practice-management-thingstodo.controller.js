@@ -21,7 +21,7 @@
         vm.addCompositionActivities = addCompositionActivities;
         vm.cleanModales = cleanModales;
         vm.cleanModales();
-
+        
         vm.addCompetency = addCompetency;
         vm.deleteCompetency = deleteCompetency;
         
@@ -51,7 +51,7 @@
 		vm.addResource= addResource;
 	    vm.deleteResource = deleteResource;
 	    vm.byteSize = DataUtils.byteSize;
-	    vm.openFile = DataUtils.openFile;
+        vm.downloadFile = DataUtils.downloadFile;
        
         vm.save = save;
         vm.clean = clean;
@@ -86,14 +86,18 @@
 
         function addActivity()
         {   
+
+            vm.activityInEdition.areaOfConcern = vm.areaOfConcern;
+            vm.activityInEdition.idAreaOfConcern = vm.areaOfConcern.id;
+            vm.activityInEdition.activitySpace = vm.activitySpace;
+            vm.activityInEdition.idActivitySpace = vm.activitySpace.id;
+            vm.activityInEdition.nameActivitySpace = vm.activitySpace.name;
+
         	if(vm.activityInEdition.idActivity == null|| 
 					vm.activityInEdition.idActivity == undefined )
         	{
         		vm.activityInEdition.idActivity = 0;
-            	vm.activityInEdition.created = true; 
-            	vm.activityInEdition.idAreaOfConcern = vm.areaOfConcern.id;
-                vm.activityInEdition.idActivitySpace = vm.activitySpace.id;
-                vm.activityInEdition.nameActivitySpace = vm.activitySpace.name;
+                vm.activityInEdition.created = true;
                 vm.activityInEdition.idActivity = (vm.practice.thingsToDo.activities.length != 0) ? 
                 									Math.max.apply(
                 												Math,vm.practice.thingsToDo.activities.map(
@@ -105,8 +109,9 @@
         		var editedActivity = $filter('filter')(vm.practice.thingsToDo.activities, 
     					{idActivity: vm.activityInEdition.idActivity})[0];
         		editedActivity = vm.activityInEdition;
-        	}
-        	vm.activityInEdition = newActivity();
+            }
+            vm.activityInEdition = newActivity();
+            vm.clean();
         	
         }
         function newActivity()
@@ -133,8 +138,9 @@
         	vm.practice.thingsToDo.activities.splice(index, 1);
         }
         function editActivity(index){
-        	vm.activityInEdition = vm.practice.thingsToDo.activities[index];
-        	$window.scrollTo(0, 0);
+            vm.activityInEdition = vm.practice.thingsToDo.activities[index];
+            vm.areaOfConcern = vm.practice.thingsToDo.activities[index].areaOfConcern;
+            vm.activitySpace = vm.practice.thingsToDo.activities[index].activitySpace;
         }
         function compositionActivities(){
         	//actividades guardadas en thingsToDo
@@ -503,8 +509,11 @@
 
         function clean()
         {
-        	vm.activityInEdition = null;
-    	}
+            vm.activityInEdition = null;
+            vm.activitySpace = null;
+            vm.areaOfConcern = null;
+            $window.scrollTo(0, 0);
+        }
 	}
         
     
