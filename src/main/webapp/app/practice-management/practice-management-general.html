@@ -17,93 +17,92 @@
                     <fieldset>
                         <div class="col-md-12">
                             <div class="form-group filled">
-                                <label data-translate="practiceManagement.selectKernel" >Select a Kernel</label>
+                                <label data-translate="practiceManagement.selectKernel" class="f-bold">Select a Kernel</label>
                                 <select class="form-control" ng-options="datos.id as datos.name for datos in vm.kernels" 
-                                	ng-model="vm.practice.idKernel" name="kernel" required> 
-		                            <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
-		                        </select>
-		                        <div ng-show="editForm.kernel.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.kernel.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-					            </div> 
-                            </div>
+                                    ng-model="vm.practice.idKernel" name="kernel" required> 
+                                        <option style="display:none" value="" data-translate="entity.select.select">Select</option> 
+                                </select>
+                                <div ng-show="editForm.kernel.$invalid">
+                                    <p class="help-block"
+                                       ng-show="editForm.kernel.$error.required" data-translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div> 
+                        </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label data-translate="practiceManagement.name" >Name</label>
+                                <label data-translate="practiceManagement.name" class="f-bold">Name</label>
                                 <input type="text" class="form-control" name="name" ng-model="vm.practice.name" required>
                                 <div ng-show="editForm.name.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-					            </div> 
+                                    <p class="help-block"
+                                       ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div> 
                             </div>
                         </div>
                          <div class="col-md-6">
                             <div class="form-group">
-                                <label data-translate="practiceManagement.author" >Autor</label>
+                                <label data-translate="practiceManagement.author" class="f-bold">Autor</label>
                                 <input type="text" class="form-control" name="author" ng-model="vm.practice.author" required>
                                 <div ng-show="editForm.author.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-					            </div> 
+                                    <p class="help-block"
+                                       ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div> 
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea" data-translate="practiceManagement.objective">Objective</label>
+                                <label for="textArea" data-translate="practiceManagement.objective" class="f-bold">Objective</label>
                                 <textarea class="form-control vertical" rows="2" name="objective"
                                 		ng-model="vm.practice.objective" required >
                                 </textarea>
                                 <div ng-show="editForm.objective.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-					            </div> 
+                                    <p class="help-block"
+                                       ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div> 
                             </div>    
                         </div>
-
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea" data-translate="practiceManagement.briefDescription">Brief Description</label>
+                                <label for="textArea" data-translate="practiceManagement.briefDescription" class="f-bold">Brief Description</label>
                                 <textarea class="form-control vertical" rows="3" name="briefDescription" ng-model="vm.practice.briefDescription" required></textarea>
                             	<div ng-show="editForm.briefDescription.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-					            </div> 
+                                    <p class="help-block"
+                                       ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                                        This field is required.
+                                    </p>
+                                </div> 
                             </div>    
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea" data-translate="practiceManagement.description">Description</label>
+                                <label for="textArea" data-translate="practiceManagement.description" class="f-bold">Description</label>
                                 <textarea ui-tinymce="vm.tinymceOptions" name="description" class="form-control vertical"  
                                 	ng-model="vm.practice.description" required></textarea>
                                	<div ng-show="editForm.description.$invalid">
-			                		<p class="help-block"
-					                   ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
-					                    This field is required.
-					                </p>
-				            	</div> 
+                                        <p class="help-block"
+                                           ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                                            This field is required.
+                                        </p>
+                                </div> 
                             </div>  
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="textArea"  data-translate="practiceManagement.consistencyRules">Consistency Rules</label>
+                                <label for="textArea"  data-translate="practiceManagement.consistencyRules" class="f-bold">Consistency Rules</label>
                                 <textarea  class="form-control vertical" rows="3" 
                                 	ng-model="vm.practice.consistencyRules" ></textarea>
                             </div>    
                         </div>
                          <div class="col-md-12">
                             <div class="form-group filled">
-                                <label data-translate="practiceManagement.relatedPractices" >Select a Practices Related</label>
+                                <label data-translate="practiceManagement.relatedPractices" class="f-bold">Select a Practices Related</label>
                                 <select class="form-control" ng-options="datos.name for datos in vm.relatedPractices track by datos.id" 
                                 	ng-model="vm.practice.relatedPractices" multiple>
                                 </select>
@@ -121,7 +120,7 @@
       			<input type="hidden" id="idUpdate" ng-model="idUpdate" />
                         <form class="form">
                           <div class="form-group input-group">
-                              <label data-translate="practiceManagement.keywords">Keywords</label>
+                              <label data-translate="practiceManagement.keywords" class="f-bold">Keywords</label>
                             <input id="newKeyword" class="form-control" type="text" ng-model="vm.newKeyword">
                             <div class="input-group-btn p-l-10">
                               <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addKeyword()"> Add </button>
