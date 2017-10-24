@@ -93,16 +93,16 @@
         }
 
         function validate() {
-            if (!vm.practice.idKernel ||
-                !vm.practice.name ||
-                !vm.practice.author ||
-                !vm.practice.objective ||
-                !vm.practice.briefDescription ||
-                !vm.practice.description) {
+            //if (!vm.practice.idKernel ||
+            //    !vm.practice.name ||
+            //    !vm.practice.author ||
+            //    !vm.practice.objective ||
+            //    !vm.practice.briefDescription ||
+            //    !vm.practice.description) {
 
-                return true;
+            //    return true;
 
-            } 
+            //} 
             return false;
         }
 

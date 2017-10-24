@@ -26,7 +26,7 @@
             if (text.length < 30) {
                 return text;
             }
-            return text ? (text.substring(0, 15) + '...' + text.slice(-10)) : '';
+            return text ? text.substring(0, 15) + '...' + text.slice(-10) : '';
         }
 
         function byteSize (base64String) {
@@ -64,7 +64,7 @@
         }
         
         function downloadFile (type, data) {
-        	var a = document.createElement("a");
+            var a = document.createElement("a");
             document.body.appendChild(a);
             a.style = "display: none";
             a.href = 'data:' + type + ';base64,' + data.file;

@@ -63,13 +63,13 @@
         <div class="col-md-12">
             <div class="well white">
                 <div class="form-group filled">
-                    <label>Area of concern</label>
+                    <label data-translate="practiceManagement.thingsToDo.areaOfConcern" class="f-bold">Area of concern</label>
                     <select class="form-control" ng-options="datos.name for datos in vm.areasOfConcern track by datos.id" ng-model="vm.areaOfConcern">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
                 </div>
                 <div class="form-group filled" ng-show="vm.areaOfConcern != null">
-                    <label data-translate="practiceManagement.thingsToDo.spaceActivity">Activity Space</label>
+                    <label data-translate="practiceManagement.thingsToDo.spaceActivity" class="f-bold">Activity Space</label>
                     <select class="form-control" ng-options="datos.name for datos in vm.areaOfConcern.activitySpaces track by datos.id" ng-model="vm.activitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
@@ -80,15 +80,15 @@
 
 
                 <div class="form-group">
-                    <label class="control-label" data-translate="practiceManagement.thingsToDo.activityName">Activity Name</label>
+                    <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.activityName" >Activity Name</label>
                     <input type="text" class="form-control" name="name" ng-model="vm.activityInEdition.name" required>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</label>
+                    <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</label>
                     <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="control-label" data-translate="practiceManagement.thingsToDo.description">Description</label>
+                    <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.description">Description</label>
                     <textarea ui-tinymce="vm.tinymceOptions" class="form-control" rows="10" name="description" ng-model="vm.activityInEdition.description"></textarea>
                 </div>
                 <div class="row">
@@ -582,7 +582,7 @@
                 <label class="control-label"><span data-translate="practiceManagement.thingsToDo.size">Size</span>: {{vm.byteSize(vm.attachment.base64)}}</label>
             </div>
         </div>
-        <div class="modal-footer m-t-20">
+        <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
             <button type="button" class="btn btn-primary" ng-click="vm.addResource()"><span data-translate="practiceManagement.add">Add</span></button>
         </div>
