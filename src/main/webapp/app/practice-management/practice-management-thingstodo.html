@@ -209,7 +209,7 @@
                                         <td>{{resource.idTypeResource}}</td>
                                         <td>
 	                                        <div ng-if="resource.idTypeResource != 'URL'">
-								            	<a ng-click="vm.openFile(resource.file, resource.idTypeResource)">
+								            	<a ng-click="vm.downloadFile(resource.fileType, resource)">
 								            	{{resource.fileName}}</a>
 								            </div>
 								            <div ng-if="resource.idTypeResource == 'URL'">

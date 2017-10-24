@@ -8,18 +8,24 @@
            
         </ul>
     </div>
+   	<form class="form-floating placeholder-form" name="editForm" role="form" novalidate>
     <div class="row">
         <div class="col-md-12">
             <div class="well white">
                 <h5 data-translate="practiceManagement.measures"> <i  class="fa fa-th text-blue" aria-hidden="true" aria-hidden="true"></i> Measures</h5>
-                <form class="form">
                     <div class="form-group input-group">
                         <label data-translate="practiceManagement.measures">Measures</label>
-                        <input type="text" ng-model="vm.newMeasure" class="form-control">
+                        <input type="text" ng-model="vm.newMeasure" name="measure" class="form-control">
                         <div class="input-group-btn p-l-10">
                             <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addMeasure()"> Add </button> 
 						</div>
                     </div>
+                    <div ng-show="!vm.measures.length">
+                		<p class="help-block"
+		                   ng-show="!vm.measures.length" data-translate="entity.validation.required">
+		                    This field is required.
+		                </p>
+		            </div> 
                     <table class="table table-full table-full-small white" ng-hide="!vm.measures.length">
                         <thead>
                             <tr>
@@ -33,16 +39,23 @@
                                 <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>                            
                             </tr>
                         </tbody>
-                    </table>
-                </div>
-                </form>             
+                    </table>            
             </div>  
-        </div>          
+    	</div>
     </div>
     <div class="row m-b-40">
         <div class="col-md-6">
             <div class="well white">
                 <h5 data-translate="practiceManagement.entries"> <i class="fa fa-sign-in text-blue" aria-hidden="true"></i> Entries</h5> 
+                <div ng-show="!vm.practice.conditions.entries.length">
+	              	<p class="help-block"
+	                   ng-show="!vm.practice.conditions.entries.alphaStates.length &&
+	                    !vm.practice.conditions.entries.workProductsLevelofDetail.length &&
+	                    !vm.practice.conditions.entries.otherConditions.length" 
+	                   data-translate="entity.validation.required">
+	                    This field is required.
+	                </p>
+	            </div> 
                 <div class="form-group filled">
                     <label>Alpha</label>
                     <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
@@ -69,7 +82,7 @@
                 </div>
                 <div class="form-group">
                     <label>Another Entry Criteria</label>
-                    <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null" >
+                    <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null" >
                 </div>
                 <div class="row">
                     <div class="pull-right m-r-10">
@@ -107,6 +120,15 @@
         <div class="col-md-6">
             <div class="well white">
                 <h5 data-translate="practiceManagement.results"><i class="fa fa-sign-out text-blue" aria-hidden="true"></i> Results</h5>
+                <div ng-show="!vm.practice.conditions.entries.length">
+	              	<p class="help-block"
+	                   ng-show="!vm.practice.conditions.results.alphaStates.length && 
+	                   !vm.practice.conditions.results.workProductsLevelofDetail.length && 
+	                   !vm.practice.conditions.results.otherConditions.length"
+	                   data-translate="entity.validation.required">
+	                    This field is required.
+	                </p>
+	            </div> 
                 <div class="form-group filled">
                     <label>Alpha</label>
                     <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.workProductResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.alphaResult">
@@ -172,9 +194,10 @@
             <button type="button" class="btn btn-default m-t-10">
             <span ng-click="vm.clean()" data-translate="practiceManagement.clean">Clean</span>
             </button>
-            <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary m-t-10" ng-click="vm.save()">
+            <button type="submit" ng-disabled="" class="btn btn-primary m-t-10" ng-click="vm.save()">
             <span data-translate="entity.action.next">Next</span>
             </button>
         </div>
     </div>
+    </form>
 </section>

@@ -58,8 +58,17 @@
             return formatAsBytes(size(base64String));
         }
 
-        function openFile (type, data) {
+        function openFile(type, data) {
             $window.open('data:' + type + ';base64,' + data, '_blank', 'height=300,width=400');
+        }
+        
+        function downloadFile (type, data) {
+        	var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = 'data:' + type + ';base64,' + data.file;
+            a.download = data.fileName;
+            a.click();
         }
 
         function toBase64 (file, cb) {

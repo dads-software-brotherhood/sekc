@@ -435,6 +435,7 @@
             	resource.fileName = (vm.type.id != "URL" && vm.attachment != null) ? vm.attachment.filename : vm.url;
             	resource.idTypeResource = vm.type.id;
             	resource.content = vm.descriptionResource;
+            	resource.fileType = (vm.type.id != "URL") ? vm.attachment.filetype : "";
             	
                 vm.activityInEdition.resources.push(resource);
                     
