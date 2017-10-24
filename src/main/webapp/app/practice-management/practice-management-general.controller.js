@@ -5,13 +5,14 @@
         .module('sekcApp')
         .controller('PracticeManagementGeneralController',PracticeManagementGeneralController);
 
-    PracticeManagementGeneralController.$inject = ['$stateParams', 'JhiLanguageService', 'entity', 'localStorageService', 'PracticeCatalogs', '$location'];
+    PracticeManagementGeneralController.$inject = ['$stateParams', 'AlertService', 'JhiLanguageService', 'entity', 'localStorageService', 'PracticeCatalogs', '$location'];
 
-    function PracticeManagementGeneralController ($stateParams, JhiLanguageService, entity ,localStorageService, PracticeCatalogs, $location) {
+    function PracticeManagementGeneralController($stateParams, AlertService, JhiLanguageService, entity ,localStorageService, PracticeCatalogs, $location) {
         var vm = this;
         
         vm.load = load;
         vm.clean = clean;
+        vm.validate = validate;
         vm.practice = entity;
         vm.indexKeyword = -1;
         
@@ -19,7 +20,7 @@
         vm.clearKeyword = clearKeyword;
         vm.addKeyword = addKeyword;
         vm.save = save;
-        
+                
         vm.load();
         
         
@@ -77,15 +78,34 @@
         }
     	
         function save() {
-            localStorageService.set('practiceInEdition', vm.practice);
-	        $location.path('/practice-management/practiceConditions/');
+            if (!validate) {
+                localStorageService.set('practiceInEdition', vm.practice);
+                $location.path('/practice-management/practiceConditions/');
+            } else {
+                AlertService.error("Verifique que todos los campos sean correctos");
+                
+            }
         }
 
         function clean() {
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
         }
-    	
+
+        function validate() {
+            if (!vm.practice.idKernel ||
+                !vm.practice.name ||
+                !vm.practice.author ||
+                !vm.practice.objective ||
+                !vm.practice.briefDescription ||
+                !vm.practice.description) {
+
+                return true;
+
+            } 
+            return false;
+        }
+
     	vm.tinymceOptions = {
     	        resize: false,
     	        height: 100,
