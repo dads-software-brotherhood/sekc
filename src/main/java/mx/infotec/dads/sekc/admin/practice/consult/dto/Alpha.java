@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.consult.dto;
 
 import java.util.HashMap;

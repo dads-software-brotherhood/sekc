@@ -1,17 +1,10 @@
-package mx.infotec.dads.sekc.util;
+package mx.infotec.dads.sekc.admin.practice.service.util;
 
 import java.util.ArrayList;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
-import org.omg.essence.model.activityspaceandactivity.ActionKind;
-
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEAction;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivity;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivityAssociation;
@@ -26,95 +19,88 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
+
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.util.EssenceMapping;
+import mx.infotec.dads.essence.util.ResourcesTypes;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
+import mx.infotec.dads.sekc.admin.practice.dto.Entries;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
+import mx.infotec.dads.sekc.admin.practice.dto.Results;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToDo;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToWorkWith;
 import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
+import static mx.infotec.dads.sekc.admin.practice.service.util.SEEssenceMapper.repoUtil;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
 import mx.infotec.dads.sekc.exception.SekcException;
+import mx.infotec.dads.sekc.util.EntityBuilder;
+import mx.infotec.dads.sekc.util.EssenceFilter;
+import org.omg.essence.model.activityspaceandactivity.ActionKind;
 
-/**
- * SEEssenceMapper Mapper Used for PracticeDto mapping
- * 
- * @author Daniel Cortes Pichardo
- *
- */
-public class SEEssenceMapper {
+public class PracticeDtoMapper {
 
-    private SEEssenceMapper() {
+    private PracticeDtoMapper() {
 
     }
 
-    static RandomRepositoryUtil repoUtil;
-    
-    static ArrayList<String> idActivities;
     /**
-     * Map a PracticeDto to a SEPractice
+     * Mapper for convert Repository entity to PracticeDto
      * 
-     * @param from
-     * @return SEPractice
+     * @param entity
+     * @return PracticeDto
      */
+    public static PracticeDto toDto(SEPractice entity) {
+        PracticeDto dto = new PracticeDto();
+        mapGeneralInfo(entity, dto);
+        mapRelatedPractices(entity, dto);
+        mapConditions(entity, dto);
+        return dto;
+    }
+    
     public static SEPractice mapSEPractice(PracticeDto from, RandomRepositoryUtil repoUtils) {
         repoUtil = repoUtils;
         validateGeneralInformation(from);
         SEPractice to = EntityBuilder.build(practice -> {
-            EssenceMapping.fillPractice(practice);
-            mapGeneralInfo(from, practice);
-            mapRelatedPractices(from.getRelatedPractices(), practice);
-            mapConditions(from.getConditions(), practice);
+            
             mapThingsToWorkWith(from.getThingsToWorkWith(), practice);
-            mapThingsToDo(from.getThingsToDo(), practice);
+//            mapThingsToDo(from.getThingsToDo(), practice);
         }, SEPractice.class);
         return to;
     }
 
-    /**
-     * Map GeneralInfo of a SEPractice
-     * 
-     * @param from
-     * @param practice
-     */
-    public static void mapGeneralInfo(PracticeDto from, SEPractice practice) {
-        practice.setOwner((SEKernel) repoUtil.getDocument(from.getIdKernel(), SEKernel.class));
-        practice.setName(from.getName());
-        practice.setObjective(from.getObjective());
-        practice.setBriefDescription(from.getBriefDesciption());
-        practice.setDescription(from.getDescription());
-        practice.setConsistencyRules(from.getConsistencyRules());
-        practice.setAuthor(from.getAuthor());
-        practice.setKeyWords(from.getKeywords());
+    public static void mapGeneralInfo(SEPractice entity, PracticeDto dto ) {
+        dto.setId(entity.getId());
+        dto.setIdKernel( entity.getOwner().getId());
+        dto.setName(entity.getName());
+        dto.setObjective(entity.getObjective());
+        dto.setBriefDesciption(entity.getBriefDescription());
+        dto.setDescription(entity.getDescription());
+        dto.setConsistencyRules(entity.getConsistencyRules());
+        dto.setAuthor(entity.getAuthor());
+        dto.setKeywords(entity.getKeyWords());
     }
 
-    /**
-     * Map Conditions from PracticeDto to a SEPractice
-     *
-     * @param conditions
-     * @return SEAreaOfConcern
-     */
-    public static SEPractice mapConditions(Conditions conditions, SEPractice to) {
-        validateConditions(conditions);
-        Objects.requireNonNull(to, "the Practice can not be null");
-        mapCriterios(conditions.getEntries(), to.getEntryCriterion(), true);
-        mapCriterios(conditions.getResults(), to.getResultCriterion(), false);
-        to.setMeasures(conditions.getMeasures());
-        return to;
+    public static void mapConditions(SEPractice entity, PracticeDto dto ){//Conditions conditions, SEPractice to) {
+        mapCriterios( entity.getEntryCriterion(), dto, true);
+        mapCriterios( entity.getResultCriterion(), dto, false);
     }
 
-    private static void mapCriterios(Criteriable criteriable, Collection<SECriterion> seCriterionList,
-            boolean isEntry) {
-        mapAlphaCriterion(criteriable, seCriterionList, isEntry);
-        mapWorkProductCriterion(criteriable, seCriterionList, isEntry);
-        mapOtherCriterion(criteriable, seCriterionList, isEntry);
+    private static void mapCriterios(Collection<SECriterion> seCriterionList, PracticeDto dto, boolean isEntry) {
+        dto.setConditions( new Conditions());
+        mapAlphaCriterion(seCriterionList,  dto, isEntry);
+       // mapWorkProductCriterion(seCriterionList,  dto, isEntry); # TODO
+      //  mapOtherCriterion(seCriterionList,  dto, isEntry);
     }
 
-    private static void mapOtherCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
+    /*
+    private static void mapOtherCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
             boolean isEntry) {
         Optional.of(criteriable.getOtherConditions()).ifPresent(entry -> {
             if (isEntry) {
@@ -123,9 +109,9 @@ public class SEEssenceMapper {
                 mapResultOtherResultConditions(entry, seCriterionList);
             }
         });
-    }
-
-    private static void mapWorkProductCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
+    }*/ //# TODO
+/*
+    private static void mapWorkProductCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
             boolean isEntry) {
         Optional.of(criteriable.getWorkProductsLevelofDetail()).ifPresent(workProducts -> {
             if (isEntry) {
@@ -134,17 +120,30 @@ public class SEEssenceMapper {
                 workProducts.forEach(entry -> mapResultWorkProductLevelOfDetailResultCriterion(entry, seCriterionList));
             }
         });
-    }
+    }*/
 
-    private static void mapAlphaCriterion(Criteriable criteriable, Collection<SECriterion> seCriterionList,
+    private static void mapAlphaCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
             boolean isEntry) {
-        Optional.of(criteriable.getAlphaStates()).ifPresent(alphaStates -> {
+            
             if (isEntry) {
-                alphaStates.forEach(entry -> mapResultAlphaStatesEntryCriterion(entry, seCriterionList));
+                dto.getConditions().setEntries(new Entries());
+                dto.getConditions().getEntries().setAlphaStates( new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultAlphaStatesEntryCriterion(entry, dto));
             } else {
-                alphaStates.forEach(entry -> mapResultAlphaStatesResultCriterion(entry, seCriterionList));
+                dto.getConditions().setResults(new Results());
+                dto.getConditions().getResults().setAlphaStates( new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultAlphaStatesResultCriterion(entry, dto));
             }
-        });
+        
+    }
+
+    private static void mapResultAlphaStatesEntryCriterion(SECriterion criterion, PracticeDto dto) {
+        if (criterion.getState() != null){    
+            AlphaState alphaState = new AlphaState();
+            alphaState.setIdState(criterion.getState().getId());
+            alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            dto.getConditions().getEntries().getAlphaStates().add(alphaState);
+        }
     }
 
     /**
@@ -153,36 +152,14 @@ public class SEEssenceMapper {
      * @param alphaState
      * @param criterionList
      */
-    private static void mapResultAlphaStatesEntryCriterion(AlphaState alphaState,
-            Collection<SECriterion> criterionList) {
-        Optional.of(alphaState).ifPresent(element -> {
-            Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
-            Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
-            SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setState((SEState) repoUtil.getDocument(element.getIdState(), SEState.class));
-            }, SEEntryCriterion.class);
-            repoUtil.mongoTemplate.save(seCriterion);
-            criterionList.add(seCriterion);
-        });
-    }
-
-    /**
-     * Map AlphaStates to SEPractice
-     * 
-     * @param alphaState
-     * @param criterionList
-     */
-    private static void mapResultAlphaStatesResultCriterion(AlphaState alphaState,
-            Collection<SECriterion> criterionList) {
-        Optional.of(alphaState).ifPresent(element -> {
-            Objects.requireNonNull(element.getIdAlpha(), "The Alpha's Id can't be null");
-            Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
-            SECompletionCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setState((SEState) repoUtil.getDocument(element.getIdState(), SEState.class));
-            }, SECompletionCriterion.class);
-            repoUtil.mongoTemplate.save(seCriterion);
-            criterionList.add(seCriterion);
-        });
+    private static void mapResultAlphaStatesResultCriterion(SECriterion criterion, PracticeDto dto) {
+        if (criterion.getState() != null){ 
+            AlphaState alphaState = new AlphaState();
+            alphaState.setIdState(criterion.getState().getId());
+            alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            dto.getConditions().getResults().getAlphaStates().add(alphaState);
+        }
+        
     }
 
     /**
@@ -300,6 +277,7 @@ public class SEEssenceMapper {
      * @param to
      * @return SEPractice
      */
+    /*
     public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
         idActivities = new ArrayList<>();
         Optional.of(thingsToDo.getActivities()).orElseThrow(SekcException::new).forEach(activity -> {
@@ -310,13 +288,15 @@ public class SEEssenceMapper {
                 act.setRequiredCompetencyLevel(new ArrayList<>());
                 act.setApproach(new ArrayList<>());
                 act.setAction(new ArrayList<>());
+                act.setGoJsPosition(activity.getGoJsPosition());
                 act.setCriterion(new ArrayList<>());
                 act.setResource(new ArrayList<>());
                 act.setActivityAssociation(new ArrayList<>());
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
-
+                mapActivityResources(activity, act);
+                //map  entryCriterionentryCriterion  completitionCriterion # TODO
             }, SEActivity.class);
             if (activity.getCreated()) // so if it's an update, override existing db document
                 seActivity.setId(activity.getIdActivity());
@@ -354,12 +334,14 @@ public class SEEssenceMapper {
             }
         }
     }
-
+*/
     public static void mapActivityResources(Activity activity, SEActivity act) {
         Optional.of(activity.getResources()).ifPresent(resourceList -> {
             resourceList.forEach(resource -> {
                 SEResource seresource = EntityBuilder.build(seResource -> {
                     seResource.setContent(resource.getContent());
+                    seResource.setFileName(resource.getFile());
+                    seResource.setIdResourceType(ResourcesTypes.valueOf(resource.getIdTypeResource()));
                 }, SEResource.class);
                 repoUtil.mongoTemplate.save(seresource);
                 act.getResource().add(seresource);
@@ -422,21 +404,12 @@ public class SEEssenceMapper {
         });
     }
 
-    /**
-     * Map Related practice of the SEPractice
-     * 
-     * @param practicesIdsList
-     * @param to
-     * @return SEPractice
-     */
-    public static SEPractice mapRelatedPractices(List<String> practicesIdsList, SEPractice to) {
+    public static void mapRelatedPractices(SEPractice entity, PracticeDto dto) {
         //relatedPractices are optional on the client
-        Optional.ofNullable(practicesIdsList).ifPresent(practiceList -> {
-            practiceList.forEach(practiceId -> {
-                SEPractice sePractice = (SEPractice) repoUtil.getDocument(practiceId, SEPractice.class);
-                to.getReferredElements().add(sePractice);
-            });
-        });
-        return to;
+        dto.setRelatedPractices( new ArrayList<>());
+        for (SEPractice relatedPractice : EssenceFilter.filterLanguageElement( entity.getReferredElements(), SEPractice.class ) ) {
+            dto.getRelatedPractices().add(relatedPractice.getId());
+        }
     }
+
 }

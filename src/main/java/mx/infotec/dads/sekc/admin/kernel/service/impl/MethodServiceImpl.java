@@ -57,19 +57,19 @@ public class MethodServiceImpl implements MethodService {
         SEMethod methodToPersistence = new SEMethod();
         response = new ResponseWrapper();
         if (!getMethodFromRequest(method, methodToPersistence)){
-            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
-            response.setResponse_code(HttpStatus.BAD_REQUEST);
+            response.setErrorMessage( ErrorConstants.ERR_MALFORMED_REQUEST);
+            response.setResponseCode(HttpStatus.BAD_REQUEST);
         }else{
             methodRepository.save(methodToPersistence);
             response.setResponseObject(methodToPersistence);
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
         }
         
         //After object recreaion, before save it is a MUST to create a function 
         //to check the Data in the object
         //if (ValidationsController.checkValid(methodToPersistence) ){
-        //    response.setError_message( "Invalid method object, it can't be persisted" );
-        //    response.setResponse_code(HttpStatus.BAD_REQUEST);
+        //    response.setErrorMessage( "Invalid method object, it can't be persisted" );
+        //    response.setResponseCode(HttpStatus.BAD_REQUEST);
         //}
         return response;
     }
@@ -79,11 +79,11 @@ public class MethodServiceImpl implements MethodService {
         response = new ResponseWrapper();
         List<SEMethod> docCollection = methodRepository.findAll();
         if (!docCollection.isEmpty() ){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -94,13 +94,13 @@ public class MethodServiceImpl implements MethodService {
         response = new ResponseWrapper();
         Object document = methodRepository.findOne(id);
         if (document != null){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             if (includeFields != null)
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -110,7 +110,7 @@ public class MethodServiceImpl implements MethodService {
         response = new ResponseWrapper();
         response.setResponseObject(methodRepository.findOne(id));
         methodRepository.delete(id);
-        response.setResponse_code(HttpStatus.OK);
+        response.setResponseCode(HttpStatus.OK);
         return response;
     }
     

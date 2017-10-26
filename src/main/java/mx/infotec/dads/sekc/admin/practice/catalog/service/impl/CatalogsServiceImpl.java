@@ -34,7 +34,7 @@ import mx.infotec.dads.sekc.admin.practice.catalog.dto.Practice;
 import mx.infotec.dads.sekc.admin.practice.catalog.service.CatalogsService;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Competency;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.ResourcesType;
-import mx.infotec.dads.sekc.admin.practice.catalog.dto.ResourcesTypes;
+import mx.infotec.dads.essence.util.ResourcesTypes;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Workproduct;
 
 /**
@@ -156,7 +156,7 @@ public class CatalogsServiceImpl implements CatalogsService {
         recoverCatalogFields(catalogs);
         CatalogsDto catalogsDto = new CatalogsDto();
         catalogsDto.setCatalogs(catalogs);
-        response.setResponse_code(HttpStatus.OK);
+        response.setResponseCode(HttpStatus.OK);
         response.setResponseObject(catalogsDto);
         
         return response;

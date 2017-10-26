@@ -29,7 +29,7 @@ public class CatalogsResource {
         ResponseWrapper responseData;
         responseData = catalogsService.findAll();
 
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .body(responseData.getResponseObject());
         }

@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import mx.infotec.dads.sekc.admin.kernel.dto.CheckPointDto;
@@ -31,11 +32,12 @@ public class CheckPointResource {
     private static final String ENTITY_NAME = "checkpoint";
     
     @PostMapping("/checkpoints")
-    public ResponseEntity checkPointCreate(@RequestBody CheckPointDto checkPoint) {
+    @Timed
+    public ResponseEntity createCheckPoint(@RequestBody CheckPointDto checkPoint) {
         ResponseWrapper responseData;
         responseData = checkPointService.save(checkPoint);
         
-        if (responseData.getError_message().equals("")){
+        if (responseData.getErrorMessage().equals("")){
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, checkPoint.toString()))
                     .body(responseData.getResponseObject());
@@ -45,9 +47,20 @@ public class CheckPointResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, checkPoint.toString()))
             .body(responseData.toString());
     }
+    
+    @DeleteMapping("/checkpoints/{id}")
+    @Timed
+    public ResponseEntity deleteCheckPoint(@PathVariable("id") String id) {
+        ResponseWrapper responseData = checkPointService.delete(id);
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_checpoint_delete"))
+                .body(responseData.getResponseObject());
+    }
 
-    @GetMapping(value = { "/checkpoints","/checkpoints/{id}" })
-    public ResponseEntity checkPointGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/checkpoints/{id}" })
+    @Timed
+    public ResponseEntity getCheckPoint(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -56,7 +69,7 @@ public class CheckPointResource {
         else
             responseData = checkPointService.findAll(pageable);
         
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, id))
                     .body(responseData.getResponseObject());
@@ -67,12 +80,22 @@ public class CheckPointResource {
             .body(responseData.toString());
     }
     
-    @DeleteMapping("/checkpoints/{id}")
-    public ResponseEntity checkPointDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = checkPointService.delete(id);
+    @GetMapping(value = { "/checkpoints" })
+    @Timed
+    public ResponseEntity getAllCheckPoints( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
         
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_checpoint_delete"))
-                .body(responseData.getResponseObject());
+        responseData = checkPointService.findAll(pageable);
+        
+        if (responseData.getErrorMessage().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, ""))
+                    .body(responseData.getResponseObject());
+        }
+        
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "err_checkpoint_get", "Error al obtener Checkpoints"))
+            .body(responseData.toString());
     }
+
 }

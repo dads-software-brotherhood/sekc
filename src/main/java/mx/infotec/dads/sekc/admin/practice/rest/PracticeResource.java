@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping(API_PATH)
 public class PracticeResource {
     
-    private final Logger log = LoggerFactory.getLogger(PracticeResource.class);
+    private final Logger LOG = LoggerFactory.getLogger(PracticeResource.class);
 
     @Autowired
     private PracticeService practiceService;
@@ -54,7 +54,7 @@ public class PracticeResource {
         ResponseWrapper responseData;
         responseData = practiceService.save(practice);
         
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, practice.toString()))
                     .body(responseData.getResponseObject());
@@ -73,7 +73,7 @@ public class PracticeResource {
         ResponseWrapper responseData;
         responseData = practiceService.update(practice);
         
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, practice.toString()))
                     .body(responseData.getResponseObject());
@@ -87,12 +87,21 @@ public class PracticeResource {
             .body(responseData.toString());
     }
     
+    @DeleteMapping("/practices/{id}") 
+   public ResponseEntity practiceDelete(@PathVariable("id") String id) {
+        ResponseWrapper responseData = practiceService.delete(id);
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_practices_delete"))
+                .body(responseData.getResponseObject());
+    }
+   
     @GetMapping(value = { "/practices/{id}" })
     public ResponseEntity practiceGet(@PathVariable(value = "id", required = true) String id,
             @RequestParam(value = "includeFields", required = false) List<String> includeFields) {
         ResponseWrapper responseData;
         responseData = practiceService.findOne(id, includeFields);
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok().headers(HeaderUtil.createAlert(ENTITY_NAME, id))
                     .body(responseData.getResponseObject());
         }
@@ -105,15 +114,6 @@ public class PracticeResource {
                 .body(responseData.toString());
     }
 
-    @DeleteMapping("/practices/{id}")
-    public ResponseEntity practiceDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = practiceService.delete(id);
-        
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_practices_delete"))
-                .body(responseData.getResponseObject());
-    }
-    
     /**
      * GET /practices : get all the practices.
      *
@@ -126,7 +126,7 @@ public class PracticeResource {
     @Timed
     public ResponseEntity<List<PracticeConsultDto>> getAllPractices(@ApiParam Pageable pageable, 
             @RequestParam(value = "keywords", required = false) List<String> keywords) {
-        log.debug("REST request to get a page of Practice");
+        LOG.debug("REST request to get a page of Practice");
         if (keywords == null)
             keywords = new ArrayList<>();
         Page<PracticeConsultDto> page = practiceService.findAll(pageable, keywords);

@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import mx.infotec.dads.sekc.admin.kernel.dto.StateDto;
@@ -31,11 +32,12 @@ public class StateResource {
     private static final String ENTITY_NAME = "state";
 
     @PostMapping("/states")
-    public ResponseEntity StateCreate(@RequestBody StateDto state) {
+    @Timed
+    public ResponseEntity createState(@RequestBody StateDto state) {
         ResponseWrapper responseData;
         responseData = stateService.save(state);
         
-        if (responseData.getError_message().equals("")){
+        if (responseData.getErrorMessage().equals("")){
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, state.toString()))
                     .body(responseData.getResponseObject());
@@ -45,9 +47,20 @@ public class StateResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, state.toString()))
             .body(responseData.toString());
     }
+    
+    @DeleteMapping("/states/{id}")
+    @Timed
+    public ResponseEntity deleteState(@PathVariable("id") String id) {
+        ResponseWrapper responseData = stateService.delete(id);
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_state_delete"))
+                .body(responseData.getResponseObject());
+    }
 
-    @GetMapping(value = { "/states","/states/{id}" })
-    public ResponseEntity stateGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/states/{id}" })
+    @Timed
+    public ResponseEntity getState(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -56,7 +69,7 @@ public class StateResource {
         else
             responseData = stateService.findAll(pageable);
         
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, id))
                     .body(responseData.getResponseObject());
@@ -67,12 +80,22 @@ public class StateResource {
             .body(responseData.toString());
     }
     
-    @DeleteMapping("/states/{id}")
-    public ResponseEntity stateDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = stateService.delete(id);
+    @GetMapping(value = { "/states" })
+    @Timed
+    public ResponseEntity getAllStates( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
         
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_state_delete"))
-                .body(responseData.getResponseObject());
+            responseData = stateService.findAll(pageable);
+        
+        if (responseData.getErrorMessage().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, ""))
+                    .body(responseData.getResponseObject());
+        }
+        
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "err_state_get", "Error al obtener State"))
+            .body(responseData.toString());
     }
+    
 }

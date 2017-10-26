@@ -8,26 +8,26 @@ import org.springframework.http.HttpStatus;
  */
 public class ResponseWrapper {
     
-    private HttpStatus response_code;
+    private HttpStatus responseCode;
     
-    private String error_message = "";
+    private String errorMessage = "";
     
     private Object responseObject;
 
-    public void setResponse_code(HttpStatus response_code) {
-        this.response_code = response_code;
+    public void setResponseCode(HttpStatus responseCode) {
+        this.responseCode = responseCode;
     }
     
-    public HttpStatus getResponse_code() {
-        return response_code;
+    public HttpStatus getResponseCode() {
+        return responseCode;
     }
     
-    public void setError_message(String error_message) {
-        this.error_message = error_message;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
     
-    public String getError_message() {
-        return error_message;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     public void setResponseObject(Object responseObject) {
@@ -40,6 +40,6 @@ public class ResponseWrapper {
     
     @Override
     public String toString() {
-        return "{ \"error_message\":\"" + error_message + "\", \"data\":" + responseObject + '}';
+        return "{ \"error_message\":\"" + errorMessage + "\", \"data\":" + responseObject + '}';
     }
 }

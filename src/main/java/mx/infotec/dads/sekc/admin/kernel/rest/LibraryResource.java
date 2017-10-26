@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,28 @@ public class LibraryResource {
     private LibraryService libraryService;
     
     @PostMapping("/libraries/")
-    public ResponseEntity libraryCreate( @RequestBody Object library ){
+    @Timed
+    public ResponseEntity createLibrary( @RequestBody Object library ){
         ResponseWrapper responseData;
         
         responseData = libraryService.save(library);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
+    }
+    
+    @DeleteMapping("/libraries/{id}")
+    @Timed
+    public ResponseEntity deleteLibrary(@PathVariable("id") String id) {
+        ResponseWrapper responseData = libraryService.delete(id);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
 
-    @GetMapping(value = { "/libraries/","/libraries/{id}" })
-    public ResponseEntity libraryGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/libraries/{id}" })
+    @Timed
+    public ResponseEntity getLibrary(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -49,16 +61,20 @@ public class LibraryResource {
             responseData = libraryService.findOne(id, includeFields);    
         else
             responseData = libraryService.findAll(pageable);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
     
-    @DeleteMapping("/libraries/{id}")
-    public ResponseEntity libraryDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = libraryService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+    @GetMapping(value = { "/libraries/" })
+    @Timed
+    public ResponseEntity getAllLibraries( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
+        
+            responseData = libraryService.findAll(pageable);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
+    
 }

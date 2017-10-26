@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,28 @@ public class LevelOfDetailResource {
     private LevelOfDetailService levelOfDetailService;
     
     @PostMapping("/levelOfDetails/")
-    public ResponseEntity levelOfDetailCreate( @RequestBody Object levelOfDetail ){
+    @Timed
+    public ResponseEntity createLevelOfDetail( @RequestBody Object levelOfDetail ){
         ResponseWrapper responseData;
         
         responseData = levelOfDetailService.save(levelOfDetail);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode());
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
+    }
+    
+    @DeleteMapping("/levelOfDetails/{id}")
+    @Timed
+    public ResponseEntity deleteLevelOfDetail(@PathVariable("id") String id) {
+        ResponseWrapper responseData = levelOfDetailService.delete(id);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode());
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
 
-    @GetMapping(value = { "/levelOfDetails/","/levelOfDetails/{id}" })
-    public ResponseEntity levelOfDetailGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/levelOfDetails/{id}" })
+    @Timed
+    public ResponseEntity getLevelOfDetail(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -49,16 +61,19 @@ public class LevelOfDetailResource {
             responseData = levelOfDetailService.findOne(id, includeFields);    
         else
             responseData = levelOfDetailService.findAll(pageable);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
     
-    @DeleteMapping("/levelOfDetails/{id}")
-    public ResponseEntity levelOfDetailDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = levelOfDetailService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+    @GetMapping(value = { "/levelOfDetails/" })
+    @Timed
+    public ResponseEntity getAllLevelsOfDetail( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
+            responseData = levelOfDetailService.findAll(pageable);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
+    
 }

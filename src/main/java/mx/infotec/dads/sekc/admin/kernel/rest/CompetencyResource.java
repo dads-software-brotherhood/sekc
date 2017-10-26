@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import mx.infotec.dads.sekc.admin.kernel.dto.CompetencyDto;
@@ -36,12 +37,13 @@ public class CompetencyResource {
     private static final String ENTITY_NAME = "competency";
     
     @PostMapping("/competencies")
-    public ResponseEntity competencyCreate( @RequestBody CompetencyDto competency ){
+    @Timed
+    public ResponseEntity createCompetency( @RequestBody CompetencyDto competency ){
         ResponseWrapper responseData;
         
         responseData = competencyService.save(competency);
         
-        if (responseData.getError_message().equals("")){
+        if (responseData.getErrorMessage().equals("")){
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, competency.toString()))
                     .body(responseData.getResponseObject());
@@ -51,9 +53,20 @@ public class CompetencyResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, competency.toString()))
             .body(responseData.toString());
     }
+    
+    @DeleteMapping("/competencies/{id}")
+    @Timed
+    public ResponseEntity deleteCompetency(@PathVariable("id") String id) {
+        ResponseWrapper responseData = competencyService.delete(id);
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_competency_delete"))
+                .body(responseData.getResponseObject());
+    }
 
-    @GetMapping(value = { "/competencies","/competencies/{id}" })
-    public ResponseEntity competencyGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/competencies/{id}" })
+    @Timed
+    public ResponseEntity getCompetency(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -62,7 +75,7 @@ public class CompetencyResource {
         else
             responseData = competencyService.findAll(pageable);
         
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, id))
                     .body(responseData.getResponseObject());
@@ -73,12 +86,22 @@ public class CompetencyResource {
             .body(responseData.toString());
     }
     
-    @DeleteMapping("/competencies/{id}")
-    public ResponseEntity competencyDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = competencyService.delete(id);
+    @GetMapping(value = { "/competencies" })
+    @Timed
+    public ResponseEntity getAllCompetencies( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
         
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_competency_delete"))
-                .body(responseData.getResponseObject());
+            responseData = competencyService.findAll(pageable);
+        
+        if (responseData.getErrorMessage().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, ""))
+                    .body(responseData.getResponseObject());
+        }
+        
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "err_competency_get", "Error al obtener Competency"))
+            .body(responseData.toString());
     }
+    
 }

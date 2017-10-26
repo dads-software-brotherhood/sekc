@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import mx.infotec.dads.sekc.admin.kernel.dto.WorkProductDto;
@@ -35,12 +36,13 @@ public class WorkProductResource {
     private static final String ENTITY_NAME = "workproduct";
     
     @PostMapping("/workProducts")
-    public ResponseEntity workProductCreate( @RequestBody WorkProductDto workProduct ){
+    @Timed
+    public ResponseEntity createWorkProduct( @RequestBody WorkProductDto workProduct ){
         ResponseWrapper responseData;
         
         responseData = workProductService.save(workProduct);
         
-        if (responseData.getError_message().equals("")){
+        if (responseData.getErrorMessage().equals("")){
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, workProduct.toString()))
                     .body(responseData.getResponseObject());
@@ -50,9 +52,20 @@ public class WorkProductResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, workProduct.toString()))
             .body(responseData.toString());
     }
+    
+    @DeleteMapping("/workProducts/{id}")
+    @Timed
+    public ResponseEntity deleteWorkProduct(@PathVariable("id") String id) {
+        ResponseWrapper responseData = workProductService.delete(id);
+        
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_workProduct_delete"))
+                .body(responseData.getResponseObject());
+    }
 
-    @GetMapping(value = { "/workProducts","/workProducts/{id}" })
-    public ResponseEntity workProductGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/workProducts/{id}" })
+    @Timed
+    public ResponseEntity getWorkProduct(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -61,7 +74,7 @@ public class WorkProductResource {
         else
             responseData = workProductService.findAll(pageable);
         
-        if (responseData.getError_message().equals("")) {
+        if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .headers(HeaderUtil.createAlert(ENTITY_NAME, id))
                     .body(responseData.getResponseObject());
@@ -72,12 +85,22 @@ public class WorkProductResource {
             .body(responseData.toString());
     }
     
-    @DeleteMapping("/workProducts/{id}")
-    public ResponseEntity workProductDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = workProductService.delete(id);
+    @GetMapping(value = { "/workProducts" })
+    @Timed
+    public ResponseEntity getAllWorkProducts( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
         
-        return ResponseEntity.ok()
-                .headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "ok_workProduct_delete"))
-                .body(responseData.getResponseObject());
+            responseData = workProductService.findAll(pageable);
+        
+        if (responseData.getErrorMessage().equals("")) {
+            return ResponseEntity.ok()
+                    .headers(HeaderUtil.createAlert(ENTITY_NAME, ""))
+                    .body(responseData.getResponseObject());
+        }
+        
+        return ResponseEntity.badRequest()
+            .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "err_workProduct_get", "Error al obtener WorkProduct"))
+            .body(responseData.toString());
     }
+    
 }

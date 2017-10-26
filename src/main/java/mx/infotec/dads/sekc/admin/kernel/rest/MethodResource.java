@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,28 @@ public class MethodResource {
     private MethodService methodService;
     
     @PostMapping("/methods/")
-    public ResponseEntity methodCreate( @RequestBody Object method ){
+    @Timed
+    public ResponseEntity createMethod( @RequestBody Object method ){
         ResponseWrapper responseData;
         
         responseData = methodService.save(method);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
+    }
+    
+    @DeleteMapping("/methods/{id}")
+    @Timed
+    public ResponseEntity deleteMethod(@PathVariable("id") String id) {
+        ResponseWrapper responseData = methodService.delete(id);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
 
-    @GetMapping(value = { "/methods/","/methods/{id}" })
-    public ResponseEntity methodGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/methods/{id}" })
+    @Timed
+    public ResponseEntity getMethod(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -49,16 +61,20 @@ public class MethodResource {
             responseData = methodService.findOne(id, includeFields);    
         else
             responseData = methodService.findAll(pageable);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
     
-    @DeleteMapping("/methods/{id}")
-    public ResponseEntity methodDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = methodService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+    @GetMapping(value = { "/methods/" })
+    @Timed
+    public ResponseEntity getAllMethods( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
+        
+            responseData = methodService.findAll(pageable);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
+    
 }

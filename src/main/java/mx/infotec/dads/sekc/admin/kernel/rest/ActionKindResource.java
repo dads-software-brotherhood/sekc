@@ -19,7 +19,7 @@ public class ActionKindResource {
     private static final String ENTITY_NAME = "actionKind";
 
     @GetMapping(value = {"/actionKinds"})
-    public ResponseEntity actionKindGet() {
+    public ResponseEntity getActionKind() {
         return ResponseEntity.ok()
                 .headers(HeaderUtil.createAlert(ENTITY_NAME, ""))
                 .body(ActionKind.values());

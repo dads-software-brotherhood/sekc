@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,28 @@ public class TypedResource {
     private TypedResourceService typedResourceService;
     
     @PostMapping("/resources/")
-    public ResponseEntity typedResourceCreate( @RequestBody Object typedResource ){
+    @Timed
+    public ResponseEntity createTypedResource( @RequestBody Object typedResource ){
         ResponseWrapper responseData;
         
         responseData = typedResourceService.save(typedResource);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
+    }
+    
+    @DeleteMapping("/resources/{id}")
+    @Timed
+    public ResponseEntity deleteTypedResource(@PathVariable("id") String id) {
+        ResponseWrapper responseData = typedResourceService.delete(id);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
 
-    @GetMapping(value = { "/resources/","/resources/{id}" })
-    public ResponseEntity typedResourceGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/resources/{id}" })
+    @Timed
+    public ResponseEntity getTypedResource(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -49,16 +61,20 @@ public class TypedResource {
             responseData = typedResourceService.findOne(id, includeFields);    
         else
             responseData = typedResourceService.findAll(pageable);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
     
-    @DeleteMapping("/resources/{id}")
-    public ResponseEntity typedResourceDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = typedResourceService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+    @GetMapping(value = { "/resources/" })
+    @Timed
+    public ResponseEntity getAllTypedResources( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
+        
+            responseData = typedResourceService.findAll(pageable);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
+    
 }

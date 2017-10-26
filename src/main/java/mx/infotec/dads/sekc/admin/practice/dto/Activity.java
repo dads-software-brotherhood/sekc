@@ -13,12 +13,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "idActivity",
     "idActivitySpace",
     "name",
     "briefDesciption",
     "description",
-    "idActivity",
     "to",
+    "goJsPosition",
     "created",
     "competencies",
     "approaches",
@@ -29,6 +30,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Activity {
 
+    @JsonProperty("idActivity")
+    private String idActivity;
     @JsonProperty("idActivitySpace")
     private String idActivitySpace;
     @JsonProperty("name")
@@ -37,10 +40,10 @@ public class Activity {
     private String briefDesciption;
     @JsonProperty("description")
     private String description;
-    @JsonProperty("idActivity")
-    private String idActivity;
     @JsonProperty("to")
     private List<String> to = null;
+    @JsonProperty("goJsPosition")
+    private String goJsPosition;
     @JsonProperty("created")
     private Boolean created;
     @JsonProperty("competencies")
@@ -57,6 +60,16 @@ public class Activity {
     private List<Resource> resources = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("idActivity")
+    public String getIdActivity() {
+        return idActivity;
+    }
+
+    @JsonProperty("idActivity")
+    public void setIdActivity(String idActivity) {
+        this.idActivity = idActivity;
+    }
 
     @JsonProperty("idActivitySpace")
     public String getIdActivitySpace() {
@@ -97,16 +110,6 @@ public class Activity {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    @JsonProperty("idActivity")
-    public String getIdActivity() {
-        return idActivity;
-    }
-
-    @JsonProperty("idActivity")
-    public void setIdActivity(String idActivity) {
-        this.idActivity = idActivity;
-    }
 
     @JsonProperty("to")
     public List<String> getTo() {
@@ -116,6 +119,16 @@ public class Activity {
     @JsonProperty("to")
     public void setTo(List<String> to) {
         this.to = to;
+    }
+
+    @JsonProperty("goJsPosition")
+    public String getGoJsPosition() {
+        return goJsPosition;
+    }
+
+    @JsonProperty("goJsPosition")
+    public void setGoJsPosition(String goJsPosition) {
+        this.goJsPosition = goJsPosition;
     }
 
     @JsonProperty("created")

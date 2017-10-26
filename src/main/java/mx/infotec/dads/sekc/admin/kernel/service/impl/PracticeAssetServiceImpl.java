@@ -49,19 +49,19 @@ public class PracticeAssetServiceImpl implements PracticeAssetService {
         SEPracticeAsset practiceAssetToPersistence = new SEPracticeAsset();
         response = new ResponseWrapper();
         if (!getPracticeAssetFromRequest(practiceAsset, practiceAssetToPersistence)){
-            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
-            response.setResponse_code(HttpStatus.BAD_REQUEST);
+            response.setErrorMessage( ErrorConstants.ERR_MALFORMED_REQUEST);
+            response.setResponseCode(HttpStatus.BAD_REQUEST);
         }else{
             practiceAssetRepository.save(practiceAssetToPersistence);
             response.setResponseObject(practiceAssetToPersistence);
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
         }
         
         //After object recreaion, before save it is a MUST to create a function 
         //to check the Data in the object
         //if (ValidationsController.checkValid(practiceAssetToPersistence) ){
-        //    response.setError_message( "Invalid practiceAsset object, it can't be persisted" );
-        //    response.setResponse_code(HttpStatus.BAD_REQUEST);
+        //    response.setErrorMessage( "Invalid practiceAsset object, it can't be persisted" );
+        //    response.setResponseCode(HttpStatus.BAD_REQUEST);
         //}
         return response;
     }
@@ -71,11 +71,11 @@ public class PracticeAssetServiceImpl implements PracticeAssetService {
         response = new ResponseWrapper();
         List<SEPracticeAsset> docCollection = practiceAssetRepository.findAll();
         if (!docCollection.isEmpty() ){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -86,13 +86,13 @@ public class PracticeAssetServiceImpl implements PracticeAssetService {
         response = new ResponseWrapper();
         Object document = practiceAssetRepository.findOne(id);
         if (document != null){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             if (includeFields != null)
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -102,7 +102,7 @@ public class PracticeAssetServiceImpl implements PracticeAssetService {
         response = new ResponseWrapper();
         response.setResponseObject(practiceAssetRepository.findOne(id));
         practiceAssetRepository.delete(id);
-        response.setResponse_code(HttpStatus.OK);
+        response.setResponseCode(HttpStatus.OK);
         return response;
     }
     

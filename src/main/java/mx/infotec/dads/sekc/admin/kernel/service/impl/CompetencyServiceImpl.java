@@ -62,12 +62,12 @@ public class CompetencyServiceImpl implements CompetencyService {
         SECompetency competencyToPersistence = new SECompetency();
         response = new ResponseWrapper();
         if (!getCompetencyFromRequest(competencyDto, competencyToPersistence)){
-            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
-            response.setResponse_code(HttpStatus.BAD_REQUEST);
+            response.setErrorMessage( ErrorConstants.ERR_MALFORMED_REQUEST);
+            response.setResponseCode(HttpStatus.BAD_REQUEST);
         }else{
             competenciesRepository.save(competencyToPersistence);
             response.setResponseObject(competencyToPersistence);
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
         }
         
         //After object recreaion, before save it is a MUST to create a function 
@@ -84,11 +84,11 @@ public class CompetencyServiceImpl implements CompetencyService {
         response = new ResponseWrapper();
         List<SECompetency> docCollection = competenciesRepository.findAll();
         if (!docCollection.isEmpty() ){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -99,13 +99,13 @@ public class CompetencyServiceImpl implements CompetencyService {
         response = new ResponseWrapper();
         Object document = competenciesRepository.findOne(id);
         if (document != null){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             if (includeFields != null)
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -115,7 +115,7 @@ public class CompetencyServiceImpl implements CompetencyService {
         response = new ResponseWrapper();
         response.setResponseObject(competenciesRepository.findOne(id));
         competenciesRepository.delete(id);
-        response.setResponse_code(HttpStatus.OK);
+        response.setResponseCode(HttpStatus.OK);
         return response;
     }
     

@@ -1,6 +1,5 @@
 package mx.infotec.dads.sekc.admin.practice.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,7 +20,8 @@ import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
 import mx.infotec.dads.sekc.admin.practice.service.PracticeService;
 import mx.infotec.dads.sekc.admin.practice.service.util.PracticeConsultDtoMapper;
 import mx.infotec.dads.sekc.admin.practice.service.util.ClassMatcher;
-import mx.infotec.dads.sekc.util.SEEssenceMapper;
+import mx.infotec.dads.sekc.admin.practice.service.util.PracticeDtoMapper;
+import mx.infotec.dads.sekc.admin.practice.service.util.SEEssenceMapper;
 import mx.infotec.dads.sekc.web.rest.errors.ErrorConstants;
 
 /**
@@ -44,7 +44,7 @@ public class PracticeServiceImpl implements PracticeService {
             return SEEssenceMapper.mapSEPractice(practiceDto, repoUtils);
         } catch (Exception e) {
             //e.printStackTrace();
-            response.setError_message(e.getMessage());
+            response.setErrorMessage(e.getMessage());
             LOG.debug("Fail to map Pactice DTO ", e);
             return null;
         }
@@ -57,11 +57,11 @@ public class PracticeServiceImpl implements PracticeService {
         if (sePractice == null ) {
             //Now we use error messages from exceptions inside dtoMapper
             //response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
-            response.setResponse_code(HttpStatus.BAD_REQUEST);
+            response.setResponseCode(HttpStatus.BAD_REQUEST);
         } else {
             practiceRepository.save(sePractice);
             response.setResponseObject(sePractice);
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
         }
 
         // After object recreaion, before save it is a MUST to create a function
@@ -97,15 +97,15 @@ public class PracticeServiceImpl implements PracticeService {
         response = new ResponseWrapper();
         Object document = practiceRepository.findOne(id);
         if (document != null) {
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             //if (includeFields != null)
             //    document = RandomUtil.filterResponseFields(document, includeFields);
-            mx.infotec.dads.sekc.admin.practice.consult.dto.PracticeConsultDto onePractice = 
-                    ClassMatcher.matchPractice((SEPractice) document);
+            mx.infotec.dads.sekc.admin.practice.dto.PracticeDto onePractice = 
+                    PracticeDtoMapper.toDto((SEPractice) document);
             response.setResponseObject(onePractice);
         } else {
-            response.setError_message(ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage(ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -115,7 +115,7 @@ public class PracticeServiceImpl implements PracticeService {
         response = new ResponseWrapper();
         response.setResponseObject(practiceRepository.findOne(id));
         practiceRepository.delete(id);
-        response.setResponse_code(HttpStatus.OK);
+        response.setResponseCode(HttpStatus.OK);
         return response;
     }
 
@@ -131,17 +131,17 @@ public class PracticeServiceImpl implements PracticeService {
             if (sePractice == null ) {
                 //Now we use error messages from exceptions inside dtoMapper
                 //response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
-                response.setResponse_code(HttpStatus.BAD_REQUEST);
+                response.setResponseCode(HttpStatus.BAD_REQUEST);
             } else {
                 //reemplaza documento existente por completo
                 sePractice.setId(practiceDto.getId());
                 practiceRepository.save(sePractice);
                 response.setResponseObject(sePractice);
-                response.setResponse_code(HttpStatus.OK);
+                response.setResponseCode(HttpStatus.OK);
             }
         
         } catch (NullPointerException nue){ // if practice's id doesn't exists
-            response.setError_message(nue.getMessage());
+            response.setErrorMessage(nue.getMessage());
         }
 
         // After object recreaion, before save it is a MUST to create a function

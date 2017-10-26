@@ -72,12 +72,12 @@ public class CheckPointServiceImpl implements CheckPointService {
         SECheckpoint checkPointToPersistence = new SECheckpoint();
         response = new ResponseWrapper();
         if (!getCheckPointFromRequest(checkPoint, checkPointToPersistence)){
-            response.setError_message( ErrorConstants.ERR_MALFORMED_REQUEST);
-            response.setResponse_code(HttpStatus.BAD_REQUEST);
+            response.setErrorMessage(ErrorConstants.ERR_MALFORMED_REQUEST);
+            response.setResponseCode(HttpStatus.BAD_REQUEST);
         }else{
             checkPointRepository.save(checkPointToPersistence);
             response.setResponseObject(checkPointToPersistence);
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
         }
         
         //After object recreaion, before save it is a MUST to create a function 
@@ -94,11 +94,11 @@ public class CheckPointServiceImpl implements CheckPointService {
         response = new ResponseWrapper();
         List<SECheckpoint> docCollection = checkPointRepository.findAll();
         if (!docCollection.isEmpty() ){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             response.setResponseObject(docCollection);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -109,13 +109,13 @@ public class CheckPointServiceImpl implements CheckPointService {
         response = new ResponseWrapper();
         Object document = checkPointRepository.findOne(id);
         if (document != null){
-            response.setResponse_code(HttpStatus.OK);
+            response.setResponseCode(HttpStatus.OK);
             if (includeFields != null)
                 document = RandomUtil.filterResponseFields(document, includeFields);
             response.setResponseObject(document);
         }else{
-            response.setError_message( ErrorConstants.ERR_RECORD_NOT_FOUND);
-            response.setResponse_code(HttpStatus.NOT_FOUND);
+            response.setErrorMessage( ErrorConstants.ERR_RECORD_NOT_FOUND);
+            response.setResponseCode(HttpStatus.NOT_FOUND);
         }
         return response;
     }
@@ -125,7 +125,7 @@ public class CheckPointServiceImpl implements CheckPointService {
         response = new ResponseWrapper();
         response.setResponseObject(checkPointRepository.findOne(id));
         checkPointRepository.delete(id);
-        response.setResponse_code(HttpStatus.OK);
+        response.setResponseCode(HttpStatus.OK);
         return response;
     }
     

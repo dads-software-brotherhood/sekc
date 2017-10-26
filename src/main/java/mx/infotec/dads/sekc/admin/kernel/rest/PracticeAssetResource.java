@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.admin.kernel.rest;
 
+import com.codahale.metrics.annotation.Timed;
 import io.swagger.annotations.ApiParam;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,17 +32,28 @@ public class PracticeAssetResource {
     private PracticeAssetService practiceAssetService;
     
     @PostMapping("/practiceAssets/")
-    public ResponseEntity practiceAssetCreate( @RequestBody Object practiceAsset ){
+    @Timed
+    public ResponseEntity createPracticeAsset( @RequestBody Object practiceAsset ){
         ResponseWrapper responseData;
         
         responseData = practiceAssetService.save(practiceAsset);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
+    }
+    
+    @DeleteMapping("/practiceAssets/{id}")
+    @Timed
+    public ResponseEntity deletePracticeAsset(@PathVariable("id") String id) {
+        ResponseWrapper responseData = practiceAssetService.delete(id);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
 
-    @GetMapping(value = { "/practiceAssets/","/practiceAssets/{id}" })
-    public ResponseEntity practiceAssetGet(@PathVariable(value="id", required=false) String id, 
+    @GetMapping(value = { "/practiceAssets/{id}" })
+    @Timed
+    public ResponseEntity getPracticeAsset(@PathVariable(value="id", required=false) String id, 
             @RequestParam (value="includeFields", required=false) List<String> includeFields,
             @ApiParam Pageable pageable) {
         ResponseWrapper responseData;
@@ -49,16 +61,20 @@ public class PracticeAssetResource {
             responseData = practiceAssetService.findOne(id, includeFields);    
         else
             responseData = practiceAssetService.findAll(pageable);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
     
-    @DeleteMapping("/practiceAssets/{id}")
-    public ResponseEntity practiceAssetDelete(@PathVariable("id") String id) {
-        ResponseWrapper responseData = practiceAssetService.delete(id);
-        if (responseData.getError_message().equals(""))
-            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponse_code() );
-        return new ResponseEntity( responseData.toString(), responseData.getResponse_code() );
+    @GetMapping(value = { "/practiceAssets/" })
+    @Timed
+    public ResponseEntity getAllPracticeAssets( @ApiParam Pageable pageable) {
+        ResponseWrapper responseData;
+        
+            responseData = practiceAssetService.findAll(pageable);
+        if (responseData.getErrorMessage().equals(""))
+            return new ResponseEntity( responseData.getResponseObject(), responseData.getResponseCode() );
+        return new ResponseEntity( responseData.toString(), responseData.getResponseCode() );
     }
+    
 }
