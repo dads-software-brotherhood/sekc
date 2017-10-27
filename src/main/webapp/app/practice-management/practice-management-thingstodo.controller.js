@@ -9,7 +9,7 @@
 
     function PracticeManagementThingsToDoController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice, $window, DataUtils) {
         var vm = this;
-
+        vm.error = false;
         vm.load = load;
         vm.practice = null;
 
@@ -55,6 +55,7 @@
 
         vm.save = save;
         vm.clean = clean;
+        vm.validate = validate;
 
         vm.load();
 
@@ -78,37 +79,43 @@
 
         }
         function onError(error) {
-            AlertService.error(error.data.message);
+            //AlertService.error(error.data.message);
         }
 
         //---------------- Activity -----------------
 
         function addActivity() {
+            if (vm.validate()) {
+                vm.activityInEdition.areaOfConcern = vm.areaOfConcern;
+                vm.activityInEdition.idAreaOfConcern = vm.areaOfConcern.id;
+                vm.activityInEdition.activitySpace = vm.activitySpace;
+                vm.activityInEdition.idActivitySpace = vm.activitySpace.id;
+                vm.activityInEdition.nameActivitySpace = vm.activitySpace.name;
+                vm.activityInEdition.goJsPosition = "";
+                if (vm.activityInEdition.idActivity == null ||
+                    vm.activityInEdition.idActivity == undefined) {
+                    vm.activityInEdition.idActivity = 0;
+                    vm.activityInEdition.created = false;
+                    vm.activityInEdition.idActivity = vm.practice.thingsToDo.activities.length != 0 ?
+                        Math.max.apply(
+                            Math, vm.practice.thingsToDo.activities.map(
+                                function(o) { return o.idActivity; })) + 1 : 0;
+                    console.log(vm.activityInEdition.idActivity);
+                    vm.practice.thingsToDo.activities.push(vm.activityInEdition);
 
-            vm.activityInEdition.areaOfConcern = vm.areaOfConcern;
-            vm.activityInEdition.idAreaOfConcern = vm.areaOfConcern.id;
-            vm.activityInEdition.activitySpace = vm.activitySpace;
-            vm.activityInEdition.idActivitySpace = vm.activitySpace.id;
-            vm.activityInEdition.nameActivitySpace = vm.activitySpace.name;
-
-            if (vm.activityInEdition.idActivity == null ||
-                vm.activityInEdition.idActivity == undefined) {
-                vm.activityInEdition.idActivity = 0;
-                vm.activityInEdition.created = true;
-                vm.activityInEdition.idActivity = vm.practice.thingsToDo.activities.length != 0 ?
-                    Math.max.apply(
-                        Math, vm.practice.thingsToDo.activities.map(
-                            function (o) { return o.idActivity; })) + 1 : 0;
-                console.log(vm.activityInEdition.idActivity);
-                vm.practice.thingsToDo.activities.push(vm.activityInEdition);
-
+                } else {
+                    var editedActivity = $filter('filter')(vm.practice.thingsToDo.activities,
+                        { idActivity: vm.activityInEdition.idActivity })[0];
+                    editedActivity = vm.activityInEdition;
+                }
+                vm.activityInEdition = newActivity();
+                vm.clean();
             } else {
-                var editedActivity = $filter('filter')(vm.practice.thingsToDo.activities,
-                    { idActivity: vm.activityInEdition.idActivity })[0];
-                editedActivity = vm.activityInEdition;
+                vm.error = true;
+                vm.mensaje = "practiceManagement.error.1";
+                $window.scrollTo(0, 0);
             }
-            vm.activityInEdition = newActivity();
-            vm.clean();
+            
 
         }
         function newActivity() {
@@ -411,7 +418,7 @@
         //---------------- Resource -----------------
 
         function addResource() {
-            if (vm.type != null && vm.descriptionResource != null) {
+            if (vm.type && vm.descriptionResource) {
                 var resource = {};
 
                 resource.file = vm.type.id == "URL" ? vm.url : vm.attachment.base64;
@@ -428,25 +435,6 @@
         }
         function deleteResource(index) {
             vm.activityInEdition.resources.splice(index, 1);
-        }
-
-        function save() {
-            console.log(JSON.stringify(vm.practice, null, "\t"));
-            localStorageService.set('practiceInEdition', vm.practice);
-            if (vm.practice.id !== null) {
-                Practice.update(vm.practice, onSaveSuccess, onSaveError);
-            } else {
-                Practice.save(vm.practice, onSaveSuccess, onSaveError);
-            }
-        }
-
-        function onSaveSuccess(result) {
-            vm.practice = {};
-            localStorageService.set('practiceInEdition', null);
-            $location.path('/find-practice');
-        }
-
-        function onSaveError() {
         }
 
         function cleanModales() {
@@ -484,6 +472,52 @@
             vm.activitySpace = null;
             vm.areaOfConcern = null;
             $window.scrollTo(0, 0);
+        }
+
+        function save() {
+            if (vm.practice.thingsToDo.activities.length) {
+                console.log(JSON.stringify(vm.practice, null, "\t"));
+                localStorageService.set('practiceInEdition', vm.practice);
+                if (vm.practice.id !== null) {
+                    Practice.update(vm.practice, onSaveSuccess, onSaveError);
+                } else {
+                    Practice.save(vm.practice, onSaveSuccess, onSaveError);
+                }
+            } else {
+                vm.error = true;
+                vm.mensaje = "practiceManagement.error.3";
+                $window.scrollTo(0, 0);
+            }
+            
+        }
+
+        function onSaveSuccess(result) {
+            vm.practice = {};
+            localStorageService.set('practiceInEdition', null);
+            $location.path('/find-practice');
+        }
+
+        function onSaveError() {
+        }
+        function validate() {
+            if (!vm.areaOfConcern || 
+                !vm.activitySpace ||
+                !vm.activityInEdition.name ||
+                !vm.activityInEdition.briefDescription ||
+                !vm.activityInEdition.description || 
+                !vm.activityInEdition.competencies.length ||
+                !vm.activityInEdition.approaches.length ||
+                !vm.activityInEdition.actions.length ||
+                (!vm.activityInEdition.entryCriterion.alphaStates.length &&
+                    !vm.activityInEdition.entryCriterion.workProductsLevelofDetail.length &&
+                    !vm.activityInEdition.entryCriterion.otherConditions.length) ||
+                (!vm.activityInEdition.completitionCriterion.alphaStates.length &&
+                !vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.length &&
+                !vm.activityInEdition.completitionCriterion.otherConditions.length)
+            ){
+                return false;
+            }
+            return true;
         }
     }
 

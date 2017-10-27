@@ -1,32 +1,36 @@
 <section class="p-b-20">
-    <div class="page-header">   
+    <div class="page-header">
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
             <li class="active"><a data-translate="practiceManagement.conditions">Conditions</a></li>
-            <li><a data-translate="practiceManagement.thingsToWorkWith.title" href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
-            <li><a data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-thingsToDo" ui-sref="practice-management-thingsToDo">Things to do </a></li>
-           
+            <li><a ng-class="{'disabled': !vm.validate()}" data-translate="practiceManagement.thingsToWorkWith.title" href="#/practice-management-thingswork" ui-sref="practice-management-thingswork">Things to work with</a></li>
+            <li><a ng-class="{'disabled': !vm.validate()}" data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-thingsToDo" ui-sref="practice-management-thingsToDo">Things to do </a></li>
+
         </ul>
     </div>
-   	<form class="form-floating placeholder-form" name="editForm" role="form" novalidate>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="well white">
-               
+    <div class="alert top-right alert-danger" ng-show="vm.error">
+        <button class="close" type="button" ng-click="vm.error=false">x</button>
+        <h4>Error!</h4>
+        <strong><span data-translate="{{vm.mensaje}}"></span></strong>
+    </div>
+    <form class="form-floating placeholder-form" name="editForm" role="form" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="well white">
                     <div class="form-group input-group">
                         <label data-translate="practiceManagement.measures" class="f-bold">Measures</label>
                         <input type="text" ng-model="vm.newMeasure" name="measure" class="form-control">
                         <div class="input-group-btn p-l-10">
-                            <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addMeasure()"> Add </button> 
-						</div>
+                            <button class="btn btn-success" data-translate="practiceManagement.add" ng-click="vm.addMeasure()"> Add </button>
+                        </div>
                     </div>
-                    <div ng-show="!vm.measures.length">
-                		<p class="help-block"
-		                   ng-show="!vm.measures.length" data-translate="entity.validation.required">
-		                    This field is required.
-		                </p>
-		            </div> 
-                    <table class="table table-full table-full-small white" ng-hide="!vm.measures.length">
+                    <div ng-show="!vm.practice.conditions.measures.length">
+                        <p class="help-block"
+                           ng-show="!vm.practice.conditions.measures.length" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                    <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.measures.length">
                         <thead>
                             <tr>
                                 <th data-translate="practiceManagement.measure">Measure</th>
@@ -34,170 +38,170 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="measure in vm.measures track by $index">
+                            <tr ng-repeat="measure in vm.practice.conditions.measures track by $index">
                                 <td>{{measure}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>                            
-                            </tr>
-                        </tbody>
-                    </table>            
-            </div>  
-    	</div>
-    </div>
-    <div class="row m-b-40">
-        <div class="col-md-6">
-            <div class="well white">
-                <h5 data-translate="practiceManagement.entries">  Entries</h5> 
-                <div ng-show="!vm.practice.conditions.entries.length">
-	              	<p class="help-block"
-	                   ng-show="!vm.practice.conditions.entries.alphaStates.length &&
-	                    !vm.practice.conditions.entries.workProductsLevelofDetail.length &&
-	                    !vm.practice.conditions.entries.otherConditions.length" 
-	                   data-translate="entity.validation.required">
-	                    This field is required.
-	                </p>
-	            </div> 
-                <div class="form-group filled">
-                    <label class="f-bold">Alpha</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
-                 		<option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                	</select>
-                </div>
-                <div class="form-group filled" ng-show="vm.alpha != null">
-                    <label class="f-bold">Alpha State</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alpha.states | filter:vm.alphaEntryFilter track by datos.id" ng-model="vm.alphaState">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group filled">
-                    <label class="f-bold">Workproduct</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null || vm.anotherEntryCriteria != null" ng-model="vm.workProduct">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group filled" ng-show="vm.workProduct != null">
-                    <label class="f-bold">Level of Detail</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsEntryFilter track by datos.id" ng-model="vm.levelOfDetail">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="f-bold">Another Entry Criteria</label>
-                    <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null" >
-                </div>
-                <div class="row">
-                    <div class="pull-right m-r-10">
-                            <button class="btn btn-default" type="button" ng-click="vm.cleanEntries()"><span data-translate="practiceManagement.clean">Clean</span></button>
-                            <button class="btn btn-success" type="button"  ng-click="vm.addEntry()"><span data-translate="practiceManagement.add">Add</span></button>
-                    </div>
-                </div> 
-                <br>
-                <div class="table-responsive white">
-                  	<table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.entries.alphaStates.length && !vm.practice.conditions.entries.workProductsLevelofDetail.length && !vm.practice.conditions.entries.otherConditions.length">
-                    	<thead>
-                            <tr>
-                                <th data-translate="practiceManagement.entries">Entries</th>
-                                <th data-translate="practiceManagement.remove">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr ng-repeat="alphaState in vm.practice.conditions.entries.alphaStates">
-                                <td>{{alphaState.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="workProductLevelofDetail in vm.practice.conditions.entries.workProductsLevelofDetail">
-                                <td>{{workProductLevelofDetail.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions track by $index">
-                                <td>{{otherConditions}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>  
-        </div>
-        <div class="col-md-6">
-            <div class="well white">
-                <h5 data-translate="practiceManagement.results"><i class="fa fa-sign-out text-blue" aria-hidden="true"></i> Results</h5>
-                <div ng-show="!vm.practice.conditions.entries.length">
-	              	<p class="help-block"
-	                   ng-show="!vm.practice.conditions.results.alphaStates.length && 
-	                   !vm.practice.conditions.results.workProductsLevelofDetail.length && 
-	                   !vm.practice.conditions.results.otherConditions.length"
-	                   data-translate="entity.validation.required">
-	                    This field is required.
-	                </p>
-	            </div> 
-                <div class="form-group filled">
-                    <label class="f-bold">Alpha</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.workProductResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.alphaResult">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group filled" ng-show="vm.alphaResult != null">
-                    <label class="f-bold">Alpha State</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.alphaResult.states | filter:vm.alphaResultsFilter track by datos.id" ng-model="vm.alphaStateResult">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group filled">
-                    <label class="f-bold">Workproduct</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProducts  track by datos.id" ng-disabled="vm.alphaResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.workProductResult">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group filled" ng-show="vm.workProductResult != null">
-                    <label class="f-bold">Level of Detail</label>
-                    <select class="form-control" ng-options="datos.name for datos in vm.workProductResult.levelsOfDetails | filter:vm.workResultsEntryFilter track by datos.id" ng-model="vm.levelOfDetailResult">
-                        <option style="display:none" value="" data-translate="entity.select.select">Select</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="f-bold">Another Result Criteria</label>
-                    <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteriaResult"  ng-disabled="vm.workProductResult != null || vm.alphaResult != null" >
-                </div>
-                <div class="row">
-                    <div class="pull-right m-r-10">
-                        <button class="btn btn-default" type="button" ng-click="vm.cleanResults()"><span data-translate="practiceManagement.clean">Clean</span></button>
-                        <button class="btn btn-success" type="button" ng-click="vm.addResult()"><span data-translate="practiceManagement.add">Add</span></button>
-                    </div>
-                </div>
-                <br>
-                <div class="table-responsive white">
-                    <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.results.alphaStates.length && !vm.practice.conditions.results.workProductsLevelofDetail.length && !vm.practice.conditions.results.otherConditions.length">
-                    	<thead>
-                            <tr>
-                                <th data-translate="practiceManagement.result">Results</th>
-                                <th data-translate="practiceManagement.remove">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           <tr ng-repeat="alphaState in vm.practice.conditions.results.alphaStates">
-                                <td>{{alphaState.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'alpha')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="workProductLevelofDetail in vm.practice.conditions.results.workProductsLevelofDetail">
-                                <td>{{workProductLevelofDetail.description}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'workproduct')"><i class="md md-delete"></i></button></td>
-                            </tr>
-                            <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions track by $index">
-                                <td>{{otherConditions}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'other')"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div class="pull-right m-r-15 m-b-30">
-            <button type="button" class="btn btn-default m-t-10">
-            <span ng-click="vm.clean()" data-translate="practiceManagement.clean">Clean</span>
-            </button>
-            <button type="submit" ng-disabled="" class="btn btn-primary m-t-10" ng-click="vm.save()">
-            <span data-translate="entity.action.next">Next</span>
-            </button>
+        <div class="row m-b-40">
+            <div class="col-md-6">
+                <div class="well white">
+                    <h5 data-translate="practiceManagement.entries">  Entries</h5>
+                    <div ng-show="!vm.practice.conditions.entries.length">
+                        <p class="help-block"
+                           ng-show="!vm.practice.conditions.entries.alphaStates.length &&
+	                    !vm.practice.conditions.entries.workProductsLevelofDetail.length &&
+	                    !vm.practice.conditions.entries.otherConditions.length"
+                           data-translate="entity.validation.required">
+                            Select at least 1 entry.
+                        </p>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="f-bold">Alpha</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group filled" ng-show="vm.alpha != null">
+                        <label class="f-bold">Alpha State</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.alpha.states | filter:vm.alphaEntryFilter track by datos.id" ng-model="vm.alphaState">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="f-bold">Workproduct</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null || vm.anotherEntryCriteria != null" ng-model="vm.workProduct">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group filled" ng-show="vm.workProduct != null">
+                        <label class="f-bold">Level of Detail</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsEntryFilter track by datos.id" ng-model="vm.levelOfDetail">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="f-bold">Another Entry Criteria</label>
+                        <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null">
+                    </div>
+                    <div class="row">
+                        <div class="pull-right m-r-10">
+                            <button class="btn btn-default" type="button" ng-click="vm.cleanEntries()"><span data-translate="practiceManagement.clean">Clean</span></button>
+                            <button class="btn btn-success" type="button" ng-click="vm.addEntry()"><span data-translate="practiceManagement.add">Add</span></button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive white">
+                        <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.entries.alphaStates.length && !vm.practice.conditions.entries.workProductsLevelofDetail.length && !vm.practice.conditions.entries.otherConditions.length">
+                            <thead>
+                                <tr>
+                                    <th data-translate="practiceManagement.entries">Entries</th>
+                                    <th data-translate="practiceManagement.remove">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="alphaState in vm.practice.conditions.entries.alphaStates">
+                                    <td>{{alphaState.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                                <tr ng-repeat="workProductLevelofDetail in vm.practice.conditions.entries.workProductsLevelofDetail">
+                                    <td>{{workProductLevelofDetail.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                                <tr ng-repeat="otherConditions in vm.practice.conditions.entries.otherConditions track by $index">
+                                    <td>{{otherConditions}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteEntry($index, 'other')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="well white">
+                    <h5 data-translate="practiceManagement.results"><i class="fa fa-sign-out text-blue" aria-hidden="true"></i> Results</h5>
+                    <div ng-show="!vm.practice.conditions.entries.length">
+                        <p class="help-block"
+                           ng-show="!vm.practice.conditions.results.alphaStates.length &&
+	                   !vm.practice.conditions.results.workProductsLevelofDetail.length &&
+	                   !vm.practice.conditions.results.otherConditions.length"
+                           data-translate="entity.validation.required">
+                            Select at least 1 result.
+                        </p>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="f-bold">Alpha</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-disabled="vm.workProductResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.alphaResult">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group filled" ng-show="vm.alphaResult != null">
+                        <label class="f-bold">Alpha State</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.alphaResult.states | filter:vm.alphaResultsFilter track by datos.id" ng-model="vm.alphaStateResult">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="f-bold">Workproduct</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.workProducts  track by datos.id" ng-disabled="vm.alphaResult != null || vm.anotherEntryCriteriaResult != null" ng-model="vm.workProductResult">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group filled" ng-show="vm.workProductResult != null">
+                        <label class="f-bold">Level of Detail</label>
+                        <select class="form-control" ng-options="datos.name for datos in vm.workProductResult.levelsOfDetails | filter:vm.workResultsEntryFilter track by datos.id" ng-model="vm.levelOfDetailResult">
+                            <option style="display:none" value="" data-translate="entity.select.select">Select</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="f-bold">Another Result Criteria</label>
+                        <input type="text" class="form-control" ng-model="vm.anotherEntryCriteriaResult" ng-disabled="vm.workProductResult != null || vm.alphaResult != null">
+                    </div>
+                    <div class="row">
+                        <div class="pull-right m-r-10">
+                            <button class="btn btn-default" type="button" ng-click="vm.cleanResults()"><span data-translate="practiceManagement.clean">Clean</span></button>
+                            <button class="btn btn-success" type="button" ng-click="vm.addResult()"><span data-translate="practiceManagement.add">Add</span></button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="table-responsive white">
+                        <table class="table table-full table-full-small white" ng-hide="!vm.practice.conditions.results.alphaStates.length && !vm.practice.conditions.results.workProductsLevelofDetail.length && !vm.practice.conditions.results.otherConditions.length">
+                            <thead>
+                                <tr>
+                                    <th data-translate="practiceManagement.result">Results</th>
+                                    <th data-translate="practiceManagement.remove">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="alphaState in vm.practice.conditions.results.alphaStates">
+                                    <td>{{alphaState.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'alpha')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                                <tr ng-repeat="workProductLevelofDetail in vm.practice.conditions.results.workProductsLevelofDetail">
+                                    <td>{{workProductLevelofDetail.description}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'workproduct')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                                <tr ng-repeat="otherConditions in vm.practice.conditions.results.otherConditions track by $index">
+                                    <td>{{otherConditions}}</td>
+                                    <td><button class="btn btn-link btn-round" ng-click="vm.deleteResult($index, 'other')"><i class="md md-delete"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right m-r-15 m-b-30">
+                <button type="button" class="btn btn-default m-t-10">
+                    <span ng-click="vm.clean()" data-translate="practiceManagement.clean">Clean</span>
+                </button>
+                <button type="submit" ng-disabled="" class="btn btn-primary m-t-10" ng-click="vm.save()">
+                    <span data-translate="entity.action.next">Next</span>
+                </button>
+            </div>
         </div>
-    </div>
     </form>
 </section>

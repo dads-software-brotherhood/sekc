@@ -15,10 +15,12 @@
         vm.load = load;
         vm.save = save;
         vm.clean = clean;
+        vm.validate = validate;
         
         vm.alphasTree;
         vm.load();
-        
+
+        vm.error = false;
         
         function load () {
             var alphas = localStorageService.get('alphas');
@@ -28,15 +30,14 @@
                 vm.practice = {};
             }
             vm.alphasTree = [];
-            if (vm.practice.thingsToWorkWith != null)
-            {
+            if (vm.practice.thingsToWorkWith != null) {
                 vm.selectedWorkProducts = vm.practice.thingsToWorkWith.workProducts;
+            } else {
+                vm.practice.thingsToWorkWith = { alphas: [], workProducts: [] };
             }
             fillTreeNode(vm.alphasTree, alphas, '');
             
         }
-
-        
 
         function fillTreeNode(treeNode, alphas, parent)
         {
@@ -72,12 +73,10 @@
                 }
             });
         }
-        
 
         function save()
         {
-            vm.practice.thingsToWorkWith = { alphas: [], workProducts:[] };
-
+            vm.practice.thingsToWorkWith = { alphas: [], workProducts: [] };
             ivhTreeviewBfs(vm.alphasTree, function (node) {
                 if (node.selected || node.__ivhTreeviewIndeterminate) {
                     if (node.type == 'alpha') {
@@ -88,11 +87,28 @@
                     }
                 }
             });
-
-            localStorageService.set('practiceInEdition', vm.practice);
-	        $location.path('/practice-management/thingsToDo/');
+            if (vm.validate()) {
+                localStorageService.set('practiceInEdition', vm.practice);
+                $location.path('/practice-management/thingsToDo/');
+            } else {
+                vm.error = true;
+                vm.mensaje = "practiceManagement.error.2";
+            }
         }
-        
+
+        function validate() {
+            var seleccionado = 0;
+            ivhTreeviewBfs(vm.alphasTree, function(node) {
+                if (node.selected || node.__ivhTreeviewIndeterminate) {
+                    seleccionado += 1;
+                }
+            });
+            if (seleccionado > 0) {
+                return true;
+            } 
+            return false;
+        }
+
         function clean() {
             vm.practice.thingsToWorkWith = { alphas: [], workProducts: [] };
             localStorageService.set('practiceInEdition', vm.practice);
