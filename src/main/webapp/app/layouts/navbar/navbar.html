@@ -12,11 +12,11 @@
                         <span ng-switch-when="false"> Sign in</span>
                     </span>
                 </a>
-                <a class="m-l-10" ui-sref="register" ng-hide="vm.isAuthenticated()">
+                <!--a class="m-l-10" ui-sref="register" ng-hide="vm.isAuthenticated()">
                     <span data-translate="global.menu.account.register"  aria-hidden="true">
                         <span ng-switch-when="false">Register</span>
                     </span>
-                </a>
+                </a-->
                 <a  ng-click="vm.logout()" id="logout" ng-show="vm.isAuthenticated()">
                     <span data-translate="global.menu.account.logout">
                         <span ng-switch-when="true"> Sign out</span>
