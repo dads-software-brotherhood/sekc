@@ -23,8 +23,17 @@ public class InitialSetupMigration {
         adminAuthority.setName(AuthoritiesConstants.ADMIN);
         Authority userAuthority = new Authority();
         userAuthority.setName(AuthoritiesConstants.USER);
+        Authority consultantAuthority = new Authority();
+        consultantAuthority.setName(AuthoritiesConstants.CONSULTANT);
+        Authority validatorAuthority = new Authority();
+        validatorAuthority.setName(AuthoritiesConstants.VALIDATOR);
+        Authority practiciingAuthority = new Authority();
+        practiciingAuthority.setName(AuthoritiesConstants.PRACTICING);
         mongoTemplate.save(adminAuthority);
         mongoTemplate.save(userAuthority);
+        mongoTemplate.save(consultantAuthority);
+        mongoTemplate.save(validatorAuthority);
+        mongoTemplate.save(practiciingAuthority);
     }
 
     @ChangeSet(order = "02", author = "initiator", id = "02-addUsers")
