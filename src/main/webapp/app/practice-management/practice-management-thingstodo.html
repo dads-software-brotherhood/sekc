@@ -7,7 +7,11 @@
             <li class="active"><a data-translate="practiceManagement.thingsToDo.title">Things to do </a></li>
         </ul>
     </div>
-    <jhi-alert></jhi-alert>
+    <div class="alert top-right alert-danger" ng-show="vm.error">
+        <button class="close" type="button" ng-click="vm.error=false">x</button>
+        <h4>Error!</h4>
+        <strong><span data-translate="{{vm.mensaje}}"></span></strong>
+    </div>
     <div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">
         <div class="actions">
             <button class="btn btn-primary btn-round btn-lg pull-right m-b-30 col-xs-2 m-r-15"
@@ -17,7 +21,8 @@
                 <div class="ripple-wrapper"></div>
                 <i class="fa fa-area-chart"></i>
             </button>
-            <button class="btn btn-primary btn-round btn-lg pull-right col-xs-2 m-r-10" data-title="New activity" bs-tooltip>
+            <button class="btn btn-primary btn-round btn-lg pull-right col-xs-2 m-r-10"
+                    ng-click="vm.clean()" data-title="New activity">
                 <span class="md md-add"></span>
             </button>
         </div>
@@ -67,41 +72,76 @@
                     <select class="form-control" ng-options="datos.name for datos in vm.areasOfConcern track by datos.id" ng-model="vm.areaOfConcern">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
+                    <div>
+                        <p class="help-block"
+                           ng-show="!vm.areaOfConcern" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
                 </div>
                 <div class="form-group filled" ng-show="vm.areaOfConcern != null">
                     <label data-translate="practiceManagement.thingsToDo.spaceActivity" class="f-bold">Activity Space</label>
                     <select class="form-control" ng-options="datos.name for datos in vm.areaOfConcern.activitySpaces track by datos.id" ng-model="vm.activitySpace">
                         <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                     </select>
+                    <div>
+                        <p class="help-block"
+                           ng-show="!vm.activitySpace" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
                 </div>
-                <!-- Activity-->
-                <!-- <div class="row" ng-hide="!vm.activityInEdition.idActivitySpace"> -->
-
-
-
                 <div class="form-group">
-                    <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.activityName" >Activity Name</label>
-                    <input type="text" class="form-control" name="name" ng-model="vm.activityInEdition.name" required>
+                    <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.activityName">Activity Name</label>
+                    <input type="text" class="form-control" name="nombre" ng-model="vm.activityInEdition.name" maxlength="50">
+                    <div>
+                        <p class="help-block"
+                           ng-show="!vm.activityInEdition.name" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</label>
-                    <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription"></textarea>
+                    <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription" maxlength="100"></textarea>
+                    <div>
+                        <p class="help-block"
+                           ng-show="!vm.activityInEdition.briefDescription" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.description">Description</label>
-                    <textarea ui-tinymce="vm.tinymceOptions" class="form-control" rows="10" name="description" ng-model="vm.activityInEdition.description"></textarea>
+                <div class="well white">
+                    <label for="textArea" data-translate="practiceManagement.description" class="f-bold">Description</label>
+                    <fieldset>
+                        <legend></legend>
+                        <div class="form-group">
+                            <text-angular-toolbar name="toolbar1" ta-toolbar="[['h1','h2','h3','h4','p','redo','undo','indent','outdent']]"></text-angular-toolbar>
+                            <text-angular-toolbar name="toolbar2" ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull']]"></text-angular-toolbar>
+                            <text-angular name="htmlcontent" ng-model="vm.activityInEdition.description" ta-target-toolbars='toolbar1,toolbar2,toolbar3'></text-angular>
+                            <text-angular-toolbar name="toolbar3" ta-toolbar="[['html', 'charcount', 'wordcount']]"></text-angular-toolbar>
+                        </div>
+                    </fieldset>
+                    <div>
+                        <p class="help-block"
+                           ng-show="!vm.activityInEdition.description" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12 m-t-20">
+                    <div class="col-xs-12">
                         <div class=" table-responsive white m-t-50">
                             <table class="table table-full table-full-small white ">
                                 <thead>
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
                                             COMPETENCY
-                                            <button type="button" class="btn btn-xs btn-primary btn-round pull-right"
+                                            <button type="button"
+                                                    ng-class="!vm.activityInEdition.competencies.length ? 'btn btn-sm btn-danger btn-round pull-right' :
+                                                                'btn btn-sm btn-primary btn-round pull-right'"
                                                     data-toggle="modal" data-target="#competencyDialog"
-                                                    title="Create competency" bs-tooltip>
+                                                    title="Create competency">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </button>
                                         </th>
@@ -127,7 +167,9 @@
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
                                             APPROACH
-                                            <button type="button" class="btn btn-sm btn-primary btn-round pull-right"
+                                            <button type="button"
+                                                    ng-class="!vm.activityInEdition.approaches.length ? 'btn btn-sm btn-danger btn-round pull-right':
+                                                                'btn btn-sm btn-primary btn-round pull-right'"
                                                     data-toggle="modal" data-target="#approachDialog"
                                                     title="Create approach">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -155,7 +197,10 @@
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
                                             ACTIONS
-                                            <button type="button" class="btn btn-sm btn-primary btn-round pull-right"
+                                            <button type="button"
+                                                    ng-class="!vm.activityInEdition.actions.length ?
+                                                                'btn btn-sm btn-danger btn-round pull-right' :
+                                                                'btn btn-sm btn-primary btn-round pull-right'"
                                                     data-toggle="modal" data-target="#actionDialog"
                                                     title="Create action">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -195,7 +240,11 @@
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
                                             ENTRIES
-                                            <button type="button" class="btn btn-sm btn-primary btn-round pull-right"
+                                            <button type="button"
+                                                    ng-class="!vm.activityInEdition.entryCriterion.alphaStates.length &&
+                                                                !vm.activityInEdition.entryCriterion.workProductsLevelofDetail.length &&
+                                                                !vm.activityInEdition.entryCriterion.otherConditions.length ?
+                                                                'btn btn-sm btn-danger btn-round pull-right': 'btn btn-sm btn-primary btn-round pull-right'"
                                                     data-toggle="modal" data-target="#entryDialog"
                                                     title="Create entry">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -231,7 +280,12 @@
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
                                             COMPLETITION
-                                            <button type="button" class="btn btn-sm btn-primary btn-round pull-right"
+                                            <button type="button"
+                                                    ng-class="!vm.activityInEdition.completitionCriterion.alphaStates.length &&
+                                                                !vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.length &&
+                                                                !vm.activityInEdition.completitionCriterion.otherConditions.length ?
+                                                                'btn btn-sm btn-danger btn-round pull-right':
+                                                                'btn btn-sm btn-primary btn-round pull-right'"
                                                     data-toggle="modal" data-target="#completitionDialog"
                                                     title="Create completition">
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -339,15 +393,29 @@
         <div class="modal-body">
             <div class="form-group filled">
                 <label data-translate="practiceManagement.thingsToDo.competency">Competency</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.competencies track by datos.id" ng-model="vm.competency">
+                <select class="form-control" ng-options="datos.name for datos in vm.competencies track by datos.id"
+                        ng-model="vm.competency">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.competency" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
             <div class="form-group filled" ng-hide="!vm.competency">
                 <label data-translate="practiceManagement.thingsToDo.competencyLevel">Competency Level</label>
-                <select class="form-control" ng-options="datos.level + '. '+ datos.name for datos in vm.competency.competencyLevel | filter:vm.competenciesFilter" ng-model="vm.competencyLevel">
+                <select class="form-control" ng-options="datos.level + '. '+ datos.name for datos in vm.competency.competencyLevel | filter:vm.competenciesFilter"
+                        ng-model="vm.competencyLevel">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.competencyLevel" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -368,11 +436,33 @@
         <div class="modal-body">
             <div class="form-group">
                 <label class="pull-left" data-translate="practiceManagement.thingsToDo.name">Name</label>
-                <input type="text" class="form-control" ng-model="vm.nameApproach" required>
+                <input type="text" class="form-control" ng-model="vm.nameApproach">
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.nameApproach" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
             <div class="form-group">
-                <label for="textArea" data-translate="practiceManagement.description" class="pull-left">Description</label>
-                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionApproach" required></textarea>
+                <div class="well white">
+                    <label for="textArea" data-translate="practiceManagement.description" class="f-bold">Description</label>
+                    <fieldset>
+                        <legend></legend>
+                        <div class="form-group">
+                            <text-angular-toolbar name="toolbar4" ta-toolbar="[['h1','h2','h3','h4','p','redo','undo','indent','outdent']]"></text-angular-toolbar>
+                            <text-angular-toolbar name="toolbar5" ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull']]"></text-angular-toolbar>
+                            <text-angular ng-model="vm.descriptionApproach" ta-target-toolbars='toolbar4,toolbar5,toolbar6'></text-angular>
+                            <text-angular-toolbar name="toolbar6" ta-toolbar="[['html', 'charcount', 'wordcount']]"></text-angular-toolbar>
+                        </div>
+                    </fieldset>
+                    <div>
+                        <p class="help-block"
+                           ng-show="!vm.descriptionApproach" data-translate="entity.validation.required">
+                            This field is required.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -494,7 +584,7 @@
             </div>
             <div class="form-group">
                 <label>Another Entry Criteria</label>
-                <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null">
+                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null">
             </div>
         </div>
         <div class="modal-footer">
@@ -539,7 +629,7 @@
             </div>
             <div class="form-group">
                 <label>Another Completion Criteria</label>
-                <input type="text" class="form-control" required ng-model="vm.anotherEntryCriteriaCompletition" ng-disabled="vm.workProductCompletition != null || vm.alphaCompletition != null">
+                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteriaCompletition" ng-disabled="vm.workProductCompletition != null || vm.alphaCompletition != null">
             </div>
         </div>
         <div class="modal-footer">
@@ -559,8 +649,18 @@
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <label for="textArea" class="pull-left">Content</label>
-                <textarea ui-tinymce="vm.tinymceOptions" class="form-control vertical" rows="3" ng-model="vm.descriptionResource" required></textarea>
+                <div class="well white">
+                    <label for="textArea" data-translate="practiceManagement.description" class="f-bold">Description</label>
+                    <fieldset>
+                        <legend></legend>
+                        <div class="form-group">
+                            <text-angular-toolbar name="toolbar7" ta-toolbar="[['h1','h2','h3','h4','p','redo','undo','indent','outdent']]"></text-angular-toolbar>
+                            <text-angular-toolbar name="toolbar8" ta-toolbar="[['bold','italics','underline','strikeThrough','ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull']]"></text-angular-toolbar>
+                            <text-angular ng-model="vm.descriptionResource" ta-target-toolbars='toolbar7,toolbar8,toolbar9'></text-angular>
+                            <text-angular-toolbar name="toolbar9" ta-toolbar="[['html', 'charcount', 'wordcount']]"></text-angular-toolbar>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
             <div class="form-group filled">
                 <label class="pull-left" data-translate="practiceManagement.thingsToDo.type">Type</label>
@@ -570,11 +670,12 @@
             </div>
             <div class="form-group" ng-show="vm.type.id != 'URL'">
                 <label class="control-label" data-translate="practiceManagement.thingsToDo.attachment">Attachment</label>
-                <input type="file" base-sixty-four-input ng-model="vm.attachment" style="color: transparent">
+                <input type="file" base-sixty-four-input ng-model="vm.attachment" style="color: transparent"
+                       accept="image/*, video/*, audio/*, .doc,.docx,.pdf,.ppt,.pptx,.pps,.ppsx,.odt,.xls,.xlsx,.zip">
             </div>
             <div class="form-group" ng-show="vm.type.id == 'URL'">
                 <label class="control-label" data-translate="practiceManagement.thingsToDo.url">URL</label>
-                <input type="url" class="form-control" ng-model="vm.url" required>
+                <input type="url" class="form-control" ng-model="vm.url">
             </div>
             <div class="form-group" ng-show="vm.attachment && vm.type.id != 'URL'">
                 <label class="control-label"><span data-translate="practiceManagement.thingsToDo.file">File</span>: {{vm.attachment.filename}}</label>

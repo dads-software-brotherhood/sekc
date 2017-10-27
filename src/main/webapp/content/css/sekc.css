@@ -362,3 +362,8 @@ ul.ivh-treeview li{
 .f-bold{
     font-weight: bold;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}

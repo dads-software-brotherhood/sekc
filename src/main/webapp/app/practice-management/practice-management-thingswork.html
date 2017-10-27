@@ -4,8 +4,13 @@
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
             <li><a data-translate="practiceManagement.conditions" href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
             <li class="active"><a data-translate="practiceManagement.thingsToWorkWith.title">Things to work with</a></li>
-            <li><a data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-thingsToDo" ui-sref="practice-management-thingsToDo">Things to do </a></li>
+            <li><a ng-class="{'disabled': !vm.validate()}" data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-thingsToDo" ui-sref="practice-management-thingsToDo">Things to do </a></li>
         </ul>
+    </div>
+    <div class="alert top-right alert-danger" ng-show="vm.error">
+        <button class="close" type="button" ng-click="vm.error=false">x</button>
+        <h4>Error!</h4>
+        <strong><span data-translate="{{vm.mensaje}}"></span></strong>
     </div>
     <div class="row m-b-10">
         <div class="col-md-12">

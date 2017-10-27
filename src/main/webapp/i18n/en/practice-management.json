@@ -1,83 +1,88 @@
 {
-    "practiceManagement": {
-        "home": {
-            "title": "  Practices",
-            "createLabel": "Create a new practice",
-            "createOrEditLabel": "Create or edit a practice"
-        },
-        "created": "A new practice is created with identifier {{ param }}",
-        "updated": "An practice is updated with identifier {{ param }}",
-        "deleted": "An practice is deleted with identifier {{ param }}",
-        "delete": {
-            "question": "Are you sure you want to delete this practice?"
-        },
-        "alpha": {
-	        "home": {
-	            "title": "Things to work with"
-	        },
-	        "alphaSelect":"Select a alpha",
-	        "workproductSelect":"Select a alpha-workproduct",
-	        "edit" : "Edit"
-    	},
-        "detail": {
-            "title": "Practice"
-        },
-        "selectKernel":"Selecct a Kernel",
-        "name": "Practice Name",
-        "author":"Author",
-        "icon": "Icon",
-        "briefDescription": "Brief Description",
-        "description": "Description",
-        "relatedPractices":"Related Practices",
-        "consistencyRules": "Consistency Rules",
-        "objective": "Objective",
-        "keywords":"Keywords",
-        "measures": "Measures",
-        "measure": "Measure",
-        "entry": "Entry",
-       	"entries": "Entries",
-        "result": "Result",
-        "results": "Results",
-        "isSupresable": "isSupresable",
-        "add" : "Add",
-        "remove" : "Delete",
-        "edit" : "Edit",
-        "next" : "Next",
-        "cancel" : "Cancel",
-        "clean" : "Clean",
-        "save" : "Save",
-        "conditions" : "Conditions",
-        "viewMore" : "View more",
-        "thingsToWorkWith": {
-            "title": "Things to work with",
-        	"instructions": "Select an alpha with their subalpha and/or workproducts"
-        },
-      "thingsToDo": {
-        "title": "Things to do",
-        "areaOfConcern": "Area of concern",
-        "spaceActivity": "Activity Space",
-        "activityName": "Activity name",
-        "activity": "Activity",
-        "briefDescription": "Brief description",
-        "description": "Description",
-        "consultCompetency": "Consult competency",
-        "consultApproach": "Consult approach",
-        "consultAction": "Consult action",
-        "consultEntry": "Consult entry",
-        "consultCompletition": "Consult completition",
-        "consultResources": "Consult resources",
-        "competency": "Competency",
-        "competencyLevel": "Competency Level",
-        "name": "Name",
-        "actionKind": "Action kind",
-        "content": "Content",
-        "type": "Type",
-        "attachment": "Attachment",
-        "approach": "Approach",
-        "action": "Action",
-        "file": "File",
-        "size": "Size",
-        "url": "URL"
-      }
+  "practiceManagement": {
+    "home": {
+      "title": "  Practices",
+      "createLabel": "Create a new practice",
+      "createOrEditLabel": "Create or edit a practice"
+    },
+    "created": "A new practice is created with identifier {{ param }}",
+    "updated": "An practice is updated with identifier {{ param }}",
+    "deleted": "An practice is deleted with identifier {{ param }}",
+    "delete": {
+      "question": "Are you sure you want to delete this practice?"
+    },
+    "alpha": {
+      "home": {
+        "title": "Things to work with"
+      },
+      "alphaSelect": "Select a alpha",
+      "workproductSelect": "Select a alpha-workproduct",
+      "edit": "Edit"
+    },
+    "detail": {
+      "title": "Practice"
+    },
+    "selectKernel": "Selecct a Kernel",
+    "name": "Practice Name",
+    "author": "Author",
+    "icon": "Icon",
+    "briefDescription": "Brief Description",
+    "description": "Description",
+    "relatedPractices": "Related Practices",
+    "consistencyRules": "Consistency Rules",
+    "objective": "Objective",
+    "keywords": "Keywords",
+    "measures": "Measures",
+    "measure": "Measure",
+    "entry": "Entry",
+    "entries": "Entries",
+    "result": "Result",
+    "results": "Results",
+    "isSupresable": "isSupresable",
+    "add": "Add",
+    "remove": "Delete",
+    "edit": "Edit",
+    "next": "Next",
+    "cancel": "Cancel",
+    "clean": "Clean",
+    "save": "Save",
+    "conditions": "Conditions",
+    "viewMore": "View more",
+    "thingsToWorkWith": {
+      "title": "Things to work with",
+      "instructions": "Select an alpha with their subalpha and/or workproducts"
+    },
+    "thingsToDo": {
+      "title": "Things to do",
+      "areaOfConcern": "Area of concern",
+      "spaceActivity": "Activity Space",
+      "activityName": "Activity name",
+      "activity": "Activity",
+      "briefDescription": "Brief description",
+      "description": "Description",
+      "consultCompetency": "Consult competency",
+      "consultApproach": "Consult approach",
+      "consultAction": "Consult action",
+      "consultEntry": "Consult entry",
+      "consultCompletition": "Consult completition",
+      "consultResources": "Consult resources",
+      "competency": "Competency",
+      "competencyLevel": "Competency Level",
+      "name": "Name",
+      "actionKind": "Action kind",
+      "content": "Content",
+      "type": "Type",
+      "attachment": "Attachment",
+      "approach": "Approach",
+      "action": "Action",
+      "file": "File",
+      "size": "Size",
+      "url": "URL"
+    },
+    "error": {
+      "1": "Please verify that all fields are correct.",
+      "2": "Select at least 1 alpha or workproduct.",
+      "3": "Insert at least 1 activity."
     }
+  }
 }
