@@ -1,6 +1,7 @@
 package mx.infotec.dads.sekc.admin.practice.service.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -73,15 +74,18 @@ public class PracticeDtoMapper {
         dto.setKeywords(entity.getKeyWords());
     }
 
-    public static void mapConditions(SEPractice entity, PracticeDto dto ){//Conditions conditions, SEPractice to) {
+    public static void mapConditions(SEPractice entity, PracticeDto dto ){
+        dto.setConditions( new Conditions());
         mapCriterios( entity.getEntryCriterion(), dto, true);
         mapCriterios( entity.getResultCriterion(), dto, false);
+        dto.getConditions().setMeasures( new ArrayList<>(entity.getMeasures()));
     }
 
     private static void mapCriterios(Collection<SECriterion> seCriterionList, PracticeDto dto, boolean isEntry) {
-        dto.setConditions( new Conditions());
-        dto.getConditions().setEntries(new Entries());
-        dto.getConditions().setResults(new Results());
+        if (dto.getConditions().getEntries() == null)
+            dto.getConditions().setEntries(new Entries());
+        if (dto.getConditions().getResults() == null)
+            dto.getConditions().setResults(new Results());
         mapAlphaCriterion(seCriterionList,  dto, isEntry);
         mapWorkProductCriterion(seCriterionList,  dto, isEntry);
         mapOtherCriterion(seCriterionList,  dto, isEntry);
@@ -162,7 +166,7 @@ public class PracticeDtoMapper {
     }
 
     private static void mapResultAlphaStatesEntryCriterion(SECriterion criterion, PracticeDto dto) {
-        if (criterion.getState() != null){    
+        if (criterion.getState() != null){
             AlphaState alphaState = new AlphaState();
             alphaState.setIdState(criterion.getState().getId());
             alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
@@ -378,6 +382,7 @@ public class PracticeDtoMapper {
 
     private static void mapCompetencyLevel(SEActivity entity, Activity dto ) {
         dto.setCompetencies(new ArrayList<>());
+        
         for (SECompetencyLevel competency : entity.getRequiredCompetencyLevel() ) {
             Competency competencyDto = new Competency();
             competencyDto.setIdCompetencyLevel(competency.getId());
