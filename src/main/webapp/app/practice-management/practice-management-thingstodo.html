@@ -486,30 +486,67 @@
                 <select class="form-control" ng-options="datos.id as datos.name for datos in vm.actionsKinds" ng-model="vm.actionInEdition.idActionKind">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.actionInEdition.idActionKind" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
-            <div class="form-group filled" ng-hide="vm.actionInEdition.workProductsLevelofDetail.length">
+            <div class="form-group filled" ng-hide="vm.actionInEdition.workProductsLevelofDetail.length ||
+                 vm.workProduct">
                 <label class="pull-left">Alpha</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null">
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" 
+                        ng-model="vm.alpha" ng-disabled="vm.workProduct != null">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.alpha && !vm.actionInEdition.alphaStates.length" 
+                       data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
             <div class="form-group filled" ng-show="vm.alpha != null">
                 <label>Alpha State</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alpha.states  | filter:vm.alphaStateFilter track by datos.id" ng-model="vm.alphaState">
+                <select class="form-control" ng-options="datos.name for datos in vm.alpha.states  | filter:vm.alphaStateFilter track by datos.id" 
+                        ng-model="vm.alphaState">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.alphaState" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
-            <div class="form-group filled" ng-hide="vm.actionInEdition.alphaStates.length">
+            <div class="form-group filled" ng-hide="vm.actionInEdition.alphaStates.length || vm.alpha">
                 <label class="pull-left">Workproduct</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null" ng-model="vm.workProduct">
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" 
+                        ng-disabled="vm.alpha != null" ng-model="vm.workProduct">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.workProduct && !vm.actionInEdition.workProductsLevelofDetail.length" 
+                       data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
             <div class="form-group filled" ng-show="vm.workProduct != null">
                 <label>Level of Detail</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsFilter track by datos.id" ng-model="vm.levelOfDetail">
+                <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsFilter track by datos.id" 
+                        ng-model="vm.levelOfDetail">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.levelOfDetail" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -558,9 +595,10 @@
             <h4 class="modal-title" data-translate="practiceManagement.entry">Entry</h4>
         </div>
         <div class="modal-body">
-            <div class="form-group filled">
+            <div class="form-group filled" ng-hide="vm.workProduct || vm.anotherEntryCriteria">
                 <label class="pull-left">Alpha</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alpha" ng-disabled="vm.workProduct != null || vm.anotherEntryCriteria != null">
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" 
+                        ng-model="vm.alpha" ng-disabled="vm.workProduct || vm.anotherEntryCriteria">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
@@ -569,22 +607,36 @@
                 <select class="form-control" ng-options="datos.name for datos in vm.alpha.states | filter:vm.alphaEntryFilter track by datos.id" ng-model="vm.alphaState">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.alphaState" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
-            <div class="form-group filled">
+            <div class="form-group filled" ng-hide="vm.alpha || vm.anotherEntryCriteria">
                 <label class="pull-left">Workproduct</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alpha != null || vm.anotherEntryCriteria != null" ng-model="vm.workProduct">
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" 
+                        ng-disabled="vm.alpha || vm.anotherEntryCriteria" ng-model="vm.workProduct">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
-            <div class="form-group filled" ng-show="vm.workProduct != null">
+            <div class="form-group filled" ng-show="vm.workProduct">
                 <label>Level of Detail</label>
                 <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsEntryFilter track by datos.id" ng-model="vm.levelOfDetail">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.levelOfDetail" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="vm.alpha || vm.workProduct">
                 <label>Another Entry Criteria</label>
-                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" ng-disabled="vm.workProduct != null || vm.alpha != null">
+                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" 
+                       ng-disabled="vm.workProduct || vm.alpha ">
             </div>
         </div>
         <div class="modal-footer">
@@ -603,38 +655,58 @@
             <h4 class="modal-title"><span data-translate="practiceManagement.thingsToDo.consultCompletition">Completion</span></h4>
         </div>
         <div class="modal-body">
-            <div class="form-group filled">
+            <div class="form-group filled" ng-hide="vm.workProductCompletition || vm.anotherEntryCriteriaCompletition">
                 <label class="pull-left">Alpha</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alphaCompletition" ng-disabled="vm.workProductCompletition != null || vm.anotherEntryCriteriaCompletition != null">
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" ng-model="vm.alphaCompletition"
+                        ng-disabled="vm.workProductCompletition || vm.anotherEntryCriteriaCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
-            <div class="form-group filled" ng-show="vm.alphaCompletition != null">
+            <div class="form-group filled" ng-show="vm.alphaCompletition">
                 <label>Alpha State</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphaCompletition.states | filter:vm.alphaCompletitionFilter track by datos.id" ng-model="vm.alphaStateCompletition">
+                <select class="form-control" ng-options="datos.name for datos in vm.alphaCompletition.states | filter:vm.alphaCompletitionFilter track by datos.id" 
+                        ng-model="vm.alphaStateCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.alphaStateCompletition" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
-            <div class="form-group filled">
+            <div class="form-group filled" ng-hide="vm.alphaCompletition || vm.anotherEntryCriteriaCompletition">
                 <label class="pull-left">Workproduct</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" ng-disabled="vm.alphaCompletition != null || vm.anotherEntryCriteriaCompletition != null" ng-model="vm.workProductCompletition">
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" 
+                        ng-disabled="vm.alphaCompletition != null || vm.anotherEntryCriteriaCompletition != null" 
+                        ng-model="vm.workProductCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
-            <div class="form-group filled" ng-show="vm.workProductCompletition != null">
+            <div class="form-group filled" ng-show="vm.workProductCompletition">
                 <label>Level of Detail</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProductCompletition.levelsOfDetails | filter:vm.workProductsCompletitionFilter track by datos.id" ng-model="vm.levelOfDetailCompletition">
+                <select class="form-control" ng-options="datos.name for datos in vm.workProductCompletition.levelsOfDetails | filter:vm.workProductsCompletitionFilter track by datos.id" 
+                        ng-model="vm.levelOfDetailCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
+                <div>
+                    <p class="help-block"
+                       ng-show="!vm.levelOfDetailCompletition" data-translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="vm.alphaCompletition || vm.workProductCompletition">
                 <label>Another Completion Criteria</label>
-                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteriaCompletition" ng-disabled="vm.workProductCompletition != null || vm.alphaCompletition != null">
+                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteriaCompletition" 
+                       ng-disabled="vm.workProductCompletition || vm.alphaCompletition">
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
-            <button type="button" class="btn btn-primary" ng-click="vm.addCompletition()"><span data-translate="practiceManagement.add">Add</span></button>
+            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()">
+            <span data-translate="practiceManagement.clean">Clean</span></button>
+            <button type="button" class="btn btn-primary" ng-click="vm.addCompletition()">
+            <span data-translate="practiceManagement.add">Add</span></button>
         </div>
     </div>
 </div>
@@ -704,7 +776,7 @@
             Number of links: {{vm.model.linkDataArray.length}}
         </div>
         <div class="modal-footer">
-            <button class="btn btn-default" type="button" ng-click="vm.cleanModales()"><span data-translate="practiceManagement.clean">Clean</span></button>
+            <button class="btn btn-default" type="button" ng-click="vm.cleanCompositionActivities()"><span data-translate="practiceManagement.clean">Clean</span></button>
             <button type="button" class="btn btn-primary" ng-click="vm.addCompositionActivities()"><span data-translate="practiceManagement.save">Save</span></button>
         </div>
     </div>

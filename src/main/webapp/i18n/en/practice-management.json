@@ -84,7 +84,8 @@
       "2": "Select at least 1 alpha or workproduct.",
       "3": "Insert at least 1 activity.",
       "4": "The data are complete and correct.",
-      "5": "The data was updated correctly."
+      "5": "The data was updated correctly.",
+      "6": "An error has occurred."
     }
   }
 }

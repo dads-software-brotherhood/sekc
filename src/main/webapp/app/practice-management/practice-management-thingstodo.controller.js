@@ -19,6 +19,7 @@
         vm.editActivity = editActivity;
         vm.compositionActivities = compositionActivities;
         vm.addCompositionActivities = addCompositionActivities;
+        vm.cleanCompositionActivities = cleanCompositionActivities;
         vm.cleanModales = cleanModales;
         vm.cleanModales();
 
@@ -99,7 +100,7 @@
                     vm.activityInEdition.idActivity = vm.practice.thingsToDo.activities.length != 0 ?
                         Math.max.apply(
                             Math, vm.practice.thingsToDo.activities.map(
-                                function(o) { return o.idActivity; })) + 1 : 0;
+                                function (o) { return o.idActivity; })) + 1 : 0;
                     console.log(vm.activityInEdition.idActivity);
                     vm.practice.thingsToDo.activities.push(vm.activityInEdition);
 
@@ -114,8 +115,6 @@
                 vm.mensaje = "practiceManagement.error.1";
             }
             $window.scrollTo(0, 0);
-            
-
         }
         function newActivity() {
             return {
@@ -198,8 +197,7 @@
         //---------------- Competency -----------------
         function addCompetency() {
             console.log(vm.activityInEdition);
-            if (vm.competency != null && vm.competency != undefined &&
-                vm.competencyLevel != null && vm.competencyLevel != undefined) {
+            if (vm.competency && vm.competencyLevel) {
                 vm.activityInEdition.competencies.push({
                     idCompetency: vm.competency.id,
                     competency: vm.competency.name,
@@ -224,7 +222,7 @@
         //---------------- Approach -----------------
 
         function addApproach() {
-            if (vm.nameApproach != null && vm.descriptionApproach != null) {
+            if (vm.nameApproach && vm.descriptionApproach) {
 
                 vm.activityInEdition.approaches.push({
                     name: vm.nameApproach,
@@ -248,8 +246,7 @@
             };
         }
         function fillAction() {
-            if (vm.alpha != null && vm.alpha != undefined &&
-                vm.alphaState != null && vm.alphaState != undefined) {
+            if (vm.actionInEdition.idActionKind && vm.alpha && vm.alphaState) {
                 if (vm.actionInEdition.workProductsLevelofDetail.length) {
                     return;
                 } else {
@@ -259,18 +256,21 @@
                             idAlpha: vm.alpha.id, idState: vm.alphaState.id
                         }
                     );
+                    vm.alpha = null;
                 }
                 vm.cleanModales();
-            } else if (vm.workProduct != null && vm.workProduct != undefined && vm.workProduct != "" &&
-                vm.levelOfDetail != null && vm.levelOfDetail != undefined && vm.levelOfDetail != "") {
+            } else if (vm.actionInEdition.idActionKind && vm.workProduct && vm.levelOfDetail) {
                 if (vm.actionInEdition.alphaStates.length) {
                     return;
                 } else {
-                    vm.actionInEdition.workProductsLevelofDetail.push({
+                    vm.actionInEdition.workProductsLevelofDetail.push(
+                        {
                         description: vm.workProduct.name + ' - ' + vm.levelOfDetail.name,
                         idWorkProduct: vm.workProduct.id,
                         idLevelOfDetail: vm.levelOfDetail.id
-                    });
+                        }
+                    );
+                    vm.workProduct = null;
                 }
             }
         }
@@ -284,8 +284,9 @@
         }
 
         function addAction() {
-            if (vm.actionInEdition.idActionKind != null &&
-                (vm.actionInEdition.alphaStates.length > 0 || vm.actionInEdition.workProductsLevelofDetail.length > 0)
+            if (vm.actionInEdition.idActionKind &&
+                (vm.actionInEdition.alphaStates.length ||
+                    vm.actionInEdition.workProductsLevelofDetail.length)
             ) {
                 vm.activityInEdition.actions.push(vm.actionInEdition);
                 vm.actionInEdition = newAction();
@@ -312,8 +313,7 @@
         //---------------- Entry -----------------
 
         function addEntry() {
-            if (vm.alpha != null && vm.alpha != undefined &&
-                vm.alphaState != null && vm.alphaState != undefined) {
+            if (vm.alpha && vm.alphaState) {
                 vm.activityInEdition.entryCriterion.alphaStates.push({
                     description: vm.alpha.name + ' / ' + vm.alphaState.name,
                     idAlpha: vm.alpha.id,
@@ -321,9 +321,7 @@
                 });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
-            } else if (vm.workProduct != null && vm.workProduct != undefined && vm.workProduct != "" &&
-                vm.levelOfDetail != null && vm.levelOfDetail != undefined && vm.levelOfDetail != "") {
-
+            } else if (vm.workProduct && vm.levelOfDetail) {
                 vm.activityInEdition.entryCriterion.workProductsLevelofDetail.push({
                     description: vm.workProduct.name + ' / ' + vm.levelOfDetail.name,
                     idWorkProduct: vm.workProduct.id,
@@ -331,8 +329,7 @@
                 });
                 vm.cleanModales();
                 $('#entryDialog').modal('toggle');
-            } else if (vm.anotherEntryCriteria != null && vm.anotherEntryCriteria != undefined &&
-                vm.anotherEntryCriteria != "") {
+            } else if (vm.anotherEntryCriteria) {
                 vm.activityInEdition.entryCriterion.otherConditions.push(
                     vm.anotherEntryCriteria
                 );
@@ -364,8 +361,7 @@
         //---------------- Completition -----------------
 
         function addCompletition() {
-            if (vm.alphaCompletition != null && vm.alphaCompletition != undefined &&
-                vm.alphaStateCompletition != null && vm.alphaStateCompletition != undefined) {
+            if (vm.alphaCompletition && vm.alphaStateCompletition) {
                 vm.activityInEdition.completitionCriterion.alphaStates.push({
                     description: vm.alphaCompletition.name + ' / ' + vm.alphaStateCompletition.name,
                     idAlpha: vm.alphaCompletition.id,
@@ -373,8 +369,7 @@
                 });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
-            } else if (vm.workProductCompletition != null && vm.workProductCompletition != undefined &&
-                vm.levelOfDetailCompletition != null && vm.levelOfDetailCompletition != undefined) {
+            } else if (vm.workProductCompletition && vm.levelOfDetailCompletition) {
 
                 vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.push({
                     description: vm.workProductCompletition.name + ' / ' + vm.levelOfDetailCompletition.name,
@@ -383,8 +378,7 @@
                 });
                 vm.cleanModales();
                 $('#completitionDialog').modal('toggle');
-            } else if (vm.anotherEntryCriteriaCompletition != null && vm.anotherEntryCriteriaCompletition != undefined &&
-                vm.anotherEntryCriteriaCompletition != "") {
+            } else if (vm.anotherEntryCriteriaCompletition) {
                 vm.activityInEdition.completitionCriterion.otherConditions.push(
                     vm.anotherEntryCriteriaCompletition
                 );
@@ -436,6 +430,12 @@
             vm.activityInEdition.resources.splice(index, 1);
         }
 
+        function cleanCompositionActivities() {
+            angular.forEach(vm.practice.thingsToDo.activities, function (value, key) {
+                vm.practice.thingsToDo.activities[key].to = [];
+            });
+            vm.compositionActivities();
+        }
         function cleanModales() {
             vm.nameApproach = null;
             vm.descriptionApproach = null;
@@ -465,13 +465,11 @@
 
 
         }
-
         function clean() {
             vm.activitySpace = null;
             vm.areaOfConcern = null;
             vm.activityInEdition = newActivity();
         }
-
         function save() {
             if (vm.practice.thingsToDo.activities.length) {
                 console.log(JSON.stringify(vm.practice, null, "\t"));
@@ -486,23 +484,24 @@
                 vm.mensaje = "practiceManagement.error.3";
                 $window.scrollTo(0, 0);
             }
-            
-        }
 
+        }
         function onSaveSuccess(result) {
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
             $location.path('/find-practice');
         }
-
         function onSaveError() {
+            vm.error = true;
+            vm.mensaje = "practiceManagement.error.6";
+            $window.scrollTo(0, 0);
         }
         function validate() {
-            if (!vm.areaOfConcern || 
+            if (!vm.areaOfConcern ||
                 !vm.activitySpace ||
                 !vm.activityInEdition.name ||
                 !vm.activityInEdition.briefDescription ||
-                !vm.activityInEdition.description || 
+                !vm.activityInEdition.description ||
                 !vm.activityInEdition.competencies.length ||
                 !vm.activityInEdition.approaches.length ||
                 !vm.activityInEdition.actions.length ||
@@ -510,9 +509,9 @@
                     !vm.activityInEdition.entryCriterion.workProductsLevelofDetail.length &&
                     !vm.activityInEdition.entryCriterion.otherConditions.length) ||
                 (!vm.activityInEdition.completitionCriterion.alphaStates.length &&
-                !vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.length &&
-                !vm.activityInEdition.completitionCriterion.otherConditions.length)
-            ){
+                    !vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.length &&
+                    !vm.activityInEdition.completitionCriterion.otherConditions.length)
+            ) {
                 return false;
             }
             return true;
