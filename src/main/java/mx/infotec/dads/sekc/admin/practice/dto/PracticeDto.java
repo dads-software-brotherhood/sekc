@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "idKernel",
     "name",
     "objective",
-    "briefDesciption",
+    "briefDescription",
     "description",
     "consistencyRules",
     "relatedPractices",
@@ -36,7 +36,7 @@ public class PracticeDto {
     @JsonProperty("objective")
     private String objective;
     @JsonProperty("briefDescription")
-    private String briefDesciption;
+    private String briefDescription;
     @JsonProperty("description")
     private String description;
     @JsonProperty("consistencyRules")
@@ -98,14 +98,14 @@ public class PracticeDto {
         this.objective = objective;
     }
 
-    @JsonProperty("briefDesciption")
-    public String getBriefDesciption() {
-        return briefDesciption;
+    @JsonProperty("briefDescription")
+    public String getBriefDescription() {
+        return briefDescription;
     }
 
     @JsonProperty("briefDesciption")
     public void setBriefDesciption(String briefDesciption) {
-        this.briefDesciption = briefDesciption;
+        this.briefDescription = briefDesciption;
     }
 
     @JsonProperty("description")

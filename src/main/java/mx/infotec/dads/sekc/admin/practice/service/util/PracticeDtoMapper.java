@@ -1,7 +1,11 @@
 package mx.infotec.dads.sekc.admin.practice.service.util;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,6 +21,7 @@ import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
+import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 
@@ -25,12 +30,18 @@ import mx.infotec.dads.essence.model.foundation.SEResource;
 import mx.infotec.dads.essence.util.EssenceMapping;
 import mx.infotec.dads.essence.util.ResourcesTypes;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
+import mx.infotec.dads.sekc.admin.practice.dto.Action;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
+import mx.infotec.dads.sekc.admin.practice.dto.Approach;
+import mx.infotec.dads.sekc.admin.practice.dto.Competency;
+import mx.infotec.dads.sekc.admin.practice.dto.CompletitionCriterion;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
 import mx.infotec.dads.sekc.admin.practice.dto.Entries;
+import mx.infotec.dads.sekc.admin.practice.dto.EntryCriterion;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
+import mx.infotec.dads.sekc.admin.practice.dto.Resource;
 import mx.infotec.dads.sekc.admin.practice.dto.Results;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToDo;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToWorkWith;
@@ -61,20 +72,11 @@ public class PracticeDtoMapper {
         mapGeneralInfo(entity, dto);
         mapRelatedPractices(entity, dto);
         mapConditions(entity, dto);
+        mapThingsToWorkWith(entity, dto);
+        mapThingsToDo(entity, dto);
         return dto;
     }
     
-    public static SEPractice mapSEPractice(PracticeDto from, RandomRepositoryUtil repoUtils) {
-        repoUtil = repoUtils;
-        validateGeneralInformation(from);
-        SEPractice to = EntityBuilder.build(practice -> {
-            
-            mapThingsToWorkWith(from.getThingsToWorkWith(), practice);
-//            mapThingsToDo(from.getThingsToDo(), practice);
-        }, SEPractice.class);
-        return to;
-    }
-
     public static void mapGeneralInfo(SEPractice entity, PracticeDto dto ) {
         dto.setId(entity.getId());
         dto.setIdKernel( entity.getOwner().getId());
@@ -94,47 +96,85 @@ public class PracticeDtoMapper {
 
     private static void mapCriterios(Collection<SECriterion> seCriterionList, PracticeDto dto, boolean isEntry) {
         dto.setConditions( new Conditions());
+        dto.getConditions().setEntries(new Entries());
+        dto.getConditions().setResults(new Results());
         mapAlphaCriterion(seCriterionList,  dto, isEntry);
-       // mapWorkProductCriterion(seCriterionList,  dto, isEntry); # TODO
-      //  mapOtherCriterion(seCriterionList,  dto, isEntry);
+        mapWorkProductCriterion(seCriterionList,  dto, isEntry);
+        mapOtherCriterion(seCriterionList,  dto, isEntry);
+    }
+    
+    private static void mapCriterios(Collection<SECriterion> seCriterionList, Activity dto, boolean isEntry) {
+        dto.setEntryCriterion(new EntryCriterion());
+        dto.setCompletitionCriterion(new CompletitionCriterion());
+        mapAlphaCriterion(seCriterionList,  dto, isEntry);
+        mapWorkProductCriterion(seCriterionList,  dto, isEntry);
+        mapOtherCriterion(seCriterionList,  dto, isEntry);
     }
 
-    /*
     private static void mapOtherCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
             boolean isEntry) {
-        Optional.of(criteriable.getOtherConditions()).ifPresent(entry -> {
-            if (isEntry) {
-                mapResultOtherEntryConditions(entry, seCriterionList);
-            } else {
-                mapResultOtherResultConditions(entry, seCriterionList);
-            }
-        });
-    }*/ //# TODO
-/*
+        if (isEntry){
+            dto.getConditions().getEntries().setOtherConditions(new ArrayList<>());
+            mapResultOtherEntryConditions(seCriterionList, dto);
+        }else {
+            dto.getConditions().getResults().setOtherConditions(new ArrayList<>());
+            mapResultOtherResultConditions(seCriterionList, dto);
+        }
+    }
+    
+    private static void mapOtherCriterion(Collection<SECriterion> seCriterionList, Activity dto,
+            boolean isEntry) {
+        if (isEntry){
+            dto.getEntryCriterion().setOtherConditions(new ArrayList<>());
+            mapResultOtherEntryConditions(seCriterionList, dto);
+        }else {
+            dto.getCompletitionCriterion().setOtherConditions(new ArrayList<>());
+            mapResultOtherResultConditions(seCriterionList, dto);
+        }
+    }
+
     private static void mapWorkProductCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
             boolean isEntry) {
-        Optional.of(criteriable.getWorkProductsLevelofDetail()).ifPresent(workProducts -> {
             if (isEntry) {
-                workProducts.forEach(entry -> mapResultWorkProductLevelOfDetailEntryCriterion(entry, seCriterionList));
+                dto.getConditions().getEntries().setWorkProductsLevelofDetail(new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultWorkProductLevelOfDetailEntryCriterion(entry, dto));
             } else {
-                workProducts.forEach(entry -> mapResultWorkProductLevelOfDetailResultCriterion(entry, seCriterionList));
+                dto.getConditions().getResults().setWorkProductsLevelofDetail(new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultWorkProductLevelOfDetailResultCriterion(entry, dto));
             }
-        });
-    }*/
+    }
+    
+    private static void mapWorkProductCriterion(Collection<SECriterion> seCriterionList, Activity dto,
+            boolean isEntry) {
+            if (isEntry) {
+                dto.getEntryCriterion().setWorkProductsLevelofDetail(new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultWorkProductLevelOfDetailEntryCriterion(entry, dto));
+            } else {
+                dto.getCompletitionCriterion().setWorkProductsLevelofDetail(new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultWorkProductLevelOfDetailResultCriterion(entry, dto));
+            }
+    }
 
     private static void mapAlphaCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
             boolean isEntry) {
-            
             if (isEntry) {
-                dto.getConditions().setEntries(new Entries());
                 dto.getConditions().getEntries().setAlphaStates( new ArrayList<>());
                 seCriterionList.forEach(entry -> mapResultAlphaStatesEntryCriterion(entry, dto));
             } else {
-                dto.getConditions().setResults(new Results());
                 dto.getConditions().getResults().setAlphaStates( new ArrayList<>());
                 seCriterionList.forEach(entry -> mapResultAlphaStatesResultCriterion(entry, dto));
             }
-        
+    }
+    
+    private static void mapAlphaCriterion(Collection<SECriterion> seCriterionList, Activity dto,
+            boolean isEntry) {
+            if (isEntry) {
+                dto.getEntryCriterion().setAlphaStates( new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultAlphaStatesEntryCriterion(entry, dto));
+            } else {
+                dto.getCompletitionCriterion().setAlphaStates( new ArrayList<>());
+                seCriterionList.forEach(entry -> mapResultAlphaStatesResultCriterion(entry, dto));
+            }
     }
 
     private static void mapResultAlphaStatesEntryCriterion(SECriterion criterion, PracticeDto dto) {
@@ -145,13 +185,16 @@ public class PracticeDtoMapper {
             dto.getConditions().getEntries().getAlphaStates().add(alphaState);
         }
     }
+    
+    private static void mapResultAlphaStatesEntryCriterion(SECriterion criterion, Activity dto) {
+        if (criterion.getState() != null){    
+            AlphaState alphaState = new AlphaState();
+            alphaState.setIdState(criterion.getState().getId());
+            alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            dto.getEntryCriterion().getAlphaStates().add(alphaState);
+        }
+    }
 
-    /**
-     * Map AlphaStates to SEPractice
-     * 
-     * @param alphaState
-     * @param criterionList
-     */
     private static void mapResultAlphaStatesResultCriterion(SECriterion criterion, PracticeDto dto) {
         if (criterion.getState() != null){ 
             AlphaState alphaState = new AlphaState();
@@ -159,162 +202,132 @@ public class PracticeDtoMapper {
             alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
             dto.getConditions().getResults().getAlphaStates().add(alphaState);
         }
+    }
+    
+    private static void mapResultAlphaStatesResultCriterion(SECriterion criterion, Activity dto) {
+        if (criterion.getState() != null){ 
+            AlphaState alphaState = new AlphaState();
+            alphaState.setIdState(criterion.getState().getId());
+            alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            dto.getCompletitionCriterion().getAlphaStates().add(alphaState);
+        }
+    }
+
+    private static void mapResultWorkProductLevelOfDetailEntryCriterion( SECriterion criterion, PracticeDto dto) {
+        if (criterion.getLevelOfDetail() != null){
+            WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
+            wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
+            wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            dto.getConditions().getEntries().getWorkProductsLevelofDetail().add(wp);
+        }
+    }
+    
+     private static void mapResultWorkProductLevelOfDetailEntryCriterion( SECriterion criterion, Activity dto) {
+        if (criterion.getLevelOfDetail() != null){
+            WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
+            wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
+            wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            dto.getEntryCriterion().getWorkProductsLevelofDetail().add(wp);
+        }
+    }
+
+    private static void mapResultWorkProductLevelOfDetailResultCriterion( SECriterion criterion, PracticeDto dto) {
+        if (criterion.getLevelOfDetail() != null){
+            WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
+            wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
+            wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            dto.getConditions().getResults().getWorkProductsLevelofDetail().add(wp);
+        }
+    }
+    
+    private static void mapResultWorkProductLevelOfDetailResultCriterion( SECriterion criterion, Activity dto) {
+        if (criterion.getLevelOfDetail() != null){
+            WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
+            wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
+            wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            dto.getCompletitionCriterion().getWorkProductsLevelofDetail().add(wp);
+        }
+    }
+
+    private static void mapResultOtherEntryConditions( Collection<SECriterion> criterionList, PracticeDto dto) {
+        
+        for (SECriterion criterion : criterionList){
+            if (criterion.getOtherConditions() != null)
+                dto.getConditions().getEntries().getOtherConditions().addAll( criterion.getOtherConditions() );
+        }
+    }
+    
+    private static void mapResultOtherEntryConditions( Collection<SECriterion> criterionList, Activity dto) {
+        
+        for (SECriterion criterion : criterionList){
+            if (criterion.getOtherConditions() != null)
+                dto.getEntryCriterion().getOtherConditions().addAll( criterion.getOtherConditions() );
+        }
+    }
+
+    private static void mapResultOtherResultConditions( Collection<SECriterion> criterionList, PracticeDto dto) {
+        
+        for (SECriterion criterion : criterionList){
+            if (criterion.getOtherConditions() != null)
+                dto.getConditions().getResults().getOtherConditions().addAll( criterion.getOtherConditions() );
+        }
+    }
+    
+    private static void mapResultOtherResultConditions( Collection<SECriterion> criterionList, Activity dto) {
+        
+        for (SECriterion criterion : criterionList){
+            if (criterion.getOtherConditions() != null)
+                dto.getCompletitionCriterion().getOtherConditions().addAll( criterion.getOtherConditions() );
+        }
+    }
+
+    public static void mapThingsToWorkWith(SEPractice entity, PracticeDto dto) {
+        dto.setThingsToWorkWith( new ThingsToWorkWith());
+        dto.getThingsToWorkWith().setAlphas(new ArrayList<>());
+        dto.getThingsToWorkWith().setWorkProducts(new ArrayList<>());
+        
+        EssenceFilter.filterLanguageElement( entity.getReferredElements(), SEAlpha.class ).parallelStream().forEach(alpha ->
+            dto.getThingsToWorkWith().getAlphas().add(alpha.getId()));
+        
+        EssenceFilter.filterLanguageElement( entity.getReferredElements(), SEWorkProduct.class ).parallelStream().forEach(workProduct ->
+            dto.getThingsToWorkWith().getWorkProducts().add(workProduct.getId()));
         
     }
 
-    /**
-     * Map WorkProductsLevelOfDetail to SEPractice. This method not map the
-     * Workproduct associated to the current levelOfDetail.
-     * 
-     * @param workProductsLevelofDetail
-     * @param criterionList
-     */
-    private static void mapResultWorkProductLevelOfDetailEntryCriterion(
-            WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
-        Optional.of(workProductsLevelofDetail).ifPresent(element -> {
-            validateWorkProductLevelOfDetailCriterion(criterionList, element);
-            SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setLevelOfDetail( (SELevelOfDetail) repoUtil.getDocument(element.getIdLevelOfDetail(), SELevelOfDetail.class));
-                // If it is necesary to map the idWorkProduct associated to this
-                // Level of Detail, do it here.
-            }, SEEntryCriterion.class);
-            repoUtil.mongoTemplate.save(seCriterion);
-            criterionList.add(seCriterion);
-        });
+    public static void mapThingsToDo(SEPractice entity, PracticeDto dto) {
+        dto.setThingsToDo( new ThingsToDo());
+        dto.getThingsToDo().setActivities(new ArrayList<>());
+        
+        for (SEActivityAssociation actAssociation : EssenceFilter.filterLanguageElement(entity.getOwnedElements(), SEActivityAssociation.class)){
+            //seActivity:
+            String idActivitySpace = ((SEActivitySpace) actAssociation.getEnd1()).getId();
+            SEActivity seActivity = (SEActivity) actAssociation.getEnd2();
+            Activity actDto = new Activity();
+            actDto.setIdActivity(seActivity.getId());
+            actDto.setIdActivitySpace(idActivitySpace);
+            actDto.setName(seActivity.getName());
+            actDto.setBriefDesciption(seActivity.getBriefDescription());
+            actDto.setDescription(seActivity.getDescription());
+            actDto.setTo(seActivity.getTo());
+            actDto.setPosition(seActivity.getPosition());
+            actDto.setGoJsPosition(seActivity.getGoJsPosition());
+            actDto.setCreated(Boolean.TRUE);
+            mapCompetencyLevel(seActivity, actDto);
+            mapApproach(seActivity, actDto);
+            mapActions(seActivity, actDto);
+            mapCriterios( seActivity.getCriterion(), actDto, true);
+            mapCriterios( seActivity.getCriterion(), actDto, false);
+            mapActivityResources(seActivity, actDto);
+            dto.getThingsToDo().getActivities().add(actDto);
+        }
+        Collections.sort(dto.getThingsToDo().getActivities(), new Comparator<Activity>(){
+            @Override
+            public int compare(Activity act1, Activity act2){
+               return act1.getPosition() - act2.getPosition();
+            }
+         });
     }
-
-    /**
-     * Map WorkProductsLevelOfDetail to SEPractice. This method not map the
-     * Workproduct associated to the current levelOfDetail.
-     * 
-     * @param workProductsLevelofDetail
-     * @param criterionList
-     */
-    private static Object mapResultWorkProductLevelOfDetailResultCriterion(
-            WorkProductsLevelofDetail workProductsLevelofDetail, Collection<SECriterion> criterionList) {
-        Optional.of(workProductsLevelofDetail).ifPresent(element -> {
-            validateWorkProductLevelOfDetailCriterion(criterionList, element);
-            SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setLevelOfDetail( (SELevelOfDetail) repoUtil.getDocument(element.getIdLevelOfDetail(), SELevelOfDetail.class));
-                // If it is necesary to map the idWorkProduct associated to this
-                // Level of Detail, do it here.
-            }, SEEntryCriterion.class);
-            repoUtil.mongoTemplate.save(seCriterion);
-            criterionList.add(seCriterion);
-        });
-        return criterionList;
-    }
-
-    /**
-     * Map Other Conditions to SEPractice
-     * 
-     * @param otherConditionsList
-     * @param criterionList
-     */
-    private static void mapResultOtherEntryConditions(List<String> otherConditionsList,
-            Collection<SECriterion> criterionList) {
-        Optional.of(otherConditionsList).ifPresent(conditions -> {
-            SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setOtherConditions(otherConditionsList);
-            }, SEEntryCriterion.class);
-            repoUtil.mongoTemplate.save(seCriterion);
-            criterionList.add(seCriterion);
-        });
-    }
-
-    /**
-     * Map Other Conditions to SEPractice
-     * 
-     * @param otherConditionsList
-     * @param criterionList
-     */
-    private static void mapResultOtherResultConditions(List<String> otherConditionsList,
-            Collection<SECriterion> criterionList) {
-        Optional.of(otherConditionsList).ifPresent(conditions -> {
-            SECompletionCriterion seCriterion = EntityBuilder.build(criterion -> {
-                criterion.setOtherConditions(otherConditionsList);
-            }, SECompletionCriterion.class);
-            repoUtil.mongoTemplate.save(seCriterion);
-            criterionList.add(seCriterion);
-        });
-    }
-
-    /**
-     * Map Things to Work With from PracticeDto to SEPractice
-     * 
-     * @param thingsToWorkWith
-     * @param to
-     * @return SEPractice
-     */
-    public static SEPractice mapThingsToWorkWith(ThingsToWorkWith thingsToWorkWith, SEPractice to) {
-        List<String> alphasIdsList = thingsToWorkWith.getAlphas();
-        Objects.requireNonNull(alphasIdsList, "You must select at least one alpha");
-        alphasIdsList.forEach(alphaId -> {
-            SEAlpha seAlpha = (SEAlpha) repoUtil.getDocument(alphaId, SEAlpha.class);
-            // sub-alpha not yet mapped, if it is mandatory to map the subalphas
-            // id, do it here or consider to map in the same list of
-            // alphaSelectionList
-            // No debería construir, debería recuperar
-            to.getReferredElements().add(seAlpha);
-        });
-        mapIdsWorkProducts(to, thingsToWorkWith.getWorkProducts());
-        return to;
-    }
-
-    private static void mapIdsWorkProducts(SEPractice to, List<String> workProductIdList) {
-        Optional.of(workProductIdList).ifPresent(idsList -> {
-            idsList.forEach(workProductId -> {
-                SEWorkProduct seWorkProduct = (SEWorkProduct) repoUtil.getDocument(workProductId, SEWorkProduct.class);
-                to.getReferredElements().add(seWorkProduct);
-            });
-        });
-    }
-
-    /**
-     * Map Things to Do from PracticeDto to a SEPractice
-     * 
-     * @param thingsToDo
-     * @param to
-     * @return SEPractice
-     */
     /*
-    public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
-        idActivities = new ArrayList<>();
-        Optional.of(thingsToDo.getActivities()).orElseThrow(SekcException::new).forEach(activity -> {
-            SEActivity seActivity = EntityBuilder.build(act -> {
-                act.setName(activity.getName());
-                act.setBriefDescription(activity.getBriefDesciption());
-                act.setDescription(activity.getDescription());
-                act.setRequiredCompetencyLevel(new ArrayList<>());
-                act.setApproach(new ArrayList<>());
-                act.setAction(new ArrayList<>());
-                act.setGoJsPosition(activity.getGoJsPosition());
-                act.setCriterion(new ArrayList<>());
-                act.setResource(new ArrayList<>());
-                act.setActivityAssociation(new ArrayList<>());
-                mapCompetencyLevel(activity, act);
-                mapApproach(activity, act);
-                mapActions(activity, act);
-                mapActivityResources(activity, act);
-                //map  entryCriterionentryCriterion  completitionCriterion # TODO
-            }, SEActivity.class);
-            if (activity.getCreated()) // so if it's an update, override existing db document
-                seActivity.setId(activity.getIdActivity());
-            repoUtil.mongoTemplate.save(seActivity);
-            idActivities.add(seActivity.getId());
-            
-            SEActivitySpace seActivitySpace = (SEActivitySpace) repoUtil.getDocument(activity.getIdActivitySpace(), SEActivitySpace.class);
-            SEActivityAssociation seActivityAssociation = EntityBuilder.build(actAssociation -> {
-                actAssociation.setEnd1(seActivitySpace);
-                actAssociation.setEnd2(seActivity);
-            }, SEActivityAssociation.class);
-            repoUtil.mongoTemplate.save(seActivityAssociation);
-            to.getOwnedElements().add(seActivityAssociation);
-        });
-        mapActivitiesComposition(thingsToDo.getActivities());
-        return to;
-    }
-    
     public static void mapActivitiesComposition(List<Activity> activities){
         for (int i=0; i< activities.size(); i++){
             SEActivity act = (SEActivity) repoUtil.getDocument( idActivities.get(i), SEActivity.class);
@@ -333,36 +346,42 @@ public class PracticeDtoMapper {
                 }
             }
         }
-    }
-*/
-    public static void mapActivityResources(Activity activity, SEActivity act) {
-        Optional.of(activity.getResources()).ifPresent(resourceList -> {
-            resourceList.forEach(resource -> {
-                SEResource seresource = EntityBuilder.build(seResource -> {
-                    seResource.setContent(resource.getContent());
-                    seResource.setFileName(resource.getFile());
-                    seResource.setIdResourceType(ResourcesTypes.valueOf(resource.getIdTypeResource()));
-                }, SEResource.class);
-                repoUtil.mongoTemplate.save(seresource);
-                act.getResource().add(seresource);
-            });
-        });
+    }*/
+
+    public static void mapActivityResources(SEActivity entity, Activity dto) {
+        dto.setResources(new ArrayList<>());
+        for (SEResource seResource : entity.getResource()){
+            Resource resourceDto = new Resource();
+            resourceDto.setContent(seResource.getContent());
+            resourceDto.setIdTypeResource(seResource.getId());
+            resourceDto.setFile(seResource.getFileName());
+            dto.getResources().add(resourceDto);
+        }
     }
 
-    public static void mapActions(Activity activity, SEActivity act) {
-        Optional.of(activity.getActions()).ifPresent(actionList -> {
-            actionList.forEach(action -> {
-                SEAction seaction = EntityBuilder.build(seAction -> {
-                    seAction.setKind(ActionKind.valueOf(action.getIdActionKind()));
-                    seAction.setAlpha(new ArrayList<>());
-                    seAction.setWorkProduct(new ArrayList<>());
-                    mapAlphaStateToAction(action.getAlphaStates(), seAction);
-                    mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
-                }, SEAction.class);
-                repoUtil.mongoTemplate.save(seaction);
-                act.getAction().add(seaction);
-            });
-        });
+    public static void mapActions(SEActivity entity, Activity dto) {
+        dto.setActions(new ArrayList<>());
+        
+        for (SEAction seAction : entity.getAction()){
+            Action actionDto = new Action();
+            actionDto.setIdActionKind(seAction.getKind().name());
+            
+            actionDto.setAlphaStates(new ArrayList<>());
+            for (SEAlpha seAlpha : seAction.getAlpha() ){
+                AlphaState alphaState = new AlphaState();
+                alphaState.setIdAlpha(seAlpha.getId());
+                alphaState.setIdState(""); //we don't persist this
+                actionDto.getAlphaStates().add(alphaState);
+            }
+            
+            actionDto.setWorkProductsLevelofDetail(new ArrayList<>());
+            for (SEWorkProduct seWorkProduct : seAction.getWorkProduct()){
+                WorkProductsLevelofDetail wpLoD = new WorkProductsLevelofDetail();
+                wpLoD.setIdWorkProduct(seWorkProduct.getId());
+                wpLoD.setIdLevelOfDetail(""); // We don't persist this
+                actionDto.getWorkProductsLevelofDetail().add(wpLoD);
+            }
+        }
     }
 
     public static void mapAlphaStateToAction(List<AlphaState> alphaStates, SEAction seAction) {
@@ -382,26 +401,25 @@ public class PracticeDtoMapper {
         });
     }
 
-    private static void mapApproach(Activity activity, SEActivity act) {
-        Optional.of(activity.getApproaches()).ifPresent(approachList -> {
-            approachList.forEach(approach -> {
-                SEApproach seapproach = EntityBuilder.build(seApproach -> {
-                    seApproach.setName(approach.getName());
-                    seApproach.setDescription(approach.getDescription());
-                }, SEApproach.class);
-                repoUtil.mongoTemplate.save(seapproach);
-                act.getApproach().add(seapproach);
-            });
-        });
+    private static void mapApproach(SEActivity entity, Activity dto ) {
+        dto.setApproaches(new ArrayList<>());
+        
+        for (SEApproach seApproach: entity.getApproach()){
+            Approach approachDto = new Approach();
+            approachDto.setName(seApproach.getName());
+            approachDto.setDescription(seApproach.getDescription());
+            dto.getApproaches().add(approachDto);
+        }
     }
 
-    private static void mapCompetencyLevel(Activity activity, SEActivity act) {
-        Optional.of(activity.getCompetencies()).ifPresent(competencyList -> {
-            competencyList.forEach(competency -> {
-                act.getRequiredCompetencyLevel().add( (SECompetencyLevel) repoUtil.getDocument(competency.getIdCompetencyLevel(), SECompetencyLevel.class));
-                    // if you must map competencyid do it here
-            });
-        });
+    private static void mapCompetencyLevel(SEActivity entity, Activity dto ) {
+        dto.setCompetencies(new ArrayList<>());
+        for (SECompetencyLevel competency : entity.getRequiredCompetencyLevel() ) {
+            Competency competencyDto = new Competency();
+            competencyDto.setIdCompetencyLevel(competency.getId());
+            competencyDto.setIdCompetencyLevel(((SECompetency) competency.getCompetency()).getId());
+            dto.getCompetencies().add(competencyDto);
+        }
     }
 
     public static void mapRelatedPractices(SEPractice entity, PracticeDto dto) {

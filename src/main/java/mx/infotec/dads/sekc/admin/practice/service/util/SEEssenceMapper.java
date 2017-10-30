@@ -88,7 +88,7 @@ public class SEEssenceMapper {
         practice.setOwner((SEKernel) repoUtil.getDocument(from.getIdKernel(), SEKernel.class));
         practice.setName(from.getName());
         practice.setObjective(from.getObjective());
-        practice.setBriefDescription(from.getBriefDesciption());
+        practice.setBriefDescription(from.getBriefDescription());
         practice.setDescription(from.getDescription());
         practice.setConsistencyRules(from.getConsistencyRules());
         practice.setAuthor(from.getAuthor());
@@ -308,12 +308,14 @@ public class SEEssenceMapper {
         Optional.of(thingsToDo.getActivities()).orElseThrow(SekcException::new).forEach(activity -> {
             SEActivity seActivity = EntityBuilder.build(act -> {
                 act.setName(activity.getName());
-                act.setBriefDescription(activity.getBriefDesciption());
+                act.setBriefDescription(activity.getBriefDescription());
                 act.setDescription(activity.getDescription());
                 act.setRequiredCompetencyLevel(new ArrayList<>());
                 act.setApproach(new ArrayList<>());
                 act.setAction(new ArrayList<>());
                 act.setGoJsPosition(activity.getGoJsPosition());
+                act.setTo(activity.getTo());
+                act.setPosition(thingsToDo.getActivities().indexOf(activity));
                 act.setCriterion(new ArrayList<>());
                 act.setResource(new ArrayList<>());
                 act.setActivityAssociation(new ArrayList<>());

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "idActivity",
     "idActivitySpace",
     "name",
-    "briefDesciption",
+    "briefDescription",
     "description",
     "to",
     "goJsPosition",
@@ -36,8 +36,8 @@ public class Activity {
     private String idActivitySpace;
     @JsonProperty("name")
     private String name;
-    @JsonProperty("briefDesciption")
-    private String briefDesciption;
+    @JsonProperty("briefDescription")
+    private String briefDescription;
     @JsonProperty("description")
     private String description;
     @JsonProperty("to")
@@ -60,7 +60,9 @@ public class Activity {
     private List<Resource> resources = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+    @JsonIgnore
+    private int position;
+    
     @JsonProperty("idActivity")
     public String getIdActivity() {
         return idActivity;
@@ -91,14 +93,14 @@ public class Activity {
         this.name = name;
     }
 
-    @JsonProperty("briefDesciption")
-    public String getBriefDesciption() {
-        return briefDesciption;
+    @JsonProperty("briefDescription")
+    public String getBriefDescription() {
+        return briefDescription;
     }
 
     @JsonProperty("briefDesciption")
     public void setBriefDesciption(String briefDesciption) {
-        this.briefDesciption = briefDesciption;
+        this.briefDescription = briefDesciption;
     }
 
     @JsonProperty("description")
@@ -211,4 +213,12 @@ public class Activity {
         this.additionalProperties.put(name, value);
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    
 }
