@@ -1,34 +1,23 @@
 package mx.infotec.dads.sekc.admin.practice.service.util;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEAction;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivity;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivityAssociation;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEApproach;
-import mx.infotec.dads.essence.model.activityspaceandactivity.SECompletionCriterion;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
-import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
-import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
-import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
-import mx.infotec.dads.essence.model.foundation.SEKernel;
 
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.model.foundation.SEResource;
-import mx.infotec.dads.essence.util.EssenceMapping;
-import mx.infotec.dads.essence.util.ResourcesTypes;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.practice.dto.Action;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
@@ -37,7 +26,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.Approach;
 import mx.infotec.dads.sekc.admin.practice.dto.Competency;
 import mx.infotec.dads.sekc.admin.practice.dto.CompletitionCriterion;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
-import mx.infotec.dads.sekc.admin.practice.dto.Criteriable;
+
 import mx.infotec.dads.sekc.admin.practice.dto.Entries;
 import mx.infotec.dads.sekc.admin.practice.dto.EntryCriterion;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
@@ -47,13 +36,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.ThingsToDo;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToWorkWith;
 import mx.infotec.dads.sekc.admin.practice.dto.WorkProductsLevelofDetail;
 import static mx.infotec.dads.sekc.admin.practice.service.util.SEEssenceMapper.repoUtil;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
-import mx.infotec.dads.sekc.exception.SekcException;
-import mx.infotec.dads.sekc.util.EntityBuilder;
 import mx.infotec.dads.sekc.util.EssenceFilter;
-import org.omg.essence.model.activityspaceandactivity.ActionKind;
 
 public class PracticeDtoMapper {
 
@@ -74,6 +57,7 @@ public class PracticeDtoMapper {
         mapConditions(entity, dto);
         mapThingsToWorkWith(entity, dto);
         mapThingsToDo(entity, dto);
+        
         return dto;
     }
     
@@ -327,26 +311,6 @@ public class PracticeDtoMapper {
             }
          });
     }
-    /*
-    public static void mapActivitiesComposition(List<Activity> activities){
-        for (int i=0; i< activities.size(); i++){
-            SEActivity act = (SEActivity) repoUtil.getDocument( idActivities.get(i), SEActivity.class);
-            if (!activities.get(i).getTo().isEmpty()){
-                for (String to: activities.get(i).getTo()){
-                    //creamos la relación entre actividades
-                    SEActivity act2 = (SEActivity) repoUtil.getDocument( idActivities.get(Integer.parseInt(to)), SEActivity.class);
-                    if (act2 != null){
-                        SEActivityAssociation actAssociation = new SEActivityAssociation();
-                        actAssociation.setEnd1(act);
-                        actAssociation.setEnd2(act2);
-                        repoUtil.mongoTemplate.save(actAssociation);
-                        act.getActivityAssociation().add(actAssociation);
-                        repoUtil.mongoTemplate.save(act);
-                    }
-                }
-            }
-        }
-    }*/
 
     public static void mapActivityResources(SEActivity entity, Activity dto) {
         dto.setResources(new ArrayList<>());
@@ -417,7 +381,7 @@ public class PracticeDtoMapper {
         for (SECompetencyLevel competency : entity.getRequiredCompetencyLevel() ) {
             Competency competencyDto = new Competency();
             competencyDto.setIdCompetencyLevel(competency.getId());
-            competencyDto.setIdCompetencyLevel(((SECompetency) competency.getCompetency()).getId());
+            competencyDto.setIdCompetencyLevel(""); // we don't persist this
             dto.getCompetencies().add(competencyDto);
         }
     }
