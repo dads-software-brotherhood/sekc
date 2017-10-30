@@ -93,7 +93,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.activityName">Activity Name</label>
-                    <input type="text" class="form-control" name="nombre" ng-model="vm.activityInEdition.name" maxlength="50">
+                    <input type="text" class="form-control" name="nombre" ng-model="vm.activityInEdition.name" maxlength="80">
                     <div>
                         <p class="help-block"
                            ng-show="!vm.activityInEdition.name" data-translate="entity.validation.required">
@@ -103,7 +103,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label f-bold" data-translate="practiceManagement.thingsToDo.briefDescription">Brief Description</label>
-                    <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription" maxlength="100"></textarea>
+                    <textarea class="form-control" name="briefDescription" ng-model="vm.activityInEdition.briefDescription" maxlength="250"></textarea>
                     <div>
                         <p class="help-block"
                            ng-show="!vm.activityInEdition.briefDescription" data-translate="entity.validation.required">

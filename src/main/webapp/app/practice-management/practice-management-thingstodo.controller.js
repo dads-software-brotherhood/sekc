@@ -108,13 +108,12 @@
                         { idActivity: vm.activityInEdition.idActivity })[0];
                     editedActivity = vm.activityInEdition;
                 }
-                vm.activityInEdition = newActivity();
                 vm.clean();
             } else {
                 vm.error = true;
                 vm.mensaje = "practiceManagement.error.1";
-                $window.scrollTo(0, 0);
             }
+            $window.scrollTo(0, 0);
             
 
         }
@@ -468,10 +467,9 @@
         }
 
         function clean() {
-            vm.activityInEdition = null;
             vm.activitySpace = null;
             vm.areaOfConcern = null;
-            $window.scrollTo(0, 0);
+            vm.activityInEdition = newActivity();
         }
 
         function save() {
