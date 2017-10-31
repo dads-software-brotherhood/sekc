@@ -46,6 +46,7 @@ public class PracticeConsultDtoMapper {
         dto.setDescription(entity.getDescription());
         dto.setBriefDesciption(entity.getBriefDescription());
         dto.setKeywords(entity.getKeyWords());
+        dto.setLastModifiedDate(entity.getLastModifiedDate().toString());
         return dto;
     }
 

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  *
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "idPractice", "name", "objective", "briefDesciption", "description", "author", "keywords", })
+@JsonPropertyOrder({ "idPractice", "name", "objective", "briefDesciption", "description", "author", "keywords", "lastModifiedDate",})
 public class PracticeConsultDto {
 
     @JsonProperty("idPractice")
@@ -36,6 +36,9 @@ public class PracticeConsultDto {
     private String author;
     @JsonProperty("keywords")
     private List<String> keywords = null;
+    @JsonProperty("lastModifiedDate")
+    private String lastModifiedDate;
+    
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -107,6 +110,14 @@ public class PracticeConsultDto {
     @JsonProperty("keywords")
     public void setKeywords(List<String> keywords) {
         this.keywords = keywords;
+    }
+
+    public String getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(String lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     @JsonAnyGetter
