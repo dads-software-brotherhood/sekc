@@ -3,6 +3,10 @@ package mx.infotec.dads.sekc.util;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECompletionCriterion;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
 
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SELanguageElement;
@@ -59,5 +63,13 @@ public class EssenceFilter {
             Class<T> targetClass) {
         return languageElements.parallelStream().filter(element -> targetClass.isInstance(element))
                 .map(element -> targetClass.cast(element)).collect(Collectors.toList());
+    }
+    
+    public static <T> Collection<SECriterion> filterCriterionElement(Collection<SECriterion> criterionElements, boolean entry){
+            if (entry)
+                return  criterionElements.parallelStream().filter(element -> element instanceof SEEntryCriterion)
+                    .map(element -> (SECriterion) element).collect(Collectors.toList());
+            return  criterionElements.parallelStream().filter(element -> element instanceof SECompletionCriterion)
+                    .map(element -> (SECriterion) element).collect(Collectors.toList());
     }
 }

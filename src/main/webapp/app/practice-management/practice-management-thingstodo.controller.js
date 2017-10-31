@@ -462,8 +462,7 @@
             vm.descriptionEntry = null;
             vm.anotherEntryCriteria = null;
             vm.anotherEntryCriteriaCompletition = null;
-
-
+            
         }
         function clean() {
             vm.activitySpace = null;

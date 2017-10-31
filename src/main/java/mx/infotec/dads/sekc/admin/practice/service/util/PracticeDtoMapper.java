@@ -13,6 +13,7 @@ import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivityAssociat
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEApproach;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
+import mx.infotec.dads.essence.model.activityspaceandactivity.SEEntryCriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
@@ -301,7 +302,6 @@ public class PracticeDtoMapper {
         dto.getThingsToDo().setActivities(new ArrayList<>());
         
         for (SEActivityAssociation actAssociation : EssenceFilter.filterLanguageElement(entity.getOwnedElements(), SEActivityAssociation.class)){
-            //seActivity:
             String idActivitySpace = ((SEActivitySpace) actAssociation.getEnd1()).getId();
             String nameActivitySpace = ((SEActivitySpace) actAssociation.getEnd1()).getName();
             SEActivity seActivity = (SEActivity) actAssociation.getEnd2();
@@ -320,17 +320,13 @@ public class PracticeDtoMapper {
             mapCompetencyLevel(seActivity, actDto);
             mapApproach(seActivity, actDto);
             mapActions(seActivity, actDto);
-            mapCriterios( seActivity.getCriterion(), actDto, true);
-            mapCriterios( seActivity.getCriterion(), actDto, false);
+            
+            mapCriterios( EssenceFilter.filterCriterionElement(seActivity.getCriterion(), true), actDto, true);
+            mapCriterios( EssenceFilter.filterCriterionElement(seActivity.getCriterion(), false), actDto, false);
             mapActivityResources(seActivity, actDto);
             dto.getThingsToDo().getActivities().add(actDto);
         }
-        Collections.sort(dto.getThingsToDo().getActivities(), new Comparator<Activity>(){
-            @Override
-            public int compare(Activity act1, Activity act2){
-               return act1.getPosition() - act2.getPosition();
-            }
-         });
+        
     }
 
     public static void mapActivityResources(SEActivity entity, Activity dto) {
@@ -338,7 +334,7 @@ public class PracticeDtoMapper {
         for (SEResource seResource : entity.getResource()){
             Resource resourceDto = new Resource();
             resourceDto.setContent(seResource.getContent());
-            resourceDto.setIdTypeResource(seResource.getId());
+            resourceDto.setIdTypeResource(seResource.getIdResourceType().name());
             resourceDto.setFile(seResource.getFile());
             resourceDto.setFileName(seResource.getFileName());
             resourceDto.setFileType(seResource.getFileType());

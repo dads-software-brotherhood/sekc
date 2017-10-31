@@ -200,30 +200,6 @@
                     }]
                 }
             })
-            .state('practice-management-conditions.edit', {
-                parent: 'practice-management',
-                url: '/practiceConditions/edit/{id}',
-                data: {
-                    authorities: ['ROLE_ADMIN'],
-                    pageTitle: 'practice-management.detail.title'
-                },
-                views: {
-                    'content@': {
-                        templateUrl: 'app/practice-management/practice-management-conditions.html',
-                        controller: 'PracticeManagementConditionsController',
-                        controllerAs: 'vm'
-                    }
-                },
-                resolve: {
-                    entity: ['$stateParams', '$state', 'FindPractice', function($stateParams, $state, FindPractice) {
-                        return FindPractice.get({ id: $stateParams.id }).$promise;
-                    }],
-                    translatePartialLoader: ['$translate', '$translatePartialLoader', function($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('practice-management');
-                        return $translate.refresh();
-                    }]
-                }
-            })
             .state('practice-management-thingswork', {
                 parent: 'practice-management',
                 url: '/practiceThingswork/{login}',

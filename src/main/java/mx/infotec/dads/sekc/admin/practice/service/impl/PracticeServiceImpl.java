@@ -125,7 +125,7 @@ public class PracticeServiceImpl implements PracticeService {
         
         try{
             // this throws NullPointerException if can't find it
-            SEPractice document = (SEPractice) repoUtils.getDocument(practiceDto.getId(), SEPractice.class);
+            repoUtils.getDocument(practiceDto.getId(), SEPractice.class);
             
             SEPractice sePractice = getPracticeFromRequest(practiceDto, response);
             if (sePractice == null ) {

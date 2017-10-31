@@ -346,7 +346,6 @@ public class SEEssenceMapper {
             }, SEActivityAssociation.class);
             repoUtil.mongoTemplate.save(seActivityAssociation);
             to.getOwnedElements().add(seActivityAssociation);
-            repoUtil.mongoTemplate.save(to);
         });
         mapActivitiesComposition(thingsToDo.getActivities());
         return to;
