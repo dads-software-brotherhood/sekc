@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -21,14 +22,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Entries implements Criteriable{
 
     @JsonProperty("alphaStates")
-    private List<AlphaState> alphaStates = null;
+    private List<AlphaState> alphaStates = new ArrayList<>();
     @JsonProperty("workProductsLevelofDetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = new ArrayList<>();
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-
+            
     @JsonProperty("alphaStates")
     public List<AlphaState> getAlphaStates() {
         return alphaStates;

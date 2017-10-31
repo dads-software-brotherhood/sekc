@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -21,9 +22,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class CompletitionCriterion implements Criteriable{
 
     @JsonProperty("alphaStates")
-    private List<AlphaState> alphaStates = null;
+    private List<AlphaState> alphaStates = new ArrayList<>();
     @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = null;
+    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = new ArrayList<>();
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
