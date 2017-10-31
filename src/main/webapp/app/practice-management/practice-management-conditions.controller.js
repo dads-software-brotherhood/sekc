@@ -198,7 +198,7 @@
         }
 
         function validate() {
-            if (!vm.practice.conditions.measures ||
+            if (!vm.practice.conditions.measures.length ||
                 (!vm.practice.conditions.entries.alphaStates.length &&
                     !vm.practice.conditions.entries.workProductsLevelofDetail.length &&
                     !vm.practice.conditions.entries.otherConditions.length) ||

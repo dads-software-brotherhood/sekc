@@ -17,7 +17,7 @@
         vm.load();
         
         function load () {
-        	if(vm.id != undefined && vm.id != null && vm.id != ""){
+        	if(vm.id){
 	        	FindPractice.get({id: vm.id}, function(result) {
 	                vm.practice = result;
 	            });

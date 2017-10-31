@@ -82,7 +82,10 @@
     "error": {
       "1": "Por favor verifique que todos los campos sean correctos.",
       "2": "Seleccione al menos un alpha o un workproduct.",
-      "3": "Debe insertar al menos una actividad."
+      "3": "Debe insertar al menos una actividad.",
+      "4": "Los datos están completos y correctos.",
+      "5": "Los datos fueron actualizados correctamente.",
+      "6": "Ocurrió un error al guardar la práctica."
     }
   }
 }
