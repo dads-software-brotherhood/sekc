@@ -156,13 +156,13 @@
                 <div class="col-md-3">
                     <h5 data-translate="practiceManagement.thingsToDo.completition"> Completition </h5>
                     <ul>
-                        <li ng-repeat="entryC in activity.completitionCriterion.alphaStates">
+                        <li ng-repeat="entry in activity.completitionCriterion.alphaStates">
                             {{entry.description}}
                         </li>
-                        <li ng-repeat="workproductC in activity.completitionCriterion.workProductsLevelofDetail">
+                        <li ng-repeat="workproduct in activity.completitionCriterion.workProductsLevelofDetail">
                             {{workproduct.description}}
                         </li>
-                        <li ng-repeat="otherC in activity.completitionCriterion.otherConditions">
+                        <li ng-repeat="other in activity.completitionCriterion.otherConditions">
                             {{other}}
                         </li>
                     </ul>
