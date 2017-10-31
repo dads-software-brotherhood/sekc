@@ -103,9 +103,9 @@ public class PracticeDto {
         return briefDescription;
     }
 
-    @JsonProperty("briefDesciption")
-    public void setBriefDesciption(String briefDesciption) {
-        this.briefDescription = briefDesciption;
+    @JsonProperty("briefDescription")
+    public void setBriefDesciption(String briefDescription) {
+        this.briefDescription = briefDescription;
     }
 
     @JsonProperty("description")

@@ -183,7 +183,7 @@ public class CreatePracticeFromDtoTest {
             
             activity.setIdActivitySpace(actSpace.getId());
             activity.setName("activity"+i);
-            activity.setBriefDesciption("breve descripcion"+i);
+            activity.setBriefDescription("breve descripcion"+i);
             activity.setDescription("descripcion"+i);
             
             SECompetency competency = new SECompetency();
