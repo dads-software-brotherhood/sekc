@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -79,11 +79,7 @@
         function save() {
             if (vm.validate()) {
                 localStorageService.set('practiceInEdition', vm.practice);
-                if (vm.practice.id != null) {
-                    $location.path('/practice-management/practiceConditions/edit');
-                } else {
-                    $location.path('/practice-management/practiceConditions/');
-                }
+                $location.path('/practice-management/practiceConditions/');
             } else {
                 vm.error = true;
                 vm.mensaje = "practiceManagement.error.1";
