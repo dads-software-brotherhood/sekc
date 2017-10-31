@@ -367,3 +367,13 @@ ul.ivh-treeview li{
     pointer-events: none;
     cursor: default;
 }
+.consult-borde{
+    border:2px solid #2196F3;
+    border-radius: 10px;
+}
+.text-may{
+    text-transform: uppercase;
+}
+.f-weight{
+    font-weight: bolder;
+}

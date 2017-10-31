@@ -1,16 +1,16 @@
 <section class="p-b-20" ng-show="vm.id">
     <div class="row">
         <div class="col-md-12">
-            <div class="well white">
+            <div class="well white consult-borde">
                 <form class="form-floating placeholder-form">
                     <fieldset>
-                        <h2><i class="icon-practice f30 text-blue"></i> {{$stateParams.idPractice}} {{vm.practice.name}}</h2>
+                        <h2 class="text-may"><i class="icon-practice f30 text-blue"></i> {{$stateParams.idPractice}} {{vm.practice.name}}</h2>
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
-    <div class="well white">
+    <div class="well white consult-borde">
         <div class="row">
             <div class="col-md-12">
 
@@ -87,7 +87,7 @@
         <div ng-repeat="activity in vm.practice.thingsToDo.activities">
             <div class="row">
                 <div class="col-md-12">
-                    <h5><span class="icon-activity f30 text-blue"></span> {{activity.name}}</h5>
+                    <h5 class="text-may"><span class="icon-activity f15 f-weight text-blue"></span> {{activity.name}}</h5>
                 </div>
             </div>
             <div class="row">
