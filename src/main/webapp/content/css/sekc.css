@@ -377,7 +377,7 @@ ul.ivh-treeview li{
 .f-weight{
     font-weight: bolder;
 }
-.link-resource{
+.link-res{
     position: relative;
     display: inline-block;
     word-wrap: break-word; 
