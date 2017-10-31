@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.dto;
 
 import java.util.HashMap;
@@ -14,7 +13,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({
     "content",
     "idTypeResource",
-    "file"
+    "file",
+    "fileName",
+    "fileType"
 })
 public class Resource {
 
@@ -24,6 +25,10 @@ public class Resource {
     private String idTypeResource;
     @JsonProperty("file")
     private String file;
+    @JsonProperty("fileName")
+    private String fileName;
+    @JsonProperty("fileType")
+    private String fileType;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -55,6 +60,26 @@ public class Resource {
     @JsonProperty("file")
     public void setFile(String file) {
         this.file = file;
+    }
+
+    @JsonProperty("fileName")
+    public String getFileName() {
+        return fileName;
+    }
+
+    @JsonProperty("fileName")
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @JsonProperty("fileType")
+    public String getFileType() {
+        return fileType;
+    }
+
+    @JsonProperty("fileType")
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     @JsonAnyGetter

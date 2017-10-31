@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.dto;
 
 import java.util.HashMap;
@@ -12,17 +11,33 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "competency",
     "idCompetency",
-    "idCompetencyLevel"
+    "idCompetencyLevel",
+    "competencyLevel"
 })
 public class Competency {
 
+    @JsonProperty("competency")
+    private String competency;
     @JsonProperty("idCompetency")
     private String idCompetency;
     @JsonProperty("idCompetencyLevel")
     private String idCompetencyLevel;
+    @JsonProperty("competencyLevel")
+    private String competencyLevel;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("competency")
+    public String getCompetency() {
+        return competency;
+    }
+
+    @JsonProperty("competency")
+    public void setCompetency(String competency) {
+        this.competency = competency;
+    }
 
     @JsonProperty("idCompetency")
     public String getIdCompetency() {
@@ -42,6 +57,16 @@ public class Competency {
     @JsonProperty("idCompetencyLevel")
     public void setIdCompetencyLevel(String idCompetencyLevel) {
         this.idCompetencyLevel = idCompetencyLevel;
+    }
+
+    @JsonProperty("competencyLevel")
+    public String getCompetencyLevel() {
+        return competencyLevel;
+    }
+
+    @JsonProperty("competencyLevel")
+    public void setCompetencyLevel(String competencyLevel) {
+        this.competencyLevel = competencyLevel;
     }
 
     @JsonAnyGetter

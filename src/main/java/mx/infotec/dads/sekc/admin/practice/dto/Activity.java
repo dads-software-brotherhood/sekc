@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.dto;
 
 import java.util.HashMap;
@@ -13,8 +12,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "idAreaOfConcern",
     "idActivity",
     "idActivitySpace",
+    "nameActivitySpace",
     "name",
     "briefDescription",
     "description",
@@ -30,10 +31,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class Activity {
 
+    @JsonProperty("idAreaOfConcern")
+    private String idAreaOfConcern;
     @JsonProperty("idActivity")
     private String idActivity;
     @JsonProperty("idActivitySpace")
     private String idActivitySpace;
+    @JsonProperty("nameActivitySpace")
+    private String nameActivitySpace;
     @JsonProperty("name")
     private String name;
     @JsonProperty("briefDescription")
@@ -62,7 +67,17 @@ public class Activity {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonIgnore
     private int position;
-    
+
+    @JsonProperty("idAreaOfConcern")
+    public String getIdAreaOfConcern() {
+        return idAreaOfConcern;
+    }
+
+    @JsonProperty("idAreaOfConcern")
+    public void setIdAreaOfConcern(String idAreaOfConcern) {
+        this.idAreaOfConcern = idAreaOfConcern;
+    }
+
     @JsonProperty("idActivity")
     public String getIdActivity() {
         return idActivity;
@@ -83,6 +98,16 @@ public class Activity {
         this.idActivitySpace = idActivitySpace;
     }
 
+    @JsonProperty("nameActivitySpace")
+    public String getNameActivitySpace() {
+        return nameActivitySpace;
+    }
+
+    @JsonProperty("nameActivitySpace")
+    public void setNameActivitySpace(String nameActivitySpace) {
+        this.nameActivitySpace = nameActivitySpace;
+    }
+
     @JsonProperty("name")
     public String getName() {
         return name;
@@ -98,9 +123,9 @@ public class Activity {
         return briefDescription;
     }
 
-    @JsonProperty("briefDesciption")
-    public void setBriefDesciption(String briefDesciption) {
-        this.briefDescription = briefDesciption;
+    @JsonProperty("briefDescription")
+    public void setBriefDescription(String briefDescription) {
+        this.briefDescription = briefDescription;
     }
 
     @JsonProperty("description")
@@ -220,5 +245,5 @@ public class Activity {
     public void setPosition(int position) {
         this.position = position;
     }
-    
+
 }

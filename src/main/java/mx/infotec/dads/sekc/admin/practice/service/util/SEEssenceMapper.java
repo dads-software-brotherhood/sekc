@@ -1,14 +1,14 @@
 package mx.infotec.dads.sekc.admin.practice.service.util;
 
-import java.util.ArrayList;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
-import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.ArrayList;
+
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateConditions;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateGeneralInformation;
+import static mx.infotec.dads.sekc.admin.practice.validation.PracticeDtoValidation.validateWorkProductLevelOfDetailCriterion;
 
 import org.omg.essence.model.activityspaceandactivity.ActionKind;
 
@@ -62,6 +62,7 @@ public class SEEssenceMapper {
      * Map a PracticeDto to a SEPractice
      * 
      * @param from
+     * @param repoUtils
      * @return SEPractice
      */
     public static SEPractice mapSEPractice(PracticeDto from, RandomRepositoryUtil repoUtils) {
@@ -163,6 +164,7 @@ public class SEEssenceMapper {
             Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setState((SEState) repoUtil.getDocument(element.getIdState(), SEState.class));
+                criterion.setDescription(element.getDescription());
             }, SEEntryCriterion.class);
             repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
@@ -182,6 +184,7 @@ public class SEEssenceMapper {
             Objects.requireNonNull(criterionList, "The EntryCriterion can't be null");
             SECompletionCriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setState((SEState) repoUtil.getDocument(element.getIdState(), SEState.class));
+                criterion.setDescription(element.getDescription());
             }, SECompletionCriterion.class);
             repoUtil.mongoTemplate.save(seCriterion);
             criterionList.add(seCriterion);
@@ -201,6 +204,7 @@ public class SEEssenceMapper {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setLevelOfDetail( (SELevelOfDetail) repoUtil.getDocument(element.getIdLevelOfDetail(), SELevelOfDetail.class));
+                criterion.setDescription(element.getDescription());
                 // If it is necesary to map the idWorkProduct associated to this
                 // Level of Detail, do it here.
             }, SEEntryCriterion.class);
@@ -319,6 +323,7 @@ public class SEEssenceMapper {
                 act.setCriterion(new ArrayList<>());
                 act.setResource(new ArrayList<>());
                 act.setActivityAssociation(new ArrayList<>());
+                act.setIdAreaOfConcern(activity.getIdAreaOfConcern());
                 mapCompetencyLevel(activity, act);
                 mapApproach(activity, act);
                 mapActions(activity, act);
@@ -368,8 +373,10 @@ public class SEEssenceMapper {
             resourceList.forEach(resource -> {
                 SEResource seresource = EntityBuilder.build(seResource -> {
                     seResource.setContent(resource.getContent());
-                    seResource.setFileName(resource.getFile());
                     seResource.setIdResourceType(ResourcesTypes.valueOf(resource.getIdTypeResource()));
+                    seResource.setFile(resource.getFile());
+                    seResource.setFileName(resource.getFile());
+                    seResource.setFileType(resource.getFileType());
                 }, SEResource.class);
                 repoUtil.mongoTemplate.save(seresource);
                 act.getResource().add(seresource);
@@ -383,7 +390,9 @@ public class SEEssenceMapper {
                 SEAction seaction = EntityBuilder.build(seAction -> {
                     seAction.setKind(ActionKind.valueOf(action.getIdActionKind()));
                     seAction.setAlpha(new ArrayList<>());
+                    seAction.setState(new ArrayList<>());
                     seAction.setWorkProduct(new ArrayList<>());
+                    seAction.setLevelOfDetail(new ArrayList<>());
                     mapAlphaStateToAction(action.getAlphaStates(), seAction);
                     mapLevelOfDetailToAction(action.getWorkProductsLevelofDetail(), seAction);
                 }, SEAction.class);
@@ -397,6 +406,7 @@ public class SEEssenceMapper {
         Optional.of(alphaStates).ifPresent(alphaStateList -> {
             alphaStateList.forEach(alphaState -> {
                 seAction.getAlpha().add( (SEAlpha) repoUtil.getDocument(alphaState.getIdAlpha(), SEAlpha.class));
+                seAction.getState().add( (SEState) repoUtil.getDocument(alphaState.getIdState(), SEState.class));
             });
         });
     }
@@ -406,6 +416,7 @@ public class SEEssenceMapper {
         Optional.of(workProductsLevelofDetail).ifPresent(workProductsLevelofDetailList -> {
             workProductsLevelofDetailList.forEach(workProduct -> {
                 seAction.getWorkProduct().add( (SEWorkProduct) repoUtil.getDocument(workProduct.getIdWorkProduct(), SEWorkProduct.class));
+                seAction.getLevelOfDetail().add( (SELevelOfDetail) repoUtil.getDocument(workProduct.getIdLevelOfDetail(), SELevelOfDetail.class));
             });
         });
     }
@@ -427,7 +438,7 @@ public class SEEssenceMapper {
         Optional.of(activity.getCompetencies()).ifPresent(competencyList -> {
             competencyList.forEach(competency -> {
                 act.getRequiredCompetencyLevel().add( (SECompetencyLevel) repoUtil.getDocument(competency.getIdCompetencyLevel(), SECompetencyLevel.class));
-                    // if you must map competencyid do it here
+                // if you must map competencyid do it here
             });
         });
     }

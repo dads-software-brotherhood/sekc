@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.dto;
 
 import java.util.HashMap;
@@ -12,17 +11,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "description",
     "idAlpha",
     "idState"
 })
 public class AlphaState {
 
+    @JsonProperty("description")
+    private String description;
     @JsonProperty("idAlpha")
     private String idAlpha;
     @JsonProperty("idState")
     private String idState;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty("description")
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     @JsonProperty("idAlpha")
     public String getIdAlpha() {
