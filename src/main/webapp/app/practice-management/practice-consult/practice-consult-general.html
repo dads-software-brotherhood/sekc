@@ -1,33 +1,32 @@
-<section class="p-b-20">
+<section class="p-b-20" ng-show="vm.id">
     <div class="row">
         <div class="col-md-12">
             <div class="well white">
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h2><i class="icon-practice f30 text-blue"></i> {{$stateParams.idPractice}} {{vm.practice.name}}</h2>
-                      
                     </fieldset>
                 </form>
-            </div>   
+            </div>
         </div>
     </div>
     <div class="well white">
         <div class="row">
             <div class="col-md-12">
-            
+
                 <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5><span data-translate="practiceManagement.description">Description</span></h5>
                         <p>
-                            <p>{{vm.practice.briefDescription}}</p>
-                            <a ng-click="mostrar=true"><span data-translate="practiceManagement.viewMore">View more</span></a>
-                            <p ng-show="mostrar" ng-bind-html="vm.practice.description"></p>
+                        <p>{{vm.practice.briefDescription}}</p>
+                        <a ng-click="mostrar=true"><span data-translate="practiceManagement.viewMore">View more</span></a>
+                        <p ng-show="mostrar" ng-bind-html="vm.practice.description"></p>
                         </p>
-                         <h5><span data-translate="practiceManagement.objective">Objective</span></h5>
+                        <h5><span data-translate="practiceManagement.objective">Objective</span></h5>
                         <p>{{vm.practice.objective}}</p>
                     </fieldset>
                 </form>
-            </div> 
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -35,88 +34,140 @@
                     <fieldset>
                         <h5><span data-translate="practiceManagement.entries">Entries</span></h5>
                         <p>
-                        <div ng-repeat-start="alphaState in vm.practice.entries">
-                             <ul>
-                                 <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
-                                     {{alphaOrWorkproduct.alpha}} / {{alphaOrWorkproduct.state}}
-                                 </li>
-                             </ul>
-                             <ul>
-                                 <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
-                                     {{alphaOrWorkproduct.workProduct}} / {{alphaOrWorkproduct.levelOfDetail}}
-                                 </li>
-                             </ul>
-                             <ul>
-                                 <li ng-repeat="alphaOrWorkproduct in alphaState.otherConditions">
-                                     {{alphaOrWorkproduct}}
-                                 </li>
-                             </ul>
-                         </div>
-                         <div ng-repeat-end />
-					    
+                            <ul>
+                                <li ng-repeat="alphastate in vm.practice.conditions.entries.alphaStates">
+                                    {{alphastate.description}}
+                                </li>
+                                <li ng-repeat="workproduct in vm.practice.conditions.entries.workProductsLevelofDetail">
+                                    {{workproduct.description}}
+                                </li>
+                                <li ng-repeat="other in vm.practice.conditions.entries.otherConditions">
+                                    {{other}}
+                                </li>
+                            </ul>
                         </p>
                     </fieldset>
                 </form>
             </div>
             <div class="col-md-6">
-                 <form class="form-floating placeholder-form">
+                <form class="form-floating placeholder-form">
                     <fieldset>
                         <h5><span data-translate="practiceManagement.results">Results</span></h5>
                         <p>
-                        	<div ng-repeat-start="alphaState in vm.practice.results">
-                             <ul>
-                                 <li ng-repeat="alphaOrWorkproduct in alphaState.alphaStates">
-                                     {{alphaOrWorkproduct.alpha}} / {{alphaOrWorkproduct.state}}
-                                 </li>
-                             </ul>
-                             <ul>
-                                 <li ng-repeat="alphaOrWorkproduct in alphaState.workProductsLevelofDetail">
-                                     {{alphaOrWorkproduct.workProduct}} / {{alphaOrWorkproduct.levelOfDetail}}
-                                 </li>
-                             </ul>
-                             <ul>
-                                 <li ng-repeat="alphaOrWorkproduct in alphaState.otherConditions">
-                                     {{alphaOrWorkproduct}}
-                                 </li>
-                             </ul>
-                         </div>
-                         <div ng-repeat-end />
+                            <ul>
+                                <li ng-repeat="alphastate in vm.practice.conditions.results.alphaStates">
+                                    {{alphastate.description}}
+                                </li>
+                                <li ng-repeat="workproduct in vm.practice.conditions.results.workProductsLevelofDetail">
+                                    {{workproduct.description}}
+                                </li>
+                                <li ng-repeat="other in vm.practice.conditions.results.otherConditions">
+                                    {{other}}
+                                </li>
+                            </ul>
                         </p>
                     </fieldset>
                 </form>
-            </div>            
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <h5><span>Measures</span></h5>
+                <p>
+                    <div ng-repeat="measure in vm.practice.conditions.measures">
+                        <ul>
+                            <li>
+                                {{measure}}
+                            </li>
+                        </ul>
+                    </div>
+                </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h5><span class="icon-activity f20 text-blue"></span> Activity name</h5>
+        <div ng-repeat="activity in vm.practice.thingsToDo.activities">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><span class="icon-activity f30 text-blue"></span> {{activity.name}}</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 data-translate="practiceManagement.entries"> Entries </h5>
+                    <ul>
+                        <li ng-repeat="entry in activity.entryCriterion.alphaStates">
+                            {{entry.description}}
+                        </li>
+                        <li ng-repeat="workproduct in activity.entryCriterion.workProductsLevelofDetail">
+                            {{workproduct.description}}
+                        </li>
+                        <li ng-repeat="other in activity.entryCriterion.otherConditions">
+                            {{other}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 data-translate="practiceManagement.thingsToDo.action"> Action </h5>
+                    <ul ng-repeat="action in activity.actions">
+                        {{action.idActionKind}}
+                        <li ng-repeat="entry in action.alphaStates">
+                            {{entry.description}}
+                        </li>
+                        <li ng-repeat="workproduct in action.workProductsLevelofDetail">
+                            {{workproduct.description}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" ng-show="activity.resources.length">
+                    <h5 data-translate="practiceManagement.thingsToDo.resources"> Resources </h5>
+                    <ul ng-repeat="resource in activity.resources">
+                        <li>
+                            <div>{{resource.idTypeResource}}</div>
+                            <div ng-if="resource.idTypeResource != 'URL'">
+                                <a ng-click="vm.downloadFile(resource.fileType, resource)">
+                                    {{resource.fileName}}
+                                </a>
+                            </div>
+                            <div ng-if="resource.idTypeResource == 'URL'">
+                                <a href="{{resource.fileName}}" target="_blank">
+                                    {{resource.fileName}}
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3" ng-show="activity.approaches.length">
+                    <h5 data-translate="practiceManagement.thingsToDo.approach"> Approach </h5>
+                    <ul ng-repeat="approach in activity.approaches">
+                        <li>
+                            <div>{{approach.name}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 data-translate="practiceManagement.thingsToDo.competencies"> Competencies </h5>
+                    <ul>
+                        <li ng-repeat="competency in activity.competencies">
+                            {{competency.competency}} - {{competency.competencyLevel}} 
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 data-translate="practiceManagement.thingsToDo.completition"> Completition </h5>
+                    <ul>
+                        <li ng-repeat="entryC in activity.completitionCriterion.alphaStates">
+                            {{entry.description}}
+                        </li>
+                        <li ng-repeat="workproductC in activity.completitionCriterion.workProductsLevelofDetail">
+                            {{workproduct.description}}
+                        </li>
+                        <li ng-repeat="otherC in activity.completitionCriterion.otherConditions">
+                            {{other}}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h5> Entries </h5>
-            </div>
-            <div class="col-md-6">
-                <h5> Action </h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <h5> Resources </h5>
-            </div>
-            <div class="col-md-3">
-                <h5> Approach </h5>
-            </div>
-            <div class="col-md-3">
-                <h5> Competences </h5>
-            </div>
-            <div class="col-md-3">
-                <h5> Completition </h5>
-            </div>
-        </div>
-    </div> 
+    </div>
 </section>
