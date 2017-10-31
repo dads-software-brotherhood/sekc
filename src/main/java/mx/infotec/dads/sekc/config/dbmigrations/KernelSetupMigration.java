@@ -118,8 +118,9 @@ public class KernelSetupMigration {
         competencies.forEach(competency -> {
             SECompetency seCompetency = MigrationMapper.toSECompetency(competency);
             seCompetency.setPossibleLevel(new ArrayList<>());
+            mongoTemplate.save(seCompetency);
             seCompetency.getPossibleLevel()
-                    .addAll(migrateCompetencyLevel(mongoTemplate, competency.getCompetencyLevels()));
+                    .addAll(migrateCompetencyLevel(mongoTemplate, competency.getCompetencyLevels(), seCompetency));
             mongoTemplate.save(seCompetency);
             competencyList.add(seCompetency);
         });
@@ -134,13 +135,14 @@ public class KernelSetupMigration {
      * @return List<SECompetencyLevel>
      */
     private List<SECompetencyLevel> migrateCompetencyLevel(MongoTemplate mongoTemplate,
-            List<CompetencyLevel> competencyLevels) {
+            List<CompetencyLevel> competencyLevels, SECompetency seCompetency) {
         List<SECompetencyLevel> competencyLevelList = new ArrayList<>();
         competencyLevels.forEach(competencyLevel -> {
             SECompetencyLevel seCompetencyLevel = MigrationMapper.toSECompetencyLevel(competencyLevel);
             seCompetencyLevel.setChecklistItem(new ArrayList<>());
             seCompetencyLevel.getChecklistItem()
                     .addAll(migrateCheckpoints(mongoTemplate, competencyLevel.getCheckpoints()));
+            seCompetencyLevel.setCompetency(seCompetency);
             mongoTemplate.save(seCompetencyLevel);
             competencyLevelList.add(seCompetencyLevel);
         });
