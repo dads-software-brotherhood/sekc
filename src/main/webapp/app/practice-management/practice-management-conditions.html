@@ -40,7 +40,7 @@
                         <tbody>
                             <tr ng-repeat="measure in vm.practice.conditions.measures track by $index">
                                 <td>{{measure}}</td>
-                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure()"><i class="md md-delete"></i></button></td>
+                                <td><button class="btn btn-link btn-round" ng-click="vm.deleteMeasure($index)"><i class="md md-delete"></i></button></td>
                             </tr>
                         </tbody>
                     </table>

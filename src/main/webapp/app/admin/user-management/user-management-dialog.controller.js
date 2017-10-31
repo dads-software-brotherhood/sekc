@@ -15,7 +15,8 @@
         vm.languages = null;
         vm.save = save;
         vm.user = entity;
-
+        //temporalmente se activa en lo que se define..
+        vm.user.activated = true;
 
         JhiLanguageService.getAll().then(function (languages) {
             vm.languages = languages;
@@ -36,6 +37,9 @@
 
         function save () {
             vm.isSaving = true;
+            if(!vm.user.authorities){
+            	vm.user.authorities = 'ROLE_USER';
+            }
             if (vm.user.id !== null) {
                 User.update(vm.user, onSaveSuccess, onSaveError);
             } else {
