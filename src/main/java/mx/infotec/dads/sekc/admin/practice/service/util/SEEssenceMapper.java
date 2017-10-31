@@ -328,6 +328,9 @@ public class SEEssenceMapper {
                 mapApproach(activity, act);
                 mapActions(activity, act);
                 mapActivityResources(activity, act);
+                
+                mapCriterios(activity.getEntryCriterion(), act.getCriterion(), true);
+                mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
                 //map  entryCriterionentryCriterion  completitionCriterion # TODO
             }, SEActivity.class);
             if (activity.getCreated()) // so if it's an update, override existing db document

@@ -14,7 +14,10 @@ import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEApproach;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SECriterion;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
+import mx.infotec.dads.essence.model.alphaandworkproduct.SEState;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEWorkProduct;
+import mx.infotec.dads.essence.model.competency.SECompetency;
 import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 
 import mx.infotec.dads.essence.model.foundation.SEPractice;
@@ -170,6 +173,7 @@ public class PracticeDtoMapper {
             AlphaState alphaState = new AlphaState();
             alphaState.setIdState(criterion.getState().getId());
             alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            alphaState.setDescription(criterion.getDescription());
             dto.getConditions().getEntries().getAlphaStates().add(alphaState);
         }
     }
@@ -179,6 +183,7 @@ public class PracticeDtoMapper {
             AlphaState alphaState = new AlphaState();
             alphaState.setIdState(criterion.getState().getId());
             alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            alphaState.setDescription(criterion.getDescription());
             dto.getEntryCriterion().getAlphaStates().add(alphaState);
         }
     }
@@ -188,6 +193,7 @@ public class PracticeDtoMapper {
             AlphaState alphaState = new AlphaState();
             alphaState.setIdState(criterion.getState().getId());
             alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            alphaState.setDescription(criterion.getDescription());
             dto.getConditions().getResults().getAlphaStates().add(alphaState);
         }
     }
@@ -197,6 +203,7 @@ public class PracticeDtoMapper {
             AlphaState alphaState = new AlphaState();
             alphaState.setIdState(criterion.getState().getId());
             alphaState.setIdAlpha(criterion.getState().getAlpha().getId());
+            alphaState.setDescription(criterion.getDescription());
             dto.getCompletitionCriterion().getAlphaStates().add(alphaState);
         }
     }
@@ -206,6 +213,7 @@ public class PracticeDtoMapper {
             WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
             wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
             wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            wp.setDescription(criterion.getDescription());
             dto.getConditions().getEntries().getWorkProductsLevelofDetail().add(wp);
         }
     }
@@ -215,6 +223,7 @@ public class PracticeDtoMapper {
             WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
             wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
             wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            wp.setDescription(criterion.getDescription());
             dto.getEntryCriterion().getWorkProductsLevelofDetail().add(wp);
         }
     }
@@ -224,6 +233,7 @@ public class PracticeDtoMapper {
             WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
             wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
             wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            wp.setDescription(criterion.getDescription());
             dto.getConditions().getResults().getWorkProductsLevelofDetail().add(wp);
         }
     }
@@ -233,6 +243,7 @@ public class PracticeDtoMapper {
             WorkProductsLevelofDetail wp = new WorkProductsLevelofDetail();
             wp.setIdLevelOfDetail(criterion.getLevelOfDetail().getId());
             wp.setIdWorkProduct(criterion.getLevelOfDetail().getWorkProduct().getId());
+            wp.setDescription(criterion.getDescription());
             dto.getCompletitionCriterion().getWorkProductsLevelofDetail().add(wp);
         }
     }
@@ -289,12 +300,15 @@ public class PracticeDtoMapper {
         for (SEActivityAssociation actAssociation : EssenceFilter.filterLanguageElement(entity.getOwnedElements(), SEActivityAssociation.class)){
             //seActivity:
             String idActivitySpace = ((SEActivitySpace) actAssociation.getEnd1()).getId();
+            String nameActivitySpace = ((SEActivitySpace) actAssociation.getEnd1()).getName();
             SEActivity seActivity = (SEActivity) actAssociation.getEnd2();
             Activity actDto = new Activity();
             actDto.setIdActivity(seActivity.getId());
             actDto.setIdActivitySpace(idActivitySpace);
+            actDto.setNameActivitySpace(nameActivitySpace);
+            actDto.setIdAreaOfConcern(seActivity.getIdAreaOfConcern());
             actDto.setName(seActivity.getName());
-            actDto.setBriefDesciption(seActivity.getBriefDescription());
+            actDto.setBriefDescription(seActivity.getBriefDescription());
             actDto.setDescription(seActivity.getDescription());
             actDto.setTo(seActivity.getTo());
             actDto.setPosition(seActivity.getPosition());
@@ -322,7 +336,9 @@ public class PracticeDtoMapper {
             Resource resourceDto = new Resource();
             resourceDto.setContent(seResource.getContent());
             resourceDto.setIdTypeResource(seResource.getId());
-            resourceDto.setFile(seResource.getFileName());
+            resourceDto.setFile(seResource.getFile());
+            resourceDto.setFileName(seResource.getFileName());
+            resourceDto.setFileType(seResource.getFileType());
             dto.getResources().add(resourceDto);
         }
     }
@@ -335,18 +351,20 @@ public class PracticeDtoMapper {
             actionDto.setIdActionKind(seAction.getKind().name());
             
             actionDto.setAlphaStates(new ArrayList<>());
-            for (SEAlpha seAlpha : seAction.getAlpha() ){
+            for (SEState seState : seAction.getState() ){
                 AlphaState alphaState = new AlphaState();
-                alphaState.setIdAlpha(seAlpha.getId());
-                alphaState.setIdState(""); //we don't persist this
+                alphaState.setIdAlpha(seState.getAlpha().getId());
+                alphaState.setIdState(seState.getId());
+                alphaState.setDescription(seState.getAlpha().getName() +" - " + seState.getName());
                 actionDto.getAlphaStates().add(alphaState);
             }
             
             actionDto.setWorkProductsLevelofDetail(new ArrayList<>());
-            for (SEWorkProduct seWorkProduct : seAction.getWorkProduct()){
+            for (SELevelOfDetail seLevelOfDetail : seAction.getLevelOfDetail()){
                 WorkProductsLevelofDetail wpLoD = new WorkProductsLevelofDetail();
-                wpLoD.setIdWorkProduct(seWorkProduct.getId());
-                wpLoD.setIdLevelOfDetail(""); // We don't persist this
+                wpLoD.setIdWorkProduct(seLevelOfDetail.getWorkProduct().getId());
+                wpLoD.setIdLevelOfDetail(seLevelOfDetail.getId());
+                wpLoD.setDescription(seLevelOfDetail.getWorkProduct().getName() + " - " + seLevelOfDetail.getName());
                 actionDto.getWorkProductsLevelofDetail().add(wpLoD);
             }
         }
@@ -385,8 +403,17 @@ public class PracticeDtoMapper {
         
         for (SECompetencyLevel competency : entity.getRequiredCompetencyLevel() ) {
             Competency competencyDto = new Competency();
+            
             competencyDto.setIdCompetencyLevel(competency.getId());
-            competencyDto.setIdCompetencyLevel(""); // we don't persist this
+            competencyDto.setCompetencyLevel(competency.getName()); // we don't persist this
+            
+            if (competency.getCompetency() != null){
+                competencyDto.setIdCompetency( ((SECompetency) competency.getCompetency()).getId() ); // # TODO check this
+                competencyDto.setCompetency( ((SECompetency) competency.getCompetency()).getName() );
+            } else{ // we didn't persist this
+                competencyDto.setIdCompetency( "" );
+                competencyDto.setCompetency( "");
+            }
             dto.getCompetencies().add(competencyDto);
         }
     }
