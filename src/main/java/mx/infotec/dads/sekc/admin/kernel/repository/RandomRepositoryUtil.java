@@ -52,18 +52,12 @@ import mx.infotec.dads.essence.repository.SEWorkProductManifestRepository;
 import mx.infotec.dads.essence.repository.SEWorkProductRepository;
 import mx.infotec.dads.sekc.admin.kernel.dto.BasicElementDto;
 //import mx.infotec.dads.sekc.admin.kernel.dto.ElementGroupDto;
-import mx.infotec.dads.sekc.admin.kernel.dto.Extension;
-import mx.infotec.dads.sekc.admin.kernel.dto.FeatureSelection;
 import mx.infotec.dads.sekc.admin.kernel.dto.LanguageElementDto;
 //import mx.infotec.dads.sekc.admin.kernel.dto.MergeResolution;
 //import mx.infotec.dads.sekc.admin.kernel.dto.OwnedElement;
-import mx.infotec.dads.sekc.admin.kernel.dto.PatternAssociation;
-import mx.infotec.dads.sekc.admin.kernel.dto.Property;
+
 //import mx.infotec.dads.sekc.admin.kernel.dto.ReferredElement;
-import mx.infotec.dads.sekc.admin.kernel.dto.Referrer;
-import mx.infotec.dads.sekc.admin.kernel.dto.Resource;
-import mx.infotec.dads.sekc.admin.kernel.dto.Tag;
-import mx.infotec.dads.sekc.admin.kernel.dto.ViewSelection;
+
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Service;
@@ -375,7 +369,7 @@ public class RandomRepositoryUtil {
                 languageElement = null;
             break;
         }
-        Objects.requireNonNull(languageElement, "The id " + id + " doesn't exists on " + type);
+        Objects.requireNonNull(languageElement, "The id " + id + " doesn't exists on " + type +" Collection");
         return languageElement;
     }
     
@@ -390,7 +384,7 @@ public class RandomRepositoryUtil {
             elementGroup = practiceRepository.findOne(id);
         if (elementGroup == null)
             elementGroup = practiceAssetRepository.findOne(id);
-        Objects.requireNonNull(elementGroup, "The id " + id + " doesn't exists");
+        Objects.requireNonNull(elementGroup, "The id " + id + " doesn't exists as SEElementGroup");
         return elementGroup;
     }
     
@@ -488,7 +482,7 @@ public class RandomRepositoryUtil {
                 element  = null;
             break;
         }
-        Objects.requireNonNull(element, "The id " + id + " doesn't exist on " + clazz.getSimpleName());
+        Objects.requireNonNull(element, "The id " + id + " doesn't exist on " + clazz.getSimpleName() + " Collection");
         return element;
     }
 }
