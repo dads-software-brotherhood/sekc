@@ -95,11 +95,14 @@ public class PracticeDtoMapper {
     }
     
     private static void mapCriterios(Collection<SECriterion> seCriterionList, Activity dto, boolean isEntry) {
-        dto.setEntryCriterion(new EntryCriterion());
-        dto.setCompletitionCriterion(new CompletitionCriterion());
+        if (dto.getEntryCriterion() == null)
+            dto.setEntryCriterion(new EntryCriterion());
+        if (dto.getCompletitionCriterion() == null)
+            dto.setCompletitionCriterion(new CompletitionCriterion());
         mapAlphaCriterion(seCriterionList,  dto, isEntry);
         mapWorkProductCriterion(seCriterionList,  dto, isEntry);
         mapOtherCriterion(seCriterionList,  dto, isEntry);
+        
     }
 
     private static void mapOtherCriterion(Collection<SECriterion> seCriterionList, PracticeDto dto,
@@ -367,6 +370,7 @@ public class PracticeDtoMapper {
                 wpLoD.setDescription(seLevelOfDetail.getWorkProduct().getName() + " - " + seLevelOfDetail.getName());
                 actionDto.getWorkProductsLevelofDetail().add(wpLoD);
             }
+            dto.getActions().add(actionDto);
         }
     }
 

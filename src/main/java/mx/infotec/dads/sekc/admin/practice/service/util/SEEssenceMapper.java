@@ -226,6 +226,7 @@ public class SEEssenceMapper {
             validateWorkProductLevelOfDetailCriterion(criterionList, element);
             SEEntryCriterion seCriterion = EntityBuilder.build(criterion -> {
                 criterion.setLevelOfDetail( (SELevelOfDetail) repoUtil.getDocument(element.getIdLevelOfDetail(), SELevelOfDetail.class));
+                criterion.setDescription(element.getDescription());
                 // If it is necesary to map the idWorkProduct associated to this
                 // Level of Detail, do it here.
             }, SEEntryCriterion.class);
@@ -378,7 +379,7 @@ public class SEEssenceMapper {
                     seResource.setContent(resource.getContent());
                     seResource.setIdResourceType(ResourcesTypes.valueOf(resource.getIdTypeResource()));
                     seResource.setFile(resource.getFile());
-                    seResource.setFileName(resource.getFile());
+                    seResource.setFileName(resource.getFileName());
                     seResource.setFileType(resource.getFileType());
                 }, SEResource.class);
                 repoUtil.mongoTemplate.save(seresource);
