@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.dto;
 
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "description",
     "consistencyRules",
     "relatedPractices",
+    "relatedPracticesName",
     "author",
     "keywords",
     "conditions",
@@ -41,6 +41,8 @@ public class PracticeDto {
     private String description;
     @JsonProperty("consistencyRules")
     private String consistencyRules;
+    @JsonProperty("relatedPracticesName")
+    private List<RelatedPracticeName> relatedPracticesName = null;
     @JsonProperty("relatedPractices")
     private List<String> relatedPractices = null;
     @JsonProperty("author")
@@ -62,7 +64,7 @@ public class PracticeDto {
     public String getId() {
         return id;
     }
-    
+
     @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
@@ -136,6 +138,16 @@ public class PracticeDto {
     @JsonProperty("relatedPractices")
     public void setRelatedPractices(List<String> relatedPractices) {
         this.relatedPractices = relatedPractices;
+    }
+
+    @JsonProperty("relatedPracticesName")
+    public List<RelatedPracticeName> getRelatedPracticesName() {
+        return relatedPracticesName;
+    }
+
+    @JsonProperty("relatedPracticesName")
+    public void setRelatedPracticesName(List<RelatedPracticeName> relatedPracticesName) {
+        this.relatedPracticesName = relatedPracticesName;
     }
 
     @JsonProperty("author")

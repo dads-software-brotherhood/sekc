@@ -35,6 +35,7 @@ import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
 import mx.infotec.dads.sekc.admin.practice.dto.Entries;
 import mx.infotec.dads.sekc.admin.practice.dto.EntryCriterion;
 import mx.infotec.dads.sekc.admin.practice.dto.PracticeDto;
+import mx.infotec.dads.sekc.admin.practice.dto.RelatedPracticeName;
 import mx.infotec.dads.sekc.admin.practice.dto.Resource;
 import mx.infotec.dads.sekc.admin.practice.dto.Results;
 import mx.infotec.dads.sekc.admin.practice.dto.ThingsToDo;
@@ -421,7 +422,12 @@ public class PracticeDtoMapper {
     public static void mapRelatedPractices(SEPractice entity, PracticeDto dto) {
         //relatedPractices are optional on the client
         dto.setRelatedPractices( new ArrayList<>());
+        dto.setRelatedPracticesName(new ArrayList<>());
         for (SEPractice relatedPractice : EssenceFilter.filterLanguageElement( entity.getReferredElements(), SEPractice.class ) ) {
+            RelatedPracticeName rpN = new RelatedPracticeName();
+            rpN.setId(relatedPractice.getId());
+            rpN.setName(relatedPractice.getName());
+            dto.getRelatedPracticesName().add(rpN);
             dto.getRelatedPractices().add(relatedPractice.getId());
         }
     }
