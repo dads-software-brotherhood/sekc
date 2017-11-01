@@ -72,7 +72,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h5><span>Measures</span></h5>
+                <h5><span data-translate="practiceManagement.measure">Measures</span></h5>
                 <p>
                     <div ng-repeat="measure in vm.practice.conditions.measures">
                         <ul>
@@ -84,7 +84,7 @@
                 </p>
             </div>
         </div>
-        <div ng-repeat="activity in vm.practice.thingsToDo.activities">
+        <div ng-repeat="activity in vm.practice.thingsToDo.activities" class="well white">
             <div class="row">
                 <div class="col-md-12">
                     <h5 class="text-may"><span class="icon-activity f15 f-weight text-blue"></span> {{activity.name}}</h5>
@@ -105,31 +105,63 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-6">
-                    <h5 data-translate="practiceManagement.thingsToDo.action"> Action </h5>
-                    <ul ng-repeat="action in activity.actions">
-                        {{action.idActionKind}}
-                        <li ng-repeat="entry in action.alphaStates">
+                <div class="col-md-3">
+                    <h5 data-translate="practiceManagement.thingsToDo.completition"> Completition </h5>
+                    <ul>
+                        <li ng-repeat="entry in activity.completitionCriterion.alphaStates">
                             {{entry.description}}
                         </li>
-                        <li ng-repeat="workproduct in action.workProductsLevelofDetail">
+                        <li ng-repeat="workproduct in activity.completitionCriterion.workProductsLevelofDetail">
                             {{workproduct.description}}
+                        </li>
+                        <li ng-repeat="other in activity.completitionCriterion.otherConditions">
+                            {{other}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 data-translate="practiceManagement.thingsToDo.competencies"> Competencies </h5>
+                    <ul>
+                        <li ng-repeat="competency in activity.competencies">
+                            {{competency.competency}} - {{competency.competencyLevel}}
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-6">
+                    <h5 data-translate="practiceManagement.thingsToDo.action"> Action </h5>
+                    <table class="table table-full table-full-small white">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr ul ng-repeat="action in activity.actions">
+                                <td>{{action.idActionKind}}</td>
+                                <td>
+                                    <ul>
+                                        <li ng-repeat="entry in action.alphaStates">
+                                            {{entry.description}}
+                                        </li>
+                                        <li ng-repeat="workproduct in action.workProductsLevelofDetail">
+                                            {{workproduct.description}}
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="col-md-3" ng-show="activity.resources.length">
                     <h5 data-translate="practiceManagement.thingsToDo.resources"> Resources </h5>
                     <ul ng-repeat="resource in activity.resources">
                         <li>
                             <div>{{resource.idTypeResource}}</div>
-                            <div ng-if="resource.idTypeResource != 'URL'">
+                            <div ng-if="resource.idTypeResource != 'URL'" class="link-res">
                                 <a ng-click="vm.downloadFile(resource.fileType, resource)">
                                     {{resource.fileName}}
                                 </a>
                             </div>
-                            <div ng-if="resource.idTypeResource == 'URL'">
+                            <div ng-if="resource.idTypeResource == 'URL'" class="link-res">
                                 <a href="{{resource.fileName}}" target="_blank">
                                     {{resource.fileName}}
                                 </a>
@@ -145,29 +177,18 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-3">
-                    <h5 data-translate="practiceManagement.thingsToDo.competencies"> Competencies </h5>
-                    <ul>
-                        <li ng-repeat="competency in activity.competencies">
-                            {{competency.competency}} - {{competency.competencyLevel}} 
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5 data-translate="practiceManagement.thingsToDo.completition"> Completition </h5>
-                    <ul>
-                        <li ng-repeat="entryC in activity.completitionCriterion.alphaStates">
-                            {{entry.description}}
-                        </li>
-                        <li ng-repeat="workproductC in activity.completitionCriterion.workProductsLevelofDetail">
-                            {{workproduct.description}}
-                        </li>
-                        <li ng-repeat="otherC in activity.completitionCriterion.otherConditions">
-                            {{other}}
-                        </li>
-                    </ul>
-                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5><span data-translate="practiceManagement.keywords">Keywords</span></h5>
+                <p>
+                    <span ng-repeat="keyword in vm.practice.keywords"
+                          class="label color{{$index % 3}}">{{keyword}}</span>
+                </p>
             </div>
         </div>
     </div>
+    
+
 </section>
