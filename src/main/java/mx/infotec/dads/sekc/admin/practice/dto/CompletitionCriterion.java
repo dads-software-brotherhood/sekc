@@ -16,15 +16,15 @@ import java.util.ArrayList;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "alphaStates",
-    "workProductsLevelofdetail",
+    "workProductsLevelofDetail",
     "otherConditions"
 })
 public class CompletitionCriterion implements Criteriable{
 
     @JsonProperty("alphaStates")
     private List<AlphaState> alphaStates = new ArrayList<>();
-    @JsonProperty("workProductsLevelofdetail")
-    private List<WorkProductsLevelofDetail> workProductsLevelofdetail = new ArrayList<>();
+    @JsonProperty("workProductsLevelofDetail")
+    private List<WorkProductsLevelofDetail> workProductsLevelofDetail = new ArrayList<>();
     @JsonProperty("otherConditions")
     private List<String> otherConditions = null;
     @JsonIgnore
@@ -40,14 +40,14 @@ public class CompletitionCriterion implements Criteriable{
         this.alphaStates = alphaStates;
     }
 
-    @JsonProperty("workProductsLevelofdetail")
+    @JsonProperty("workProductsLevelofDetail")
     public List<WorkProductsLevelofDetail> getWorkProductsLevelofDetail() {
-        return workProductsLevelofdetail;
+        return workProductsLevelofDetail;
     }
 
-    @JsonProperty("workProductsLevelofdetail")
-    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofdetail) {
-        this.workProductsLevelofdetail = workProductsLevelofdetail;
+    @JsonProperty("workProductsLevelofDetail")
+    public void setWorkProductsLevelofDetail(List<WorkProductsLevelofDetail> workProductsLevelofDetail) {
+        this.workProductsLevelofDetail = workProductsLevelofDetail;
     }
 
     @JsonProperty("otherConditions")
