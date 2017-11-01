@@ -122,7 +122,7 @@
                         <div class="col-md-12">
                             <div class="form-group filled">
                                 <label data-translate="practiceManagement.relatedPractices" class="f-bold">Select a Practices Related</label>
-                                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.relatedPractices"
+                                <select class="form-control" ng-options="datos.id as datos.name for datos in vm.relatedPractices | filter:{ id : '!{{vm.practice.id || vm.practice!= null}}' }"
                                         ng-model="vm.practice.relatedPractices" multiple></select>
                             </div>
                         </div>
