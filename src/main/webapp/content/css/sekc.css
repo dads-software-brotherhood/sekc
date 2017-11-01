@@ -377,19 +377,18 @@ ul.ivh-treeview li{
 .f-weight{
     font-weight: bolder;
 }
-.link-res{
+.link-res {
     position: relative;
     display: inline-block;
-    word-wrap: break-word; 
-    max-width:250px; 
-    width:250px;
-    min-width: 250px;
+    word-wrap: break-word;
+    max-width: 700px;
+    width: 700px;
+    min-width: 700px;
     position: relative;
     display: inline-block;
     word-wrap: break-word;
     overflow: hidden;
     max-height: 3.4em; /* (Number of lines you want visible)  (line-height) */
     line-height: 1.2em;
-    text-align:justify;
-  
+    text-align: justify;
 }
