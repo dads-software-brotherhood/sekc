@@ -84,6 +84,22 @@
                 </p>
             </div>
         </div>
+        <div class="row" ng-show="vm.practice.relatedPracticesName.length">
+            <div class="col-md-12">
+                <h5><span data-translate="practiceManagement.relatedPractices">Related practices</span></h5>
+                <p>
+                    <div ng-repeat="related in vm.practice.relatedPracticesName">
+                        <ul>
+                            <li>
+                                <a ui-sref="practice-consult-general({idPractice:related.id})">
+                                    {{related.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </p>
+            </div>
+        </div>
         <div ng-repeat="activity in vm.practice.thingsToDo.activities" class="well white">
             <div class="row">
                 <div class="col-md-12">
