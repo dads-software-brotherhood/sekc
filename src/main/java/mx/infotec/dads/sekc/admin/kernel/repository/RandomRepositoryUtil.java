@@ -33,6 +33,7 @@ import mx.infotec.dads.essence.repository.SEActivitySpaceRepository;
 import mx.infotec.dads.essence.repository.SEAlphaAssociationRepository;
 import mx.infotec.dads.essence.repository.SEAlphaContainmentRepository;
 import mx.infotec.dads.essence.repository.SEAlphaRepository;
+import mx.infotec.dads.essence.repository.SEAreaOfConcernRepository;
 import mx.infotec.dads.essence.repository.SECheckpointRepository;
 import mx.infotec.dads.essence.repository.SECompetencyLevelRepository;
 import mx.infotec.dads.essence.repository.SECompetencyRepository;
@@ -131,6 +132,8 @@ public class RandomRepositoryUtil {
     private SEViewSelectionRepository viewSelectionRepository;
     @Autowired
     private SEActivityRepository activityRepository;
+    @Autowired
+    private SEAreaOfConcernRepository areaOfConcernRepository;
     @Autowired
     public MongoTemplate mongoTemplate;
     
@@ -408,6 +411,9 @@ public class RandomRepositoryUtil {
             break;
             case "SEAlphaContainment":
                 element = alphaContainmentRepository.findOne(id);
+            break;
+            case "SEAreaOfConcern":
+                element = areaOfConcernRepository.findOne(id);
             break;
             case "SELevelOfDetail":
                 element = levelOfDetailRepository.findOne(id);

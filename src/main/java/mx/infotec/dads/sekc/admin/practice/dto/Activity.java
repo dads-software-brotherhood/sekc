@@ -13,8 +13,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "idAreaOfConcern",
+    "areaOfConcern",
     "idActivity",
     "idActivitySpace",
+    "activitySpace",
     "nameActivitySpace",
     "name",
     "briefDescription",
@@ -33,10 +35,14 @@ public class Activity {
 
     @JsonProperty("idAreaOfConcern")
     private String idAreaOfConcern;
+    @JsonProperty("areaOfConcern")
+    private AreaOfConcern areaOfConcern;
     @JsonProperty("idActivity")
     private String idActivity;
     @JsonProperty("idActivitySpace")
     private String idActivitySpace;
+    @JsonProperty("activitySpace")
+    private ActivitySpace activitySpace;
     @JsonProperty("nameActivitySpace")
     private String nameActivitySpace;
     @JsonProperty("name")
@@ -78,6 +84,16 @@ public class Activity {
         this.idAreaOfConcern = idAreaOfConcern;
     }
 
+    @JsonProperty("areaOfConcern")
+    public AreaOfConcern getAreaOfConcern() {
+        return areaOfConcern;
+    }
+
+    @JsonProperty("areaOfConcern")
+    public void setAreaOfConcern(AreaOfConcern areaOfConcern) {
+        this.areaOfConcern = areaOfConcern;
+    }
+
     @JsonProperty("idActivity")
     public String getIdActivity() {
         return idActivity;
@@ -96,6 +112,16 @@ public class Activity {
     @JsonProperty("idActivitySpace")
     public void setIdActivitySpace(String idActivitySpace) {
         this.idActivitySpace = idActivitySpace;
+    }
+
+    @JsonProperty("activitySpace")
+    public ActivitySpace getActivitySpace() {
+        return activitySpace;
+    }
+
+    @JsonProperty("activitySpace")
+    public void setActivitySpace(ActivitySpace activitySpace) {
+        this.activitySpace = activitySpace;
     }
 
     @JsonProperty("nameActivitySpace")

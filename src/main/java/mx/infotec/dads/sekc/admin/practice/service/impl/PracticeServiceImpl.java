@@ -101,7 +101,7 @@ public class PracticeServiceImpl implements PracticeService {
             //if (includeFields != null)
             //    document = RandomUtil.filterResponseFields(document, includeFields);
             mx.infotec.dads.sekc.admin.practice.dto.PracticeDto onePractice = 
-                    PracticeDtoMapper.toDto((SEPractice) document);
+                    PracticeDtoMapper.toDto((SEPractice) document, repoUtils);
             response.setResponseObject(onePractice);
         } else {
             response.setErrorMessage(ErrorConstants.ERR_RECORD_NOT_FOUND);

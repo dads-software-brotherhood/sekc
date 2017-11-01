@@ -23,11 +23,16 @@ import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 
 import mx.infotec.dads.essence.model.foundation.SEPractice;
 import mx.infotec.dads.essence.model.foundation.SEResource;
+import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.sekc.admin.kernel.repository.RandomRepositoryUtil;
 import mx.infotec.dads.sekc.admin.practice.dto.Action;
 import mx.infotec.dads.sekc.admin.practice.dto.Activity;
+import mx.infotec.dads.sekc.admin.practice.dto.ActivitySpace;
+import mx.infotec.dads.sekc.admin.practice.dto.Alpha;
 import mx.infotec.dads.sekc.admin.practice.dto.AlphaState;
 import mx.infotec.dads.sekc.admin.practice.dto.Approach;
+import mx.infotec.dads.sekc.admin.practice.dto.AreaOfConcern;
+import mx.infotec.dads.sekc.admin.practice.dto.AreaOfConcernCompetency;
 import mx.infotec.dads.sekc.admin.practice.dto.Competency;
 import mx.infotec.dads.sekc.admin.practice.dto.CompletitionCriterion;
 import mx.infotec.dads.sekc.admin.practice.dto.Conditions;
@@ -49,6 +54,8 @@ public class PracticeDtoMapper {
     private PracticeDtoMapper() {
 
     }
+    
+    static RandomRepositoryUtil repoUtil;
 
     /**
      * Mapper for convert Repository entity to PracticeDto
@@ -56,7 +63,8 @@ public class PracticeDtoMapper {
      * @param entity
      * @return PracticeDto
      */
-    public static PracticeDto toDto(SEPractice entity) {
+    public static PracticeDto toDto(SEPractice entity, RandomRepositoryUtil repoUtils ) {
+        repoUtil = repoUtils;
         PracticeDto dto = new PracticeDto();
         mapGeneralInfo(entity, dto);
         mapRelatedPractices(entity, dto);
@@ -309,8 +317,14 @@ public class PracticeDtoMapper {
             Activity actDto = new Activity();
             actDto.setIdActivity(seActivity.getId());
             actDto.setIdActivitySpace(idActivitySpace);
+            try{
+            mapActivitySpace((SEActivitySpace) actAssociation.getEnd1(), actDto);
+            } catch (Exception e){ e.printStackTrace();}
             actDto.setNameActivitySpace(nameActivitySpace);
             actDto.setIdAreaOfConcern(seActivity.getIdAreaOfConcern());
+            try{
+            mapAreaOfConcern(seActivity, actDto);
+            } catch (Exception e){ e.printStackTrace();}
             actDto.setName(seActivity.getName());
             actDto.setBriefDescription(seActivity.getBriefDescription());
             actDto.setDescription(seActivity.getDescription());
@@ -431,5 +445,66 @@ public class PracticeDtoMapper {
             dto.getRelatedPractices().add(relatedPractice.getId());
         }
     }
+    
+    private static void mapActivitySpace(SEActivitySpace seActivitySpace, Activity actDto) {
+        ActivitySpace activitySpace = new ActivitySpace();
+        activitySpace.setType("activitySpace");
+        activitySpace.setId(seActivitySpace.getId());
+        activitySpace.setName(seActivitySpace.getName());
+        activitySpace.setBriefDescription(seActivitySpace.getBriefDescription());
+        activitySpace.setDescription(seActivitySpace.getDescription());
+        actDto.setActivitySpace(activitySpace);
+    }
+    
+    private static void mapAreaOfConcern(SEActivity seActivity, Activity actDto) {
+        AreaOfConcern areaOfConcern = new AreaOfConcern();
+        SEAreaOfConcern seAreaOfConcern = (SEAreaOfConcern) repoUtil.getDocument(seActivity.getIdAreaOfConcern(), SEAreaOfConcern.class);
+        areaOfConcern.setType( "areaOfConcern");
+        areaOfConcern.setId(seAreaOfConcern.getId());
+        areaOfConcern.setName(seAreaOfConcern.getName());
+        areaOfConcern.setBriefDescription(seAreaOfConcern.getBriefDescription());
+        areaOfConcern.setDescription(seAreaOfConcern.getDescription());
+        mapAreaOfConcernAlphas(seAreaOfConcern, areaOfConcern);
+        mapAreaOfConcernActivitySpaces(seAreaOfConcern, areaOfConcern);
+        mapAreaOfConcernCompetencies(seAreaOfConcern, areaOfConcern);
+        actDto.setAreaOfConcern(areaOfConcern);
+    }
+    
+    private static void mapAreaOfConcernAlphas(SEAreaOfConcern seAreaOfConcern, AreaOfConcern areaOfConcern) {
+        areaOfConcern.setAlphas(new ArrayList<>());
+        for (SEAlpha seAlpha : EssenceFilter.filterLanguageElement(seAreaOfConcern.getOwnedElements(), SEAlpha.class)){
+            Alpha alpha = new Alpha();
+            alpha.setType("alpha");
+            alpha.setId(seAlpha.getId());
+            alpha.setName(seAlpha.getName());
+            alpha.setBriefDescription(seAlpha.getBriefDescription());
+            areaOfConcern.getAlphas().add(alpha);
+        }
+    }
 
+    private static void mapAreaOfConcernActivitySpaces(SEAreaOfConcern seAreaOfConcern, AreaOfConcern areaOfConcern) {
+        areaOfConcern.setActivitySpaces(new ArrayList<>());
+        for (SEActivitySpace seActivitySpace : EssenceFilter.filterLanguageElement(seAreaOfConcern.getOwnedElements(), SEActivitySpace.class)){
+            ActivitySpace activitySpace = new ActivitySpace();
+            activitySpace.setType("activitySpace");
+            activitySpace.setId(seActivitySpace.getId());
+            activitySpace.setName(seActivitySpace.getName());
+            activitySpace.setBriefDescription(seActivitySpace.getBriefDescription());
+            activitySpace.setDescription(seActivitySpace.getDescription());
+            areaOfConcern.getActivitySpaces().add(activitySpace);
+        }
+    }
+
+    private static void mapAreaOfConcernCompetencies(SEAreaOfConcern seAreaOfConcern, AreaOfConcern areaOfConcern) {
+        areaOfConcern.setCompetencies(new ArrayList<>());
+        for (SECompetency seCompetency : EssenceFilter.filterLanguageElement(seAreaOfConcern.getOwnedElements(), SECompetency.class)){
+            AreaOfConcernCompetency competency = new AreaOfConcernCompetency();
+            competency.setType("competency");
+            competency.setId(seCompetency.getId());
+            competency.setName(seCompetency.getName());
+            competency.setBriefDescription(seCompetency.getBriefDescription());
+            competency.setDescription(seCompetency.getDescription());
+            areaOfConcern.getCompetencies().add(competency);
+        }
+    }
 }
