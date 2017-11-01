@@ -136,7 +136,9 @@
                                 <thead>
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
-                                            COMPETENCY
+                                            <span data-translate="practiceManagement.thingsToDo.competency">
+                                                COMPETENCY
+                                            </span>
                                             <button type="button"
                                                     ng-class="!vm.activityInEdition.competencies.length ? 'btn btn-sm btn-danger btn-round pull-right' :
                                                                 'btn btn-sm btn-primary btn-round pull-right'"
@@ -166,7 +168,9 @@
                                 <thead>
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
-                                            APPROACH
+                                            <span data-translate="practiceManagement.thingsToDo.approach">
+                                                APPROACH
+                                            </span>
                                             <button type="button"
                                                     ng-class="!vm.activityInEdition.approaches.length ? 'btn btn-sm btn-danger btn-round pull-right':
                                                                 'btn btn-sm btn-primary btn-round pull-right'"
@@ -196,7 +200,9 @@
                                 <thead>
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
-                                            ACTIONS
+                                            <span data-translate="practiceManagement.thingsToDo.action">
+                                                ACTIONS
+                                            </span>
                                             <button type="button"
                                                     ng-class="!vm.activityInEdition.actions.length ?
                                                                 'btn btn-sm btn-danger btn-round pull-right' :
@@ -239,7 +245,9 @@
                                 <thead>
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
-                                            ENTRIES
+                                            <span data-translate="practiceManagement.entries">
+                                                ENTRIES
+                                            </span>
                                             <button type="button"
                                                     ng-class="!vm.activityInEdition.entryCriterion.alphaStates.length &&
                                                                 !vm.activityInEdition.entryCriterion.workProductsLevelofDetail.length &&
@@ -279,7 +287,9 @@
                                 <thead>
                                     <tr>
                                         <th colspan="3" class="text-center title-table-activity">
-                                            COMPLETITION
+                                            <span data-translate="practiceManagement.thingsToDo.completition">
+                                                COMPLETION
+                                            </span>
                                             <button type="button"
                                                     ng-class="!vm.activityInEdition.completitionCriterion.alphaStates.length &&
                                                                 !vm.activityInEdition.completitionCriterion.workProductsLevelofDetail.length &&
@@ -320,7 +330,9 @@
                                 <thead>
                                     <tr>
                                         <th colspan="5" class="text-center title-table-activity">
-                                            RESOURCES
+                                            <span data-translate="practiceManagement.thingsToDo.resources">
+                                                RESOURCES
+                                            </span>
                                             <button type="button" class="btn btn-sm btn-primary btn-round pull-right"
                                                     data-toggle="modal" data-target="#resourceDialog"
                                                     title="Create Resource">
@@ -496,13 +508,13 @@
             <div class="form-group filled" ng-hide="vm.actionInEdition.workProductsLevelofDetail.length ||
                  vm.workProduct">
                 <label class="pull-left">Alpha</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id"
                         ng-model="vm.alpha" ng-disabled="vm.workProduct != null">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
                 <div>
                     <p class="help-block"
-                       ng-show="!vm.alpha && !vm.actionInEdition.alphaStates.length" 
+                       ng-show="!vm.alpha && !vm.actionInEdition.alphaStates.length"
                        data-translate="entity.validation.required">
                         This field is required.
                     </p>
@@ -510,7 +522,7 @@
             </div>
             <div class="form-group filled" ng-show="vm.alpha != null">
                 <label>Alpha State</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alpha.states  | filter:vm.alphaStateFilter track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.alpha.states  | filter:vm.alphaStateFilter track by datos.id"
                         ng-model="vm.alphaState">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -523,13 +535,13 @@
             </div>
             <div class="form-group filled" ng-hide="vm.actionInEdition.alphaStates.length || vm.alpha">
                 <label class="pull-left">Workproduct</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id"
                         ng-disabled="vm.alpha != null" ng-model="vm.workProduct">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
                 <div>
                     <p class="help-block"
-                       ng-show="!vm.workProduct && !vm.actionInEdition.workProductsLevelofDetail.length" 
+                       ng-show="!vm.workProduct && !vm.actionInEdition.workProductsLevelofDetail.length"
                        data-translate="entity.validation.required">
                         This field is required.
                     </p>
@@ -537,7 +549,7 @@
             </div>
             <div class="form-group filled" ng-show="vm.workProduct != null">
                 <label>Level of Detail</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsFilter track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.workProduct.levelsOfDetails | filter:vm.workProductsFilter track by datos.id"
                         ng-model="vm.levelOfDetail">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -597,7 +609,7 @@
         <div class="modal-body">
             <div class="form-group filled" ng-hide="vm.workProduct || vm.anotherEntryCriteria">
                 <label class="pull-left">Alpha</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.alphas track by datos.id"
                         ng-model="vm.alpha" ng-disabled="vm.workProduct || vm.anotherEntryCriteria">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -616,7 +628,7 @@
             </div>
             <div class="form-group filled" ng-hide="vm.alpha || vm.anotherEntryCriteria">
                 <label class="pull-left">Workproduct</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id"
                         ng-disabled="vm.alpha || vm.anotherEntryCriteria" ng-model="vm.workProduct">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -635,7 +647,7 @@
             </div>
             <div class="form-group" ng-hide="vm.alpha || vm.workProduct">
                 <label>Another Entry Criteria</label>
-                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria" 
+                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteria"
                        ng-disabled="vm.workProduct || vm.alpha ">
             </div>
         </div>
@@ -664,7 +676,7 @@
             </div>
             <div class="form-group filled" ng-show="vm.alphaCompletition">
                 <label>Alpha State</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.alphaCompletition.states | filter:vm.alphaCompletitionFilter track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.alphaCompletition.states | filter:vm.alphaCompletitionFilter track by datos.id"
                         ng-model="vm.alphaStateCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -677,15 +689,15 @@
             </div>
             <div class="form-group filled" ng-hide="vm.alphaCompletition || vm.anotherEntryCriteriaCompletition">
                 <label class="pull-left">Workproduct</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id" 
-                        ng-disabled="vm.alphaCompletition != null || vm.anotherEntryCriteriaCompletition != null" 
+                <select class="form-control" ng-options="datos.name for datos in vm.workProducts track by datos.id"
+                        ng-disabled="vm.alphaCompletition != null || vm.anotherEntryCriteriaCompletition != null"
                         ng-model="vm.workProductCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
             </div>
             <div class="form-group filled" ng-show="vm.workProductCompletition">
                 <label>Level of Detail</label>
-                <select class="form-control" ng-options="datos.name for datos in vm.workProductCompletition.levelsOfDetails | filter:vm.workProductsCompletitionFilter track by datos.id" 
+                <select class="form-control" ng-options="datos.name for datos in vm.workProductCompletition.levelsOfDetails | filter:vm.workProductsCompletitionFilter track by datos.id"
                         ng-model="vm.levelOfDetailCompletition">
                     <option style="display:none" value="" data-translate="entity.select.select">Select</option>
                 </select>
@@ -698,15 +710,17 @@
             </div>
             <div class="form-group" ng-hide="vm.alphaCompletition || vm.workProductCompletition">
                 <label>Another Completion Criteria</label>
-                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteriaCompletition" 
+                <input type="text" class="form-control" ng-model="vm.anotherEntryCriteriaCompletition"
                        ng-disabled="vm.workProductCompletition || vm.alphaCompletition">
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" type="button" ng-click="vm.cleanModales()">
-            <span data-translate="practiceManagement.clean">Clean</span></button>
+                <span data-translate="practiceManagement.clean">Clean</span>
+            </button>
             <button type="button" class="btn btn-primary" ng-click="vm.addCompletition()">
-            <span data-translate="practiceManagement.add">Add</span></button>
+                <span data-translate="practiceManagement.add">Add</span>
+            </button>
         </div>
     </div>
 </div>
