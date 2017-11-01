@@ -381,9 +381,9 @@ ul.ivh-treeview li{
     position: relative;
     display: inline-block;
     word-wrap: break-word; 
-    max-width:170px; 
-    width:170px;
-    min-width: 170px;
+    max-width:250px; 
+    width:250px;
+    min-width: 250px;
     position: relative;
     display: inline-block;
     word-wrap: break-word;
