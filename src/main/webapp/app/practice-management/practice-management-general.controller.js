@@ -36,6 +36,7 @@
                     vm.practice = entity;
                 }
             }
+
             localStorageService.set('actionsKinds', data.catalogs.actionsKinds);
             localStorageService.set('kernels', data.catalogs.kernels);
             localStorageService.set('activitySpaces', data.catalogs.activitySpaces);
@@ -43,8 +44,12 @@
             localStorageService.set('alphas', data.catalogs.alphas);
             localStorageService.set('workproducts', data.catalogs.workproducts);
             localStorageService.set('competencies', data.catalogs.competencies);
-            localStorageService.set('practices', data.catalogs.practices);
             localStorageService.set('resourcesTypes', data.catalogs.resourcesTypes);
+            if (localStorageService.get('practices'))
+            {
+                localStorageService.remove('practices');
+            }
+            localStorageService.set('practices', data.catalogs.practices);
 
             vm.kernels = localStorageService.get('kernels');
             vm.relatedPractices = localStorageService.get('practices');
