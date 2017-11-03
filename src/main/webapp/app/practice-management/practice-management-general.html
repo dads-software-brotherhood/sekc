@@ -16,9 +16,18 @@
             </li>
         </ul>
     </div>
-    <div class="alert top-right alert-danger" ng-show="vm.error">
-        <button class="close" type="button" ng-click="vm.error=false">x</button>
+    <div class="alert top-right alert-danger" id="error" ng-show="vm.error">
+        <button class="close" type="button" ng-click="vm.error=false">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
         <h4>Error!</h4>
+        <strong><span data-translate="{{vm.mensaje}}"></span></strong>
+    </div>
+    <div class="alert top-right alert-success" id="error" ng-show="vm.success">
+        <button class="close" type="button" ng-click="vm.success=false">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <h4>OK!</h4>
         <strong><span data-translate="{{vm.mensaje}}"></span></strong>
     </div>
     <div class="row m-b-40">

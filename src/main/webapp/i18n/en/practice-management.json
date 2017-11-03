@@ -79,7 +79,7 @@
       "size": "Size",
       "url": "URL"
     },
-    "error": {
+    "msg": {
       "1": "Please verify that all fields are correct.",
       "2": "Select at least 1 alpha or workproduct.",
       "3": "Insert at least 1 activity.",

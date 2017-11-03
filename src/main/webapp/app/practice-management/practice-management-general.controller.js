@@ -1,13 +1,13 @@
-(function () {
+(function() {
     'use strict';
 
     angular
         .module('sekcApp')
         .controller('PracticeManagementGeneralController', PracticeManagementGeneralController);
 
-    PracticeManagementGeneralController.$inject = ['$window', '$stateParams', 'AlertService', 'JhiLanguageService', 'entity', 'localStorageService', 'PracticeCatalogs', '$location'];
+    PracticeManagementGeneralController.$inject = ['$scope', '$window', '$stateParams', 'AlertService', 'JhiLanguageService', 'entity', 'localStorageService', 'PracticeCatalogs', '$location', '$timeout'];
 
-    function PracticeManagementGeneralController($window, $stateParams, AlertService, JhiLanguageService, entity, localStorageService, PracticeCatalogs, $location) {
+    function PracticeManagementGeneralController($scope, $window, $stateParams, AlertService, JhiLanguageService, entity, localStorageService, PracticeCatalogs, $location, $timeout) {
         var vm = this;
 
         vm.load = load;
@@ -22,6 +22,8 @@
         vm.save = save;
 
         vm.error = false;
+        vm.success = false;
+        vm.closeMsg = closeMsg;
 
         vm.load();
 
@@ -45,8 +47,7 @@
             localStorageService.set('workproducts', data.catalogs.workproducts);
             localStorageService.set('competencies', data.catalogs.competencies);
             localStorageService.set('resourcesTypes', data.catalogs.resourcesTypes);
-            if (localStorageService.get('practices'))
-            {
+            if (localStorageService.get('practices')) {
                 localStorageService.remove('practices');
             }
             localStorageService.set('practices', data.catalogs.practices);
@@ -84,10 +85,13 @@
         function save() {
             if (vm.validate()) {
                 localStorageService.set('practiceInEdition', vm.practice);
-                $location.path('/practice-management/practiceConditions/');
+                vm.success = true;
+                vm.mensaje = "practiceManagement.msg.4";
+                vm.closeMsg('success');
             } else {
                 vm.error = true;
-                vm.mensaje = "practiceManagement.error.1";
+                vm.mensaje = "practiceManagement.msg.1";
+                vm.closeMsg('error');
                 $window.scrollTo(0, 0);
             }
         }
@@ -109,7 +113,19 @@
             }
             return true;
         }
-    }
 
+        function closeMsg(msj) {
+            if (msj == 'success') {
+                $timeout(function() {
+                    vm.success = false;
+                    $location.path('/practice-management/practiceConditions/');
+                }, 2000);
+            } else {
+                $timeout(function() {
+                    vm.error = false;
+                }, 3000);
+            }
+        }
+    }
 
 })();

@@ -79,7 +79,7 @@
       "size": "Tamaño",
       "url": "URL"
     },
-    "error": {
+    "msg": {
       "1": "Por favor verifique que todos los campos sean correctos.",
       "2": "Seleccione al menos un alpha o un workproduct.",
       "3": "Debe insertar al menos una actividad.",
