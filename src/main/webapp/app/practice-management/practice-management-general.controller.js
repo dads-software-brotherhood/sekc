@@ -19,6 +19,7 @@
         vm.deleteKeyword = deleteKeyword;
         vm.clearKeyword = clearKeyword;
         vm.addKeyword = addKeyword;
+        vm.saveLocal = saveLocal;
         vm.save = save;
 
         vm.error = false;
@@ -84,7 +85,7 @@
 
         function save() {
             if (vm.validate()) {
-                localStorageService.set('practiceInEdition', vm.practice);
+                vm.saveLocal();
                 vm.success = true;
                 vm.mensaje = "practiceManagement.msg.4";
                 vm.closeMsg('success');
@@ -94,6 +95,10 @@
                 vm.closeMsg('error');
                 $window.scrollTo(0, 0);
             }
+        }
+
+        function saveLocal() {
+            localStorageService.set('practiceInEdition', vm.practice);
         }
 
         function clean() {

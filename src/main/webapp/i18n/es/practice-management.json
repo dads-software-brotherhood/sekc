@@ -77,7 +77,8 @@
       "action": "Acción",
       "file": "Archivo",
       "size": "Tamaño",
-      "url": "URL"
+      "url": "URL",
+      "compositionActivities": "Composición de Actividades"
     },
     "msg": {
       "1": "Por favor verifique que todos los campos sean correctos.",

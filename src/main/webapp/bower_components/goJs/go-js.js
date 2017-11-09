@@ -19,14 +19,15 @@ angular.module('minimal', [])
               {
                 nodeTemplate: $(go.Node, "Auto",
                                 new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-                                $(go.Shape, "RoundedRectangle", new go.Binding("fill", "color"),
+                                $(go.Shape, { geometryString: "F M0 0 L100 0 Q200 50 100 100 L0 100 Q0 50 0 0z" },
+                                    new go.Binding("fill", "color"),
                                   {
                                     portId: "", cursor: "pointer", strokeWidth: 0,
                                     fromLinkable: true, toLinkable: true,
                                     fromLinkableSelfNode: true, toLinkableSelfNode: true,
                                     fromLinkableDuplicates: true, toLinkableDuplicates: true
                                   }),
-                                $(go.TextBlock, { margin: 8, editable: false },
+                                $(go.TextBlock, { margin: 10, editable: false, stroke: "white"},
                                   new go.Binding("text", "name").makeTwoWay())
                               ),
                 linkTemplate: $(go.Link,

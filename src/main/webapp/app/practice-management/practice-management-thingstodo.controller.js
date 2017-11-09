@@ -93,28 +93,29 @@
                 vm.activityInEdition.idActivitySpace = vm.activitySpace.id;
                 vm.activityInEdition.nameActivitySpace = vm.activitySpace.name;
                 vm.activityInEdition.goJsPosition = "";
-                if (vm.activityInEdition.idActivity == null ||
-                    vm.activityInEdition.idActivity == undefined) {
-                    vm.activityInEdition.idActivity = 0;
+                if (vm.activityInEdition.idActivityComposition == null ||
+                    vm.activityInEdition.idActivityComposition == undefined) {
+                    vm.activityInEdition.idActivityComposition = 0;
                     vm.activityInEdition.created = false;
-                    vm.activityInEdition.idActivity = vm.practice.thingsToDo.activities.length != 0 ?
+                    vm.activityInEdition.idActivityComposition = vm.practice.thingsToDo.activities.length != 0 ?
                         Math.max.apply(
                             Math, vm.practice.thingsToDo.activities.map(
-                                function (o) { return o.idActivity; })) + 1 : 0;
-                    console.log(vm.activityInEdition.idActivity);
+                                function (o) { return o.idActivityComposition; })) + 1 : 0;
+                    console.log(vm.activityInEdition.idActivityComposition);
                     vm.practice.thingsToDo.activities.push(vm.activityInEdition);
 
                 } else {
                     var editedActivity = $filter('filter')(vm.practice.thingsToDo.activities,
-                        { idActivity: vm.activityInEdition.idActivity })[0];
+                        { idActivityComposition: vm.activityInEdition.idActivityComposition })[0];
                     editedActivity = vm.activityInEdition;
                 }
                 vm.clean();
             } else {
                 vm.error = true;
-                vm.mensaje = "practiceManagement.error.1";
+                vm.mensaje = "practiceManagement.msg.1";
             }
             $window.scrollTo(0, 0);
+            $('.collapse').collapse("hide");
         }
         function newActivity() {
             return {
@@ -150,14 +151,14 @@
             //Se recorren las actividades para pintarlas en el diagrama
             angular.forEach(vm.practice.thingsToDo.activities, function (value, key) {
                 var activity = {};
-                activity.key = value.idActivity;
+                activity.key = value.idActivityComposition;
                 activity.name = value.name;
                 activity.color = "#1E88E5";
                 activity.idActivitySpace = vm.practice.thingsToDo.activities[key].idActivitySpace;
                 activity.to = value.to;
                 activity.loc = value.goJsPosition;
                 vm.activitiesDiagram.push(activity);
-                //Se recorren las actividades que tiene relacionadas para agregarlas al diagrama
+                //Se recorren relaciones para agregarlas al diagrama
                 angular.forEach(activity.to, function (value, key) {
                     vm.activitiesRelation.push({ from: activity.key, to: value });
                 });
@@ -176,7 +177,7 @@
                 angular.forEach(vm.model.De, function (value, key) {
                     //Se busca la actividad para asignar su relación en el objeto thingsTo Do
                     var findActivityGoJS = $filter('filter')(vm.practice.thingsToDo.activities,
-                        { idActivity: value.key })[0];
+                        { idActivityComposition: value.key })[0];
                     findActivityGoJS.goJsPosition = vm.model.De[key].loc;
                     findActivityGoJS.to = [];
                 });
@@ -185,7 +186,7 @@
                 angular.forEach(vm.model.ff, function (value, key) {
                     //Se busca la actividad para asignar su relación en el objeto thingsTo Do
                     var findActivity = $filter('filter')(vm.practice.thingsToDo.activities,
-                        { idActivity: value.from })[0];
+                        { idActivityComposition: value.from })[0];
                     findActivity.to.push(vm.model.ff[key].to);
                 });
 
@@ -480,7 +481,7 @@
                 }
             } else {
                 vm.error = true;
-                vm.mensaje = "practiceManagement.error.3";
+                vm.mensaje = "practiceManagement.msg.3";
                 $window.scrollTo(0, 0);
             }
 
@@ -492,7 +493,7 @@
         }
         function onSaveError() {
             vm.error = true;
-            vm.mensaje = "practiceManagement.error.6";
+            vm.mensaje = "practiceManagement.msg.6";
             $window.scrollTo(0, 0);
         }
         function validate() {
