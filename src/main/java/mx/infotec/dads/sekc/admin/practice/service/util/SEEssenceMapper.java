@@ -57,7 +57,7 @@ public class SEEssenceMapper {
 
     static RandomRepositoryUtil repoUtil;
     
-    static ArrayList<String> idActivities;
+    static ArrayList<SEActivity> activitiesArray;
     /**
      * Map a PracticeDto to a SEPractice
      * 
@@ -309,7 +309,7 @@ public class SEEssenceMapper {
      * @return SEPractice
      */
     public static SEPractice mapThingsToDo(ThingsToDo thingsToDo, SEPractice to) {
-        idActivities = new ArrayList<>();
+        activitiesArray = new ArrayList<>();
         Optional.of(thingsToDo.getActivities()).orElseThrow(SekcException::new).forEach(activity -> {
             SEActivity seActivity = EntityBuilder.build(act -> {
                 act.setName(activity.getName());
@@ -320,7 +320,7 @@ public class SEEssenceMapper {
                 act.setAction(new ArrayList<>());
                 act.setGoJsPosition(activity.getGoJsPosition());
                 act.setTo(activity.getTo());
-                act.setPosition(thingsToDo.getActivities().indexOf(activity));
+                act.setIdActivityComposition(activity.getIdActivityComposition());
                 act.setCriterion(new ArrayList<>());
                 act.setResource(new ArrayList<>());
                 act.setActivityAssociation(new ArrayList<>());
@@ -332,12 +332,11 @@ public class SEEssenceMapper {
                 
                 mapCriterios(activity.getEntryCriterion(), act.getCriterion(), true);
                 mapCriterios(activity.getCompletitionCriterion(), act.getCriterion(), false);
-                //map  entryCriterionentryCriterion  completitionCriterion # TODO
             }, SEActivity.class);
             if (activity.getCreated()) // so if it's an update, override existing db document
                 seActivity.setId(activity.getIdActivity());
             repoUtil.mongoTemplate.save(seActivity);
-            idActivities.add(seActivity.getId());
+            activitiesArray.add(seActivity);
             
             SEActivitySpace seActivitySpace = (SEActivitySpace) repoUtil.getDocument(activity.getIdActivitySpace(), SEActivitySpace.class);
             SEActivityAssociation seActivityAssociation = EntityBuilder.build(actAssociation -> {
@@ -347,24 +346,26 @@ public class SEEssenceMapper {
             repoUtil.mongoTemplate.save(seActivityAssociation);
             to.getOwnedElements().add(seActivityAssociation);
         });
-        mapActivitiesComposition(thingsToDo.getActivities());
+        mapActivitiesComposition(activitiesArray);
         return to;
     }
     
-    public static void mapActivitiesComposition(List<Activity> activities){
-        for (int i=0; i< activities.size(); i++){
-            SEActivity act = (SEActivity) repoUtil.getDocument( idActivities.get(i), SEActivity.class);
-            if (!activities.get(i).getTo().isEmpty()){
+    public static void mapActivitiesComposition(ArrayList<SEActivity> activities){
+        for (int i = 0; i< activities.size(); i++){
+            SEActivity act = activities.get(i);
+            if (!act.getTo().isEmpty()){
                 for (String to: activities.get(i).getTo()){
                     //creamos la relación entre actividades
-                    SEActivity act2 = (SEActivity) repoUtil.getDocument( idActivities.get(Integer.parseInt(to)), SEActivity.class);
-                    if (act2 != null){
-                        SEActivityAssociation actAssociation = new SEActivityAssociation();
-                        actAssociation.setEnd1(act);
-                        actAssociation.setEnd2(act2);
-                        repoUtil.mongoTemplate.save(actAssociation);
-                        act.getActivityAssociation().add(actAssociation);
-                        repoUtil.mongoTemplate.save(act);
+                    for (int j = 0; j< activities.size(); j++){
+                        if (activities.get(j).getIdActivityComposition().equals(to) ){
+                            SEActivity act2 = activities.get(j);
+                            SEActivityAssociation actAssociation = new SEActivityAssociation();
+                            actAssociation.setEnd1(act);
+                            actAssociation.setEnd2(act2);
+                            repoUtil.mongoTemplate.save(actAssociation);
+                            act.getActivityAssociation().add(actAssociation);
+                            repoUtil.mongoTemplate.save(act);
+                        }
                     }
                 }
             }

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "idAreaOfConcern",
     "areaOfConcern",
     "idActivity",
+    "idActivityComposition",
     "idActivitySpace",
     "activitySpace",
     "nameActivitySpace",
@@ -39,6 +40,8 @@ public class Activity {
     private AreaOfConcern areaOfConcern;
     @JsonProperty("idActivity")
     private String idActivity;
+    @JsonProperty("idActivityComposition")
+    private String idActivityComposition;
     @JsonProperty("idActivitySpace")
     private String idActivitySpace;
     @JsonProperty("activitySpace")
@@ -102,6 +105,16 @@ public class Activity {
     @JsonProperty("idActivity")
     public void setIdActivity(String idActivity) {
         this.idActivity = idActivity;
+    }
+
+    @JsonProperty("idActivityComposition")
+    public String getIdActivityComposition() {
+        return idActivityComposition;
+    }
+
+    @JsonProperty("idActivityComposition")
+    public void setIdActivityComposition(String idActivityComposition) {
+        this.idActivityComposition = idActivityComposition;
     }
 
     @JsonProperty("idActivitySpace")
