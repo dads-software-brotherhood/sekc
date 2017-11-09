@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -42,13 +43,13 @@ public class PracticeDto {
     @JsonProperty("consistencyRules")
     private String consistencyRules;
     @JsonProperty("relatedPracticesName")
-    private List<RelatedPracticeName> relatedPracticesName = null;
+    private List<RelatedPracticeName> relatedPracticesName = new ArrayList<>();
     @JsonProperty("relatedPractices")
-    private List<String> relatedPractices = null;
+    private List<String> relatedPractices = new ArrayList<>();
     @JsonProperty("author")
     private String author;
     @JsonProperty("keywords")
-    private List<String> keywords = null;
+    private List<String> keywords = new ArrayList<>();
     @JsonProperty("conditions")
     private Conditions conditions;
     @JsonProperty("thingsToWorkWith")

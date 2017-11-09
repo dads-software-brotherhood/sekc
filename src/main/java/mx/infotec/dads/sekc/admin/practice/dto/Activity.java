@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -55,23 +56,23 @@ public class Activity {
     @JsonProperty("description")
     private String description;
     @JsonProperty("to")
-    private List<String> to = null;
+    private List<String> to = new ArrayList<>();
     @JsonProperty("goJsPosition")
     private String goJsPosition;
     @JsonProperty("created")
     private Boolean created;
     @JsonProperty("competencies")
-    private List<Competency> competencies = null;
+    private List<Competency> competencies = new ArrayList<>();
     @JsonProperty("approaches")
-    private List<Approach> approaches = null;
+    private List<Approach> approaches = new ArrayList<>();
     @JsonProperty("actions")
-    private List<Action> actions = null;
+    private List<Action> actions = new ArrayList<>();
     @JsonProperty("entryCriterion")
     private EntryCriterion entryCriterion;
     @JsonProperty("completitionCriterion")
     private CompletitionCriterion completitionCriterion;
     @JsonProperty("resources")
-    private List<Resource> resources = null;
+    private List<Resource> resources = new ArrayList<>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonIgnore
