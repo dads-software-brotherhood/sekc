@@ -4,7 +4,7 @@
             <div class="well white">
                 <div class="m-b-20">
                     <div ng-repeat="alpha in vm.alphas track by alpha.id">
-                        <button class="btn btn-primary btn-block m-b-15" 
+                        <button class="btn btn-primary btn-block m-b-15"
                                 data-target="#detalle" ng-click="vm.fillAlpha(alpha)">{{alpha.name}}
                         </button>
                     </div>
@@ -34,7 +34,7 @@
                                         <div class="alpha-border text-center">
                                                 <a data-animation="am-fade-and-slide-top"
                                                     ng-click="vm.fillState(state)"
-                                                    data-toggle="modal" 
+                                                    data-toggle="modal"
                                                     data-target="#states">{{state.name}}</a>
                                         </div>
                                         <div class="text-center" ng-show="!$last">
@@ -66,8 +66,8 @@
         </div>
     </div>
 </section>
-<div class="modal fade" id="states" tabindex="-1" role="dialog" 
-	aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="states" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -78,8 +78,8 @@
             <div class="modal-body">
                 <div class="form-group m-l-20">
                     <div ng-repeat="checkpoint in vm.stateActual.checkpoints track by checkpoint.id">
-	                <i class="fa fa-check-square-o fa fa-lg text-blue"></i>         
-	                <span>{{checkpoint.name}}</span>   
+                    <i class="fa fa-check-square-o fa fa-lg text-blue"></i>
+                    <span>{{checkpoint.name}}</span>
                     </div>
                 </div>
             </div>
@@ -89,37 +89,45 @@
 <section class="p-b-20">
     <div class="row well white">
         <div class="col-md-12 bordercustomer">
-             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15" data-animation="am-fade-and-slide-top" data-template-url="app/kernel-management/alphas-management/consult-kernel-alphas-modal.html" bs-modal="modal">Opportunity</a></p>  
+            <h3 class="fontCustomer text-center">Customer</h3>
+            <div class="col-md-6 text-center">
+                <i class="icon-alpha f50 fontCustomer"></i>
+                <p>
+                    <a class="f15" data-animation="am-fade-and-slide-top"
+                       data-template-url="app/kernel-management/alphas-management/consult-kernel-alphas-modal.html"
+                       bs-modal="modal">Opportunity</a>
+                </p>
             </div>
             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Stakeholders</a></p>  
-            </div> 
+                <i class="icon-alpha f50 fontCustomer"></i>
+                <p><a class="f15 f-black">Stakeholders</a></p>
+            </div>
         </div>
         <div class="col-md-12 bordersolution m-t-15">
-             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
+            <h3 class="fontSolution text-center">Solution</h3>
+            <div class="col-md-6 text-center">
+                <i class="icon-alpha f50 fontSolution"></i>
                 <p><a class="f15">Requirements</a></p>
             </div>
             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Software System</a></p>  
-            </div> 
+                <i class="icon-alpha f50 fontSolution"></i>
+                <p><a class="f15">Software System</a></p>
+            </div>
         </div>
-         <div class="col-md-12 borderendeavor m-t-15">
+        <div class="col-md-12 borderendeavor m-t-15">
+            <h3 class="fontEndeavor text-center">Endeavor</h3>
             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Work</a></p> 
+                <i class="icon-alpha f50 fontEndeavor"></i>
+                <p><a class="f15">Work</a></p>
             </div>
             <div class="col-md-6 text-center">
-                <i class="icon-alpha f50"></i>
-                <p><a class="f15">Team</a></p> 
+                <i class="icon-alpha f50 fontEndeavor"></i>
+                <p><a class="f15">Team</a></p>
             </div>
             <div class="col-md-12 m-t-50 text-center">
-                <i class="icon-alpha f50"></i>
+                <i class="icon-alpha f50 fontEndeavor"></i>
                 <p><a class="f15">Way Of Working</a></p>
+            </div>
         </div>
     </div>
 </section>
