@@ -477,9 +477,10 @@
             if (vm.practice.thingsToDo.activities.length) {
                 console.log(JSON.stringify(vm.practice, null, "\t"));
                 localStorageService.set('practiceInEdition', vm.practice);
-                if (vm.practice.id !== null) {
+                if (vm.practice.id) {
                     Practice.update(vm.practice, onSaveSuccess, onSaveError);
                 } else {
+                    vm.practice.id = null;
                     Practice.save(vm.practice, onSaveSuccess, onSaveError);
                 }
             } else {
