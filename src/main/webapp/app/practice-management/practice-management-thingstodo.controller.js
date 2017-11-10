@@ -148,22 +148,25 @@
             //actividades guardadas en thingsToDo
             vm.activitiesDiagram = [];
             vm.activitiesRelation = [];
+            var y = 0;
             //Se recorren las actividades para pintarlas en el diagrama
             angular.forEach(vm.practice.thingsToDo.activities, function (value, key) {
                 var activity = {};
                 activity.key = value.idActivityComposition;
+                activity.category = "simple";
                 activity.name = value.name;
+                activity.desc = value.nameActivitySpace;
                 activity.color = "#1E88E5";
                 activity.idActivitySpace = vm.practice.thingsToDo.activities[key].idActivitySpace;
                 activity.to = value.to;
-                activity.loc = value.goJsPosition;
+                activity.loc = value.goJsPosition ? value.goJsPosition : "0 " + y;
                 vm.activitiesDiagram.push(activity);
                 //Se recorren relaciones para agregarlas al diagrama
                 angular.forEach(activity.to, function (value, key) {
                     vm.activitiesRelation.push({ from: activity.key, to: value });
                 });
+                y += 50;
             });
-
             vm.model = new go.GraphLinksModel(
                 vm.activitiesDiagram,
                 vm.activitiesRelation);
