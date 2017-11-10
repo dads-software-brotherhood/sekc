@@ -24,7 +24,7 @@
 
         vm.error = false;
         vm.success = false;
-        vm.closeMsg = closeMsg;
+        vm.close = close;
 
         vm.load();
 
@@ -88,11 +88,11 @@
                 vm.saveLocal();
                 vm.success = true;
                 vm.mensaje = "practiceManagement.msg.4";
-                vm.closeMsg('success');
+                vm.close('success', 2000);
             } else {
                 vm.error = true;
                 vm.mensaje = "practiceManagement.msg.1";
-                vm.closeMsg('error');
+                vm.close('error', 3000);
                 $window.scrollTo(0, 0);
             }
         }
@@ -119,16 +119,16 @@
             return true;
         }
 
-        function closeMsg(msj) {
+        function close(msj, time) {
             if (msj == 'success') {
                 $timeout(function() {
                     vm.success = false;
                     $location.path('/practice-management/practiceConditions/');
-                }, 2000);
+                }, time);
             } else {
                 $timeout(function() {
                     vm.error = false;
-                }, 3000);
+                }, time);
             }
         }
     }

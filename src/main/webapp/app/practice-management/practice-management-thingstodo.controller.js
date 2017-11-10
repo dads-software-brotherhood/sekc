@@ -1,15 +1,15 @@
-(function () {
+(function() {
     'use strict';
 
     angular
         .module('sekcApp')
         .controller('PracticeManagementThingsToDoController', PracticeManagementThingsToDoController);
 
-    PracticeManagementThingsToDoController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice', '$window', 'DataUtils'];
+    PracticeManagementThingsToDoController.$inject = ['$stateParams', 'JhiLanguageService', 'localStorageService', '$filter', '$location', 'Practice', '$window', 'DataUtils', '$timeout'];
 
-    function PracticeManagementThingsToDoController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice, $window, DataUtils) {
+    function PracticeManagementThingsToDoController($stateParams, JhiLanguageService, localStorageService, $filter, $location, Practice, $window, DataUtils, $timeout) {
         var vm = this;
-        vm.error = false;
+
         vm.load = load;
         vm.practice = null;
 
@@ -56,7 +56,12 @@
 
         vm.save = save;
         vm.clean = clean;
+        vm.cancel = cancel;
         vm.validate = validate;
+
+        vm.error = false;
+        vm.success = false;
+        vm.close = close;
 
         vm.load();
 
@@ -100,7 +105,7 @@
                     vm.activityInEdition.idActivityComposition = vm.practice.thingsToDo.activities.length != 0 ?
                         Math.max.apply(
                             Math, vm.practice.thingsToDo.activities.map(
-                                function (o) { return o.idActivityComposition; })) + 1 : 0;
+                                function(o) { return o.idActivityComposition; })) + 1 : 0;
                     console.log(vm.activityInEdition.idActivityComposition);
                     vm.practice.thingsToDo.activities.push(vm.activityInEdition);
 
@@ -150,7 +155,7 @@
             vm.activitiesRelation = [];
             var y = 0;
             //Se recorren las actividades para pintarlas en el diagrama
-            angular.forEach(vm.practice.thingsToDo.activities, function (value, key) {
+            angular.forEach(vm.practice.thingsToDo.activities, function(value, key) {
                 var activity = {};
                 activity.key = value.idActivityComposition;
                 activity.category = "simple";
@@ -162,7 +167,7 @@
                 activity.loc = value.goJsPosition ? value.goJsPosition : "0 " + y;
                 vm.activitiesDiagram.push(activity);
                 //Se recorren relaciones para agregarlas al diagrama
-                angular.forEach(activity.to, function (value, key) {
+                angular.forEach(activity.to, function(value, key) {
                     vm.activitiesRelation.push({ from: activity.key, to: value });
                 });
                 y += 50;
@@ -177,7 +182,7 @@
             //Se verifica que no hayan agregado más actividades de las que se pintan
             if (vm.model.nodeDataArray.length == vm.practice.thingsToDo.activities.length) {
                 //Se recorren los nodos de las actividades para insertar su posición
-                angular.forEach(vm.model.De, function (value, key) {
+                angular.forEach(vm.model.De, function(value, key) {
                     //Se busca la actividad para asignar su relación en el objeto thingsTo Do
                     var findActivityGoJS = $filter('filter')(vm.practice.thingsToDo.activities,
                         { idActivityComposition: value.key })[0];
@@ -186,7 +191,7 @@
                 });
 
                 //Se recorren las relaciones de las actividades
-                angular.forEach(vm.model.ff, function (value, key) {
+                angular.forEach(vm.model.ff, function(value, key) {
                     //Se busca la actividad para asignar su relación en el objeto thingsTo Do
                     var findActivity = $filter('filter')(vm.practice.thingsToDo.activities,
                         { idActivityComposition: value.from })[0];
@@ -269,9 +274,9 @@
                 } else {
                     vm.actionInEdition.workProductsLevelofDetail.push(
                         {
-                        description: vm.workProduct.name + ' - ' + vm.levelOfDetail.name,
-                        idWorkProduct: vm.workProduct.id,
-                        idLevelOfDetail: vm.levelOfDetail.id
+                            description: vm.workProduct.name + ' - ' + vm.levelOfDetail.name,
+                            idWorkProduct: vm.workProduct.id,
+                            idLevelOfDetail: vm.levelOfDetail.id
                         }
                     );
                     vm.workProduct = null;
@@ -435,7 +440,7 @@
         }
 
         function cleanCompositionActivities() {
-            angular.forEach(vm.practice.thingsToDo.activities, function (value, key) {
+            angular.forEach(vm.practice.thingsToDo.activities, function(value, key) {
                 vm.practice.thingsToDo.activities[key].to = [];
             });
             vm.compositionActivities();
@@ -466,7 +471,7 @@
             vm.descriptionEntry = null;
             vm.anotherEntryCriteria = null;
             vm.anotherEntryCriteriaCompletition = null;
-            
+
         }
         function clean() {
             vm.activitySpace = null;
@@ -486,19 +491,27 @@
             } else {
                 vm.error = true;
                 vm.mensaje = "practiceManagement.msg.3";
+                vm.close('error', 3000);
                 $window.scrollTo(0, 0);
             }
 
         }
-        function onSaveSuccess(result) {
+        function onSaveSuccess() {
             vm.practice = {};
             localStorageService.set('practiceInEdition', null);
-            $location.path('/find-practice');
+            vm.success = true;
+            vm.mensaje = "practiceManagement.msg.7";
+            vm.close('success', 2000);
         }
         function onSaveError() {
             vm.error = true;
             vm.mensaje = "practiceManagement.msg.6";
+            vm.close('error', 3000);
             $window.scrollTo(0, 0);
+        }
+        function cancel() {
+            localStorageService.set('practiceInEdition', null);
+            $location.path('/find-practice');
         }
         function validate() {
             if (!vm.areaOfConcern ||
@@ -519,6 +532,19 @@
                 return false;
             }
             return true;
+        }
+
+        function close(msj, time) {
+            if (msj == 'success') {
+                $timeout(function() {
+                    vm.success = false;
+                    $location.path('/find-practice');
+                }, time);
+            } else {
+                $timeout(function() {
+                    vm.error = false;
+                }, time);
+            }
         }
     }
 

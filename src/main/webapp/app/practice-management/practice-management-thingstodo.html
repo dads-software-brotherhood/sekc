@@ -7,9 +7,18 @@
             <li class="active"><a data-translate="practiceManagement.thingsToDo.title">Things to do </a></li>
         </ul>
     </div>
-    <div class="alert top-right alert-danger" ng-show="vm.error">
-        <button class="close" type="button" ng-click="vm.error=false">x</button>
+    <div class="alert top-right alert-danger" id="error" ng-show="vm.error">
+        <button class="close" type="button" ng-click="vm.error=false">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
         <h4>Error!</h4>
+        <strong><span data-translate="{{vm.mensaje}}"></span></strong>
+    </div>
+    <div class="alert top-right alert-success" id="error" ng-show="vm.success">
+        <button class="close" type="button" ng-click="vm.close('success',0)">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <h4>OK!</h4>
         <strong><span data-translate="{{vm.mensaje}}"></span></strong>
     </div>
     <div class="row" ng-hide="!vm.practice.thingsToDo.activities.length">
@@ -790,9 +799,10 @@
     </div>
     <div class="row">
         <div class="pull-right m-b-50">
-            <!-- <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
-                <span>Clean</span>
-            </button> -->
+            <!--<button type="button" class="btn btn-default m-t-10"
+                    data-toggle="modal" data-target="#cancel">
+                <span data-translate="entity.action.cancel">Cancel</span>
+             </button>-->
             <button type="submit" class="btn btn-primary m-t-10" ng-click="vm.save()">
                 <span class="glyphicon glyphicon-save"></span>
                 <span data-translate="entity.action.save">Save</span>
@@ -822,6 +832,22 @@
 </div>
 
 
-
-
-
+<!-- Modal confirm -->
+<!--<div class="modal" id="cancel" style="display: none; z-index: 1050;">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span data-translate="entity.action.cancel">Cancel</span></h4>
+        </div>
+        <div class="modal-content">
+            <div class="modal-body" id="confirmMessage">
+                <span data-translate="practiceManagement.msg.8"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="vm.cancel()">
+                    <span data-translate="practiceManagement.yes">Yes</span></button>
+                <button type="button" class="btn btn-danger" aria-hidden="true">No</button>
+            </div>
+        </div>
+    </div>
+</div>-->

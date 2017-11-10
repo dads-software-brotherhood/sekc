@@ -24,7 +24,7 @@
         <strong><span data-translate="{{vm.mensaje}}"></span></strong>
     </div>
     <div class="alert top-right alert-success" id="error" ng-show="vm.success">
-        <button class="close" type="button" ng-click="vm.success=false">
+        <button class="close" type="button" ng-click="vm.close('success',0)">
             <span class="glyphicon glyphicon-ok"></span>
         </button>
         <h4>OK!</h4>

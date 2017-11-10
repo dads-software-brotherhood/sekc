@@ -1,5 +1,5 @@
 <section>
-    <div class="page-header">   
+    <div class="page-header">
         <ul class="nav nav-tabs">
             <li><a href="#/practice-management-general" ui-sref="practice-management-general">General</a></li>
             <li><a data-translate="practiceManagement.conditions" href="#/practice-management-conditions" ui-sref="practice-management-conditions">Conditions</a></li>
@@ -7,9 +7,18 @@
             <li><a ng-class="{'disabled': !vm.validate()}" data-translate="practiceManagement.thingsToDo.title" href="#/practice-management-thingsToDo" ui-sref="practice-management-thingsToDo">Things to do </a></li>
         </ul>
     </div>
-    <div class="alert top-right alert-danger" ng-show="vm.error">
-        <button class="close" type="button" ng-click="vm.error=false">x</button>
+    <div class="alert top-right alert-danger" id="error" ng-show="vm.error">
+        <button class="close" type="button" ng-click="vm.error=false">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
         <h4>Error!</h4>
+        <strong><span data-translate="{{vm.mensaje}}"></span></strong>
+    </div>
+    <div class="alert top-right alert-success" id="error" ng-show="vm.success">
+        <button class="close" type="button" ng-click="vm.close('success',0)">
+            <span class="glyphicon glyphicon-ok"></span>
+        </button>
+        <h4>OK!</h4>
         <strong><span data-translate="{{vm.mensaje}}"></span></strong>
     </div>
     <div class="row m-b-10">
@@ -17,19 +26,19 @@
             <div class="well white">
                 <div class="form-group">
                     <h5 class="m-b-30">
-                    	<i class="fa fa-check-circle text-blue" aria-hidden="true"></i> 
-                    	<span  data-translate="practiceManagement.thingsToWorkWith.instructions">
-                    		Select an alpha with their subalpha and/or workproducts
-                    	</span>
+                        <i class="fa fa-check-circle text-blue" aria-hidden="true"></i>
+                        <span data-translate="practiceManagement.thingsToWorkWith.instructions">
+                            Select an alpha with their subalpha and/or workproducts
+                        </span>
                     </h5>
-                    <div ivh-treeview="vm.alphasTree" class="checkbox" ivh-treeview-default-selected-state="false">  
+                    <div ivh-treeview="vm.alphasTree" class="checkbox" ivh-treeview-default-selected-state="false">
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div>
-</div>
+    </div>
     <div class="pull-right m-b-30">
         <button type="button" class="btn btn-default m-t-10" ng-click="vm.clean()">
             <span data-translate="practiceManagement.clean">Clean</span>
@@ -40,4 +49,3 @@
     </div>
 </section>
 
-                  

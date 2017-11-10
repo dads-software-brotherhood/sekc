@@ -48,6 +48,7 @@
     "save": "Guardar",
     "conditions": "Conditions",
     "viewMore": "Ver más",
+    "yes": "Si",
     "thingsToWorkWith": {
       "title": "Things to work with",
       "instructions": "Selecciona un alpha con sus subalphas y/o workproucts"
@@ -86,7 +87,9 @@
       "3": "Debe insertar al menos una actividad.",
       "4": "Los datos están completos y correctos.",
       "5": "Los datos fueron actualizados correctamente.",
-      "6": "Ocurrió un error al guardar la práctica."
+      "6": "Ocurrió un error al guardar la práctica.",
+      "7": "La práctica ha sido guardada correctamente.",
+      "8": "Los datos de la práctica actual se perderán, está de acuerdo?"
     }
   }
 }

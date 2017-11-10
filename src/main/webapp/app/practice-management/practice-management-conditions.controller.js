@@ -1,19 +1,18 @@
-(function () {
+(function() {
     'use strict';
 
     angular
         .module('sekcApp')
         .controller('PracticeManagementConditionsController', PracticeManagementConditionsController);
 
-    PracticeManagementConditionsController.$inject = ['$window','$stateParams','JhiLanguageService','entity','localStorageService','$filter','$location'];
+    PracticeManagementConditionsController.$inject = ['$window', '$stateParams', 'JhiLanguageService', 'entity', 'localStorageService', '$filter', '$location', '$timeout'];
 
-    function PracticeManagementConditionsController($window, $stateParams, JhiLanguageService, entity, localStorageService, $filter, $location) {
+    function PracticeManagementConditionsController($window, $stateParams, JhiLanguageService, entity, localStorageService, $filter, $location, $timeout) {
         var vm = this;
 
         vm.load = load;
         vm.practice = entity;
         vm.validate = validate;
-        vm.error = false;
 
         //measure
         vm.deleteMeasure = deleteMeasure;
@@ -36,6 +35,9 @@
         vm.save = save;
         vm.clean = clean;
 
+        vm.error = false;
+        vm.success = false;
+        vm.close = close;
 
         vm.load();
 
@@ -182,13 +184,16 @@
         function save() {
             if (vm.validate()) {
                 localStorageService.set('practiceInEdition', vm.practice);
-                $location.path('/practice-management/practiceThingswork/');
+                vm.success = true;
+                vm.mensaje = "practiceManagement.msg.4";
+                vm.close('success', 2000);
             } else {
                 vm.error = true;
-                vm.mensaje = "practiceManagement.error.1";
+                vm.mensaje = "practiceManagement.msg.1";
+                vm.close('error', 3000);
                 $window.scrollTo(0, 0);
             }
-            
+
         }
 
         function clean() {
@@ -209,6 +214,19 @@
                 return false;
             }
             return true;
+        }
+
+        function close(msj, time) {
+            if (msj == 'success') {
+                $timeout(function() {
+                    vm.success = false;
+                    $location.path('/practice-management/practiceThingswork/');
+                }, time);
+            } else {
+                $timeout(function() {
+                    vm.error = false;
+                }, time);
+            }
         }
     }
 
