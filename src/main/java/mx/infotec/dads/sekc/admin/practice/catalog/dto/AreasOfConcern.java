@@ -12,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import mx.infotec.dads.sekc.config.dbmigrations.domain.Color;
+
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -32,6 +34,8 @@ public class AreasOfConcern {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("color")
+    private Color color = null;
     @JsonProperty("alphas")
     private List<Alpha> alphas = null;
     @JsonProperty("activitySpaces")
@@ -81,6 +85,16 @@ public class AreasOfConcern {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @JsonProperty("color")
+    public Color getColor() {
+    	return color;
+    }
+    
+    @JsonProperty("color")
+    public void setColor(Color color) {
+    	this.color = color;
     }
 
     @JsonProperty("alphas")

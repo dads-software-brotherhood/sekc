@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "name",
     "briefDescription",
     "description",
+    "color",
     "alphas",
     "activitySpaces",
     "competencies"
@@ -23,6 +24,8 @@ public class AreasOfConcern {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("color")
+    private Color color = null;
     @JsonProperty("alphas")
     private List<Alpha> alphas = null;
     @JsonProperty("activitySpaces")
@@ -58,6 +61,16 @@ public class AreasOfConcern {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @JsonProperty("color")
+    public Color getColor() {
+    	return color;
+    }
+    
+    @JsonProperty("color")
+    public void setColor(Color color) {
+    	this.color = color;
     }
 
     @JsonProperty("alphas")

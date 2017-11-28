@@ -25,6 +25,7 @@ import mx.infotec.dads.sekc.admin.practice.catalog.dto.CompetencyLevel;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.LevelsOfDetail;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.State;
 import mx.infotec.dads.sekc.admin.practice.catalog.dto.Workproduct;
+import mx.infotec.dads.sekc.config.dbmigrations.domain.Color;
 
 /**
  *
@@ -46,7 +47,10 @@ public class ClassMatcher {
         areaOfConcern.setName(seAreaOfConcern.getName());
         areaOfConcern.setBriefDescription(seAreaOfConcern.getBriefDescription());
         areaOfConcern.setDescription(seAreaOfConcern.getDescription());
-        
+        Color color = new Color();
+        color.setName(seAreaOfConcern.getColor().getName());
+        color.setHexadecimal(seAreaOfConcern.getColor().getHexadecimal());
+        areaOfConcern.setColor(color);
         List<Alpha> alphas = new ArrayList<>();
         List<ActivitySpace> activitySpaces = new ArrayList<>();
         List<Competency> competencies = new ArrayList<>();

@@ -26,6 +26,7 @@ import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.model.foundation.extention.SEColor;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.ActivitySpace;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Alpha;
@@ -50,7 +51,8 @@ public class KernelSetupMigration {
     @ChangeSet(order = "01", author = "initiator", id = "03-createAlphasStatesCheckPointsCatalogs")
     public void createKernel(MongoTemplate mongoTemplate) {
        // String kernelUrl = "https://gist.githubusercontent.com/danimaniarqsoft/6813e7c27d5b42bd3eda2844e87b107e/raw/b348b061f77a11de323a2852e95e44396b793ded/kernel.js";
-    	String kernelUrl = "https://raw.githubusercontent.com/clara2108/Files/master/kernel.js";
+    	// String kernelUrl = "https://raw.githubusercontent.com/clara2108/Files/master/kernel.js";
+    	String kernelUrl = "https://gist.githubusercontent.com/mosbaldo/e46e1b03e374a723a602418bbe985bbf/raw/2bd205a547ec83676b19b58d45be9f88679671cc/kernel.js";
         ObjectMapper mapper = new ObjectMapper();
         try {
             KernelMigration kernelMigration = mapper.readValue(new URL(kernelUrl), KernelMigration.class);
@@ -82,6 +84,10 @@ public class KernelSetupMigration {
             seAreaOfConcern.getOwnedElements().addAll(migrateAlphas(mongoTemplate, area.getAlphas()));
             seAreaOfConcern.getOwnedElements().addAll(migrateActivitySpaces(mongoTemplate, area.getActivitySpaces()));
             seAreaOfConcern.getOwnedElements().addAll(migrateCompetencies(mongoTemplate, area.getCompetencies()));
+            SEColor color = new SEColor();
+            color.setName(area.getColor().getName());
+            color.setHexadecimal(area.getColor().getHexadecimal());
+            seAreaOfConcern.setColor(color);
             mongoTemplate.save(seAreaOfConcern);
             areaOfConcernList.add(seAreaOfConcern);
         });
