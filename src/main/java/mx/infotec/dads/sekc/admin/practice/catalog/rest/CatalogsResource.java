@@ -28,7 +28,6 @@ public class CatalogsResource {
     public ResponseEntity catalogsGet() {
         ResponseWrapper responseData;
         responseData = catalogsService.findAll();
-
         if (responseData.getErrorMessage().equals("")) {
             return ResponseEntity.ok()
                     .body(responseData.getResponseObject());

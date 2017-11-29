@@ -79,7 +79,6 @@ public class ClassMatcher {
         alpha.setDescription(seAlpha.getDescription());
         alpha.setBriefDescription(seAlpha.getBriefDescription());
         
-        if (subElements){
             List<State> stateList = new ArrayList<>();
             if (seAlpha.getStates() != null){
                 seAlpha.getStates().forEach((seState) -> {
@@ -98,7 +97,6 @@ public class ClassMatcher {
                 });
                 alpha.setWorkproducts(workProductList);
             }
-        }
         return alpha;
     }
     

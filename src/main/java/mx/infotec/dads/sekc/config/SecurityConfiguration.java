@@ -113,7 +113,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(API_PATH + "/account/reset_password/init").permitAll()
             .antMatchers(API_PATH + "/account/reset_password/finish").permitAll()
             .antMatchers(API_PATH + "/profile-info").permitAll()
-            .antMatchers(API_PATH + "/**").authenticated()
+//            .antMatchers(API_PATH + "/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/v2/api-docs/**").permitAll()
