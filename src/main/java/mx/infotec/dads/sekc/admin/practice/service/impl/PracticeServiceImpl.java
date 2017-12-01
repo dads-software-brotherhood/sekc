@@ -130,8 +130,8 @@ public class PracticeServiceImpl implements PracticeService {
             SEPractice sePractice = getPracticeFromRequest(practiceDto, response);
             if (sePractice == null ) {
                 //Now we use error messages from exceptions inside dtoMapper
-                //response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
-                response.setResponseCode(HttpStatus.BAD_REQUEST);
+                response.setErrorMessage(ErrorConstants.ERR_RECORD_NOT_FOUND);
+                response.setResponseCode(HttpStatus.NOT_FOUND);
             } else {
                 //reemplaza documento existente por completo
                 sePractice.setId(practiceDto.getId());
