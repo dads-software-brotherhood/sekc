@@ -301,19 +301,19 @@ ul.ivh-treeview {
 /*Colores Area of concern*/
 .colorArea0 {
     background-color: #C9FFC9;
-    color: black;
+    color: #40a94c;
     font-weight: bold;
 }
 
 .colorArea1 {
     background-color: #FFFF99;
-    color: black;
+    color: #ea7403;
     font-weight: bold;
 }
 
 .colorArea2 {
     background-color: #C6D9F1;
-    color: black;
+    color: #4a6ec6;
     font-weight: bold;
 }
 
@@ -452,4 +452,15 @@ ul.ivh-treeview {
     max-height: 3.4em; /* (Number of lines you want visible)  (line-height) */
     line-height: 1.2em;
     text-align: justify;
+}
+
+.diagram-Activites {
+    border: solid 2px #c9cacc;
+    border-radius: 10px;
+    width: 100%;
+    height: 600px;
+}
+
+.modal-Activities {
+    width: 700px;
 }

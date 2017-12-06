@@ -102,7 +102,7 @@
         }
 
         function clean() {
-            vm.practice = {};
+            vm.practice = entity;
             localStorageService.set('practiceInEdition', null);
         }
 

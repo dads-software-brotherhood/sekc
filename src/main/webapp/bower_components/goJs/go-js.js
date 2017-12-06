@@ -1,41 +1,40 @@
 /**
  * go Js
  */
-(function () {
+(function() {
     'use strict';
 
     angular.module('minimal', [])
-        .directive('goDiagram', function () {
+        .directive('goDiagram', function() {
             return {
                 restrict: 'E',
                 template: '<div></div>',  // just an empty DIV element
                 replace: true,
                 scope: { model: '=goModel' },
-                link: function (scope, element, attrs) {
+                link: function(scope, element, attrs) {
 
                     var $ = go.GraphObject.make;
-                    var simpletemplate =
-                        $(go.Node, "Auto",
-                            new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-                            $(go.Shape, "SquareArrow",
-                                new go.Binding("fill", "color"),
-                                {
-                                    portId: "", cursor: "pointer", strokeWidth: 0,
-                                    fromLinkable: true, toLinkable: true,
-                                    fromLinkableSelfNode: true, toLinkableSelfNode: true,
-                                    fromLinkableDuplicates: true, toLinkableDuplicates: true
-                                }),
-                            $(go.Panel, "Table",
-                                { defaultAlignment: go.Spot.Left },
-                                $(go.TextBlock, { row: 0, column: 0, margin: 15, editable: false, stroke: "white" },
-                                    new go.Binding("text", "name").makeTwoWay())
-                            ),
-                            $("Button",
-                                { alignment: go.Spot.TopRight },
-                                $(go.Shape, "AsteriskLine", { width: 8, height: 8 }),
-                                { click: changeCategory })
-                        );
-                    var detailtemplate = $(go.Node, "Auto",
+                    var simpleTemplate = $(go.Node, "Auto",
+                        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                        $(go.Shape, "SquareArrow",
+                            new go.Binding("fill", "color"),
+                            {
+                                portId: "", cursor: "pointer", strokeWidth: 0,
+                                fromLinkable: true, toLinkable: true,
+                                fromLinkableSelfNode: true, toLinkableSelfNode: true,
+                                fromLinkableDuplicates: true, toLinkableDuplicates: true
+                            }),
+                        $(go.Panel, "Table",
+                            { defaultAlignment: go.Spot.Left },
+                            $(go.TextBlock, { row: 0, column: 0, margin: 15, editable: false, stroke: "white" },
+                                new go.Binding("text", "name").makeTwoWay())
+                        ),
+                        $("Button",
+                            { alignment: go.Spot.TopRight },
+                            $(go.Shape, "NinePointedStar", { width: 8, height: 8, fill: "#0f4f88", stroke: "#0f4f88" }),
+                            { click: changeCategory })
+                    );
+                    var detailTemplate = $(go.Node, "Auto",
                         new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
                         $(go.Shape, "SquareArrow",
                             new go.Binding("fill", "color"),
@@ -49,18 +48,53 @@
                             { defaultAlignment: go.Spot.Left },
                             $(go.TextBlock, { row: 0, column: 0, margin: 8, editable: false, stroke: "white" },
                                 new go.Binding("text", "name").makeTwoWay()),
-                            $(go.TextBlock, { row: 1, column: 1, editable: false, stroke: "white", font: "bold" },
+                            $(go.TextBlock, { row: 1, column: 1, editable: false, stroke: "white" },
                                 new go.Binding("text", "desc"))
                         ),
                         $("Button",
                             { alignment: go.Spot.TopRight },
-                            $(go.Shape, "AsteriskLine", { width: 8, height: 8 }),
+                            $(go.Shape, "NinePointedStar", { width: 8, height: 8, fill: "#0f4f88", stroke: "#0f4f88" }),
                             { click: changeCategory })
                     );
+                    var circleStartTemplate = $(go.Node, "Auto",
+                        new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                        $(go.Shape, "Circle",
+                            new go.Binding("stroke", "border"),
+                            new go.Binding("fill", "color"),
+                            {
+                                portId: "", cursor: "pointer", strokeWidth: 0,
+                                fromLinkable: true,
+                                strokeWidth: 3
+                            }),
+                        $(go.Panel, "Table",
+                            { defaultAlignment: go.Spot.Left },
+                            $(go.TextBlock, { row: 0, column: 0, margin: 2, editable: false, stroke: "white" },
+                                new go.Binding("text", "name").makeTwoWay())
+                        )
+                    );
+                    var circleEndTemplate =
+                        $(go.Node, "Auto",
+                            new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+                            $(go.Shape, "Circle",
+                                new go.Binding("stroke", "border"),
+                                new go.Binding("fill", "color"),
+                                {
+                                    portId: "", cursor: "pointer", strokeWidth: 0,
+                                    toLinkable: true,
+                                    strokeWidth: 3
+                                }),
+                            $(go.Panel, "Table",
+                                { defaultAlignment: go.Spot.Left },
+                                $(go.TextBlock, { row: 0, column: 0, margin: 4, editable: false, stroke: "white" },
+                                    new go.Binding("text", "name").makeTwoWay())
+                            )
+                        );
 
                     var templmap = new go.Map("string", go.Node);
-                    templmap.add("simple", simpletemplate);
-                    templmap.add("detailed", detailtemplate);
+                    templmap.add("simple", simpleTemplate);
+                    templmap.add("detailed", detailTemplate);
+                    templmap.add("circleStart", circleStartTemplate);
+                    templmap.add("circleEnd", circleEndTemplate);
 
                     var diagram =  // create a Diagram for the given HTML DIV element
                         $(go.Diagram, element[0],
@@ -114,7 +148,7 @@
                     }
 
                     // notice when the value of "model" changes: update the Diagram.model
-                    scope.$watch("model", function (newmodel) {
+                    scope.$watch("model", function(newmodel) {
                         var oldmodel = diagram.model;
                         if (oldmodel !== newmodel) {
                             diagram.removeDiagramListener("ChangedSelection", updateSelection);
@@ -122,7 +156,7 @@
                             diagram.addDiagramListener("ChangedSelection", updateSelection);
                         }
                     });
-                    scope.$watch("model.selectedNodeData.name", function (newname) {
+                    scope.$watch("model.selectedNodeData.name", function(newname) {
                         if (!diagram.model.selectedNodeData) return;
                         // disable recursive updates
                         diagram.removeModelChangedListener(updateAngular);

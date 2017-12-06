@@ -154,6 +154,17 @@
             vm.activitiesDiagram = [];
             vm.activitiesRelation = [];
             var y = 0;
+
+            //vm.activitiesDiagram.push({
+            //    key: 99999, name: "Start",
+            //    color: "#1f7115", category: "circleStart",
+            //    to: "", loc: "0 0", border: "#085d07"
+            //}, {
+            //        key: 99998, name: "End",
+            //        color: "#c3190d", category: "circleEnd",
+            //        to: "", loc: "50 0", border: "#9e0707"
+            // });
+
             //Se recorren las actividades para pintarlas en el diagrama
             angular.forEach(vm.practice.thingsToDo.activities, function(value, key) {
                 var activity = {};
@@ -161,17 +172,19 @@
                 activity.category = "simple";
                 activity.name = value.name;
                 activity.desc = value.nameActivitySpace;
-                activity.color = "#1E88E5";
+                activity.color = "#1361a7";
                 activity.idActivitySpace = vm.practice.thingsToDo.activities[key].idActivitySpace;
                 activity.to = value.to;
                 activity.loc = value.goJsPosition ? value.goJsPosition : "0 " + y;
                 vm.activitiesDiagram.push(activity);
+                
                 //Se recorren relaciones para agregarlas al diagrama
                 angular.forEach(activity.to, function(value, key) {
                     vm.activitiesRelation.push({ from: activity.key, to: value });
                 });
                 y += 50;
             });
+            
             vm.model = new go.GraphLinksModel(
                 vm.activitiesDiagram,
                 vm.activitiesRelation);
@@ -512,6 +525,7 @@
         function cancel() {
             localStorageService.set('practiceInEdition', null);
             $location.path('/find-practice');
+            $modalInstance.dismiss('cancel');
         }
         function validate() {
             if (!vm.areaOfConcern ||
