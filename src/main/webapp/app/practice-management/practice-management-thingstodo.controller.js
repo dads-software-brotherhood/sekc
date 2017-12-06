@@ -109,11 +109,7 @@
                     console.log(vm.activityInEdition.idActivityComposition);
                     vm.practice.thingsToDo.activities.push(vm.activityInEdition);
 
-                } else {
-                    var editedActivity = $filter('filter')(vm.practice.thingsToDo.activities,
-                        { idActivityComposition: vm.activityInEdition.idActivityComposition })[0];
-                    editedActivity = vm.activityInEdition;
-                }
+                } 
                 vm.clean();
             } else {
                 vm.error = true;

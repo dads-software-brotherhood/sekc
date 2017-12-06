@@ -34,7 +34,7 @@
                     <fieldset>
                         <h5><span data-translate="practiceManagement.entries">Entries</span></h5>
                         <p>
-                            <ul>
+                            <ul class="lista-SinEspacio">
                                 <li ng-repeat="alphastate in vm.practice.conditions.entries.alphaStates">
                                     {{alphastate.description}}
                                 </li>
@@ -54,7 +54,7 @@
                     <fieldset>
                         <h5><span data-translate="practiceManagement.results">Results</span></h5>
                         <p>
-                            <ul>
+                            <ul class="lista-SinEspacio">
                                 <li ng-repeat="alphastate in vm.practice.conditions.results.alphaStates">
                                     {{alphastate.description}}
                                 </li>
@@ -75,7 +75,7 @@
                 <h5><span data-translate="practiceManagement.measure">Measures</span></h5>
                 <p>
                     <div ng-repeat="measure in vm.practice.conditions.measures">
-                        <ul>
+                        <ul class="lista-SinEspacio">
                             <li>
                                 {{measure}}
                             </li>
@@ -89,7 +89,7 @@
                 <h5><span data-translate="practiceManagement.relatedPractices">Related practices</span></h5>
                 <p>
                     <div ng-repeat="related in vm.practice.relatedPracticesName">
-                        <ul>
+                        <ul class="lista-SinEspacio">
                             <li>
                                 <a ui-sref="practice-consult-general({idPractice:related.id})">
                                     {{related.name}}
@@ -109,7 +109,7 @@
             <div class="row">
                 <div class="col-xs-4">
                     <h5 data-translate="practiceManagement.entries"> Entries </h5>
-                    <ul>
+                    <ul class="lista-SinEspacio">
                         <li ng-repeat="entry in activity.entryCriterion.alphaStates">
                             {{entry.description}}
                         </li>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="col-xs-4">
                     <h5 data-translate="practiceManagement.thingsToDo.completition"> Completition </h5>
-                    <ul>
+                    <ul class="lista-SinEspacio">
                         <li ng-repeat="entry in activity.completitionCriterion.alphaStates">
                             {{entry.description}}
                         </li>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="col-xs-4">
                     <h5 data-translate="practiceManagement.thingsToDo.competencies"> Competencies </h5>
-                    <ul>
+                    <ul class="lista-SinEspacio">
                         <li ng-repeat="competency in activity.competencies">
                             {{competency.competency}} - {{competency.competencyLevel}}
                         </li>
@@ -145,31 +145,23 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4">
                     <h5 data-translate="practiceManagement.thingsToDo.action"> Action </h5>
-                    <table class="table table-full table-full-small white">
-                        <thead>
-                        </thead>
-                        <tbody>
-                            <tr ul ng-repeat="action in activity.actions">
-                                <td>{{action.idActionKind}}</td>
-                                <td>
-                                    <ul>
-                                        <li ng-repeat="entry in action.alphaStates">
-                                            {{entry.description}}
-                                        </li>
-                                        <li ng-repeat="workproduct in action.workProductsLevelofDetail">
-                                            {{workproduct.description}}
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div ng-repeat="action in activity.actions">
+                        <span class="label blue f10">{{action.idActionKind}}</span>
+                        <ul class="lista-SinEspacio">
+                            <li ng-repeat="entry in action.alphaStates">
+                                {{entry.description}}
+                            </li>
+                            <li ng-repeat="workproduct in action.workProductsLevelofDetail">
+                                {{workproduct.description}}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-xs-4 col-xs-offset-2" ng-show="activity.approaches.length">
+                <div class="col-xs-6" ng-show="activity.approaches.length">
                     <h5 data-translate="practiceManagement.thingsToDo.approach"> Approach </h5>
-                    <ul ng-repeat="approach in activity.approaches">
+                    <ul class="lista-SinEspacio" ng-repeat="approach in activity.approaches">
                         <li>
                             <div>{{approach.name}}</div>
                         </li>
@@ -202,7 +194,7 @@
                 <h5><span data-translate="practiceManagement.keywords">Keywords</span></h5>
                 <p>
                     <span ng-repeat="keyword in vm.practice.keywords"
-                          class="label color{{$index % 3}}">{{keyword}}</span>
+                          class="label color{{$index % 3}} f12">{{keyword}}</span>
                 </p>
             </div>
         </div>

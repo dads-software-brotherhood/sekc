@@ -31,17 +31,17 @@
 
             }        
         })
-        .state('practice-consult-general', {
+        .state('practice-consult-kualibeh', {
             parent: 'app',
-            url: '/practiceConsultGeneral/{idPractice}',
+            url: '/practiceConsultKualibeh/{idPractice}',
             data: {
                 authorities: ['ROLE_ADMIN'],
                 pageTitle: 'practiceManagement.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/practice-management/practice-consult/practice-consult-general.html',
-                    controller: 'PracticeConsultGeneralController',
+                    templateUrl: 'app/practice-management/practice-consult/practice-consult-kualibeh.html',
+                    controller: 'PracticeConsultKualibehController',
                     controllerAs: 'vm'
                 }
             },

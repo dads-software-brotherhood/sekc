@@ -3,11 +3,11 @@
 
     angular
         .module('sekcApp')
-        .controller('PracticeConsultGeneralController', PracticeConsultGeneralController);
+        .controller('PracticeConsultKualibehController', PracticeConsultKualibehController);
 
-    PracticeConsultGeneralController.$inject = ['$stateParams', 'FindPractice', '$location', 'JhiLanguageService','DataUtils'];
+    PracticeConsultKualibehController.$inject = ['$stateParams', 'FindPractice', '$location', 'JhiLanguageService','DataUtils'];
 
-    function PracticeConsultGeneralController($stateParams, FindPractice, $location, JhiLanguageService, DataUtils) {
+    function PracticeConsultKualibehController($stateParams, FindPractice, $location, JhiLanguageService, DataUtils) {
         var vm = this;
 
         vm.load = load;
