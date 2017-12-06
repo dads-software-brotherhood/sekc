@@ -320,6 +320,7 @@ public class SEEssenceMapper {
                 act.setAction(new ArrayList<>());
                 act.setGoJsPosition(activity.getGoJsPosition());
                 act.setTo(activity.getTo());
+                act.setCategory(activity.getCategory());
                 act.setIdActivityComposition(activity.getIdActivityComposition());
                 act.setCriterion(new ArrayList<>());
                 act.setResource(new ArrayList<>());

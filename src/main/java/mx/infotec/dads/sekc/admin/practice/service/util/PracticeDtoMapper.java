@@ -333,6 +333,7 @@ public class PracticeDtoMapper {
             actDto.setBriefDescription(seActivity.getBriefDescription());
             actDto.setDescription(seActivity.getDescription());
             actDto.setTo(seActivity.getTo());
+            actDto.setCategory(seActivity.getCategory());
             actDto.setIdActivityComposition(seActivity.getIdActivityComposition());
             actDto.setGoJsPosition(seActivity.getGoJsPosition());
             actDto.setCreated(Boolean.TRUE);

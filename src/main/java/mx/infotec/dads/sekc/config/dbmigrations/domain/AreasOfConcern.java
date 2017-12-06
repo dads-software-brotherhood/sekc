@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.config.dbmigrations.domain;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class AreasOfConcern {
     @JsonProperty("description")
     private String description;
     @JsonProperty("color")
-    private Color color = null;
+    private String color;
     @JsonProperty("alphas")
     private List<Alpha> alphas = null;
     @JsonProperty("activitySpaces")
@@ -62,15 +61,15 @@ public class AreasOfConcern {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @JsonProperty("color")
-    public Color getColor() {
-    	return color;
+    public String getColor() {
+        return color;
     }
-    
+
     @JsonProperty("color")
-    public void setColor(Color color) {
-    	this.color = color;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @JsonProperty("alphas")

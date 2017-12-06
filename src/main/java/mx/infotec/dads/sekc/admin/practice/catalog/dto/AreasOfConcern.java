@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
@@ -12,8 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import mx.infotec.dads.sekc.config.dbmigrations.domain.Color;
-
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -21,11 +18,13 @@ import mx.infotec.dads.sekc.config.dbmigrations.domain.Color;
     "name",
     "briefDescription",
     "description",
+    "color",
     "alphas",
     "activitySpaces",
     "competencies"
 })
 public class AreasOfConcern {
+
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")
@@ -35,7 +34,7 @@ public class AreasOfConcern {
     @JsonProperty("description")
     private String description;
     @JsonProperty("color")
-    private Color color = null;
+    private String color;
     @JsonProperty("alphas")
     private List<Alpha> alphas = null;
     @JsonProperty("activitySpaces")
@@ -46,7 +45,7 @@ public class AreasOfConcern {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonProperty("type")
     private String type = "areaOfConcern";
-    
+
     @JsonProperty("id")
     public String getId() {
         return id;
@@ -56,7 +55,7 @@ public class AreasOfConcern {
     public void setId(String id) {
         this.id = id;
     }
-    
+
     @JsonProperty("name")
     public String getName() {
         return name;
@@ -86,15 +85,15 @@ public class AreasOfConcern {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     @JsonProperty("color")
-    public Color getColor() {
-    	return color;
+    public String getColor() {
+        return color;
     }
-    
+
     @JsonProperty("color")
-    public void setColor(Color color) {
-    	this.color = color;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @JsonProperty("alphas")

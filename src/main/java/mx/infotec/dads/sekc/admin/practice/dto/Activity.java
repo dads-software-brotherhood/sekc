@@ -24,6 +24,7 @@ import java.util.ArrayList;
     "briefDescription",
     "description",
     "to",
+    "category",
     "goJsPosition",
     "created",
     "competencies",
@@ -57,6 +58,8 @@ public class Activity {
     private String description;
     @JsonProperty("to")
     private List<String> to = new ArrayList<>();
+    @JsonProperty("category")
+    private String category;
     @JsonProperty("goJsPosition")
     private String goJsPosition;
     @JsonProperty("created")
@@ -186,6 +189,16 @@ public class Activity {
     @JsonProperty("to")
     public void setTo(List<String> to) {
         this.to = to;
+    }
+
+    @JsonProperty("category")
+    public String getCategory() {
+        return category;
+    }
+
+    @JsonProperty("category")
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @JsonProperty("goJsPosition")
