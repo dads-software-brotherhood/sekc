@@ -1,4 +1,3 @@
-
 package mx.infotec.dads.sekc.admin.practice.catalog.dto;
 
 import java.util.HashMap;
@@ -19,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     "name",
     "briefDescription",
     "description",
+    "color",
     "states",
     "workproducts"
 })
@@ -32,6 +32,8 @@ public class Alpha {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("color")
+    private String color;
     @JsonProperty("states")
     private List<State> states = null;
     @JsonProperty("workproducts")
@@ -40,7 +42,7 @@ public class Alpha {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonProperty("type")
     private String type = "alpha";
-    
+
     @JsonProperty("id")
     public String getId() {
         return id;
@@ -79,6 +81,16 @@ public class Alpha {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonProperty("color")
+    public String getColor() {
+        return color;
+    }
+
+    @JsonProperty("color")
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @JsonProperty("states")

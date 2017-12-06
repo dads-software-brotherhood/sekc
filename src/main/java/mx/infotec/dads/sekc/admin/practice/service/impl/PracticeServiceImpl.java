@@ -86,8 +86,11 @@ public class PracticeServiceImpl implements PracticeService {
     @Override
     public Page<PracticeConsultDto> findAll(Pageable pageable, List<String> keywords) {
         LOG.debug("Request to get all Practices");
-        if (!keywords.isEmpty() ) 
-            return practiceRepository.findByKeyWordsIn(keywords, pageable).map(PracticeConsultDtoMapper::toDto);
+        
+        if (!keywords.isEmpty() ) {
+            Page<PracticeConsultDto> practices = practiceRepository.findByKeyWordsIn(keywords, pageable).map(PracticeConsultDtoMapper::toDto);
+        }
+        //practiceRepository.findByName(name)
         return practiceRepository.findAll(pageable).map(PracticeConsultDtoMapper::toDto);
     }
 
@@ -130,8 +133,8 @@ public class PracticeServiceImpl implements PracticeService {
             SEPractice sePractice = getPracticeFromRequest(practiceDto, response);
             if (sePractice == null ) {
                 //Now we use error messages from exceptions inside dtoMapper
-                //response.setError_message(ErrorConstants.ERR_MALFORMED_REQUEST);
-                response.setResponseCode(HttpStatus.BAD_REQUEST);
+                response.setErrorMessage(ErrorConstants.ERR_RECORD_NOT_FOUND);
+                response.setResponseCode(HttpStatus.NOT_FOUND);
             } else {
                 //reemplaza documento existente por completo
                 sePractice.setId(practiceDto.getId());

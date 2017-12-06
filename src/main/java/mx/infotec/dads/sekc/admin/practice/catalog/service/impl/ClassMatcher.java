@@ -2,6 +2,7 @@ package mx.infotec.dads.sekc.admin.practice.catalog.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import mx.infotec.dads.essence.model.SEGraphicalElement;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
@@ -46,7 +47,9 @@ public class ClassMatcher {
         areaOfConcern.setName(seAreaOfConcern.getName());
         areaOfConcern.setBriefDescription(seAreaOfConcern.getBriefDescription());
         areaOfConcern.setDescription(seAreaOfConcern.getDescription());
-        
+        if (((SEGraphicalElement) seAreaOfConcern.getIcon()) != null){
+            areaOfConcern.setColor( ((SEGraphicalElement) seAreaOfConcern.getIcon()).getHex_color() );
+        }
         List<Alpha> alphas = new ArrayList<>();
         List<ActivitySpace> activitySpaces = new ArrayList<>();
         List<Competency> competencies = new ArrayList<>();
@@ -74,17 +77,18 @@ public class ClassMatcher {
         alpha.setName(seAlpha.getName());
         alpha.setDescription(seAlpha.getDescription());
         alpha.setBriefDescription(seAlpha.getBriefDescription());
-        
+        if (((SEGraphicalElement) seAlpha.getIcon()) != null){
+            alpha.setColor( ((SEGraphicalElement) seAlpha.getIcon()).getHex_color() );
+        }
+        List<State> stateList = new ArrayList<>();
+        if (seAlpha.getStates() != null){
+            seAlpha.getStates().forEach((seState) -> {
+                State state = new State();
+                stateList.add(matchState(state, seState));
+            });
+            alpha.setStates(stateList);
+        }
         if (subElements){
-            List<State> stateList = new ArrayList<>();
-            if (seAlpha.getStates() != null){
-                seAlpha.getStates().forEach((seState) -> {
-                    State state = new State();
-                    stateList.add(matchState(state, seState));
-                });
-                alpha.setStates(stateList);
-            }
-
             //workproducts
             List<Workproduct> workProductList = new ArrayList<>();
             if (seAlpha.getWorkProductManifest() != null){
@@ -126,7 +130,9 @@ public class ClassMatcher {
         workProduct.setName(seWorkProduct.getName());
         workProduct.setDescription(seWorkProduct.getDescription());
         workProduct.setBriefDescription(seWorkProduct.getBriefDescription());
-        
+        if (((SEGraphicalElement) seWorkProduct.getIcon()) != null){
+            workProduct.setColor( ((SEGraphicalElement) seWorkProduct.getIcon()).getHex_color() );
+        }
         List<LevelsOfDetail> levelsOfDetailList = new ArrayList<>();
         if (seWorkProduct.getLevelOfDetail() != null){
             seWorkProduct.getLevelOfDetail().forEach((seLevelOfDetail) -> {
@@ -158,6 +164,9 @@ public class ClassMatcher {
         activitySpace.setName(seActivitySpace.getName());
         activitySpace.setDescription(seActivitySpace.getDescription());
         activitySpace.setBriefDescription(seActivitySpace.getBriefDescription());
+        if (((SEGraphicalElement) seActivitySpace.getIcon()) != null){
+            activitySpace.setColor( ((SEGraphicalElement) seActivitySpace.getIcon()).getHex_color() );
+        }
         return activitySpace;
     }
     
@@ -174,6 +183,9 @@ public class ClassMatcher {
         competency.setName(seCompetency.getName());
         competency.setDescription(seCompetency.getDescription());
         competency.setBriefDescription(seCompetency.getBriefDescription());
+        if (((SEGraphicalElement) seCompetency.getIcon()) != null){
+            competency.setColor( ((SEGraphicalElement) seCompetency.getIcon()).getHex_color() );
+        }
         
         if (subElements){
             //CompetencyLevel

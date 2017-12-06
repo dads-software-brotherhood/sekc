@@ -29,7 +29,6 @@ import java.util.ArrayList;
     "thingsToDo"
 })
 public class PracticeDto {
-
     @JsonProperty("idKernel")
     private String idKernel;
     @JsonProperty("name")

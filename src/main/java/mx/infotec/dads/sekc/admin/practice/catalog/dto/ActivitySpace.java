@@ -17,7 +17,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     "id",
     "name",
     "briefDescription",
-    "description"
+    "description",
+    "color"
 })
 public class ActivitySpace {
 
@@ -29,6 +30,8 @@ public class ActivitySpace {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("color")
+    private String color;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     @JsonProperty("type")
@@ -72,6 +75,16 @@ public class ActivitySpace {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @JsonProperty("color")
+    public String getColor() {
+        return color;
+    }
+
+    @JsonProperty("color")
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @JsonAnyGetter

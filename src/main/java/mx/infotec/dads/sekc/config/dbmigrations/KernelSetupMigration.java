@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mongobee.changeset.ChangeLog;
 import com.github.mongobee.changeset.ChangeSet;
+import mx.infotec.dads.essence.model.SEGraphicalElement;
 
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
@@ -26,6 +27,7 @@ import mx.infotec.dads.essence.model.competency.SECompetencyLevel;
 import mx.infotec.dads.essence.model.foundation.SECheckpoint;
 import mx.infotec.dads.essence.model.foundation.SEKernel;
 import mx.infotec.dads.essence.model.foundation.SEPractice;
+import mx.infotec.dads.essence.model.foundation.extention.Color;
 import mx.infotec.dads.essence.model.foundation.extention.SEAreaOfConcern;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.ActivitySpace;
 import mx.infotec.dads.sekc.config.dbmigrations.domain.Alpha;
@@ -50,7 +52,7 @@ public class KernelSetupMigration {
     @ChangeSet(order = "01", author = "initiator", id = "03-createAlphasStatesCheckPointsCatalogs")
     public void createKernel(MongoTemplate mongoTemplate) {
        // String kernelUrl = "https://gist.githubusercontent.com/danimaniarqsoft/6813e7c27d5b42bd3eda2844e87b107e/raw/b348b061f77a11de323a2852e95e44396b793ded/kernel.js";
-    	String kernelUrl = "https://raw.githubusercontent.com/clara2108/Files/master/kernel.js";
+    	String kernelUrl = "https://gist.githubusercontent.com/wisog/6aefa4e86ac1045649b9f0150d019459/raw/da6695bbf5caef2bcf19fffeffef721ece44488c/kernel.js";
         ObjectMapper mapper = new ObjectMapper();
         try {
             KernelMigration kernelMigration = mapper.readValue(new URL(kernelUrl), KernelMigration.class);
@@ -79,9 +81,13 @@ public class KernelSetupMigration {
         areasOfConcerns.forEach(area -> {
             SEAreaOfConcern seAreaOfConcern = MigrationMapper.toSEAreaOfConcern(area);
             seAreaOfConcern.setOwnedElements(new ArrayList<>());
-            seAreaOfConcern.getOwnedElements().addAll(migrateAlphas(mongoTemplate, area.getAlphas()));
-            seAreaOfConcern.getOwnedElements().addAll(migrateActivitySpaces(mongoTemplate, area.getActivitySpaces()));
-            seAreaOfConcern.getOwnedElements().addAll(migrateCompetencies(mongoTemplate, area.getCompetencies()));
+            SEGraphicalElement icon = new SEGraphicalElement();
+            icon.setHex_color(area.getColor());
+            mongoTemplate.save(icon);
+            seAreaOfConcern.setIcon(icon);
+            seAreaOfConcern.getOwnedElements().addAll(migrateAlphas(mongoTemplate, area.getAlphas(), icon));
+            seAreaOfConcern.getOwnedElements().addAll(migrateActivitySpaces(mongoTemplate, area.getActivitySpaces(), icon));
+            seAreaOfConcern.getOwnedElements().addAll(migrateCompetencies(mongoTemplate, area.getCompetencies(), icon));
             mongoTemplate.save(seAreaOfConcern);
             areaOfConcernList.add(seAreaOfConcern);
         });
@@ -95,11 +101,10 @@ public class KernelSetupMigration {
      * @param activitySpaces
      * @return List<SEActivitySpace>
      */
-    private List<SEActivitySpace> migrateActivitySpaces(MongoTemplate mongoTemplate,
-            List<ActivitySpace> activitySpaces) {
+    private List<SEActivitySpace> migrateActivitySpaces(MongoTemplate mongoTemplate, List<ActivitySpace> activitySpaces, SEGraphicalElement icon) {
         List<SEActivitySpace> activitySpaceList = new ArrayList<>();
         activitySpaces.forEach(activitySpace -> {
-            SEActivitySpace seActivitySpace = MigrationMapper.toSEActivitySpace(activitySpace);
+            SEActivitySpace seActivitySpace = MigrationMapper.toSEActivitySpace(activitySpace, icon);
             mongoTemplate.save(seActivitySpace);
             activitySpaceList.add(seActivitySpace);
         });
@@ -113,10 +118,10 @@ public class KernelSetupMigration {
      * @param competencies
      * @return List<SECompetency>
      */
-    private List<SECompetency> migrateCompetencies(MongoTemplate mongoTemplate, List<Competency> competencies) {
+    private List<SECompetency> migrateCompetencies(MongoTemplate mongoTemplate, List<Competency> competencies, SEGraphicalElement icon) {
         List<SECompetency> competencyList = new ArrayList<>();
         competencies.forEach(competency -> {
-            SECompetency seCompetency = MigrationMapper.toSECompetency(competency);
+            SECompetency seCompetency = MigrationMapper.toSECompetency(competency, icon);
             seCompetency.setPossibleLevel(new ArrayList<>());
             mongoTemplate.save(seCompetency);
             seCompetency.getPossibleLevel()
@@ -156,14 +161,14 @@ public class KernelSetupMigration {
      * @param alphas
      * @return List<SEAlpha>
      */
-    private List<SEAlpha> migrateAlphas(MongoTemplate mongoTemplate, List<Alpha> alphas) {
+    private List<SEAlpha> migrateAlphas(MongoTemplate mongoTemplate, List<Alpha> alphas, SEGraphicalElement icon) {
         List<SEAlpha> alphaList = new ArrayList<>();
         alphas.forEach(alpha -> {
-            SEAlpha seAlpha = MigrationMapper.toSEAlpha(alpha);
+            SEAlpha seAlpha = MigrationMapper.toSEAlpha(alpha, icon);
             mongoTemplate.save(seAlpha);// without states
-            seAlpha.setStates(migrateStates(mongoTemplate, alpha, seAlpha));
+            seAlpha.setStates(migrateStates(mongoTemplate, alpha, seAlpha, icon));
             mongoTemplate.save(seAlpha);// with states & without workproducts
-            List<SEWorkProduct> seWorkProductList = migrateWorkProduct(mongoTemplate, alpha);
+            List<SEWorkProduct> seWorkProductList = migrateWorkProduct(mongoTemplate, alpha, icon);
             List<SEWorkProductManifest> migrateWorkProductManifest = migrateWorkProductManifest(mongoTemplate, seAlpha,
                     seWorkProductList);
             seAlpha.setWorkProductManifest(migrateWorkProductManifest);
@@ -181,10 +186,10 @@ public class KernelSetupMigration {
      * @param alpha
      * @return List<SEWorkProduct>
      */
-    private List<SEWorkProduct> migrateWorkProduct(MongoTemplate mongoTemplate, Alpha alpha) {
+    private List<SEWorkProduct> migrateWorkProduct(MongoTemplate mongoTemplate, Alpha alpha, SEGraphicalElement icon) {
         List<SEWorkProduct> seWorkProductList = new ArrayList<>();
         alpha.getWorkProducts().forEach(workProduct -> {
-            SEWorkProduct seWorkproduct = MigrationMapper.toSEWorkproduct(workProduct);
+            SEWorkProduct seWorkproduct = MigrationMapper.toSEWorkproduct(workProduct, icon);
             mongoTemplate.save(seWorkproduct); // without LevelOfDetail
             seWorkproduct.setLevelOfDetail(migrateLevelOfDetails(mongoTemplate, workProduct.getLevelOfDetails(), seWorkproduct));
             mongoTemplate.save(seWorkproduct); // with LevelOfDetail
@@ -243,7 +248,7 @@ public class KernelSetupMigration {
      * @param alpha
      * @return List<SEState>
      */
-    private List<SEState> migrateStates(MongoTemplate mongoTemplate, Alpha alpha, SEAlpha seAlpha) {
+    private List<SEState> migrateStates(MongoTemplate mongoTemplate, Alpha alpha, SEAlpha seAlpha, SEGraphicalElement icon) {
         List<SEState> seStateList = new ArrayList<>();
         alpha.getStates().forEach(state -> {
             SEState seState = MigrationMapper.toSEState(state);

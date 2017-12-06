@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     "name",
     "briefDescription",
     "description",
+    "color",
     "alphas",
     "activitySpaces",
     "competencies"
@@ -32,6 +33,8 @@ public class AreasOfConcern {
     private String briefDescription;
     @JsonProperty("description")
     private String description;
+    @JsonProperty("color")
+    private String color;
     @JsonProperty("alphas")
     private List<Alpha> alphas = null;
     @JsonProperty("activitySpaces")
@@ -72,7 +75,7 @@ public class AreasOfConcern {
     public void setBriefDescription(String briefDescription) {
         this.briefDescription = briefDescription;
     }
-
+    
     @JsonProperty("description")
     public String getDescription() {
         return description;
@@ -81,6 +84,16 @@ public class AreasOfConcern {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @JsonProperty("color")
+    public String getColor() {
+        return color;
+    }
+
+    @JsonProperty("color")
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @JsonProperty("alphas")

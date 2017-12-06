@@ -1,5 +1,6 @@
 package mx.infotec.dads.sekc.config.dbmigrations.util;
 
+import mx.infotec.dads.essence.model.SEGraphicalElement;
 import mx.infotec.dads.essence.model.activityspaceandactivity.SEActivitySpace;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SEAlpha;
 import mx.infotec.dads.essence.model.alphaandworkproduct.SELevelOfDetail;
@@ -81,11 +82,12 @@ public class MigrationMapper {
      * @param from
      * @return Alpha
      */
-    public static SEAlpha toSEAlpha(Alpha from) {
+    public static SEAlpha toSEAlpha(Alpha from, SEGraphicalElement icon) {
         SEAlpha to = new SEAlpha();
         to.setName(from.getName());
         to.setDescription(from.getDescription());
         to.setBriefDescription(from.getBriefDescription());
+        to.setIcon(icon);
         return to;
     }
 
@@ -108,11 +110,12 @@ public class MigrationMapper {
      * @param from
      * @return SEWorkProduct
      */
-    public static SEWorkProduct toSEWorkproduct(WorkProduct from) {
+    public static SEWorkProduct toSEWorkproduct(WorkProduct from, SEGraphicalElement icon) {
         SEWorkProduct to = new SEWorkProduct();
         to.setName(from.getName());
         to.setBriefDescription(from.getBriefDescription());
         to.setDescription(from.getDescription());
+        to.setIcon(icon);
         return to;
     }
 
@@ -136,11 +139,12 @@ public class MigrationMapper {
      * @param from
      * @return SEActivitySpace
      */
-    public static SEActivitySpace toSEActivitySpace(ActivitySpace from) {
+    public static SEActivitySpace toSEActivitySpace(ActivitySpace from, SEGraphicalElement icon) {
         SEActivitySpace to = new SEActivitySpace();
         to.setName(from.getName());
         to.setDescription(from.getDescription());
         to.setBriefDescription(from.getBriefDescription());
+        to.setIcon(icon);
         return to;
     }
 
@@ -150,11 +154,12 @@ public class MigrationMapper {
      * @param from
      * @return SECompetency
      */
-    public static SECompetency toSECompetency(Competency from) {
+    public static SECompetency toSECompetency(Competency from, SEGraphicalElement icon) {
         SECompetency to = new SECompetency();
         to.setName(from.getName());
         to.setDescription(from.getDescription());
         to.setBriefDescription(from.getBriefDescription());
+        to.setIcon(icon);
         return to;
     }
 

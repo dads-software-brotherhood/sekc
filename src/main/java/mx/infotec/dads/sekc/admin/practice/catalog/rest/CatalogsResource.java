@@ -25,8 +25,8 @@ public class CatalogsResource {
     private static final String ENTITY_NAME = "catalogs";
 
     @GetMapping(value = {"/catalogs"})
-    public ResponseEntity catalogsGet() {
-        ResponseWrapper responseData;
+    public ResponseEntity catalogsGet() { 
+       ResponseWrapper responseData;
         responseData = catalogsService.findAll();
 
         if (responseData.getErrorMessage().equals("")) {
