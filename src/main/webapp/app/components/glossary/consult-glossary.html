@@ -1,4 +1,20 @@
 <section class="p-b-20">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-xs-8">
+                <h1 class="md-book f12">
+                    <span data-translate="glossary.title">Glossary</span>
+                </h1>
+            </div>
+            <div class="col-xs-4 input-group">
+                <span class="input-group-addon">
+                    <i class="md md-search f20 text-blue"></i>
+                </span> 
+                <input type="text" class="form-control" placeholder="{{ 'glossary.search' | translate }}" 
+                       ng-model="vm.searchText" autofocus />
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-2">
             <div class="well white f18">
@@ -9,20 +25,23 @@
         </div>
         <div class="col-xs-10 well white">
             <div class="row">
-                <div class="col-xs-12">
-                    <div class="label blue f14" ng-show="vm.letraSeleccionada">
-                        {{vm.letraSeleccionada}}
-                    </div>
+                <div class="col-xs-11 col-xs-offset-1 m-b-15">
+                    <button class="btn btn-lg btn-round btn-default f40" ng-show="vm.letraSeleccionada">
+                        {{vm.letraSeleccionada}}<div class="ripple-wrapper"></div>
+                    </button>
                 </div>
-                <div ng-repeat="g in vm.glossary | filter : {'letra' : vm.letraSeleccionada}">
+                <div ng-repeat="g in vm.glossary | filter : {'espanol' : vm.searchText, 'letra' : vm.letraSeleccionada}">
                     <div class="col-xs-1">
-                        <i ng-class="g.icon" class="f40"></i>
+                        <button class="btn btn-md btn-round btn-info">
+                            <span ng-class="g.icon" class="md md-info-outline f30"></span>
+                            <div class="ripple-wrapper"></div>
+                        </button>
                     </div>
                     <div class="col-xs-11">
-                        <strong>{{g.espanol}}</strong>
+                        <strong class="f18">{{g.espanol}}</strong>
                     </div>
                     <div class="col-xs-11 col-xs-offset-1">
-                        <p>{{g.definicion}}</p>
+                        <p class="f14">{{g.definicion}}</p>
                     </div>
                 </div>
             </div>

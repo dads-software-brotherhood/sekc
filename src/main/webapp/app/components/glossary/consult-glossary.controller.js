@@ -5,16 +5,16 @@
         .module('sekcApp')
         .controller('ConsultGlossaryController', ConsultGlossaryController);
 
-    ConsultGlossaryController.$inject = ['$stateParams', 'GlossaryService', 'AlertService'];
+    ConsultGlossaryController.$inject = ['$stateParams', 'GlossaryService'];
 
-    function ConsultGlossaryController($stateParams, GlossaryService, AlertService) {
+    function ConsultGlossaryController($stateParams, GlossaryService) {
         var vm = this;
         vm.letraSeleccionada = "";
 
         vm.abc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-        vm.load = load;
+        vm.load = load; 
         vm.load();
 
 

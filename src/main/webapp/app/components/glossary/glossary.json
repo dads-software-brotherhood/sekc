@@ -1,11 +1,11 @@
 [
-	{
-		"letra": "A",
-		"espanol": "Aceptable",
-		"ingles": "Acceptable",
-		"icon": "md-trending-neutral",
-		"definicion": "Estado del alpha Requerimientos: Los requerimientos describen un sistema que es aceptable para los interesados."
-	},
+  {
+    "letra": "A",
+    "espanol": "Aceptable",
+    "ingles": "Acceptable",
+    "icon": "md-trending-neutral",
+    "definicion": "Estado del alpha Requerimientos: Los requerimientos describen un sistema que es aceptable para los interesados."
+  },
 	{
 		"letra": "A",
 		"espanol": "Action",

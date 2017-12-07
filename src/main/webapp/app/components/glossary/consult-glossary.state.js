@@ -14,7 +14,7 @@
                 url: '/consultGlossary',
                 data: {
                     authorities: ['ROLE_ADMIN'],
-                    pageTitle: 'practiceManagement.home.title'
+                    pageTitle: 'glossary.title'
                 },
                 views: {
                     'content@': {
@@ -25,7 +25,7 @@
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('practice-management');
+                        $translatePartialLoader.addPart('glossary');
                         return $translate.refresh();
                     }]
 
