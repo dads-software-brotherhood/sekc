@@ -11,17 +11,10 @@
         var vm = this;
         vm.letraSeleccionada = "";
 
-        vm.abc = [
-            { "id": "A" }, { "id": "B" }, { "id": "C" }, { "id": "D" },
-            { "id": "E" }, { "id": "F" }, { "id": "G" }, { "id": "H" },
-            { "id": "I" }, { "id": "J" }, { "id": "K" }, { "id": "L" },
-            { "id": "M" }, { "id": "N" }, { "id": "O" }, { "id": "P" },
-            { "id": "Q" }, { "id": "R" }, { "id": "S" }, { "id": "T" },
-            { "id": "U" }, { "id": "V" }, { "id": "W" }, { "id": "X" },
-            { "id": "Y" }, { "id": "Z" }
-        ];
-        vm.load = load;
+        vm.abc = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+            "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
+        vm.load = load;
         vm.load();
 
 
