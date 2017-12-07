@@ -1,0 +1,695 @@
+[
+	{
+		"letra": "A",
+		"espanol": "Aceptable",
+		"ingles": "Acceptable",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Requerimientos: Los requerimientos describen un sistema que es aceptable para los interesados."
+	},
+	{
+		"letra": "A",
+		"espanol": "Action",
+		"ingles": "Acción",
+		"icon": "md-trending-neutral",
+		"definicion": "Una operación realizada por una actividad en un producto de trabajo en particular. La acción puede ser de alphas o de un producto de trabajo"
+	},
+	{
+		"letra": "A",
+		"espanol": "Actividad",
+		"ingles": "Activiy",
+		"icon": "md-trending-neutral",
+		"definicion": "Una actividad define uno o más enfoques para llevar a cabo algún trabajo que se realizará y puede recomendar acciones en alphas y / o productos de trabajo para realizar dicho trabajo."
+	},
+	{
+		"letra": "A",
+		"espanol": "Adapts",
+		"ingles": "Adapts",
+		"icon": "md-trending-neutral",
+		"definicion": "Nivel de Competencia: Capaz de aplicar juicio sobre cuándo y cómo aplicar los conceptos a contextos más complejos. Puede permitir que otros apliquen los conceptos."
+	},
+	{
+		"letra": "A",
+		"espanol": "Administración",
+		"ingles": "Manaaement",
+		"icon": "md-trending-neutral",
+		"definicion": "Competencia de Esfuerzo: La capacidad de coordinar"
+	},
+	{
+		"letra": "A",
+		"espanol": "Alpha",
+		"ingles": "Alpha",
+		"icon": "md-trending-neutral",
+		"definicion": "Los alphas son representaciones de las cosas esenciales a trabajar. Son una parte esencial de la ingeniería de software que sirven para evaluar el progreso y la salud de un Esfuerzo de ingeniería de software. "
+	},
+	{
+		"letra": "A",
+		"espanol": "Análisis",
+		"ingles": "Analysis",
+		"icon": "md-trending-neutral",
+		"definicion": "Competencia de Solución: La capacidad de comprender las oportunidades y su relación con los interesados"
+	},
+	{
+		"letra": "A",
+		"espanol": "Apoyar al equipo",
+		"ingles": "Support the Team",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Esfuerzo: Ayudar a los miembros del equipo para apoyarse entre sí mismos"
+	},
+	{
+		"letra": "A",
+		"espanol": "Applies",
+		"ingles": "Applies",
+		"icon": "md-trending-neutral",
+		"definicion": "Nivel de Competencia: Capaz de aplicar los conceptos en contextos simples mediante la aplicación rutinaria de la experiencia adquirida hasta el momento."
+	},
+	{
+		"letra": "A",
+		"espanol": "Área de interés",
+		"ingles": "Area of concern",
+		"icon": "md-trending-neutral",
+		"definicion": "Elementos en el Kernel o Prácticas que pueden ser divididas en una colección de las principales áreas de interés a las que la ingeniería de software presta especial atención."
+	},
+	{
+		"letra": "A",
+		"espanol": "Arquitectura seleccionada",
+		"ingles": "Architecture Selected",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Sistema de Software: Se ha seleccionado una arquitectura que aborda los riesgos técnicos clave y cualquier restricción organizacional aplicable."
+	},
+	{
+		"letra": "A",
+		"espanol": "Asegurar la Satisfacción de los Interesados",
+		"ingles": "Ensure Stakeholder Satisfaction",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Cliente: Compartir los resultados con las partes interesadas para obtener su aceptación del sistema producido y verificar que la oportunidad se haya abordado con éxito."
+	},
+	{
+		"letra": "A",
+		"espanol": "Asociación alpha",
+		"ingles": "Alpha association",
+		"icon": "md-trending-neutral",
+		"definicion": "Una asociación alpha define una relación entre dos alphas."
+	},
+	{
+		"letra": "A",
+		"espanol": "Assists",
+		"ingles": "Assists",
+		"icon": "md-trending-neutral",
+		"definicion": "Nivel de Competencia: Demuestra una comprensión básica de los conceptos y puede seguir instrucciones."
+	},
+	{
+		"letra": "A",
+		"espanol": "Autoría de Práctica",
+		"ingles": "",
+		"icon": "md-trending-neutral",
+		"definicion": "La Autoría de Práctica proporciona un marco para que los practicantes definan sus diferentes formas de trabajar."
+	},
+	{
+		"letra": "B",
+		"espanol": "Bajo control",
+		"ingles": "Under control",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Trabajo: El trabajo va bien"
+	},
+	{
+		"letra": "B",
+		"espanol": "Beneficio acumulado",
+		"ingles": "Benefit Accrued",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Oportunidad: El uso operacional o venta de la solución está creando beneficios tangibles."
+	},
+	{
+		"letra": "C",
+		"espanol": "Cerrado",
+		"ingles": "Closed",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Trabajo: Todas las tareas restantes se han completado y el trabajo se ha cerrado oficialmente."
+	},
+	{
+		"letra": "C",
+		"espanol": "Cliente",
+		"ingles": "Customer",
+		"icon": "md-trending-neutral",
+		"definicion": "Esta Área de interés contiene todo lo que tiene que ver con el uso real y la explotación del sistema de software que se va a producir. La ingeniería de software siempre involucra al menos un cliente para el software que produce. La perspectiva del cliente debe integrarse en el trabajo diario del equipo para evitar que se produzca una solución inapropiada."
+	},
+	{
+		"letra": "C",
+		"espanol": "Coherente",
+		"ingles": "Coherent",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Requerimientos: Los requerimientos proporcionan una descripción coherente de las características esenciales del nuevo sistema."
+	},
+	{
+		"letra": "C",
+		"espanol": "Colaboración",
+		"ingles": "Collaborating",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Equipo: Los miembros del equipo trabajan juntos como una sola unidad."
+	},
+	{
+		"letra": "C",
+		"espanol": "Comenzado",
+		"ingles": "Started",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Trabajo: El trabajo es iniciado."
+	},
+	{
+		"letra": "C",
+		"espanol": "Competencia",
+		"ingles": "Competency",
+		"icon": "md-trending-neutral",
+		"definicion": "Una competencia abarca las habilidades. Define una secuencia de niveles de competencia que van desde un nivel mínimo a un nivel máximo. "
+	},
+	{
+		"letra": "C",
+		"espanol": "Completado",
+		"ingles": "Fulfilled",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Requerimientos: Los requerimientos que se han abordado completamente satisfacen la necesidad de un nuevo sistema."
+	},
+	{
+		"letra": "C",
+		"espanol": "Concebido",
+		"ingles": "Conceived",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Requerimientos: La necesidad de un nuevo sistema ha sido acordada."
+	},
+	{
+		"letra": "C",
+		"espanol": "Concluido",
+		"ingles": "Concluded",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Trabajo: El trabajo para producir resultados ha sido concluido."
+	},
+	{
+		"letra": "C",
+		"espanol": "Coordinar las actividades",
+		"ingles": "Coordinate Activity",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Esfuerzo: Coordinar y dirigir el trabajo del equipo. Esto incluye toda la planeación y re-planeación del trabajo"
+	},
+	{
+		"letra": "D",
+		"espanol": "Demostrable",
+		"ingles": "Demonstrable",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Sistema de Software: Hay disponible una versión ejecutable del sistema que demuestra que la arquitectura es adecuada para el propósito y admite pruebas funcionales y no funcionales."
+	},
+	{
+		"letra": "D",
+		"espanol": "Desarrollo",
+		"ingles": "Development",
+		"icon": "md-trending-neutral",
+		"definicion": "Competencia de Solución: La capacidad de diseñar y programar sistemas de software siguiendo los estándares y normas acordados por el equipo."
+	},
+	{
+		"letra": "D",
+		"espanol": "Detener el trabajo",
+		"ingles": "Stop the Work",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Esfuerzo: Concluir el esfuerzo de ingeniería de software y entregar las responsabilidades del equipo."
+	},
+	{
+		"letra": "D",
+		"espanol": "Dirigido",
+		"ingles": "Addressed",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Oportunidad: Se ha producido una solución demostrable."
+	},
+	{
+		"letra": "D",
+		"espanol": "Dirigido",
+		"ingles": "Addressed",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Requerimientos: Se han abordado suficientes requisitos para satisfacer la necesidad de un nuevo sistema de manera aceptable para los interesados."
+	},
+	{
+		"letra": "E",
+		"espanol": "En acuerdo",
+		"ingles": "In agreement",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Interesados: Los representantes de los interesados ​​están de acuerdo."
+	},
+	{
+		"letra": "E",
+		"espanol": "En el lugar",
+		"ingles": "In place",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Forma de Trabajar: Todos los miembros del equipo están siguiendo la forma de trabajar para acabar su trabajo."
+	},
+	{
+		"letra": "E",
+		"espanol": "En uso",
+		"ingles": "In use",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Forma de Trabajar: Algunos miembros del equipo están usando y adaptándose a la forma de trabajar."
+	},
+	{
+		"letra": "E",
+		"espanol": "Enfoque",
+		"ingles": "Approach",
+		"icon": "md-trending-neutral",
+		"definicion": "Define o describe cómo se realiza una actividad particular."
+	},
+	{
+		"letra": "E",
+		"espanol": "Entender lo que necesitan los interesados",
+		"ingles": "Understand Stakeholder Needs",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Cliente: Comprometerse con las partes interesadas para comprender sus necesidades y garantizar que se produzcan los resultados correctos. Esto incluye identificar y trabajar con los representantes de los interesados ​​para avanzar la oportunidad."
+	},
+	{
+		"letra": "E",
+		"espanol": "Entender los requerimientos",
+		"ingles": "Understand the Requirements",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Cliente: Establecer una comprensión compartida de lo que debe hacer el sistema que se producirá."
+	},
+	{
+		"letra": "E",
+		"espanol": "Equipo",
+		"ingles": "Team",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Esfuerzo: Grupo de dos o más personas que interactúan y participan coordinadamente activamente en el desarrollo"
+	},
+	{
+		"letra": "E",
+		"espanol": "Esfuerzo",
+		"ingles": "Endeavor",
+		"icon": "md-trending-neutral",
+		"definicion": "Esta Área de interés contiene todo lo que hará el equipo y la manera en cómo hará su trabajo."
+	},
+	{
+		"letra": "E",
+		"espanol": "Espacios de actividad",
+		"ingles": "Activity Spaces",
+		"icon": "md-trending-neutral",
+		"definicion": "Los espacios de actividad representan las cosas esenciales por hacer. Proporcionan descripciones de los retos que un equipo se enfrenta en el desarrollo"
+	},
+	{
+		"letra": "E",
+		"espanol": "Estado",
+		"ingles": "State",
+		"icon": "md-trending-neutral",
+		"definicion": "Un estado expresa una situación temporal en la que se cumple alguna condición"
+	},
+	{
+		"letra": "E",
+		"espanol": "Explorar posibilidades",
+		"ingles": "Explore possibilities",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Cliente: Explora las posibilidades que presenta la creación de un sistema de software nuevo o mejorado. Esto incluye el análisis de la oportunidad que se debe abordar y la identificación de los interesados."
+	},
+	{
+		"letra": "F",
+		"espanol": "Forma de trabajar",
+		"ingles": "Way of working",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Esfuerzo: El conjunto adaptado de métodos. El equipo evoluciona su forma de trabajo en conjunto con su comprensión de su misión y su entorno de trabajo. A medida que el trabajo procede, reflexionan continuamente en su forma de trabajo y la adaptan a su contexto actual como sea necesario."
+	},
+	{
+		"letra": "F",
+		"espanol": "Formado ",
+		"ingles": "Formed",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Equipo: El equipo ha sido poblado con suficientes personas comprometidas para comenzar la misión."
+	},
+	{
+		"letra": "F",
+		"espanol": "Formar el sistema",
+		"ingles": "Shape the System",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Cliente: Formar el sistema para que sea fácil de desarrollar"
+	},
+	{
+		"letra": "F",
+		"espanol": "Fundación establecida",
+		"ingles": "Foundation Established",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Forma de Trabajar: Las prácticas clave y las herramientas que forman la base de la forma de trabajar se seleccionan y están listas para su uso."
+	},
+	{
+		"letra": "I",
+		"espanol": "Identificado",
+		"ingles": "Identified",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Oportunidad: Se ha identificado una oportunidad comercial"
+	},
+	{
+		"letra": "I",
+		"espanol": "Implementar el sistema",
+		"ingles": "Implement the System",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Solución: Construir un sistema implementando"
+	},
+	{
+		"letra": "I",
+		"espanol": "Iniciado",
+		"ingles": "Initiated",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Trabajo: El trabajo ha sido solicitado."
+	},
+	{
+		"letra": "I",
+		"espanol": "Innovates",
+		"ingles": "Innovates",
+		"icon": "md-trending-neutral",
+		"definicion": "Nivel de Competencia: Un experto reconocido"
+	},
+	{
+		"letra": "I",
+		"espanol": "Interesados",
+		"ingles": "Stakeholders",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Cliente: Las personas, grupos u organizaciones que afectan o se ven afectados por el sistema de software. Los interesados proporcionan la Oportunidad y son la fuente de los Requerimientos y la financiación para el sistema de software. "
+	},
+	{
+		"letra": "I",
+		"espanol": "Invariable",
+		"ingles": "Invariant",
+		"icon": "md-trending-neutral",
+		"definicion": "Una invariable es una proposición acerca de una instancia de un elemento de lenguaje que es verdadera si la instancia se usa en una construcción de lenguaje según la especificación."
+	},
+	{
+		"letra": "I",
+		"espanol": "Involucrado",
+		"ingles": "Involved",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Interesados: Los representantes de las partes interesadas participan activamente en el trabajo y cumplen sus responsabilidades."
+	},
+	{
+		"letra": "L",
+		"espanol": "Liderazgo",
+		"ingles": "Leadership",
+		"icon": "md-trending-neutral",
+		"definicion": "Competencia de Esfuerzo: Capacidad de inspirar y motivar a un grupo de personas para lograr una conclusión exitosa de su trabajo y alcanzar sus objetivos."
+	},
+	{
+		"letra": "L",
+		"espanol": "Limitado",
+		"ingles": "Bounded",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Requerimientos: El propósito y el tema del nuevo sistema son claros."
+	},
+	{
+		"letra": "L",
+		"espanol": "Lista de verificación",
+		"ingles": "Check-list",
+		"icon": "md-trending-neutral",
+		"definicion": "Es una lista de verificación que necesita ser revisada en un Estado."
+	},
+	{
+		"letra": "L",
+		"espanol": "Listo",
+		"ingles": "Ready",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Sistema de Software: El sistema (como un todo) ha sido aceptado para su implementación en producción."
+	},
+	{
+		"letra": "M",
+		"espanol": "Masters",
+		"ingles": "Masters",
+		"icon": "md-trending-neutral",
+		"definicion": "Nivel de Competencia: Capaz de aplicar los conceptos en la mayoría de los contextos y tiene la experiencia para trabajar sin supervisión."
+	},
+	{
+		"letra": "M",
+		"espanol": "Método",
+		"ingles": "Method",
+		"icon": "md-trending-neutral",
+		"definicion": "Es la composición de un Kernel y un conjunto coherente, consistente y completo de prácticas para cumplir un propósito específico y satisfacer las necesidades de los involucrados en condiciones específicas."
+	},
+	{
+		"letra": "N",
+		"espanol": "Nivel de competencia",
+		"ingles": "Competency Level",
+		"icon": "md-trending-neutral",
+		"definicion": "Define un nivel de cuán competente o capaz es un miembro del equipo con respecto a las habilidades"
+	},
+	{
+		"letra": "N",
+		"espanol": "Nivel de detalle",
+		"ingles": "Level of Detail",
+		"icon": "md-trending-neutral",
+		"definicion": "Una especificación de la cantidad de detalles o rango de contenido en un producto de trabajo. El nivel de detalle de un producto de trabajo se determina mediante la evaluación de elementos de la lista de verificación."
+	},
+	{
+		"letra": "N",
+		"espanol": "Núcleo",
+		"ingles": "Kernel",
+		"icon": "md-trending-neutral",
+		"definicion": "Es un conjunto de elementos utilizados para formar un terreno común para describir un esfuerzo de ingeniería de software. El Kernel de Essence proporciona la base común, entre otras cosas, ayuda a los profesionales a comparar los métodos y tomar las mejores decisiones sobre sus prácticas. Es un grupo de elementos que nombra los conceptos básicos (es decir, alphas, Espacios de actividad y Competencias)."
+	},
+	{
+		"letra": "O",
+		"espanol": "Operar el sistema",
+		"ingles": "Operate the System",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Solución: Apoyar o dar soporte para el uso del sistema en producción. "
+	},
+	{
+		"letra": "O",
+		"espanol": "Operativo",
+		"ingles": "Operational",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Sistema de Software: El sistema está en uso en un entorno operativo."
+	},
+	{
+		"letra": "O",
+		"espanol": "Oportunidad",
+		"ingles": "Opportunity",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Cliente: Conjunto de circunstancias que hacen que sea apropiado desarrollar o cambiar un Sistema de Software. "
+	},
+	{
+		"letra": "P",
+		"espanol": "Patrón",
+		"ingles": "Pattern",
+		"icon": "md-trending-neutral",
+		"definicion": "Un patrón es una descripción de una estructura en una Práctica. Los patrones pueden organizar los elementos del lenguaje en estructuras significativas arbitrarias. "
+	},
+	{
+		"letra": "P",
+		"espanol": "Práctica",
+		"ingles": "Practice",
+		"icon": "md-trending-neutral",
+		"definicion": "Es una descripción de cómo manejar un aspecto específico de un esfuerzo de ingeniería de software. Tiene un objetivo claro expresado en términos de los resultados que su aplicación logrará. Proporciona orientación no sólo para ayudar y guiar a los profesionales en lo que se debe hacer para lograr el objetivo"
+	},
+	{
+		"letra": "P",
+		"espanol": "Preparado",
+		"ingles": "Prepared",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Trabajo: Se han cumplido todas las condiciones previas para comenzar el trabajo."
+	},
+	{
+		"letra": "P",
+		"espanol": "Prepararse para hacer el trabajo",
+		"ingles": "Prepare to do the Work",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Esfuerzo: Configurar el equipo y su entorno de trabajo. Comprender y comprometerse a completar el trabajo."
+	},
+	{
+		"letra": "P",
+		"espanol": "Principios establecidos",
+		"ingles": "Principles Established",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Forma de Trabajar: Se establecen los principios y restricciones que dan forma a la forma de trabajar."
+	},
+	{
+		"letra": "P",
+		"espanol": "Probar el sistema",
+		"ingles": "Test the System",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Solución: Verificar que el sistema producido cumpla con los requisitos de las partes interesadas."
+	},
+	{
+		"letra": "P",
+		"espanol": "Producción del sistema",
+		"ingles": "Deploy the System",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Solución: Tomar el sistema probado y ponerlo a disposición para su uso fuera del equipo de desarrollo."
+	},
+	{
+		"letra": "P",
+		"espanol": "Producto de trabajo",
+		"ingles": "Workproduct",
+		"icon": "md-trending-neutral",
+		"definicion": "Es el producto que debe realizarse para completar el Trabajo. Tiene un resultado concreto y conduce a un cambio de Estado. El producto de trabajo puede o no tener alguna Actividad relacionada."
+	},
+	{
+		"letra": "P",
+		"espanol": "Pruebas",
+		"ingles": "Testing",
+		"icon": "md-trending-neutral",
+		"definicion": "Competencia de Solución: La capacidad de probar un sistema"
+	},
+	{
+		"letra": "R",
+		"espanol": "Realización",
+		"ingles": "Performing",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Equipo: El equipo está trabajando de manera efectiva y eficiente."
+	},
+	{
+		"letra": "R",
+		"espanol": "Reconocido",
+		"ingles": "Recognized",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Interesados: Los interesados ​​han sido identificados."
+	},
+	{
+		"letra": "R",
+		"espanol": "Representación de los interesados",
+		"ingles": "Stakeholder Representation",
+		"icon": "md-trending-neutral",
+		"definicion": "Competencia de Cliente: La capacidad de reunir"
+	},
+	{
+		"letra": "R",
+		"espanol": "Representado",
+		"ingles": "Represented",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Interesados: Se acuerdan los mecanismos para involucrar a los interesados y se nombran los representantes de las partes interesadas."
+	},
+	{
+		"letra": "R",
+		"espanol": "Requerimientos",
+		"ingles": "Requirements",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Solución: Qué debe hacer el sistema de software para abordar la oportunidad y satisfacer a los interesados."
+	},
+	{
+		"letra": "R",
+		"espanol": "Restricciones",
+		"ingles": "Restrictions",
+		"icon": "md-trending-neutral",
+		"definicion": "Restricciones, políticas o requerimientos reglamentarios que el Equipo debe cumplir."
+	},
+	{
+		"letra": "R",
+		"espanol": "Retirado",
+		"ingles": "Retired",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Forma de Trabajar: La forma de trabajar ya no está siendo utilizada por el equipo."
+	},
+	{
+		"letra": "R",
+		"espanol": "Retirado",
+		"ingles": "Retired",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Sistema de Software: El sistema ya no es compatible."
+	},
+	{
+		"letra": "S",
+		"espanol": "Satisfecho en uso",
+		"ingles": "Satisfied in Use",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Interesados: El sistema ha cumplido o excede las expectativas mínimas de los interesados."
+	},
+	{
+		"letra": "S",
+		"espanol": "Satisfecho por la implementación",
+		"ingles": "Satisfied for Deployment",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Interesados: Se han logrado las expectativas mínimas de los representantes de los interesados."
+	},
+	{
+		"letra": "S",
+		"espanol": "Seguir el proceso",
+		"ingles": "Track Progress",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Esfuerzo: Medir y evaluar el progreso realizado por el equipo."
+	},
+	{
+		"letra": "S",
+		"espanol": "Sembrado",
+		"ingles": "Seeded",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Equipo: La misión del equipo es clara y los conocimientos necesarios para hacer crecer el equipo están en su lugar."
+	},
+	{
+		"letra": "S",
+		"espanol": "Sistema de software",
+		"ingles": "Software system",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Solución: Un sistema compuesto de software, hardware y datos que proporciona su valor primario mediante la ejecución del software. El producto principal de cualquier esfuerzo de ingeniería de software, un sistema de software puede ser parte de una solución más grande de software, hardware o de negocio."
+	},
+	{
+		"letra": "S",
+		"espanol": "Solución",
+		"ingles": "Solution",
+		"icon": "md-trending-neutral",
+		"definicion": "Esta Área de interés contiene todo lo que se hará sobre la especificación y el desarrollo del sistema de software que se va a producir."
+	},
+	{
+		"letra": "S",
+		"espanol": "Solución necesaria",
+		"ingles": "Solution needed",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Oportunidad: Se ha confirmado la necesidad de una solución basada en software."
+	},
+	{
+		"letra": "S",
+		"espanol": "Suspendido",
+		"ingles": "Adjourned",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Equipo: El equipo ya no es responsable de llevar a cabo su misión."
+	},
+	{
+		"letra": "T",
+		"espanol": "Tipo de acción ",
+		"ingles": "Action Kind",
+		"icon": "md-trending-neutral",
+		"definicion": "Lista de todas las posibles acciones"
+	},
+	{
+		"letra": "T",
+		"espanol": "Trabajando bien",
+		"ingles": "Working well",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Forma de Trabajar: La forma de trabajar del equipo está funcionando bien para el equipo."
+	},
+	{
+		"letra": "T",
+		"espanol": "Trabajo",
+		"ingles": "Work",
+		"icon": "md-trending-neutral",
+		"definicion": "Alpha de Esfuerzo: El trabajo se define como todas las actividades físicas y mentales realizadas por el Equipo para producir un Sistema de Software. "
+	},
+	{
+		"letra": "T",
+		"espanol": "Transición",
+		"ingles": "Transition",
+		"icon": "md-trending-neutral",
+		"definicion": "Una transición es una conexión de un Estado a otro en una máquina de estado."
+	},
+	{
+		"letra": "U",
+		"espanol": "Usable",
+		"ingles": "Usable",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Sistema de Software: El sistema es utilizable y demuestra todas las características de calidad de un sistema operacional."
+	},
+	{
+		"letra": "U",
+		"espanol": "Usar el sistema",
+		"ingles": "Use the System",
+		"icon": "md-trending-neutral",
+		"definicion": "Espacio de actividad de Cliente: Observar el uso del sistema en un entorno operativo y cómo beneficia a los Interesados."
+	},
+	{
+		"letra": "V",
+		"espanol": "Valor establecido",
+		"ingles": "Value Established",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Oportunidad: Se ha establecido el valor de una solución exitosa."
+	},
+	{
+		"letra": "V",
+		"espanol": "Viable",
+		"ingles": "Viable",
+		"icon": "md-trending-neutral",
+		"definicion": "Estado del alpha Oportunidad: Se acordó que se puede producir una solución de manera rápida y económica para abordar la oportunidad con éxito."
+	}
+]
