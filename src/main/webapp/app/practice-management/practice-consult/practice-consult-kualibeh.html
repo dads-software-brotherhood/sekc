@@ -171,7 +171,7 @@
             <div class="row">
                 <div class="col-xs-5" ng-show="activity.resources.length">
                     <h5 data-translate="practiceManagement.thingsToDo.resources"> Resources </h5>
-                    <ul ng-repeat="resource in activity.resources">
+                    <ul  class="lista-SinEspacio" ng-repeat="resource in activity.resources">
                         <li>
                             <div>{{resource.idTypeResource}}</div>
                             <div ng-if="resource.idTypeResource != 'URL'" class="link-res">
@@ -194,7 +194,7 @@
                 <h5><span data-translate="practiceManagement.keywords">Keywords</span></h5>
                 <p>
                     <span ng-repeat="keyword in vm.practice.keywords"
-                          class="label color{{$index % 3}} f12">{{keyword}}</span>
+                          class="label color{{$index % 3}} f12">{{keyword | uppercase}}</span>
                 </p>
             </div>
         </div>

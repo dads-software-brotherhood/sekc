@@ -2,15 +2,15 @@
     <div class="page-header">
         <div class="row">
             <div class="col-xs-8">
-                <h1 class="md-book f12">
+                <h1 class="icon-glosario f12">
                     <span data-translate="glossary.title">Glossary</span>
                 </h1>
             </div>
             <div class="col-xs-4 input-group">
                 <span class="input-group-addon">
                     <i class="md md-search f20 text-blue"></i>
-                </span> 
-                <input type="text" class="form-control" placeholder="{{ 'glossary.search' | translate }}" 
+                </span>
+                <input type="text" class="form-control" placeholder="{{ 'glossary.search' | translate }}"
                        ng-model="vm.searchText" autofocus />
             </div>
         </div>
@@ -21,14 +21,19 @@
                 <span ng-repeat="letra in vm.abc">
                     <a ng-click="vm.letraSeleccionada = letra">{{letra}}</a>
                 </span>
+                <a ng-click="vm.letraSeleccionada = ''" title="clear">
+                    <i class="md md-clear-all f20"></i>
+                </a>
             </div>
         </div>
         <div class="col-xs-10 well white">
             <div class="row">
                 <div class="col-xs-11 col-xs-offset-1 m-b-15">
-                    <button class="btn btn-lg btn-round btn-default f40" ng-show="vm.letraSeleccionada">
-                        {{vm.letraSeleccionada}}<div class="ripple-wrapper"></div>
-                    </button>
+                    <div ng-if="vm.letraSeleccionada">
+                        <button class="btn btn-lg btn-round btn-default f40">
+                            {{vm.letraSeleccionada}}<div class="ripple-wrapper"></div>
+                        </button>
+                    </div>
                 </div>
                 <div ng-repeat="g in vm.glossary | filter : {'espanol' : vm.searchText, 'letra' : vm.letraSeleccionada}">
                     <div class="col-xs-1">
