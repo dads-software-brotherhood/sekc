@@ -52,12 +52,8 @@ import mx.infotec.dads.essence.repository.SEViewSelectionRepository;
 import mx.infotec.dads.essence.repository.SEWorkProductManifestRepository;
 import mx.infotec.dads.essence.repository.SEWorkProductRepository;
 import mx.infotec.dads.sekc.admin.kernel.dto.BasicElementDto;
-//import mx.infotec.dads.sekc.admin.kernel.dto.ElementGroupDto;
-import mx.infotec.dads.sekc.admin.kernel.dto.LanguageElementDto;
-//import mx.infotec.dads.sekc.admin.kernel.dto.MergeResolution;
-//import mx.infotec.dads.sekc.admin.kernel.dto.OwnedElement;
 
-//import mx.infotec.dads.sekc.admin.kernel.dto.ReferredElement;
+import mx.infotec.dads.sekc.admin.kernel.dto.LanguageElementDto;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -194,36 +190,6 @@ public class RandomRepositoryUtil {
         // TODO pendiente implementar GraphicalElement
         //    "icon":                 GraphicalElement
     }
-    /* TODO:
-    public void fillSEElementGroupFields( SEElementGroup elementToPersistence, ElementGroupDto elementGroupDto) {
-        
-        fillSELaguageElementFields(elementToPersistence, elementGroupDto);
-        
-        //properties of SEElementGroup
-        elementToPersistence.setName( elementGroupDto.getName());
-        elementToPersistence.setBriefDescription(elementGroupDto.getBriefDescription());
-        elementToPersistence.setDescription(elementGroupDto.getDescription());
-        // TODO pendiente implementar GraphicalElement
-        //    "icon":                 GraphicalElement
-        
-        if (elementGroupDto.getMergeResolution() != null){
-            elementGroupDto.getMergeResolution().stream().map((mergeResolution) -> (SEMergeResolution) getDocument(mergeResolution.getIdMergeResolution(), SEMergeResolution.class)).filter((seMergeResolution) -> (seMergeResolution != null)).forEachOrdered((seMergeResolution) -> {
-                elementToPersistence.getMergeResolution().add(seMergeResolution);
-            });
-        }
-        
-        if ( elementGroupDto.getOwnedElements() != null){
-            elementGroupDto.getOwnedElements().stream().map((ownedElement) -> getCorrectDocument( ownedElement.getType(), ownedElement.getIdOwnedElements() )).filter((seOwnedElement) -> (seOwnedElement != null)).forEachOrdered((seOwnedElement) -> {
-                elementToPersistence.getOwnedElements().add(seOwnedElement);
-            });
-        }
-        
-        if ( elementGroupDto.getReferredElements()!= null){
-            elementGroupDto.getReferredElements().stream().map((referredElement) -> getCorrectDocument( referredElement.getType(), referredElement.getIdReferredElements() )).filter((seReferredElement) -> (seReferredElement != null)).forEachOrdered((seReferredElement) -> {
-                elementToPersistence.getReferredElements().add(seReferredElement);
-            });
-        }
-    }*/
     
     public void fillSEResourceFields( SEResource elementToPersistence, Map<String, Object> map){
         //TODO fillSELaguageElementFields(elementToPersistence, map);
@@ -251,7 +217,7 @@ public class RandomRepositoryUtil {
         return collection;
     }
     
-    public List getDocuments(ArrayList<String> arrayDocs, Class clazz){
+    public List getDocuments(List<String> arrayDocs, Class clazz){
         List collection = new ArrayList<>();
         for (String tagID: arrayDocs){
             Object document = getDocument( tagID.trim(), clazz );

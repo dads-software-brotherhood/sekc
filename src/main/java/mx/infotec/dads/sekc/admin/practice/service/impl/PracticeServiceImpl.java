@@ -87,10 +87,20 @@ public class PracticeServiceImpl implements PracticeService {
     public Page<PracticeConsultDto> findAll(Pageable pageable, List<String> keywords) {
         LOG.debug("Request to get all Practices");
         
+        Page<PracticeConsultDto> practices;
+        
         if (!keywords.isEmpty() ) {
-            Page<PracticeConsultDto> practices = practiceRepository.findByKeyWordsIn(keywords, pageable).map(PracticeConsultDtoMapper::toDto);
+            practices = practiceRepository.findByKeyWordsIn(keywords, pageable).map(PracticeConsultDtoMapper::toDto);
+            
+            if (practices != null )
+                return practices;
+            
+            practices = practiceRepository.findByNameIn(keywords, pageable).map(PracticeConsultDtoMapper::toDto);
+            
+            if (practices != null )
+                return practices;
         }
-        //practiceRepository.findByName(name)
+        
         return practiceRepository.findAll(pageable).map(PracticeConsultDtoMapper::toDto);
     }
 
