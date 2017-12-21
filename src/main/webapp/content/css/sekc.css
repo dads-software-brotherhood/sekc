@@ -299,19 +299,22 @@ ul.ivh-treeview {
     }
 
 /*Colores Area of concern*/
-.colorArea0 {
+.default-green,
+.default-green:hover {
     background-color: #C9FFC9;
     color: #40a94c;
     font-weight: bold;
 }
 
-.colorArea1 {
+.default-yellow,
+.default-yellow:hover {
     background-color: #FFFF99;
     color: #ea7403;
     font-weight: bold;
 }
 
-.colorArea2 {
+.default-blue,
+.default-blue:hover {
     background-color: #C6D9F1;
     color: #4a6ec6;
     font-weight: bold;
@@ -336,7 +339,7 @@ ul.ivh-treeview {
     margin-right: 3px;
 }
 
-/*Colores keywords general*/
+/*Colores keywords kualibeh*/
 .keyWord0 {
     background-color: #e91e63;
     color: #ffffff;

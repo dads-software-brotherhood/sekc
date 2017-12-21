@@ -1,0 +1,75 @@
+<section class="p-b-20">
+    <div class="col-md-11" ng-show="vm.areaOfConcern">
+        <div class="well white">
+            <div id="demo">
+                <div class="row" ng-class="{'#C9FFC9':'default-green', 
+                            '#FFFF99':'default-yellow','#C6D9F1':'default-blue'}[vm.areaOfConcern.color]">
+                    <div class="col-md-12">
+                        <form class="form-floating placeholder-form">
+                            <fieldset>
+                                <h2 class="f40 m-b-30"><i class="icon-areaofconcern f40"></i> {{vm.areaOfConcern.name}}</h2>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="form-floating placeholder-form">
+                            <fieldset>
+                                <h5>Introduction</h5>
+                                <p>{{vm.areaOfConcern.briefDescription}}</p>
+                                <div ng-hide="true">
+                                    <h5>Contents</h5>
+                                    <p>In each area of concern there are:</p>
+                                    <ul>
+                                        <li>Essential things to work with - descriptions of the kind of things that the team will produce, and use in the process of developing good software</li>
+                                        <li>Essential things to do - descriptions of the challenges the team faces and the activities that the team will perform to meet them</li>
+                                        <li>Essential competencies - descriptions of the skills that the team require to be able to carry out the activities.</li>
+                                    </ul>
+                                    <h5>Resources</h5>
+                                    <ul>
+                                        <li>Essence Standard (OMG), refer to <a> http://www.omg.org/spec/Essence/1.1/</a></li>
+                                        <li>The Essence of Software Engineering: Applying the SEMAT Kernel, by Ivar Jacobson, Pan-Wei Ng, Paul E. McMahon, Ian Spence and Svante Lidman, Addison-Wesley 2013.</li>
+                                        <li><a>Card Resources</a></li>
+                                    </ul>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <form class="form-floating placeholder-form">
+                            <fieldset>
+                                <h5>Things to Work With</h5>
+                                <div ng-repeat="alpha in vm.areaOfConcern.alphas track by alpha.id">
+                                    <li><strong>"{{alpha.name}}":</strong> {{alpha.description}}</li>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <form class="form-floating placeholder-form">
+                            <fieldset>
+                                <h5>Things to Do</h5>
+                                <div ng-repeat="activitySpace in vm.areaOfConcern.activitySpaces track by activitySpace.id">
+                                    <li><strong>"{{activitySpace.name}}":</strong> {{activitySpace.description}}</li>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <form class="form-floating placeholder-form">
+                            <fieldset>
+                                <h5>Competencies</h5>
+                                <div ng-repeat="competency in vm.areaOfConcern.competencies track by competency.id">
+                                    <li><strong>"{{competency.name}}":</strong> {{competency.description}}</li>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,16 @@
+<section class="p-b-20">
+    <div class="row well white">
+        <div class="col-md-12">
+            <div class="m-b-20">
+                <div ng-repeat="areaOfConcern in vm.areasOfConcern track by areaOfConcern.id">
+                    <button class="col-md-12 p-35 btn btn-block m-t-15"
+                            ng-class="{'#C9FFC9':'default-green', 
+                            '#FFFF99':'default-yellow','#C6D9F1':'default-blue'}[areaOfConcern.color]"
+                            ui-sref="consult-kernel-areaOfConcern-detail({area:areaOfConcern.id})">
+                        <i class="icon-areaofconcern f60"></i><p class="f15">{{areaOfConcern.name}}</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

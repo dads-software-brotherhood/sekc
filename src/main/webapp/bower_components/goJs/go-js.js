@@ -105,7 +105,7 @@
                                     $(go.Shape),
                                     $(go.Shape, { toArrow: "Standard", stroke: null, strokeWidth: 0 })
                                 ),
-                                initialContentAlignment: go.Spot.Center,
+                                //initialContentAlignment: go.Spot.Left,
                                 "ModelChanged": updateAngular,
                                 "ChangedSelection": updateSelection,
                                 "undoManager.isEnabled": true

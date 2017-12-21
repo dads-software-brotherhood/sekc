@@ -10,13 +10,8 @@
     function ConsultKernelAlphasController ($stateParams, PracticeCatalogs, AlertService, localStorageService) {
         var vm = this;
         
-        vm.practice = null;
         vm.load = load;
-        vm.fillAlpha = fillAlpha;
-        vm.fillState =fillState;
-        
         vm.load();
-        
         
         function load () {
         	if(angular.isUndefined(localStorageService.get('alphas')) || 
@@ -34,14 +29,6 @@
         
         function onError(error) {
             AlertService.error(error.data.message);
-        }
-        
-        function fillAlpha(alpha){
-        	vm.alphaActual = alpha;
-        }
-        
-        function fillState(state){
-        	vm.stateActual = state;
         }
     }
 })();
